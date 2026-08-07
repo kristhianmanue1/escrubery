@@ -1,42 +1,61 @@
 # Revisión de Términos de Servicio de los CLIs — escrubery (D1)
 
-**Estado:** en curaduría (`pendiente_de_verificar`). **Bloquea:** Fase 3 (criterio de entrada plan v2 §6.1). **Decisión:** D1. **Responsable:** Ejecutor (curaduría) · Mediador (veredicto).
+**Estado:** en curaduría (3/7 curados, 4 pendientes). **Bloquea:** Fase 3 (criterio de entrada plan v2 §6.1). **Decisión:** D1. **Responsable:** Ejecutor (curaduría) · Mediador (veredicto). **Actualizado:** 2026-08-07.
 
 ## Objetivo
-Determinar, por CLI, qué permite su ToS respecto a la **Fase 3** (introspección activa: ejecutar el CLI en contenedor efímero sin credenciales, capturar `--help`/`--version`) y a usos futuros (benchmarking). Sin esto, F3 no inicia (riesgo operativo/legal).
+Determinar, por CLI, qué permite su ToS respecto a la **Fase 3** (introspección activa: ejecutar el CLI en contenedor efímero, capturar `--help`/`--version`) y usos futuros (benchmarking). Sin esto, F3 no inicia (riesgo operativo/legal).
 
 ## Tres dimensiones por CLI
-1. **Automatización** — ¿permiten uso programático/automatizado del CLI (no interactivo, en contenedor)?
+1. **Automatización** — ¿permiten uso programático/no interactivo del CLI?
 2. **Benchmarking** — ¿permiten evaluar o comparar rendimiento?
-3. **Extracción/retención** — ¿qué dicen sobre extraer o retener salidas del CLI?
+3. **Extracción/retención** — ¿qué dicen sobre extraer o retener salidas?
 
-**Veredicto por dimensión:** `permitido | restringido | prohibido | no_declara`, con **cita textual** de la cláusula y **procedencia** (`fuente_url` + `fecha_obtencion` + `hash_sha256`).
+**Veredicto:** `permitido | restringido | prohibido | no_declara`, con cita + procedencia.
 
-## Estado de curaduría (7 productos — grok se distingue por gobernanza)
+## Tabla resumen
 
-| CLI | Proveedor | Fuente ToS (a confirmar) | Automatización | Benchmarking | Extracción | Estado |
-|---|---|---|:-:|:-:|:-:|---|
-| claude-code | anthropic | Anthropics Commercial Terms / AUP | ? | ? | ? | pendiente |
-| codex-cli | openai | OpenAI Terms of Use | ? | ? | ? | pendiente |
-| grok-build | xai | xAI Terms of Service | ? | ? | ? | pendiente |
-| antigravity-cli | google | Google Terms / Additional Terms | ? | ? | ? | pendiente |
-| kimi-code | moonshot | Moonshot Terms | ? | ? | ? | pendiente |
-| grok-cli-community | superagent-ai | Repo LICENSE / ToS del proyecto | ? | ? | ? | pendiente |
-| cline | cline-bot | Repo LICENSE / ToS | ? | ? | ? | pendiente |
+| CLI | Proveedor | Automatización | Benchmarking | Extracción | Estado |
+|---|---|:-:|:-:|:-:|---|
+| cline | comunidad (Apache 2.0) | ✅ permitido | ✅ permitido | no_declara (licencia) | **curado** |
+| grok-cli-community | superagent-ai (MIT) | ✅ permitido | ✅ permitido | no_declara (licencia) | **curado** |
+| claude-code | anthropic | ⚠️ restringido | ⚠️ restringido | no_declara (TBD) | **preliminar** (Commercial Terms pendiente) |
+| codex-cli | openai | ? | ? | ? | pendiente |
+| grok-build | xai | ? | ? | ? | pendiente |
+| antigravity-cli | google | ? | ? | ? | pendiente |
+| kimi-code | moonshot | ? | ? | ? | pendiente |
 
-> `grok-build` (oficial xAI) y `grok-cli-community` (comunitario superagent-ai) tienen ToS **distintos** — nunca se mezclan.
+---
 
-## Método (a decidir por el Mediador)
-La curaduría con **procedencia real** (fuente+fecha+hash) exige leer cada ToS oficial. El Ejecutor no debe adivinar URLs. Opciones:
+## Curados
 
-- **A) Webfetch autorizado:** el Mediador confirma las URLs oficiales (o autoriza al Ejecutor a buscarlas) → el Ejecutor lee cada ToS, extrae la cláusula, cita con `fuente_url`+`fecha`+`hash`, propone veredicto.
-- **B) Curaduría humana:** el Mediador curad cada ToS (es decisión legal) y el Ejecutor sólo formatea con procedencia.
-- **C) Diferir:** marcar todo `no_declara / pendiente_de_verificar` y mantener F3 bloqueada.
+### cline — Apache License 2.0 ✅
+- **Fuente:** `https://raw.githubusercontent.com/cline/cline/main/LICENSE` · **fecha:** 2026-08-07 · **hash_sha256:** `f704446a5f1271608805598b557e4288cf8580477ea038c9c3d8b361f693f6b8`
+- **Cita:** "Subject to the terms and conditions of this License, each Contributor hereby grants… a perpetual, worldwide, non-exclusive, no-charge, royalty-free… license… to use, reproduce, prepare Derivative Works… and to **run** the Work and Derivative Works." (Apache 2.0 §2)
+- **Veredicto:** automatización **permitido** (la licencia OSS autoriza ejecución/uso programático); benchmarking **permitido** (no restringido). Extracción: la **licencia del CLI** no restringe retener salidas; el modelo subyacente que use cline (vía API del usuario) se rige por el ToS de ese proveedor.
 
-## Entregable (al cerrar D1)
-- Esta tabla completa con veredicto + cita + procedencia por celda.
-- Veredicto agregado: ¿qué CLIs pueden ir a la verificación diaria de F3? (criterio de entrada §6.1: "revisión ToS resuelta al menos para los CLIs de verificación diaria").
+### grok-cli-community — MIT ✅
+- **Fuente:** `https://raw.githubusercontent.com/superagent-ai/grok-cli/main/LICENSE` · **fecha:** 2026-08-07 · **hash_sha256:** `5615244f5e54d6c1c611f4558097c29681d4cb23701236b987691129510799dc`
+- **Cita:** "Permission is hereby granted, free of charge, to any person obtaining a copy of this software… to **use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies** of the Software…" (MIT). Copyright © 2024 Superagent Technologies Inc.
+- **Veredicto:** automatización **permitido**; benchmarking **permitido**. Extracción: la licencia MIT no restringe retención de salidas del CLI. (El modelo Grok subyacente es xAI → sujeto a ToS xAI, pero el CLI comunitario en sí es MIT.)
+
+### claude-code — Anthropic ⚠️ (preliminar)
+- **ToS aplicable:** **Commercial Terms + AUP** (Claude Code no se rige por los Consumer Terms; estos últimos declaran expresamente no cubrir API/Console). **Pendiente:** leer los Commercial Terms y cualquier término específico de Claude Code.
+- **Evidencia preliminar (Consumer Terms §3, como indicio):** "Except when you are accessing our Services **via an Anthropic API Key** or where we otherwise explicitly permit it, to access the Services through **automated or non-human means**, whether through a bot, script, or otherwise." También prohíbe crawl/scrape y "develop products that compete" / "train AI models".
+  - **Fuente preliminar:** `https://www.anthropic.com/legal/terms` · **fecha:** 2026-08-07 · **hash_sha256 (HTML Consumer):** `f3f675e9ed33d2f9a0cca033d4fa807fea4de112306746746474ff4be910512e`
+- **Veredicto preliminar:** automatización **restringido** — parece permitida **solo vía API Key / suscripción** (no "sin credenciales"). Extracción: no_declara (TBD en Commercial/AUP).
+- **⚠️ Impacto en F3:** el plan v2 §6.2 prevé "ejecutar los CLIs **sin credenciales reales**" en sandbox. Si Anthropic exige API Key para automatización, F3 debe **replantear**: ejecutar **con credenciales controladas** (sandbox con API Key del Mediador, no "sin"), o limitar F3 para claude-code a diffing de `--help` que no requiera auth. Esto es **exactamente el valor de D1** antes de construir F3.
+
+---
+
+## Pendientes (4 oficiales)
+
+`codex-cli` (OpenAI Terms), `grok-build` (xAI Terms), `antigravity-cli` (Google Terms), `kimi-code` (Moonshot Terms). Pendiente de webfetch a los ToS oficiales de cada proveedor (mismo método: curl/webfetch + cita + hash + veredicto).
+
+## Método
+- **Comunitarios:** LICENSE cruda del repo GitHub (curl raw) → hash exacto + cita + veredicto (licencia OSS).
+- **Oficiales:** ToS del proveedor (webfetch para lectura + curl para hash del crudo) → cita de la cláusula + veredicto + `estado_verificacion`.
 
 ## Notas
 - El veredicto es **lectura informada, no asesoría legal**; el Mediador aprueba.
-- Para CLIs comunitarios (grok-cli-community, cline), la "fuente" puede ser la LICENSE del repo + cualquier ToS del proyecto open source.
+- Distinguir grok-build (xAI, oficial) de grok-cli-community (superagent-ai, comunitario) — ToS distintos.
+- **Procedencia:** las fuentes LICENSE tienen hash exacto del archivo crudo; los ToS web tienen hash del HTML crudo (puede variar entre descargas por contenido dinámico — re-verificar al cerrar D1).
