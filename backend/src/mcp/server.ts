@@ -186,10 +186,7 @@ server.setRequestHandler(CallToolRequestSchema, async (req) => {
           descripcion: String(a.descripcion),
           consulta_origen: a.consulta_origen ?? undefined,
           agente_reportante: {
-            id:
-              typeof ar?.id === 'string'
-                ? ar.id
-                : String(ar?.id ?? 'desconocido'),
+            id: typeof ar?.id === 'string' ? ar.id : 'desconocido',
             configuration_fingerprint:
               typeof ar?.configuration_fingerprint === 'string'
                 ? ar.configuration_fingerprint
