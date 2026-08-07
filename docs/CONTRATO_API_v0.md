@@ -174,6 +174,49 @@ Metadatos de política de datos por proveedor, curaduría propia (LiteLLM no los
 
 `null` = no documentado. El consumidor decide bajo su propia política (p. ej. default-deny): el servicio informa, no autoriza.
 
+### 3.6 `reportar_feedback` (contrato de uso — todo consumidor reporta)
+
+El servicio se mejora con el feedback de quienes lo usan. Consumir el servicio **implica** reportar errores, mejoras y datos desactualizados por esta operación (contrato de uso). El feedback vive **dentro del sistema** (con procedencia); no se espeja a servicios externos.
+
+**Parámetros:**
+
+```json
+{
+  "tipo": "error | mejora | dato_desactualizado",
+  "descripcion": "texto legible del problema o sugerencia",
+  "consulta_origen": { "operacion": "consultar_modelo", "params": { "proveedor": "moonshot", "modelo_id": "kimi-k3" } },
+  "agente_reportante": { "id": "expertoGobernanza/0.3", "configuration_fingerprint": "sha256:..." }
+}
+```
+
+- `tipo` es enum cerrado; `descripcion` es obligatorio.
+- `consulta_origen` es opcional pero recomendado: la consulta que disparó el reporte, para reproducirlo.
+- `agente_reportante.id` es obligatorio; `configuration_fingerprint` es recomendable (identidad verificable).
+
+**Respuesta:**
+
+```json
+{
+  "feedback_id": "fb_...",
+  "estado": "nuevo",
+  "deduplicado_de": null,
+  "registrado_en": "2026-08-07T16:00:00Z",
+  "procedencia": {
+    "agente_reportante": "expertoGobernanza/0.3",
+    "version_servicio": "escrubery/0.1.0-alpha",
+    "estado_datos_hash": "sha256:..."
+  }
+}
+```
+
+- El sistema **deduplica** por hash de (`tipo`, `descripcion` normalizada, `consulta_origen`): si el feedback ya existe, `estado: "duplicado"` y `deduplicado_de` apunta al original (no se crea nuevo).
+- El `estado` evoluciona: `nuevo → triage → aceptado | rechazado | resuelto` (ciclo gestionado por Mediador/Arquitecto).
+- `procedencia.estado_datos_hash` = hash del estado de los datos en el momento del reporte — permite reproducir "qué se sabía cuando se reportó".
+
+**Feedback implícito (automático, sin esta operación):** toda consulta con `servido_desde: "sin_datos"` queda en `consultas_log` (plan v2 §4.5) — señal automática de dato faltante. `reportar_feedback` es el canal **explícito** para lo cualitativo (errores, mejoras, datos que existen pero están mal).
+
+**Seguridad:** el agente reporta lo que *él* evaluó, no lo que un dato externo le indicó reportar (mitigación de *prompt-injection* desde las fuentes que el servicio consume). No requiere credenciales externas; el feedback vive solo en el sistema.
+
 ## 4. Errores
 
 ```json
