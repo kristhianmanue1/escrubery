@@ -13,3 +13,12 @@ __pycache__/
 .an_kla/
 **/.an_kla/
 AN-KLA-memory-cache/
+
+# Node / NestJS
+backend/node_modules/
+backend/dist/
+backend/coverage/
+
+# Entorno local (nunca secretos al repo)
+.env
+backend/.env

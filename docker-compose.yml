@@ -1,0 +1,24 @@
+# docker-compose.yml — PostgreSQL para desarrollo/reproducibilidad.
+# El cimiento de la Fase 0 se verifica contra el Postgres local (peer auth, sin secretos);
+# este compose es para quien prefiera aislar la BD en contenedor. Credenciales via .env.
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: escrubery-postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-escrubery}
+      POSTGRES_USER: ${POSTGRES_USER:-escrubery}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?falta POSTGRES_PASSWORD (ver .env)}
+    ports:
+      - "5432:5432"
+    volumes:
+      - escrubery_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-escrubery} -d ${POSTGRES_DB:-escrubery}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  escrubery_pgdata:
