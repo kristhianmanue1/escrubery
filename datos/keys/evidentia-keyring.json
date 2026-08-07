@@ -1,0 +1,19 @@
+{
+  "schema": "cagf-keyring/0.2",
+  "keys": {
+    "escrubery-evidentia-001": {
+      "kid": "escrubery-evidentia-001",
+      "type": "ed25519-public",
+      "key_b64": "MCowBQYDK2VwAyEAaZGS7XUm85QyWlkjAl+4TxyVsyu2py3rW9vnorF1M90=",
+      "role": "service-evidentia",
+      "parent_kid": null,
+      "validity_window": {
+        "not_before": "2026-08-07T19:48:36.773Z",
+        "not_after": null
+      },
+      "status": "active",
+      "successor_kid": null,
+      "note": "F2 base. Custodia tiered (passphrase/KMS/HSM) y rotación se activan en F4/público."
+    }
+  }
+}
