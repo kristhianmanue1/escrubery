@@ -1,0 +1,264 @@
+{
+  "entidad": "proveedor",
+  "esquema": "escrubery/ficha-proveedor/0.1",
+  "fuente_litellm_provider": "zai",
+  "id": "zhipu",
+  "modelos": {
+    "glm-4-32b-0414-128k": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://docs.z.ai/guides/overview/pricing",
+      "max_output_tokens": 32000,
+      "modelo_id": "glm-4-32b-0414-128k",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 0.1,
+        "output_por_millon": 0.1
+      },
+      "ventana_contexto_max": 128000
+    },
+    "glm-4.5": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://docs.z.ai/guides/overview/pricing",
+      "max_output_tokens": 32000,
+      "modelo_id": "glm-4.5",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 0.6,
+        "output_por_millon": 2.2
+      },
+      "ventana_contexto_max": 128000
+    },
+    "glm-4.5-air": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://docs.z.ai/guides/overview/pricing",
+      "max_output_tokens": 32000,
+      "modelo_id": "glm-4.5-air",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 0.2,
+        "output_por_millon": 1.1
+      },
+      "ventana_contexto_max": 128000
+    },
+    "glm-4.5-airx": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://docs.z.ai/guides/overview/pricing",
+      "max_output_tokens": 32000,
+      "modelo_id": "glm-4.5-airx",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 1.1,
+        "output_por_millon": 4.5
+      },
+      "ventana_contexto_max": 128000
+    },
+    "glm-4.5-flash": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://docs.z.ai/guides/overview/pricing",
+      "max_output_tokens": 32000,
+      "modelo_id": "glm-4.5-flash",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 0,
+        "output_por_millon": 0
+      },
+      "ventana_contexto_max": 128000
+    },
+    "glm-4.5-x": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://docs.z.ai/guides/overview/pricing",
+      "max_output_tokens": 32000,
+      "modelo_id": "glm-4.5-x",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 2.2,
+        "output_por_millon": 8.9
+      },
+      "ventana_contexto_max": 128000
+    },
+    "glm-4.5v": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://docs.z.ai/guides/overview/pricing",
+      "max_output_tokens": 32000,
+      "modelo_id": "glm-4.5v",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 0.6,
+        "output_por_millon": 1.8
+      },
+      "ventana_contexto_max": 128000
+    },
+    "glm-4.6": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://docs.z.ai/guides/overview/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "glm-4.6",
+      "precios": {
+        "cache_lectura_por_millon": 0.11,
+        "input_por_millon": 0.6,
+        "output_por_millon": 2.2
+      },
+      "ventana_contexto_max": 200000
+    },
+    "glm-4.7": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://docs.z.ai/guides/overview/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "glm-4.7",
+      "precios": {
+        "cache_lectura_por_millon": 0.11,
+        "input_por_millon": 0.6,
+        "output_por_millon": 2.2
+      },
+      "ventana_contexto_max": 200000
+    },
+    "glm-4.7-flash": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://docs.z.ai/guides/overview/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "glm-4.7-flash",
+      "precios": {
+        "cache_lectura_por_millon": 0,
+        "input_por_millon": 0,
+        "output_por_millon": 0
+      },
+      "ventana_contexto_max": 200000
+    },
+    "glm-5": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://docs.z.ai/guides/overview/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "glm-5",
+      "precios": {
+        "cache_lectura_por_millon": 0.2,
+        "input_por_millon": 1.0,
+        "output_por_millon": 3.2
+      },
+      "ventana_contexto_max": 200000
+    },
+    "glm-5-code": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://docs.z.ai/guides/overview/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "glm-5-code",
+      "precios": {
+        "cache_lectura_por_millon": 0.3,
+        "input_por_millon": 1.2,
+        "output_por_millon": 5.0
+      },
+      "ventana_contexto_max": 200000
+    },
+    "glm-5.1": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://docs.z.ai/guides/overview/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "glm-5.1",
+      "precios": {
+        "cache_lectura_por_millon": 0.26,
+        "input_por_millon": 1.4,
+        "output_por_millon": 4.4
+      },
+      "ventana_contexto_max": 200000
+    }
+  },
+  "procedencia": {
+    "estado_verificacion": "confirmado_por_docs_oficial",
+    "fecha_obtencion": "2026-08-07T15:23:30Z",
+    "firma_ed25519": null,
+    "fuente_tipo": "litellm_json",
+    "fuente_url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json",
+    "hash_sha256_contenido_original": "960279570fc4d2bdd56258a58ce30d124097cee61fdec6fdc483d4a057a4909b"
+  },
+  "total_modelos": 13
+}

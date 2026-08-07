@@ -1,0 +1,23 @@
+{
+  "esquema": "escrubery/ficha-cli/0.1",
+  "entidad": "cli",
+  "id": "kimi-code",
+  "nombre": "Kimi Code CLI",
+  "proveedor": "moonshot",
+  "tipo": "oficial",
+  "repo_url": "https://github.com/MoonshotAI/kimi-code",
+  "licencia": "MIT",
+  "mecanismo_changelog": "changelog.md en el repo + pagina de release notes dedicada (kimi.com/code/docs); cadencia casi semanal",
+  "cadencia_monitoreo": "semanal",
+  "prioridad_seguridad": "media-alta en regresion (ritmo de releases casi semanal hace probable drift silencioso entre versiones)",
+  "notas_gobernanza": "Migracion activa de kimi-cli a kimi-code: el monitoreo debe seguir ambos repos durante la transicion (MoonshotAI/kimi-cli en retiro gradual). SECURITY.md en el propio repo.",
+  "comandos": [],
+  "procedencia": {
+    "fuente_url": "docs/investigacion/Sistema_Monitoreo_Modelos_CLIs_IA.md",
+    "fuente_tipo": "curaduria_propia",
+    "fecha_obtencion": "2026-08-07T15:23:33Z",
+    "hash_sha256_contenido_original": "852edca8af3983bcc449861d1a4d2461bca99e3a48d2c971fa64cdd4f8feab08",
+    "estado_verificacion": "confirmado_por_docs_oficial",
+    "firma_ed25519": null
+  }
+}

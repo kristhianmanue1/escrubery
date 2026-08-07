@@ -1,0 +1,23 @@
+{
+  "esquema": "escrubery/ficha-cli/0.1",
+  "entidad": "cli",
+  "id": "grok-cli-community",
+  "nombre": "Grok CLI (comunitario)",
+  "proveedor": "comunidad (superagent-ai)",
+  "tipo": "comunitario",
+  "repo_url": "https://github.com/superagent-ai/grok-cli",
+  "licencia": "MIT",
+  "mecanismo_changelog": "CHANGELOG.md estilo Keep-a-Changelog; publica atestaciones Sigstore desde una version reciente",
+  "cadencia_monitoreo": "diaria (por perfil de riesgo, no por actividad)",
+  "prioridad_seguridad": "media-alta: proyecto sin mantenimiento activo (ultima actualizacion observada noviembre 2025); puede no recibir parches de seguridad",
+  "notas_gobernanza": "NO OFICIAL: proyecto comunitario no afiliado a xAI (~2.4k estrellas). No confundir con Grok Build (ficha grok-build), el CLI oficial de xAI. Son productos distintos con perfiles de riesgo y soporte completamente distintos.",
+  "comandos": [],
+  "procedencia": {
+    "fuente_url": "docs/investigacion/Sistema_Monitoreo_Modelos_CLIs_IA.md",
+    "fuente_tipo": "curaduria_propia",
+    "fecha_obtencion": "2026-08-07T15:23:33Z",
+    "hash_sha256_contenido_original": "852edca8af3983bcc449861d1a4d2461bca99e3a48d2c971fa64cdd4f8feab08",
+    "estado_verificacion": "confirmado_por_docs_oficial",
+    "firma_ed25519": null
+  }
+}

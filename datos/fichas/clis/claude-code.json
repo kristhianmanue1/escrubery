@@ -1,0 +1,29 @@
+{
+  "esquema": "escrubery/ficha-cli/0.1",
+  "entidad": "cli",
+  "id": "claude-code",
+  "nombre": "Claude Code",
+  "proveedor": "anthropic",
+  "tipo": "oficial",
+  "repo_url": "https://github.com/anthropics/claude-code",
+  "licencia": "propietario (binario), repo con licencia de uso",
+  "mecanismo_changelog": "CHANGELOG.md versionado en el repo, espejado en code.claude.com/docs/en/changelog; cadencia casi diaria",
+  "cadencia_monitoreo": "diaria",
+  "prioridad_seguridad": "alta en regresion/capacidad (es el CLI en uso productivo del ecosistema); no historial de exfiltracion",
+  "notas_gobernanza": "Canal oficial mas consistente y auditable de los siete; buen candidato para webhook directo sobre el repo. Origen del protocolo MCP.",
+  "comandos": [
+    { "comando": "claude mcp", "descripcion": "Gestiona servidores MCP configurados (add, list, remove, get)", "fuente": "docs oficiales" },
+    { "comando": "claude agents --json", "descripcion": "Lista subagentes configurados en JSON", "fuente": "introspeccion documentada" },
+    { "comando": "/plugin", "descripcion": "Gestiona plugins dentro de la sesion interactiva", "fuente": "docs oficiales" },
+    { "comando": "/model", "descripcion": "Selecciona el modelo de la sesion", "fuente": "docs oficiales" },
+    { "comando": "/doctor", "descripcion": "Diagnostico de la instalacion y configuracion", "fuente": "docs oficiales" }
+  ],
+  "procedencia": {
+    "fuente_url": "docs/investigacion/Sistema_Monitoreo_Modelos_CLIs_IA.md",
+    "fuente_tipo": "curaduria_propia",
+    "fecha_obtencion": "2026-08-07T15:23:33Z",
+    "hash_sha256_contenido_original": "852edca8af3983bcc449861d1a4d2461bca99e3a48d2c971fa64cdd4f8feab08",
+    "estado_verificacion": "confirmado_por_docs_oficial",
+    "firma_ed25519": null
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "esquema": "escrubery/ficha-cli/0.1",
+  "entidad": "cli",
+  "id": "antigravity-cli",
+  "nombre": "Antigravity CLI (agy)",
+  "proveedor": "google",
+  "tipo": "oficial",
+  "repo_url": null,
+  "licencia": "propietario",
+  "mecanismo_changelog": "documentacion oficial (antigravity.google/docs/cli); sin CHANGELOG.md publico confirmado equivalente a los demas",
+  "cadencia_monitoreo": "semanal",
+  "prioridad_seguridad": "media, con foco en introspeccion de ayuda: producto en transicion activa, su superficie de comandos aun se esta estabilizando y la introspeccion directa es mas confiable que su documentacion",
+  "notas_gobernanza": "Sucesor oficial de Gemini CLI (anunciado en Google I/O, 19-may-2026). El acceso gratuito/consumidor a Gemini CLI se retiro el 18-jun-2026 migrando a agy: evento de alto impacto para cualquier flujo que dependiera de Gemini CLI. Parte del ecosistema Antigravity; sin repo publico dedicado confirmado.",
+  "comandos": [
+    { "comando": "/config", "descripcion": "Configuracion de la sesion", "fuente": "introspeccion documentada" },
+    { "comando": "/settings", "descripcion": "Ajustes del agente", "fuente": "introspeccion documentada" },
+    { "comando": "/permissions", "descripcion": "Gestion de permisos de herramientas", "fuente": "introspeccion documentada" },
+    { "comando": "/mcp", "descripcion": "Gestiona servidores MCP", "fuente": "introspeccion documentada" },
+    { "comando": "/agents", "descripcion": "Gestiona subagentes", "fuente": "introspeccion documentada" },
+    { "comando": "/skills", "descripcion": "Gestiona skills del agente", "fuente": "introspeccion documentada" },
+    { "comando": "/statusline", "descripcion": "Configura la linea de estado", "fuente": "introspeccion documentada" }
+  ],
+  "procedencia": {
+    "fuente_url": "docs/investigacion/Verificacion_Activa_CLIs_IA.md",
+    "fuente_tipo": "curaduria_propia",
+    "fecha_obtencion": "2026-08-07T15:23:33Z",
+    "hash_sha256_contenido_original": "fceba130e8652f21d56e3f60a2745cbcd8f3a94ca40ca1b7fb4a510928e3d5df",
+    "estado_verificacion": "pendiente_de_verificar",
+    "firma_ed25519": null
+  }
+}

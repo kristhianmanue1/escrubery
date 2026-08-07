@@ -1,0 +1,23 @@
+{
+  "esquema": "escrubery/ficha-cli/0.1",
+  "entidad": "cli",
+  "id": "grok-build",
+  "nombre": "Grok Build",
+  "proveedor": "xai",
+  "tipo": "oficial",
+  "repo_url": "https://github.com/xai-org/grok-build",
+  "licencia": "recien abierto como codigo abierto; verificar terminos exactos",
+  "mecanismo_changelog": "historial de commits desde su apertura reciente; sin trayectoria larga de changelog publico",
+  "cadencia_monitoreo": "diaria",
+  "prioridad_seguridad": "MAXIMA: unico caso con incidente documentado de exfiltracion masiva de datos (julio 2026: repos completos + secretos subidos a bucket de Google Cloud, ~27,800x el volumen esperado) con correccion silenciosa sin aviso formal de xAI",
+  "notas_gobernanza": "CLI oficial de xAI, abierto tras el incidente de julio 2026. No confundir con Grok CLI comunitario (ficha grok-cli-community). xAI no tiene canal formal de avisos de seguridad observado: el monitoreo debe incluir prensa tecnica e investigadores como fuente.",
+  "comandos": [],
+  "procedencia": {
+    "fuente_url": "docs/investigacion/Sistema_Monitoreo_Modelos_CLIs_IA.md",
+    "fuente_tipo": "curaduria_propia",
+    "fecha_obtencion": "2026-08-07T15:23:33Z",
+    "hash_sha256_contenido_original": "852edca8af3983bcc449861d1a4d2461bca99e3a48d2c971fa64cdd4f8feab08",
+    "estado_verificacion": "confirmado_por_docs_oficial",
+    "firma_ed25519": null
+  }
+}

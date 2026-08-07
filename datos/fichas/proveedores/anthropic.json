@@ -1,0 +1,473 @@
+{
+  "entidad": "proveedor",
+  "esquema": "escrubery/ficha-proveedor/0.1",
+  "fuente_litellm_provider": "anthropic",
+  "id": "anthropic",
+  "modelos": {
+    "claude-3-7-sonnet-20250219": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-02-19",
+      "fuente_precio": null,
+      "max_output_tokens": 64000,
+      "modelo_id": "claude-3-7-sonnet-20250219",
+      "precios": {
+        "cache_lectura_por_millon": 0.3,
+        "input_por_millon": 3.0,
+        "output_por_millon": 15.0
+      },
+      "ventana_contexto_max": 200000
+    },
+    "claude-3-haiku-20240307": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": null,
+      "max_output_tokens": 4096,
+      "modelo_id": "claude-3-haiku-20240307",
+      "precios": {
+        "cache_lectura_por_millon": 0.03,
+        "input_por_millon": 0.25,
+        "output_por_millon": 1.25
+      },
+      "ventana_contexto_max": 200000
+    },
+    "claude-3-opus-20240229": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-05-01",
+      "fuente_precio": null,
+      "max_output_tokens": 4096,
+      "modelo_id": "claude-3-opus-20240229",
+      "precios": {
+        "cache_lectura_por_millon": 1.5,
+        "input_por_millon": 15.0,
+        "output_por_millon": 75.0
+      },
+      "ventana_contexto_max": 200000
+    },
+    "claude-4-opus-20250514": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": null,
+      "max_output_tokens": 32000,
+      "modelo_id": "claude-4-opus-20250514",
+      "precios": {
+        "cache_lectura_por_millon": 1.5,
+        "input_por_millon": 15.0,
+        "output_por_millon": 75.0
+      },
+      "ventana_contexto_max": 200000
+    },
+    "claude-4-sonnet-20250514": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": null,
+      "max_output_tokens": 64000,
+      "modelo_id": "claude-4-sonnet-20250514",
+      "precios": {
+        "cache_lectura_por_millon": 0.3,
+        "input_por_millon": 3.0,
+        "output_por_millon": 15.0
+      },
+      "ventana_contexto_max": 1000000
+    },
+    "claude-fable-5": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": null,
+      "max_output_tokens": 128000,
+      "modelo_id": "claude-fable-5",
+      "precios": {
+        "cache_lectura_por_millon": 1.0,
+        "input_por_millon": 10.0,
+        "output_por_millon": 50.0
+      },
+      "ventana_contexto_max": 1000000
+    },
+    "claude-haiku-4-5": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": null,
+      "max_output_tokens": 64000,
+      "modelo_id": "claude-haiku-4-5",
+      "precios": {
+        "cache_lectura_por_millon": 0.1,
+        "input_por_millon": 1.0,
+        "output_por_millon": 5.0
+      },
+      "ventana_contexto_max": 200000
+    },
+    "claude-haiku-4-5-20251001": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": null,
+      "max_output_tokens": 64000,
+      "modelo_id": "claude-haiku-4-5-20251001",
+      "precios": {
+        "cache_lectura_por_millon": 0.1,
+        "input_por_millon": 1.0,
+        "output_por_millon": 5.0
+      },
+      "ventana_contexto_max": 200000
+    },
+    "claude-opus-4-1": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": null,
+      "max_output_tokens": 32000,
+      "modelo_id": "claude-opus-4-1",
+      "precios": {
+        "cache_lectura_por_millon": 1.5,
+        "input_por_millon": 15.0,
+        "output_por_millon": 75.0
+      },
+      "ventana_contexto_max": 200000
+    },
+    "claude-opus-4-1-20250805": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-08-05",
+      "fuente_precio": null,
+      "max_output_tokens": 32000,
+      "modelo_id": "claude-opus-4-1-20250805",
+      "precios": {
+        "cache_lectura_por_millon": 1.5,
+        "input_por_millon": 15.0,
+        "output_por_millon": 75.0
+      },
+      "ventana_contexto_max": 200000
+    },
+    "claude-opus-4-20250514": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-05-14",
+      "fuente_precio": null,
+      "max_output_tokens": 32000,
+      "modelo_id": "claude-opus-4-20250514",
+      "precios": {
+        "cache_lectura_por_millon": 1.5,
+        "input_por_millon": 15.0,
+        "output_por_millon": 75.0
+      },
+      "ventana_contexto_max": 200000
+    },
+    "claude-opus-4-5": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": null,
+      "max_output_tokens": 64000,
+      "modelo_id": "claude-opus-4-5",
+      "precios": {
+        "cache_lectura_por_millon": 0.5,
+        "input_por_millon": 5.0,
+        "output_por_millon": 25.0
+      },
+      "ventana_contexto_max": 200000
+    },
+    "claude-opus-4-5-20251101": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": null,
+      "max_output_tokens": 64000,
+      "modelo_id": "claude-opus-4-5-20251101",
+      "precios": {
+        "cache_lectura_por_millon": 0.5,
+        "input_por_millon": 5.0,
+        "output_por_millon": 25.0
+      },
+      "ventana_contexto_max": 200000
+    },
+    "claude-opus-4-6": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": null,
+      "max_output_tokens": 128000,
+      "modelo_id": "claude-opus-4-6",
+      "precios": {
+        "cache_lectura_por_millon": 0.5,
+        "input_por_millon": 5.0,
+        "output_por_millon": 25.0
+      },
+      "ventana_contexto_max": 1000000
+    },
+    "claude-opus-4-6-20260205": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": null,
+      "max_output_tokens": 128000,
+      "modelo_id": "claude-opus-4-6-20260205",
+      "precios": {
+        "cache_lectura_por_millon": 0.5,
+        "input_por_millon": 5.0,
+        "output_por_millon": 25.0
+      },
+      "ventana_contexto_max": 1000000
+    },
+    "claude-opus-4-7": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": null,
+      "max_output_tokens": 128000,
+      "modelo_id": "claude-opus-4-7",
+      "precios": {
+        "cache_lectura_por_millon": 0.5,
+        "input_por_millon": 5.0,
+        "output_por_millon": 25.0
+      },
+      "ventana_contexto_max": 1000000
+    },
+    "claude-opus-4-7-20260416": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": null,
+      "max_output_tokens": 128000,
+      "modelo_id": "claude-opus-4-7-20260416",
+      "precios": {
+        "cache_lectura_por_millon": 0.5,
+        "input_por_millon": 5.0,
+        "output_por_millon": 25.0
+      },
+      "ventana_contexto_max": 1000000
+    },
+    "claude-opus-4-8": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": null,
+      "max_output_tokens": 128000,
+      "modelo_id": "claude-opus-4-8",
+      "precios": {
+        "cache_lectura_por_millon": 0.5,
+        "input_por_millon": 5.0,
+        "output_por_millon": 25.0
+      },
+      "ventana_contexto_max": 1000000
+    },
+    "claude-opus-5": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": null,
+      "max_output_tokens": 128000,
+      "modelo_id": "claude-opus-5",
+      "precios": {
+        "cache_lectura_por_millon": 0.5,
+        "input_por_millon": 5.0,
+        "output_por_millon": 25.0
+      },
+      "ventana_contexto_max": 1000000
+    },
+    "claude-sonnet-4-20250514": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-05-14",
+      "fuente_precio": null,
+      "max_output_tokens": 64000,
+      "modelo_id": "claude-sonnet-4-20250514",
+      "precios": {
+        "cache_lectura_por_millon": 0.3,
+        "input_por_millon": 3.0,
+        "output_por_millon": 15.0
+      },
+      "ventana_contexto_max": 1000000
+    },
+    "claude-sonnet-4-5": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": null,
+      "max_output_tokens": 64000,
+      "modelo_id": "claude-sonnet-4-5",
+      "precios": {
+        "cache_lectura_por_millon": 0.3,
+        "input_por_millon": 3.0,
+        "output_por_millon": 15.0
+      },
+      "ventana_contexto_max": 200000
+    },
+    "claude-sonnet-4-5-20250929": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": null,
+      "max_output_tokens": 64000,
+      "modelo_id": "claude-sonnet-4-5-20250929",
+      "precios": {
+        "cache_lectura_por_millon": 0.3,
+        "input_por_millon": 3.0,
+        "output_por_millon": 15.0
+      },
+      "ventana_contexto_max": 200000
+    },
+    "claude-sonnet-4-6": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": null,
+      "max_output_tokens": 64000,
+      "modelo_id": "claude-sonnet-4-6",
+      "precios": {
+        "cache_lectura_por_millon": 0.3,
+        "input_por_millon": 3.0,
+        "output_por_millon": 15.0
+      },
+      "ventana_contexto_max": 1000000
+    },
+    "claude-sonnet-5": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": null,
+      "max_output_tokens": 128000,
+      "modelo_id": "claude-sonnet-5",
+      "precios": {
+        "cache_lectura_por_millon": 0.2,
+        "input_por_millon": 2.0,
+        "output_por_millon": 10.0
+      },
+      "ventana_contexto_max": 1000000
+    }
+  },
+  "procedencia": {
+    "estado_verificacion": "confirmado_por_docs_oficial",
+    "fecha_obtencion": "2026-08-07T15:23:30Z",
+    "firma_ed25519": null,
+    "fuente_tipo": "litellm_json",
+    "fuente_url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json",
+    "hash_sha256_contenido_original": "960279570fc4d2bdd56258a58ce30d124097cee61fdec6fdc483d4a057a4909b"
+  },
+  "total_modelos": 24
+}

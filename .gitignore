@@ -1,0 +1,13 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+
+# AN-KLA Memory (runtime local — no commitear índice ni caché)
+.an_kla/
+**/.an_kla/
+AN-KLA-memory-cache/

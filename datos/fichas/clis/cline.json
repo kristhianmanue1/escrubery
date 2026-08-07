@@ -1,0 +1,23 @@
+{
+  "esquema": "escrubery/ficha-cli/0.1",
+  "entidad": "cli",
+  "id": "cline",
+  "nombre": "Cline",
+  "proveedor": "comunidad (Cline Bot Inc.)",
+  "tipo": "comunitario",
+  "repo_url": "https://github.com/cline/cline",
+  "licencia": "codigo abierto",
+  "mecanismo_changelog": "CHANGELOG.md en el repo (raiz y por subpaquete, p. ej. apps/cli/CHANGELOG.md) + GitHub Releases con notas legibles",
+  "cadencia_monitoreo": "semanal",
+  "prioridad_seguridad": "media; util como fuente de corroboracion cruzada",
+  "notas_gobernanza": "Agnostico de modelo (soporta Claude, Codex, Kimi, GLM, DeepSeek, etc. como backends): su changelog es fuente secundaria para detectar cuando un modelo nuevo queda soportado en un cliente de terceros (corroboracion cruzada de lanzamientos). Extension VS Code + CLI + SDK.",
+  "comandos": [],
+  "procedencia": {
+    "fuente_url": "docs/investigacion/Sistema_Monitoreo_Modelos_CLIs_IA.md",
+    "fuente_tipo": "curaduria_propia",
+    "fecha_obtencion": "2026-08-07T15:23:33Z",
+    "hash_sha256_contenido_original": "852edca8af3983bcc449861d1a4d2461bca99e3a48d2c971fa64cdd4f8feab08",
+    "estado_verificacion": "confirmado_por_docs_oficial",
+    "firma_ed25519": null
+  }
+}

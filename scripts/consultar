@@ -1,0 +1,159 @@
+#!/usr/bin/env python3
+"""consultar — comando de consulta de la Ficha v0 (Fase 0).
+
+Opera directamente sobre datos/fichas/ (sin base de datos). Emite JSON por
+stdout siguiendo el contrato v0 (docs/CONTRATO_API_v0.md).
+
+Uso:
+  consultar listar [clis|proveedores]
+  consultar ficha cli <id> | consultar ficha proveedor <id>
+  consultar modelo <proveedor> <modelo_id>
+  consultar comando <cli_id> [filtro]
+  consultar oficialidad
+
+Exit codes: 0 = respuesta, 1 = sin datos, 2 = error de uso.
+"""
+
+import json
+import sys
+from pathlib import Path
+
+RAIZ = Path(__file__).resolve().parent.parent
+DIR_CLIS = RAIZ / "datos" / "fichas" / "clis"
+DIR_PROVS = RAIZ / "datos" / "fichas" / "proveedores"
+
+
+def emitir(obj, codigo=0):
+    print(json.dumps(obj, indent=2, ensure_ascii=False, sort_keys=True))
+    sys.exit(codigo)
+
+
+def error_uso(mensaje):
+    emitir({"error": {"codigo": "parametros_invalidos", "mensaje": mensaje}}, 2)
+
+
+def sin_datos(mensaje, detalles=None):
+    err = {"codigo": "sin_datos", "mensaje": mensaje}
+    if detalles:
+        err["detalles"] = detalles
+    emitir({"error": err}, 1)
+
+
+def cargar(directorio, entidad_id):
+    ruta = directorio / f"{entidad_id}.json"
+    if not ruta.exists():
+        return None
+    return json.loads(ruta.read_text())
+
+
+def cmd_listar(tipo=None):
+    clis = sorted(p.stem for p in DIR_CLIS.glob("*.json"))
+    provs = sorted(p.stem for p in DIR_PROVS.glob("*.json"))
+    if tipo == "clis":
+        emitir({"clis": clis})
+    if tipo == "proveedores":
+        emitir({"proveedores": provs})
+    emitir({"clis": clis, "proveedores": provs})
+
+
+def cmd_ficha(entidad, entidad_id):
+    directorio = {"cli": DIR_CLIS, "proveedor": DIR_PROVS}.get(entidad)
+    if directorio is None:
+        error_uso("entidad debe ser 'cli' o 'proveedor'")
+    ficha = cargar(directorio, entidad_id)
+    if ficha is None:
+        sin_datos(f"no existe ficha de {entidad} '{entidad_id}'",
+                  {"entidad": entidad, "id": entidad_id})
+    emitir(ficha)
+
+
+def cmd_modelo(proveedor, modelo_id):
+    ficha = cargar(DIR_PROVS, proveedor)
+    if ficha is None:
+        sin_datos(f"no existe ficha del proveedor '{proveedor}'",
+                  {"proveedor": proveedor})
+    modelo = ficha["modelos"].get(modelo_id)
+    if modelo is None:
+        coincidencias = [m for m in ficha["modelos"] if modelo_id in m]
+        sin_datos(
+            f"modelo '{modelo_id}' no encontrado en '{proveedor}'",
+            {"coincidencias_parciales": coincidencias[:10]},
+        )
+    emitir({
+        "proveedor": proveedor,
+        **modelo,
+        "procedencia": ficha["procedencia"],
+    })
+
+
+def cmd_comando(cli_id, filtro=None):
+    ficha = cargar(DIR_CLIS, cli_id)
+    if ficha is None:
+        sin_datos(f"no existe ficha del CLI '{cli_id}'", {"cli": cli_id})
+    comandos = ficha.get("comandos", [])
+    if filtro:
+        comandos = [c for c in comandos if filtro.lower() in c["comando"].lower()]
+    if not comandos:
+        sin_datos(
+            f"sin comandos registrados para '{cli_id}'"
+            + (f" con filtro '{filtro}'" if filtro else ""),
+            {"cli": cli_id, "filtro": filtro},
+        )
+    emitir({
+        "cli_producto": {
+            "nombre": ficha["nombre"],
+            "proveedor": ficha["proveedor"],
+            "tipo": ficha["tipo"],
+        },
+        "comandos": comandos,
+        "nota_inventario": "inventario v0 curadurizado; la introspeccion "
+                           "automatizada de --help llega en la Fase 3",
+        "procedencia": ficha["procedencia"],
+    })
+
+
+def cmd_oficialidad():
+    resultado = []
+    for ruta in sorted(DIR_CLIS.glob("*.json")):
+        f = json.loads(ruta.read_text())
+        resultado.append({
+            "id": f["id"],
+            "nombre": f["nombre"],
+            "proveedor": f["proveedor"],
+            "tipo": f["tipo"],
+        })
+    emitir({
+        "clis": resultado,
+        "nota": "grok-cli-community (comunitario, superagent-ai) y grok-build "
+                "(oficial, xAI) son productos DISTINTOS; no mezclarlos",
+    })
+
+
+USO = """uso:
+  consultar listar [clis|proveedores]
+  consultar ficha cli <id> | consultar ficha proveedor <id>
+  consultar modelo <proveedor> <modelo_id>
+  consultar comando <cli_id> [filtro]
+  consultar oficialidad"""
+
+
+def main(argv):
+    if len(argv) < 2:
+        error_uso(USO)
+    op, args = argv[1], argv[2:]
+    if op == "listar":
+        cmd_listar(args[0] if args else None)
+    elif op == "ficha" and len(args) == 2:
+        cmd_ficha(args[0], args[1])
+    elif op == "modelo" and len(args) == 2:
+        cmd_modelo(args[0], args[1])
+    elif op == "comando" and len(args) >= 1:
+        cmd_comando(args[0], args[1] if len(args) > 1 else None)
+    elif op == "oficialidad":
+        cmd_oficialidad()
+    else:
+        error_uso(USO)
+
+
+if __name__ == "__main__":
+    main(sys.argv)

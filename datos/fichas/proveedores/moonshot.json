@@ -1,0 +1,435 @@
+{
+  "entidad": "proveedor",
+  "esquema": "escrubery/ficha-proveedor/0.1",
+  "fuente_litellm_provider": "moonshot",
+  "id": "moonshot",
+  "modelos": {
+    "kimi-k2-0711-preview": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": "2026-05-25",
+      "fuente_precio": "https://platform.moonshot.ai/docs/pricing/chat#generation-model-kimi-k2",
+      "max_output_tokens": 131072,
+      "modelo_id": "kimi-k2-0711-preview",
+      "precios": {
+        "cache_lectura_por_millon": 0.15,
+        "input_por_millon": 0.6,
+        "output_por_millon": 2.5
+      },
+      "ventana_contexto_max": 131072
+    },
+    "kimi-k2-0905-preview": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": "2026-05-25",
+      "fuente_precio": "https://platform.moonshot.ai/docs/pricing/chat#generation-model-kimi-k2",
+      "max_output_tokens": 262144,
+      "modelo_id": "kimi-k2-0905-preview",
+      "precios": {
+        "cache_lectura_por_millon": 0.15,
+        "input_por_millon": 0.6,
+        "output_por_millon": 2.5
+      },
+      "ventana_contexto_max": 262144
+    },
+    "kimi-k2-thinking": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": "2026-05-25",
+      "fuente_precio": "https://platform.moonshot.ai/docs/pricing/chat#generation-model-kimi-k2",
+      "max_output_tokens": 262144,
+      "modelo_id": "kimi-k2-thinking",
+      "precios": {
+        "cache_lectura_por_millon": 0.15,
+        "input_por_millon": 0.6,
+        "output_por_millon": 2.5
+      },
+      "ventana_contexto_max": 262144
+    },
+    "kimi-k2-thinking-turbo": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": "2026-05-25",
+      "fuente_precio": "https://platform.moonshot.ai/docs/pricing/chat#generation-model-kimi-k2",
+      "max_output_tokens": 262144,
+      "modelo_id": "kimi-k2-thinking-turbo",
+      "precios": {
+        "cache_lectura_por_millon": 0.15,
+        "input_por_millon": 1.15,
+        "output_por_millon": 8.0
+      },
+      "ventana_contexto_max": 262144
+    },
+    "kimi-k2-turbo-preview": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": "2026-05-25",
+      "fuente_precio": "https://platform.moonshot.ai/docs/pricing/chat#generation-model-kimi-k2",
+      "max_output_tokens": 262144,
+      "modelo_id": "kimi-k2-turbo-preview",
+      "precios": {
+        "cache_lectura_por_millon": 0.15,
+        "input_por_millon": 1.15,
+        "output_por_millon": 8.0
+      },
+      "ventana_contexto_max": 262144
+    },
+    "kimi-k2.5": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://platform.moonshot.ai/docs/guide/kimi-k2-5-quickstart",
+      "max_output_tokens": 262144,
+      "modelo_id": "kimi-k2.5",
+      "precios": {
+        "cache_lectura_por_millon": 0.1,
+        "input_por_millon": 0.6,
+        "output_por_millon": 3.0
+      },
+      "ventana_contexto_max": 262144
+    },
+    "kimi-k2.6": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://platform.kimi.ai/docs/pricing/chat-k26",
+      "max_output_tokens": 262144,
+      "modelo_id": "kimi-k2.6",
+      "precios": {
+        "cache_lectura_por_millon": 0.16,
+        "input_por_millon": 0.95,
+        "output_por_millon": 4.0
+      },
+      "ventana_contexto_max": 262144
+    },
+    "kimi-latest": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-01-28",
+      "fuente_precio": "https://platform.moonshot.ai/docs/pricing",
+      "max_output_tokens": 131072,
+      "modelo_id": "kimi-latest",
+      "precios": {
+        "cache_lectura_por_millon": 0.15,
+        "input_por_millon": 2.0,
+        "output_por_millon": 5.0
+      },
+      "ventana_contexto_max": 131072
+    },
+    "kimi-latest-128k": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-01-28",
+      "fuente_precio": "https://platform.moonshot.ai/docs/pricing",
+      "max_output_tokens": 131072,
+      "modelo_id": "kimi-latest-128k",
+      "precios": {
+        "cache_lectura_por_millon": 0.15,
+        "input_por_millon": 2.0,
+        "output_por_millon": 5.0
+      },
+      "ventana_contexto_max": 131072
+    },
+    "kimi-latest-32k": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-01-28",
+      "fuente_precio": "https://platform.moonshot.ai/docs/pricing",
+      "max_output_tokens": 32768,
+      "modelo_id": "kimi-latest-32k",
+      "precios": {
+        "cache_lectura_por_millon": 0.15,
+        "input_por_millon": 1.0,
+        "output_por_millon": 3.0
+      },
+      "ventana_contexto_max": 32768
+    },
+    "kimi-latest-8k": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-01-28",
+      "fuente_precio": "https://platform.moonshot.ai/docs/pricing",
+      "max_output_tokens": 8192,
+      "modelo_id": "kimi-latest-8k",
+      "precios": {
+        "cache_lectura_por_millon": 0.15,
+        "input_por_millon": 0.2,
+        "output_por_millon": 2.0
+      },
+      "ventana_contexto_max": 8192
+    },
+    "kimi-thinking-preview": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": null,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2025-11-11",
+      "fuente_precio": "https://platform.moonshot.ai/docs/pricing/chat#generation-model-kimi-k2",
+      "max_output_tokens": 131072,
+      "modelo_id": "kimi-thinking-preview",
+      "precios": {
+        "cache_lectura_por_millon": 0.15,
+        "input_por_millon": 0.6,
+        "output_por_millon": 2.5
+      },
+      "ventana_contexto_max": 131072
+    },
+    "moonshot-v1-128k": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://platform.moonshot.ai/docs/pricing",
+      "max_output_tokens": 131072,
+      "modelo_id": "moonshot-v1-128k",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 2.0,
+        "output_por_millon": 5.0
+      },
+      "ventana_contexto_max": 131072
+    },
+    "moonshot-v1-128k-0430": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": "2024-04-30",
+      "fuente_precio": "https://platform.moonshot.ai/docs/pricing",
+      "max_output_tokens": 131072,
+      "modelo_id": "moonshot-v1-128k-0430",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 2.0,
+        "output_por_millon": 5.0
+      },
+      "ventana_contexto_max": 131072
+    },
+    "moonshot-v1-128k-vision-preview": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://platform.moonshot.ai/docs/pricing",
+      "max_output_tokens": 131072,
+      "modelo_id": "moonshot-v1-128k-vision-preview",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 2.0,
+        "output_por_millon": 5.0
+      },
+      "ventana_contexto_max": 131072
+    },
+    "moonshot-v1-32k": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://platform.moonshot.ai/docs/pricing",
+      "max_output_tokens": 32768,
+      "modelo_id": "moonshot-v1-32k",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 1.0,
+        "output_por_millon": 3.0
+      },
+      "ventana_contexto_max": 32768
+    },
+    "moonshot-v1-32k-0430": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": "2024-04-30",
+      "fuente_precio": "https://platform.moonshot.ai/docs/pricing",
+      "max_output_tokens": 32768,
+      "modelo_id": "moonshot-v1-32k-0430",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 1.0,
+        "output_por_millon": 3.0
+      },
+      "ventana_contexto_max": 32768
+    },
+    "moonshot-v1-32k-vision-preview": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://platform.moonshot.ai/docs/pricing",
+      "max_output_tokens": 32768,
+      "modelo_id": "moonshot-v1-32k-vision-preview",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 1.0,
+        "output_por_millon": 3.0
+      },
+      "ventana_contexto_max": 32768
+    },
+    "moonshot-v1-8k": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://platform.moonshot.ai/docs/pricing",
+      "max_output_tokens": 8192,
+      "modelo_id": "moonshot-v1-8k",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 0.2,
+        "output_por_millon": 2.0
+      },
+      "ventana_contexto_max": 8192
+    },
+    "moonshot-v1-8k-0430": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": "2024-04-30",
+      "fuente_precio": "https://platform.moonshot.ai/docs/pricing",
+      "max_output_tokens": 8192,
+      "modelo_id": "moonshot-v1-8k-0430",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 0.2,
+        "output_por_millon": 2.0
+      },
+      "ventana_contexto_max": 8192
+    },
+    "moonshot-v1-8k-vision-preview": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://platform.moonshot.ai/docs/pricing",
+      "max_output_tokens": 8192,
+      "modelo_id": "moonshot-v1-8k-vision-preview",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 0.2,
+        "output_por_millon": 2.0
+      },
+      "ventana_contexto_max": 8192
+    },
+    "moonshot-v1-auto": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://platform.moonshot.ai/docs/pricing",
+      "max_output_tokens": 131072,
+      "modelo_id": "moonshot-v1-auto",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 2.0,
+        "output_por_millon": 5.0
+      },
+      "ventana_contexto_max": 131072
+    }
+  },
+  "procedencia": {
+    "estado_verificacion": "confirmado_por_docs_oficial",
+    "fecha_obtencion": "2026-08-07T15:23:30Z",
+    "firma_ed25519": null,
+    "fuente_tipo": "litellm_json",
+    "fuente_url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json",
+    "hash_sha256_contenido_original": "960279570fc4d2bdd56258a58ce30d124097cee61fdec6fdc483d4a057a4909b"
+  },
+  "total_modelos": 22
+}
