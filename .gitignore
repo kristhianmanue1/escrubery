@@ -7,7 +7,9 @@ __pycache__/
 *.egg-info/
 .venv/
 
-# AN-KLA Memory (runtime local — no commitear índice ni caché)
+# AN-KLA Memory (runtime local — no commitear índice ni almacén de memoria)
+.an-kla/
+**/.an-kla/
 .an_kla/
 **/.an_kla/
 AN-KLA-memory-cache/
