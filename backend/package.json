@@ -23,6 +23,7 @@
     "db:ingestar": "node --env-file=.env --import tsx src/db/ingestar.ts",
     "db:ingestar-help": "node --env-file=.env --import tsx src/db/ingestar_help.ts",
     "evidentia:probar-cadena": "node --env-file=.env --import tsx src/evidentia/probar_cadena.ts",
+    "poller:github": "node --env-file=.env --import tsx src/evidentia/poller_github.ts",
     "cli": "node --env-file=.env --import tsx src/cli.ts"
   },
   "dependencies": {

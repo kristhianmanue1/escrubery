@@ -6,6 +6,13 @@ import type { EventoBase, EventRecord } from './schema';
 
 export const ZERO_HASH = '0'.repeat(64);
 
+function normFecha(f: string | Date | null | undefined): string | null {
+  if (!f) return null;
+  if (f instanceof Date) return f.toISOString();
+  const d = new Date(f);
+  return Number.isNaN(d.getTime()) ? null : d.toISOString();
+}
+
 export function baseHasheable(r: EventoBase): Record<string, unknown> {
   return {
     record_id: r.record_id,
@@ -14,8 +21,7 @@ export function baseHasheable(r: EventoBase): Record<string, unknown> {
     resumen: r.resumen,
     fuente_url: r.fuente_url,
     fuente_tipo: r.fuente_tipo,
-    fecha_publicacion: r.fecha_publicacion,
-    confianza_clasificador: r.confianza_clasificador,
+    fecha_publicacion: normFecha(r.fecha_publicacion),
     prev_hash: r.prev_hash,
   };
 }
@@ -45,7 +51,7 @@ export async function registrarEvento(
   base: Omit<EventoBase, 'prev_hash'>,
 ): Promise<{ record: EventRecord; hash: string }> {
   const prevHash = await ultimoHash(db);
-  const baseCompleto: EventoBase = { ...base, prev_hash: prevHash };
+  const baseCompleto: EventoBase = { ...base, prev_hash: prevHash, fecha_publicacion: normFecha(base.fecha_publicacion) };
   const hash = hashEvento(baseCompleto);
   const record: EventRecord = { ...baseCompleto, firmas: [] };
   await db
@@ -96,9 +102,7 @@ export async function verificarCadena(
       resumen: e.resumen,
       fuente_url: e.fuente_url,
       fuente_tipo: e.fuente_tipo ?? '',
-      fecha_publicacion: e.fecha_publicacion
-        ? e.fecha_publicacion.toISOString()
-        : null,
+      fecha_publicacion: normFecha(e.fecha_publicacion),
       confianza_clasificador: e.confianza_clasificador ?? null,
       prev_hash: e.hash_evento_anterior,
     };
