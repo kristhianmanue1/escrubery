@@ -41,13 +41,6 @@ const REGLAS: Regla[] = [
     ],
   },
   {
-    cat: 'deprecacion',
-    confianza: 0.7,
-    patrones: [
-      /\b(deprecat|legacy|sunset|end.of.life|will be removed|stabilized)\b/i,
-    ],
-  },
-  {
     cat: 'funcion_nueva',
     confianza: 0.7,
     patrones: [
