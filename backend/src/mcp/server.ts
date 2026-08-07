@@ -105,7 +105,7 @@ const server = new Server(
   { capabilities: { tools: {} } },
 );
 
-server.setRequestHandler(ListToolsRequestSchema, async () => ({
+server.setRequestHandler(ListToolsRequestSchema, () => ({
   tools: TOOLS,
 }));
 
@@ -115,24 +115,22 @@ server.setRequestHandler(CallToolRequestSchema, async (req) => {
   try {
     switch (name) {
       case 'consultar_modelo': {
-        const r = await consultarModelo(
-          d,
-          String(a.proveedor),
-          String(a.modelo_id),
-        );
-        return r ? texto(r) : sinDatos(`${a.proveedor}/${a.modelo_id}`);
+        const proveedor = String(a.proveedor);
+        const modeloId = String(a.modelo_id);
+        const r = await consultarModelo(d, proveedor, modeloId);
+        return r ? texto(r) : sinDatos(`${proveedor}/${modeloId}`);
       }
       case 'consultar_comando_cli': {
-        const r = await consultarComandoCli(
-          d,
-          String(a.cli),
-          a.comando ? String(a.comando) : undefined,
-        );
-        return r ? texto(r) : sinDatos(`${a.cli}`);
+        const cli = String(a.cli);
+        const comando = a.comando != null ? String(a.comando) : undefined;
+        const r = await consultarComandoCli(d, cli, comando);
+        return r ? texto(r) : sinDatos(cli);
       }
       case 'consultar_ficha': {
-        const r = await consultarFicha(d, String(a.entidad), String(a.id));
-        return r ? texto(r) : sinDatos(`${a.entidad}/${a.id}`);
+        const entidad = String(a.entidad);
+        const id = String(a.id);
+        const r = await consultarFicha(d, entidad, id);
+        return r ? texto(r) : sinDatos(`${entidad}/${id}`);
       }
       case 'oficialidad':
         return texto(await oficialidad(d));
