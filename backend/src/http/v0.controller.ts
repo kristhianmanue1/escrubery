@@ -47,7 +47,7 @@ export class V0Controller {
     if (!b?.proveedor || !b?.modelo_id) {
       err('parametros_invalidos', 'proveedor y modelo_id requeridos', 400);
     }
-    const r = await consultarModelo(getDb(), b.proveedor!, b.modelo_id!);
+    const r = await consultarModelo(getDb(), b.proveedor, b.modelo_id);
     if (!r) {
       err('sin_datos', `${b.proveedor}/${b.modelo_id} no encontrado`, 404);
     }
@@ -59,7 +59,7 @@ export class V0Controller {
     if (!b?.cli) {
       err('parametros_invalidos', 'cli requerido', 400);
     }
-    const r = await consultarComandoCli(getDb(), b.cli!, b.comando);
+    const r = await consultarComandoCli(getDb(), b.cli, b.comando);
     if (!r) {
       err('sin_datos', `${b.cli} no encontrado`, 404);
     }
@@ -71,7 +71,7 @@ export class V0Controller {
     if (!b?.entidad || !b?.id) {
       err('parametros_invalidos', 'entidad e id requeridos', 400);
     }
-    const r = await consultarFicha(getDb(), b.entidad!, b.id!);
+    const r = await consultarFicha(getDb(), b.entidad, b.id);
     if (!r) {
       err('sin_datos', `${b.entidad}/${b.id} no encontrado`, 404);
     }
