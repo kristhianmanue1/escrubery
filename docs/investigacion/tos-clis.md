@@ -1,6 +1,6 @@
 # Revisión de Términos de Servicio de los CLIs — escrubery (D1)
 
-**Estado:** en curaduría (3/7 curados, 4 pendientes). **Bloquea:** Fase 3 (criterio de entrada plan v2 §6.1). **Decisión:** D1. **Responsable:** Ejecutor (curaduría) · Mediador (veredicto). **Actualizado:** 2026-08-07.
+**Estado:** en curaduría (4/7 curados, 3 pendientes). **Bloquea:** Fase 3 (criterio de entrada plan v2 §6.1). **Decisión:** D1. **Responsable:** Ejecutor (curaduría) · Mediador (veredicto). **Actualizado:** 2026-08-07.
 
 ## Objetivo
 Determinar, por CLI, qué permite su ToS respecto a la **Fase 3** (introspección activa: ejecutar el CLI en contenedor efímero, capturar `--help`/`--version`) y usos futuros (benchmarking). Sin esto, F3 no inicia (riesgo operativo/legal).
@@ -18,7 +18,7 @@ Determinar, por CLI, qué permite su ToS respecto a la **Fase 3** (introspecció
 |---|---|:-:|:-:|:-:|---|
 | cline | comunidad (Apache 2.0) | ✅ permitido | ✅ permitido | no_declara (licencia) | **curado** |
 | grok-cli-community | superagent-ai (MIT) | ✅ permitido | ✅ permitido | no_declara (licencia) | **curado** |
-| claude-code | anthropic | ⚠️ restringido | ⚠️ restringido | no_declara (TBD) | **preliminar** (Commercial Terms pendiente) |
+| claude-code | anthropic | ✅ permitido (introspección) | ✅ permitido | no_declara | **curado** (Commercial Terms) |
 | codex-cli | openai | ? | ? | ? | pendiente |
 | grok-build | xai | ? | ? | ? | pendiente |
 | antigravity-cli | google | ? | ? | ? | pendiente |
@@ -38,12 +38,16 @@ Determinar, por CLI, qué permite su ToS respecto a la **Fase 3** (introspecció
 - **Cita:** "Permission is hereby granted, free of charge, to any person obtaining a copy of this software… to **use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies** of the Software…" (MIT). Copyright © 2024 Superagent Technologies Inc.
 - **Veredicto:** automatización **permitido**; benchmarking **permitido**. Extracción: la licencia MIT no restringe retención de salidas del CLI. (El modelo Grok subyacente es xAI → sujeto a ToS xAI, pero el CLI comunitario en sí es MIT.)
 
-### claude-code — Anthropic ⚠️ (preliminar)
-- **ToS aplicable:** **Commercial Terms + AUP** (Claude Code no se rige por los Consumer Terms; estos últimos declaran expresamente no cubrir API/Console). **Pendiente:** leer los Commercial Terms y cualquier término específico de Claude Code.
-- **Evidencia preliminar (Consumer Terms §3, como indicio):** "Except when you are accessing our Services **via an Anthropic API Key** or where we otherwise explicitly permit it, to access the Services through **automated or non-human means**, whether through a bot, script, or otherwise." También prohíbe crawl/scrape y "develop products that compete" / "train AI models".
-  - **Fuente preliminar:** `https://www.anthropic.com/legal/terms` · **fecha:** 2026-08-07 · **hash_sha256 (HTML Consumer):** `f3f675e9ed33d2f9a0cca033d4fa807fea4de112306746746474ff4be910512e`
-- **Veredicto preliminar:** automatización **restringido** — parece permitida **solo vía API Key / suscripción** (no "sin credenciales"). Extracción: no_declara (TBD en Commercial/AUP).
-- **⚠️ Impacto en F3:** el plan v2 §6.2 prevé "ejecutar los CLIs **sin credenciales reales**" en sandbox. Si Anthropic exige API Key para automatización, F3 debe **replantear**: ejecutar **con credenciales controladas** (sandbox con API Key del Mediador, no "sin"), o limitar F3 para claude-code a diffing de `--help` que no requiera auth. Esto es **exactamente el valor de D1** antes de construir F3.
+### claude-code — Anthropic ✅ (curado, Commercial Terms)
+- **ToS aplicable:** **Commercial Terms of Service** (Claude Code se usa con API/suscripción, no Consumer). Effective June 17, 2025.
+- **Fuente:** `https://www.anthropic.com/legal/commercial-terms` · **fecha:** 2026-08-07 · **hash_sha256 (HTML crudo):** `48af56a110b0651c83ff0b13cca03df31da32dd58af6e53330f40da838cc5c1a`
+- **Citas:**
+  - **A.1 (permiso):** "Anthropic gives Customer permission to use the Services, including to power products and services Customer makes available to its own customers and end users."
+  - **D.4 (restrictiones — lo que NO se puede hacer):** no "access the Services to build a competing product or service, including to **train competing AI models**", no "**reverse engineer or duplicate** the Services", no "resell". *(La introspección `--help`/`--version` no incurre en ninguna: no compite, no entrena, no hace reverse-engineering del servicio, no reventa.)*
+  - **B:** "Anthropic **may not train models on Customer Content**"; el Cliente posee sus Outputs.
+- **Verificación práctica (2026-08-07):** `claude --version` → `2.1.220 (Claude Code)`; `claude --help` → muestra uso completo. Ambos **exit 0 sin autenticación y sin llamadas al modelo** (no consumen tokens). Son introspección local del binario, no "access the Services".
+- **Veredicto:** automatización **PERMITIDO** para introspección (`--help`/`--version`): el ToS (Commercial) no lo prohíbe y no consume Services. Benchmarking: **permitido** (no restringido por D.4). Extracción: `no_declara` (el ToS no restringe retener Outputs — el Cliente los posee por §B).
+- **Implicación F3:** el "ejecutar sin credenciales reales" del plan v2 §6.2 **es viable** para claude-code en lo que respecta a difear `--help`/`--version` (no requieren auth ni tokens). La API Key del Mediador solo sería necesaria si F3 generara Outputs del modelo (no es el caso del diffing).
 
 ---
 
