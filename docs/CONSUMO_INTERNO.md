@@ -57,9 +57,39 @@ ln -s ~/www/aria/escrubery/scripts/consultar /usr/local/bin/escrubery
 # luego: escrubery modelo moonshot kimi-k2-0905-preview
 ```
 
-## MCP (próximo)
+## MCP (operativo desde F2.5)
 
-El consumo nativo para agentes MCP (Claude Code, Cline, etc.) será un **servidor MCP local** que envuelve estas mismas operaciones como *tools*. Ver análisis de integración en `docs/investigacion/Plan_Iterativo_Incremental_Servicio_CLI_Modelos_v2.md` §8 (F5) y la recomendación de adelantarlo como F2.5.
+Servidor MCP **local stdio** que expone las operaciones como *tools* nativas para agentes MCP (Claude Code, Cline, etc.). **Reusa** el módulo de consultas (F1) y Evidentia (F2); sin red ni puerto.
+
+**Tools expuestas:** `consultar_modelo`, `consultar_comando_cli`, `consultar_ficha`, `oficialidad`, `listar_entidades`, `verificar_evidencia`.
+
+### Configurar un agente cliente (ej. Claude Code)
+
+Crea/añade un `.mcp.json` (en el proyecto consumidor o global):
+
+```json
+{
+  "mcpServers": {
+    "escrubery": {
+      "command": "node",
+      "args": ["--env-file=.env", "--import", "tsx", "src/mcp/server.ts"],
+      "cwd": "/Users/krisnova/www/aria/escrubery/backend"
+    }
+  }
+}
+```
+
+Tras recargar, el agente ve `escrubery` con sus tools y puede invocarlas directamente (p. ej. "consulta el precio de kimi-k2"). El servidor lee PostgreSQL local y responde con JSON + procedencia.
+
+### Verificación rápida del servidor MCP
+
+```bash
+cd ~/www/aria/escrubery/backend
+npm run mcp:probar    # lanza el servidor (stdio), lista tools y llama consultar_modelo + verificar_evidencia
+npm run mcp:server    # arranca el servidor en modo escucha (lo que usa el agente cliente)
+```
+
+> F5 queda como **formalización** (Agent Card firmado cuando F4 dé robustez criptográfica); el MCP utilitario ya está aquí.
 
 ## Notas
 

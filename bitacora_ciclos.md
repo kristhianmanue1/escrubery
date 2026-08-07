@@ -82,3 +82,13 @@ Decreto del Mediador tras ronda adversarial `proceed`. Cumple los 3 criterios de
 Decreto del Mediador tras ronda adversarial `proceed`. Cumple los criterios del plan v2 §5: alerta de alta severidad <24h (`evidentia:alertas`) + hechos verificables criptográficamente por tercero con keyring público (`evidentia:verificar`, read-only, fail-closed). **Total F2: 5 ciclos estimados / 5 reales / desviación 0.** Tag `v0.2.0-alpha`. Evidentia operativa (10 eventos reales de `cline` firmados con la clave del Mediador).
 
 **Siguiente: Fase 3 — Introspección activa automatizada** (`--help`/`--version` diffing en contenedor efímero, inventario vivo). **Criterios de entrada (plan v2 §6.1):** entorno sandbox probado, **D1 (revisión ToS) resuelta** al menos para los CLIs de verificación diaria, presupuesto por ciclo aprobado.
+
+---
+
+## Fase 2.5 — MCP local (adelanto de F5, D4=interno)
+
+| Fecha | Fase | Ticket | est. | reales | desv. | Evidencia |
+|---|---|---|---|---|---|---|
+| 2026-08-07 | F2.5 | MCP local stdio — servidor que expone las tools del contrato + Evidentia | 2 | 1 | -1 | `npm run mcp:probar`: 6 tools; `consultar_modelo` OK; `verificar_evidencia` ok (11 eventos, 10 firmados) |
+
+**Notas F2.5:** adelanto de F5 justificado por D4=interno (consumidores = agentes → MCP es su consumo nativo) y F3 bloqueada por D1. Reusa `consultas/modulo.ts` (F1) y `evidentia/verificar.ts` (F2). F5 queda como formalización (Agent Card firmado cuando F4 dé robustez). Configuración cliente (`.mcp.json`) en `docs/CONSUMO_INTERNO.md`.

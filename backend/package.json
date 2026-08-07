@@ -30,9 +30,12 @@
     "evidentia:verificar": "node --env-file=.env --import tsx src/evidentia/cli_verificar.ts",
     "evidentia:alertas": "node --env-file=.env --import tsx src/evidentia/alertas.ts",
     "evidentia:probar-firma": "node --env-file=.env --import tsx src/evidentia/probar_firma.ts",
+    "mcp:server": "node --env-file=.env --import tsx src/mcp/server.ts",
+    "mcp:probar": "node --env-file=.env --import tsx src/mcp/probar_mcp.ts",
     "cli": "node --env-file=.env --import tsx src/cli.ts"
   },
   "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
     "@nestjs/common": "^11.0.1",
     "@nestjs/core": "^11.0.1",
     "@nestjs/platform-express": "^11.0.1",
