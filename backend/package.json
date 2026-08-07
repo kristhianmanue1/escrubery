@@ -28,6 +28,7 @@
     "keys:generar": "node --env-file=.env --import tsx src/evidentia/keys/generar_keypair.ts",
     "evidentia:firmar": "node --env-file=.env --import tsx src/evidentia/cli_firmar.ts",
     "evidentia:verificar": "node --env-file=.env --import tsx src/evidentia/cli_verificar.ts",
+    "evidentia:alertas": "node --env-file=.env --import tsx src/evidentia/alertas.ts",
     "evidentia:probar-firma": "node --env-file=.env --import tsx src/evidentia/probar_firma.ts",
     "cli": "node --env-file=.env --import tsx src/cli.ts"
   },
