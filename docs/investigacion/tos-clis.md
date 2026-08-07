@@ -1,6 +1,6 @@
 # Revisión de Términos de Servicio de los CLIs — escrubery (D1)
 
-**Estado:** en curaduría (3/7 curados, 4 pendientes). **Bloquea:** Fase 3 (criterio de entrada plan v2 §6.1). **Decisión:** D1. **Responsable:** Ejecutor (curaduría) · Mediador (veredicto). **Actualizado:** 2026-08-07.
+**Estado:** en curaduría (4/7 curados; grok-build pendiente — ToS xAI inaccesible; antigravity y kimi pendientes). **Bloquea:** Fase 3 (criterio de entrada plan v2 §6.1). **Decisión:** D1. **Responsable:** Ejecutor (curaduría) · Mediador (veredicto). **Actualizado:** 2026-08-07.
 
 ## Objetivo
 Determinar, por CLI, qué permite su ToS respecto a la **Fase 3** (introspección activa: ejecutar el CLI en contenedor efímero, capturar `--help`/`--version`) y usos futuros (benchmarking). Sin esto, F3 no inicia (riesgo operativo/legal).
@@ -19,8 +19,8 @@ Determinar, por CLI, qué permite su ToS respecto a la **Fase 3** (introspecció
 | cline | comunidad (Apache 2.0) | ✅ permitido | ✅ permitido | no_declara (licencia) | **curado** |
 | grok-cli-community | superagent-ai (MIT) | ✅ permitido | ✅ permitido | no_declara (licencia) | **curado** |
 | claude-code | anthropic | ✅ permitido (introspección) | ✅ permitido | no_declara | **curado** (Commercial Terms) |
-| codex-cli | openai | ? | ? | ? | pendiente |
-| grok-build | xai | ? | ? | ? | pendiente |
+| codex-cli | openai | ✅ permitido (introspección) | ✅ permitido | no_declara | **curado** (Business Terms) |
+| grok-build | xai | ? | ? | ? | **pendiente** (ToS inaccesible, x.ai 403) |
 | antigravity-cli | google | ? | ? | ? | pendiente |
 | kimi-code | moonshot | ? | ? | ? | pendiente |
 
@@ -49,11 +49,25 @@ Determinar, por CLI, qué permite su ToS respecto a la **Fase 3** (introspecció
 - **Veredicto:** automatización **PERMITIDO** para introspección (`--help`/`--version`): el ToS (Commercial) no lo prohíbe y no consume Services. Benchmarking: **permitido** (no restringido por D.4). Extracción: `no_declara` (el ToS no restringe retener Outputs — el Cliente los posee por §B).
 - **Implicación F3:** el "ejecutar sin credenciales reales" del plan v2 §6.2 **es viable** para claude-code en lo que respecta a difear `--help`/`--version` (no requieren auth ni tokens). La API Key del Mediador solo sería necesaria si F3 generara Outputs del modelo (no es el caso del diffing).
 
+### codex-cli — OpenAI ✅ (curado, Consumer + Business Terms)
+- **ToS aplicable:** Terms of Use (Consumer) + **Business Terms** (gobiernan la API; codex-cli usa la API). Effective Jan 1, 2026.
+- **Fuente:** `https://openai.com/policies/terms-of-use` (webfetch). **Hash crudo:** pendiente (sitio SPA, curl vacío).
+- **Cita (Consumer, "What you cannot do"):** "Attempt to or assist anyone to **reverse engineer**, decompile or discover the source code…"; "**Automatically or programmatically extract data or Output**"; "Use Output to develop models that **compete** with OpenAI". Y: "Our **Business Terms** govern use of ChatGPT Enterprise, our APIs…".
+- **Veredicto:** automatización **restringido** en Consumer (prohíbe extract automatizado), pero codex-cli se rige por **Business Terms** (API) → uso programático permitido. F3 diffing `--help`/`--version`: no extrae Output, no compite, no RE → **PERMITIDO**. Verificación práctica `codex --help` sin auth: pendiente (no instalado en el host).
+- **estado_verificacion:** `confirmado_por_docs_oficial` (cita); pendiente hash crudo + verificación práctica.
+
+### grok-build — xAI ⏳ (PENDIENTE, ToS inaccesible)
+- **Intentos (2026-08-07):** `x.ai/legal/terms-conditions`, `x.ai/legal/terms-of-service`, `x.ai/terms` → **403** (bloqueo); `grok.com/legal/terms` → hash `c80c25f931ff747ff9fa8d79fd9907a12ad00e9f006089b38b905779f82891b8` pero contenido **SPA no leíble** vía webfetch (devuelve "Grok").
+- **Veredicto:** **PENDIENTE** — no accesible vía automatizada. Requiere **curaduría humana** (el Mediador lee el ToS de Grok Build / xAI) o una URL/contenido accesible.
+- **⚠️ Bloquea el criterio F3:** grok-build es uno de los **2 CLIs de verificación diaria** (plan §5.1). Mientras su ToS no se resuelva, el criterio de entrada de F3 ("ToS resuelta al menos para los diarios") **no se cumple del todo** (claude-code ✓, grok-build ✗). El Mediador debe: (a) proveer el ToS de Grok Build, (b) iniciar F3 sólo con claude-code, o (c) diferir.
+
 ---
 
-## Pendientes (4 oficiales)
+## Pendientes (3)
 
-`codex-cli` (OpenAI Terms), `grok-build` (xAI Terms), `antigravity-cli` (Google Terms), `kimi-code` (Moonshot Terms). Pendiente de webfetch a los ToS oficiales de cada proveedor (mismo método: curl/webfetch + cita + hash + veredicto).
+- **grok-build (xAI)** — DIARIO, **bloqueante** para el criterio F3 (ver arriba). ToS inaccesible vía automatizada.
+- **antigravity-cli (Google)** — `policies.google.com/terms` accesible (hash `41cff720296facf44f14f7f709b3f02f20123c9d883c6ec58fc4bc7c25a215d1`) pero antigravity puede tener **términos adicionales** específicos; pendiente profundizar. Semanal (no bloquea F3).
+- **kimi-code (Moonshot)** — ToS pendiente (Moonshot; URL a confirmar). Semanal (no bloquea F3).
 ## Método
 - **Comunitarios:** LICENSE cruda del repo GitHub (curl raw) → hash exacto + cita + veredicto (licencia OSS).
 - **Oficiales:** ToS del proveedor (webfetch para lectura + curl para hash del crudo) → cita de la cláusula + veredicto + `estado_verificacion`.
