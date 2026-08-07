@@ -8,7 +8,7 @@ export interface ResultadoCruzado {
   segunda_fuente: string | null;
 }
 
-export async function validarCruzado(
+export function validarCruzado(
   proveedor: string,
   modeloId: string,
 ): Promise<ResultadoCruzado> {
@@ -16,10 +16,10 @@ export async function validarCruzado(
   // proveedor requiere API key (servicio de pago, fuera de alcance F0-F2 — política §7).
   // La estructura queda lista; se activa cuando se disponga de una 2ª fuente
   // (p. ej. openmodelsrun, o endpoint /models con credencial autorizada).
-  return {
+  return Promise.resolve({
     resuelto: false,
     estado_verificacion: 'pendiente_de_verificar',
     detalle: `sin 2ª fuente disponible en F2 para ${proveedor}/${modeloId}`,
     segunda_fuente: null,
-  };
+  });
 }
