@@ -64,9 +64,24 @@ export interface ConsultasLogTable {
   fecha: Ts;
 }
 
+export interface FeedbackTable {
+  id: Generated<number>;
+  tipo: string;
+  descripcion: string;
+  consulta_origen: unknown;
+  agente_reportante: unknown;
+  hash_dedup: string;
+  estado: string;
+  deduplicado_de: number | null;
+  fecha: Ts;
+  estado_datos_hash: string | null;
+  version_servicio: string | null;
+}
+
 export interface Database {
   modelos: ModelosTable;
   cli_productos: CliProductosTable;
   cli_comandos: CliComandosTable;
   consultas_log: ConsultasLogTable;
+  feedback: FeedbackTable;
 }

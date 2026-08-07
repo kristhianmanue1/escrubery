@@ -6,6 +6,7 @@ import {
   listar,
   oficialidad,
 } from './consultas/modulo';
+import { reportarFeedback, type FeedbackInput } from './feedback/modulo';
 
 function usage(): never {
   console.error(
@@ -89,6 +90,21 @@ async function main(): Promise<void> {
       }
       case 'oficialidad': {
         out(await oficialidad(db));
+        break;
+      }
+      case 'feedback': {
+        const [json] = rest;
+        if (!json) usage();
+        let input: FeedbackInput;
+        try {
+          input = JSON.parse(json) as FeedbackInput;
+        } catch {
+          usage();
+        }
+        if (!input.tipo || !input.descripcion || !input.agente_reportante?.id) {
+          usage();
+        }
+        out(await reportarFeedback(db, input));
         break;
       }
       default:
