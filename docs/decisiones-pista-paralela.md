@@ -1,6 +1,6 @@
 # Pista paralela de decisiones — escrubery
 
-**Estado:** D2 y D3 cerradas (2026-08-07); D1 y D4 abiertas (D4 inclinada a "producto"). **Origen:** Fase 0 (plan v2 §3.3). **Actualizado:** 2026-08-07.
+**Estado:** D2, D3 y D4 cerradas (2026-08-07); D1 abierta. **Origen:** Fase 0 (plan v2 §3.3). **Actualizado:** 2026-08-07.
 
 El costo real de estas decisiones es **calendario**, no ciclos de desarrollo: corren en paralelo a todas las fases. Cada una **bloquea una fase concreta**. El criterio de cierre de la Fase 0 (plan v2 §3) solo exige que estén *iniciadas* —documentadas como abiertas con responsable—, no resueltas.
 
@@ -11,7 +11,7 @@ El costo real de estas decisiones es **calendario**, no ciclos de desarrollo: co
 | D1 | Revisión de ToS de los CLIs | Fase 3 (criterio de entrada) | Abierta — investigación pendiente | Ejecutor (curaduría) · Mediador (decisión) |
 | D2 | Evidentia: llaves Ed25519 (multi-capa) | Fase 2 | **Cerrada 2026-08-07** (modelo aprobado; impl. gradual F2/F4/público) | Mediador |
 | D3 | Canonicalización JCS/RFC 8785 | Fase 2 | **Cerrada 2026-08-07** (impl. Node en T0-F2) | Mediador |
-| D4 | Naturaleza del servicio (interno vs. producto) | Fase 5 (condición de activación) | Abierta — **inclinada a "producto"** (Evidentia de pago); cerrar al definir F5 | Mediador |
+| D4 | Naturaleza del servicio (interno vs. producto) | Fase 5 | **Cerrada 2026-08-07: INTERNO** — consumo por agentes de proyectos internos del ecosistema (CAGF, expertoGobernanza, ADRC) vía CLI/HTTP local. Evidentia de pago queda como posibilidad si D4 reabre como producto | Mediador |
 
 ---
 
@@ -65,7 +65,7 @@ El costo real de estas decisiones es **calendario**, no ciclos de desarrollo: co
 
 ## D4 — Naturaleza del servicio (interno vs. producto)
 
-**Bloquea:** Fase 5 (condición de activación: si la decisión es "interno", la Fase 5 se reduce a exponer MCP para el ecosistema sin niveles de acceso). **Estado:** abierta — **inclinada a "producto con niveles"** desde 2026-08-07: Evidentia decretada como feature de **pago futuro** implica consumidores externos y tiers. Se cierra formalmente al definir F5.
+**Bloquea:** Fase 5 (condición de activación: si la decisión es "interno", la Fase 5 se reduce a exponer MCP para el ecosistema sin niveles de acceso). **Estado:** **Cerrada 2026-08-07: INTERNO.** escrubery es herramienta interna del ecosistema, consumida por agentes de proyectos internos (CAGF, expertoGobernanza, ADRC) vía CLI/HTTP local (misma máquina/LAN). F5 = exponer MCP para esos pares, sin niveles de acceso ni autenticación de pago. Evidentia como feature **de pago** queda como posibilidad futura **solo si D4 se reabre** como producto (no es el caso hoy).
 
 **Decisión requerida (del Mediador):** ¿escrubery es una herramienta interna del ecosistema (ADRC, expertoGobernanza, CAGF), o un producto con niveles de acceso y consumidores externos?
 
