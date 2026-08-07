@@ -52,7 +52,10 @@ export async function reportarFeedback(
       registrado_en: existente.fecha
         ? new Date(existente.fecha).toISOString()
         : new Date().toISOString(),
-      procedencia: { agente_reportante: input.agente_reportante.id, version_servicio: version },
+      procedencia: {
+        agente_reportante: input.agente_reportante.id,
+        version_servicio: version,
+      },
     };
   }
   const ahora = new Date();
@@ -76,6 +79,9 @@ export async function reportarFeedback(
     estado: 'nuevo',
     deduplicado_de: null,
     registrado_en: ahora.toISOString(),
-    procedencia: { agente_reportante: input.agente_reportante.id, version_servicio: version },
+    procedencia: {
+      agente_reportante: input.agente_reportante.id,
+      version_servicio: version,
+    },
   };
 }
