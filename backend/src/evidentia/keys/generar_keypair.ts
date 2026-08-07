@@ -83,10 +83,12 @@ function main(): void {
   );
 }
 
-main().catch((err) => {
+try {
+  main();
+} catch (err) {
   console.error(
     'error fatal:',
     err instanceof Error ? err.message : String(err),
   );
   process.exit(1);
-});
+}
