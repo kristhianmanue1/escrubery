@@ -51,7 +51,10 @@ async function main(): Promise<void> {
     process.exit(v.ok ? 0 : 1);
   } catch (err) {
     await db.destroy();
-    console.error('error fatal:', err instanceof Error ? err.message : String(err));
+    console.error(
+      'error fatal:',
+      err instanceof Error ? err.message : String(err),
+    );
     process.exit(1);
   }
 }

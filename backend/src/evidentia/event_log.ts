@@ -21,7 +21,9 @@ export function baseHasheable(r: EventoBase): Record<string, unknown> {
 }
 
 export function hashEvento(r: EventoBase): string {
-  return createHash('sha256').update(canonicalize(baseHasheable(r))).digest('hex');
+  return createHash('sha256')
+    .update(canonicalize(baseHasheable(r)))
+    .digest('hex');
 }
 
 export function canonicalFirmable(r: EventoBase): string {
@@ -94,11 +96,15 @@ export async function verificarCadena(
       resumen: e.resumen,
       fuente_url: e.fuente_url,
       fuente_tipo: e.fuente_tipo ?? '',
-      fecha_publicacion: e.fecha_publicacion ? e.fecha_publicacion.toISOString() : null,
+      fecha_publicacion: e.fecha_publicacion
+        ? e.fecha_publicacion.toISOString()
+        : null,
       confianza_clasificador: e.confianza_clasificador ?? null,
       prev_hash: e.hash_evento_anterior,
     };
-    const h = createHash('sha256').update(canonicalize(baseHasheable(base))).digest('hex');
+    const h = createHash('sha256')
+      .update(canonicalize(baseHasheable(base)))
+      .digest('hex');
     if (h !== e.hash_evento) {
       errores.push(`hash mismatch en ${e.record_id}`);
     }
