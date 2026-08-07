@@ -127,7 +127,7 @@ Toda consulta se registra en `consultas_log` (consulta, fuente de respuesta — 
 
 ### 5.1 Alcance funcional
 
-- *Poller* de la API de GitHub sobre los seis repos (releases + *commits* sobre `CHANGELOG.md` + *Security Advisories*), con cadencia diferenciada (diaria: Claude Code y Grok Build; semanal: el resto).
+- *Poller* de la API de GitHub sobre los ocho repos de CLIs (opencode añadido 2026-08-07; releases + *commits* sobre `CHANGELOG.md` + *Security Advisories*), con cadencia diferenciada (diaria: **opencode, claude-code, codex-cli** — controladores reales del Mediador; semanal: **grok-build, antigravity-cli, kimi-code** [kimi-code: baja prioridad, caro/poco uso]).
 - **Nueva fuente pasiva (v2):** Vulnerable MCP Project, categoría `fix_seguridad` con notificación inmediata — el riesgo MCP es transversal a los seis CLIs, no exclusivo de Grok Build.
 - Clasificación automática de cada entrada nueva, una sola vez por entrada: `funcion_nueva | breaking_change | fix_seguridad | deprecacion | cambio_precio | cambio_limite | ruido_irrelevante`.
 - Notificación inmediata para `fix_seguridad` y `breaking_change`; agregación semanal para el resto.

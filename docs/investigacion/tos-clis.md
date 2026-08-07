@@ -1,6 +1,6 @@
 # Revisión de Términos de Servicio de los CLIs — escrubery (D1)
 
-**Estado:** en curaduría (4/7 curados; grok-build pendiente — ToS xAI inaccesible; antigravity y kimi pendientes). **Bloquea:** Fase 3 (criterio de entrada plan v2 §6.1). **Decisión:** D1. **Responsable:** Ejecutor (curaduría) · Mediador (veredicto). **Actualizado:** 2026-08-07.
+**Estado:** 5/8 curados (opencode añadido como 8º CLI); diarios redefinidos = **opencode + claude-code + codex-cli** (controladores reales del Mediador); pendientes: grok-build (xAI inaccesible), antigravity, kimi-code (baja prioridad — caro, poco uso). **Bloquea:** Fase 3 (criterio de entrada plan v2 §6.1). **Decisión:** D1. **Responsable:** Ejecutor (curaduría) · Mediador (veredicto). **Actualizado:** 2026-08-07.
 
 ## Objetivo
 Determinar, por CLI, qué permite su ToS respecto a la **Fase 3** (introspección activa: ejecutar el CLI en contenedor efímero, capturar `--help`/`--version`) y usos futuros (benchmarking). Sin esto, F3 no inicia (riesgo operativo/legal).
@@ -22,7 +22,8 @@ Determinar, por CLI, qué permite su ToS respecto a la **Fase 3** (introspecció
 | codex-cli | openai | ✅ permitido (introspección) | ✅ permitido | no_declara | **curado** (Business Terms) |
 | grok-build | xai | ? | ? | ? | **pendiente** (ToS inaccesible, x.ai 403) |
 | antigravity-cli | google | ? | ? | ? | pendiente |
-| kimi-code | moonshot | ? | ? | ? | pendiente |
+| kimi-code | moonshot | ? | ? | ? | pendiente (baja prioridad — caro, poco uso) |
+| opencode | comunidad/Anomaly (MIT) | ✅ permitido | ✅ permitido | no_declara (licencia) | **curado** (controlador principal) |
 
 ---
 
@@ -55,6 +56,13 @@ Determinar, por CLI, qué permite su ToS respecto a la **Fase 3** (introspecció
 - **Cita (Consumer, "What you cannot do"):** "Attempt to or assist anyone to **reverse engineer**, decompile or discover the source code…"; "**Automatically or programmatically extract data or Output**"; "Use Output to develop models that **compete** with OpenAI". Y: "Our **Business Terms** govern use of ChatGPT Enterprise, our APIs…".
 - **Veredicto:** automatización **restringido** en Consumer (prohíbe extract automatizado), pero codex-cli se rige por **Business Terms** (API) → uso programático permitido. F3 diffing `--help`/`--version`: no extrae Output, no compite, no RE → **PERMITIDO**. Verificación práctica `codex --help` sin auth: pendiente (no instalado en el host).
 - **estado_verificacion:** `confirmado_por_docs_oficial` (cita); pendiente hash crudo + verificación práctica.
+
+### opencode — Anomaly (MIT) ✅ (curado — controlador principal del Mediador)
+- **Rol:** CLI donde el Mediador corre **GLM-5.2** (zhipu); herramienta con la que se desarrolla el propio escrubery (dogfooding). 8º CLI del inventario.
+- **Fuente:** `https://raw.githubusercontent.com/anomalyco/opencode/master/LICENSE` · **fecha:** 2026-08-07 · **hash_sha256:** `625f0f619133f89bbbb2abe37369613dfa1885eba1e50d02170deb62bb42cb6b`
+- **Cita (MIT):** "Permission is hereby granted, free of charge, to any person obtaining a copy of this software… to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies…" Copyright (c) 2025 opencode.
+- **Veredicto:** automatización **permitido** (MIT); benchmarking **permitido**. Extracción: la licencia no restringe retener salidas (el modelo subyacente, p. ej. GLM-5.2, se rige por el ToS de su proveedor).
+- **Comandos introspectables** (catalogados en `datos/fichas/clis/opencode.json`): `opencode run`, `opencode serve`, `opencode auth`, `opencode mcp`, `opencode models`, `opencode agent`.
 
 ### grok-build — xAI ⏳ (PENDIENTE, ToS inaccesible)
 - **Intentos (2026-08-07):** `x.ai/legal/terms-conditions`, `x.ai/legal/terms-of-service`, `x.ai/terms` → **403** (bloqueo); `grok.com/legal/terms` → hash `c80c25f931ff747ff9fa8d79fd9907a12ad00e9f006089b38b905779f82891b8` pero contenido **SPA no leíble** vía webfetch (devuelve "Grok").
