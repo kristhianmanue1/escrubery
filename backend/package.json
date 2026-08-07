@@ -32,6 +32,7 @@
     "evidentia:probar-firma": "node --env-file=.env --import tsx src/evidentia/probar_firma.ts",
     "mcp:server": "node --env-file=.env --import tsx src/mcp/server.ts",
     "mcp:probar": "node --env-file=.env --import tsx src/mcp/probar_mcp.ts",
+    "f3:introspectar": "node --env-file=.env --import tsx src/f3/sandbox_introspeccion.ts",
     "cli": "node --env-file=.env --import tsx src/cli.ts"
   },
   "dependencies": {
