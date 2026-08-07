@@ -21,6 +21,7 @@
     "db:migrate": "node --env-file=.env --import tsx src/db/migrate.ts",
     "db:verificar": "node --env-file=.env --import tsx src/db/verificar.ts",
     "db:ingestar": "node --env-file=.env --import tsx src/db/ingestar.ts",
+    "db:ingestar-help": "node --env-file=.env --import tsx src/db/ingestar_help.ts",
     "cli": "node --env-file=.env --import tsx src/cli.ts"
   },
   "dependencies": {
