@@ -30,6 +30,15 @@ async function main(): Promise<void> {
       arguments: {},
     })) as { content: TextContent[] };
     console.log('verificar_evidencia:', v.content?.[0]?.text?.slice(0, 80));
+    const fb = (await client.callTool({
+      name: 'reportar_feedback',
+      arguments: {
+        tipo: 'mejora',
+        descripcion: `prueba feedback via MCP ${Date.now()}`,
+        agente_reportante: { id: 'mcp-test' },
+      },
+    })) as { content: TextContent[] };
+    console.log('reportar_feedback:', fb.content?.[0]?.text?.slice(0, 90));
   } finally {
     await client.close();
   }

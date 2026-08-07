@@ -15,6 +15,7 @@ import {
 } from '../consultas/modulo';
 import type { Database } from '../db/schema';
 import { crearKysely } from '../db/kysely';
+import { reportarFeedback } from '../feedback/modulo';
 import { verificarTodo } from '../evidentia/verificar';
 
 let db: Kysely<Database> | null = null;
@@ -82,6 +83,31 @@ const TOOLS = [
       'Verifica la cadena criptográfica Evidentia (read-only, fail-closed) con el keyring público.',
     inputSchema: { type: 'object', properties: {} },
   },
+  {
+    name: 'reportar_feedback',
+    description:
+      'Reporta un error, mejora o dato desactualizado (contrato de uso §3.6). Deduplica por hash.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        tipo: {
+          type: 'string',
+          enum: ['error', 'mejora', 'dato_desactualizado'],
+        },
+        descripcion: { type: 'string' },
+        consulta_origen: { type: 'object' },
+        agente_reportante: {
+          type: 'object',
+          properties: {
+            id: { type: 'string' },
+            configuration_fingerprint: { type: 'string' },
+          },
+          required: ['id'],
+        },
+      },
+      required: ['tipo', 'descripcion', 'agente_reportante'],
+    },
+  },
 ];
 
 function texto(obj: unknown) {
@@ -111,8 +137,8 @@ server.setRequestHandler(ListToolsRequestSchema, () => ({
 
 server.setRequestHandler(CallToolRequestSchema, async (req) => {
   const { name, arguments: a = {} } = req.params;
-  const d = getDb();
   try {
+    const d = getDb();
     switch (name) {
       case 'consultar_modelo': {
         const proveedor = String(a.proveedor);
@@ -147,6 +173,30 @@ server.setRequestHandler(CallToolRequestSchema, async (req) => {
             'evidentia-keyring.json',
           );
         return texto(await verificarTodo(d, keyring));
+      }
+      case 'reportar_feedback': {
+        const ar = a.agente_reportante as
+          | {
+              id?: unknown;
+              configuration_fingerprint?: unknown;
+            }
+          | undefined;
+        const input = {
+          tipo: String(a.tipo),
+          descripcion: String(a.descripcion),
+          consulta_origen: a.consulta_origen ?? undefined,
+          agente_reportante: {
+            id:
+              typeof ar?.id === 'string'
+                ? ar.id
+                : String(ar?.id ?? 'desconocido'),
+            configuration_fingerprint:
+              typeof ar?.configuration_fingerprint === 'string'
+                ? ar.configuration_fingerprint
+                : undefined,
+          },
+        };
+        return texto(await reportarFeedback(d, input));
       }
       default:
         return {
