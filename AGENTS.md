@@ -10,7 +10,7 @@ Servicio de inteligencia sobre modelos y CLIs de IA (ver `README.md`). Fase actu
 
 ## Estado actual
 
-- **Hecho:** Ficha v0 funcional — 7 fichas de CLIs + 5 de proveedores (139 modelos desde LiteLLM), comando `consultar` verificado, política + plantillas + gate de tamaños activos.
+- **Hecho:** Ficha v0 funcional — 7 fichas de CLIs + 5 de proveedores (139 modelos desde LiteLLM), comando `consultar` verificado, política + plantillas + gate de tamaños activos. Memoria AN-KLA integrada (guía: `docs/an-kla-guia.md`).
 - **Próximo:** bitácora de ciclos en uso; scaffold NestJS + PostgreSQL (tablas núcleo del plan v2 §9).
 - **Detalle y desviaciones:** `bitacora_ciclos.md` (hogar canónico; este bloque es solo el resumen — mantener ≤ 5 líneas, no narrar historial aquí).
 
