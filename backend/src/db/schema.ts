@@ -13,8 +13,8 @@ export interface ModelosTable {
   soporta_caching: boolean | null;
   soporta_batch: boolean | null;
   soporta_computer_use: boolean | null;
-  precio_input_por_millon: number | null;
-  precio_output_por_millon: number | null;
+  precio_input_por_millon: ColumnType<string | null, string | number | null, string | number | null>;
+  precio_output_por_millon: ColumnType<string | null, string | number | null, string | number | null>;
   fuente_url: string | null;
   fuente_tipo: string | null;
   fecha_obtencion: Ts;
