@@ -99,17 +99,7 @@ export async function verificarCadena(
     if (e.hash_evento_anterior !== prev) {
       errores.push(`prev_hash mismatch en ${e.record_id}`);
     }
-    const base: EventoBase = {
-      record_id: e.record_id,
-      cli_producto_id: e.cli_producto_id,
-      categoria: e.categoria as EventoBase['categoria'],
-      resumen: e.resumen,
-      fuente_url: e.fuente_url,
-      fuente_tipo: e.fuente_tipo ?? '',
-      fecha_publicacion: normFecha(e.fecha_publicacion),
-      confianza_clasificador: e.confianza_clasificador ?? null,
-      prev_hash: e.hash_evento_anterior,
-    };
+    const base = reconstruirBase(e);
     const h = createHash('sha256')
       .update(canonicalize(baseHasheable(base)))
       .digest('hex');
@@ -119,4 +109,28 @@ export async function verificarCadena(
     prev = e.hash_evento;
   }
   return { ok: errores.length === 0, errores, total: eventos.length };
+}
+
+export function reconstruirBase(e: {
+  record_id: string;
+  cli_producto_id: number;
+  categoria: string;
+  resumen: string;
+  fuente_url: string;
+  fuente_tipo: string | null;
+  fecha_publicacion: Date | null;
+  confianza_clasificador: number | null;
+  hash_evento_anterior: string;
+}): EventoBase {
+  return {
+    record_id: e.record_id,
+    cli_producto_id: e.cli_producto_id,
+    categoria: e.categoria as EventoBase['categoria'],
+    resumen: e.resumen,
+    fuente_url: e.fuente_url,
+    fuente_tipo: e.fuente_tipo ?? '',
+    fecha_publicacion: normFecha(e.fecha_publicacion),
+    confianza_clasificador: e.confianza_clasificador ?? null,
+    prev_hash: e.hash_evento_anterior,
+  };
 }

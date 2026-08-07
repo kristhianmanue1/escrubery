@@ -93,6 +93,7 @@ export interface EventosChangelogTable {
   hash_evento_anterior: string;
   firmas_json: unknown;
   checkpoint_id: string | null;
+  firmado: Generated<boolean>;
 }
 
 export interface Database {
