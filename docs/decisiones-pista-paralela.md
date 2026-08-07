@@ -33,19 +33,21 @@ El costo real de estas decisiones es **calendario**, no ciclos de desarrollo: co
 
 **Bloquea:** Fase 2 (firma por evento). **Estado:** abierta — el **diseño preliminar está acordado** (mapa de decisiones v1 + plan v2 §5.2); falta formalizar rotación, revocación y el keyring concreto.
 
-**Ya acordado (patrones adoptados de CAGF, corrigiendo sus debilidades):**
+**Feature:** *Evidentia* (nombre decretado 2026-08-07 por el Mediador; prevista para uso por **contrato de pago** en el futuro — condiciona D4).
+
+**Ya acordado (patrones adoptados de CAGF, corrigiendo sus debilidades — ver `docs/investigacion/Referencia_Traza_Firma.md`):**
 - **Clave por servicio/agente firmante** (no mono-clave) — corrección del principal hueco de CAGF.
 - **`hash_evento_anterior` del mismo producto DENTRO del payload firmado** — cadena y firma se refuerzan mutuamente.
-- **Checkpoint firmado del tip** por lote/día, persistido **fuera** de la base de datos — defensa contra reescritura total.
-- **Privada fuera del worktree** (nunca PEM sin cifrar en disco dentro del repo; política §7).
-- **Formato alineado con CAGF:** firma `"ed25519:" + base64`; clave pública DER/base64 en keyring JSON commiteado, compatible con `cagf-keyring/0.1`.
+- **Checkpoint firmado del tip** por lote/día, persistido **fuera** de la base de datos — defensa contra reescritura total; **anclaje externo** (RFC 3161 / transparencia) en **F4**.
+- **Privada fuera del worktree** (nunca PEM sin cifrar; política §7); **custodia tiered** (raíz offline + operativas en KMS) activada por fases.
+- **Formato alineado con CAGF:** firma `"ed25519:" + base64`; clave pública DER/base64 en keyring JSON commiteado (extensión `cagf-keyring/0.2` con multi-clave/validez/revocación).
+- **Multi-firma M-of-N** y **cadena de confianza (root→operativas)** desde el schema del EventRecord/keyring — activas como quórum al pasar a público (post-D4).
 
-**Pendiente (contenido mínimo requerido para cerrar D2):**
-- Rotación documentada (periodicidad, trigger de compromiso).
-- Revocación documentada (cómo se publica una clave revocada, efecto sobre verificación pasada).
-- Keyring concreto: esquema del archivo JSON, ubicación en el repo, política de append.
+**Modelo de confianza objetivo (multi-capa):** multi-firma por evento + cadena de confianza jerárquica + custodia tiered + anclaje externo + revocación observable. Detalle y roadmap por fase (qué cubre F2 base, F4 robustez, público) en `docs/investigacion/Referencia_Traza_Firma.md` §4-§6. **F2 implementa la base con schema extensible** (`signatures[]`, `validity_window`, `status`, `successor_kid`, `external_anchor=null`) para que F4/público sean **activación, no reescritura**.
 
-**Responsable:** Mediador. **Entregable:** `docs/investigacion/esquema-firma-ed25519.md` + `cagf-keyring/` (o equivalente) commiteado.
+**Pendiente para cerrar D2:** confirmación del Mediador del modelo multi-capa + política concreta de rotación/revocación/custodia (periodicidad, trigger de compromiso, quiénes son los custodios de la raíz).
+
+**Responsable:** Mediador. **Entregable:** confirmación + `docs/investigacion/Referencia_Traza_Firma.md` (redactado) + `cagf-keyring/` commiteado en F2.
 
 ---
 
