@@ -122,7 +122,7 @@ server.setRequestHandler(CallToolRequestSchema, async (req) => {
       }
       case 'consultar_comando_cli': {
         const cli = String(a.cli);
-        const comando = a.comando != null ? String(a.comando) : undefined;
+        const comando = typeof a.comando === 'string' ? a.comando : undefined;
         const r = await consultarComandoCli(d, cli, comando);
         return r ? texto(r) : sinDatos(cli);
       }
