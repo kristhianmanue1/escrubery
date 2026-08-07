@@ -51,7 +51,11 @@ export async function registrarEvento(
   base: Omit<EventoBase, 'prev_hash'>,
 ): Promise<{ record: EventRecord; hash: string }> {
   const prevHash = await ultimoHash(db);
-  const baseCompleto: EventoBase = { ...base, prev_hash: prevHash, fecha_publicacion: normFecha(base.fecha_publicacion) };
+  const baseCompleto: EventoBase = {
+    ...base,
+    prev_hash: prevHash,
+    fecha_publicacion: normFecha(base.fecha_publicacion),
+  };
   const hash = hashEvento(baseCompleto);
   const record: EventRecord = { ...baseCompleto, firmas: [] };
   await db

@@ -10,7 +10,9 @@ interface Release {
   html_url: string;
 }
 
-function obtenerOwnerRepo(repoUrl: string): { owner: string; repo: string } | null {
+function obtenerOwnerRepo(
+  repoUrl: string,
+): { owner: string; repo: string } | null {
   const m = repoUrl.match(/github\.com\/([^/]+)\/([^/]+?)(?:\.git)?\/?$/);
   return m ? { owner: m[1], repo: m[2] } : null;
 }
@@ -35,7 +37,9 @@ async function fetchReleases(
     return [];
   }
   if (!res.ok) {
-    throw new Error(`GitHub ${res.status} para ${owner}/${repo}: ${await res.text()}`);
+    throw new Error(
+      `GitHub ${res.status} para ${owner}/${repo}: ${await res.text()}`,
+    );
   }
   return (await res.json()) as Release[];
 }

@@ -1,6 +1,6 @@
 import { crearKysely } from '../db/kysely';
 import { verificarCadena } from './event_log';
-import { pollerCli } from './poller';
+import { pollerVulnerableMcp } from './vulnerable_mcp';
 
 function arg(nombre: string): string | undefined {
   const i = process.argv.indexOf(`--${nombre}`);
@@ -13,14 +13,13 @@ async function main(): Promise<void> {
     console.error('DATABASE_URL no definida (ver backend/.env)');
     process.exit(2);
   }
-  const cli = arg('cli');
-  if (!cli) {
-    console.error('uso: poller:github -- --cli <id> [--token <t>]');
-    process.exit(2);
-  }
+  const fuente =
+    arg('fuente') ??
+    process.env.VULNERABLE_MCP_URL ??
+    'datos/fuentes/vulnerable_mcp/advisories.json';
   const db = crearKysely(url);
   try {
-    const r = await pollerCli(db, cli, process.env.GITHUB_TOKEN);
+    const r = await pollerVulnerableMcp(db, fuente);
     console.log(JSON.stringify(r));
     const v = await verificarCadena(db);
     console.log(`verificarCadena: ${v.ok ? 'OK' : 'FAIL'} (total=${v.total})`);
