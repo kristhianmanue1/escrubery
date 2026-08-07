@@ -78,10 +78,28 @@ export interface FeedbackTable {
   version_servicio: string | null;
 }
 
+export interface EventosChangelogTable {
+  id: Generated<number>;
+  record_id: string;
+  cli_producto_id: number;
+  categoria: string;
+  resumen: string;
+  fuente_url: string;
+  fuente_tipo: string | null;
+  fecha_publicacion: Ts;
+  fecha_deteccion: Ts;
+  confianza_clasificador: number | null;
+  hash_evento: string;
+  hash_evento_anterior: string;
+  firmas_json: unknown;
+  checkpoint_id: string | null;
+}
+
 export interface Database {
   modelos: ModelosTable;
   cli_productos: CliProductosTable;
   cli_comandos: CliComandosTable;
   consultas_log: ConsultasLogTable;
   feedback: FeedbackTable;
+  eventos_changelog: EventosChangelogTable;
 }
