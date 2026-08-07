@@ -52,3 +52,21 @@ Decreto del Mediador tras ronda adversarial `proceed`. Cumple los 3 criterios de
 **Notas:**
 - T1 incluyó migraciones 003 (`nombre_display` en cli_productos) y 004 (DROP `cli_productos_proveedor_check`: el enum de proveedor aplica a `modelos`, no a maintainers de CLIs como openai/comunidad).
 - Las fichas de CLI son 7 y no 6 porque Grok CLI (comunitario) y Grok Build (oficial) se distinguen explícitamente, como exige la regla de gobernanza.
+
+---
+
+## Fase 2 — Changelog clasificado + Evidentia (en curso; PARADA en T6)
+
+| Fecha | Fase | Ticket | est. | reales | desv. | Evidencia |
+|---|---|---|---|---|---|---|
+| 2026-08-07 | F2 | T0+T1 — Modelo Evidentia (JCS+EventRecord) + `eventos_changelog` (mig 006) | 1 | 1 | 0 | `evidentia:probar-cadena`: B.prev_hash=A.hash, `verificarCadena` OK |
+| 2026-08-07 | F2 | T3 — Clasificador de severidad (heurístico 7 categorías, sin IA) | 0.5 | 0.5 | 0 | fix_seguridad/breaking/deprecacion/funcion_nueva/… correctos |
+| 2026-08-07 | F2 | T4 — Divergencia pasiva + validación cruzada (interfaz) | 0.5 | 0.5 | 0 | detecta `--newflag`/`--verbose` ausentes; cruzado `pendiente_de_verificar` (sin 2ª fuente pública) |
+| 2026-08-07 | F2 | T2 — Poller GitHub (releases, sin token) | 1 | 1 | 0 | `cline`: 10 releases reales → 10 eventos, `verificarCadena` OK |
+| 2026-08-07 | F2 | T5 — Vulnerable MCP (fuente pasiva, fix_seguridad transversal) | 0.5 | 0.5 | 0 | fixture 1 advisory → 2 eventos; `verificarCadena` OK |
+
+**⏸ PARADA en T6 (firma Ed25519):** requiere la **clave privada del servicio** (política §7: fuera del worktree). Pendiente de insumo del Mediador (generación offline o flujo propuesto por el Ejecutor). Tras T6: T7 (congelar contrato v0) + adversarial cierre F2.
+
+**Notas F2:**
+- D2/D3 cerradas (modelo multi-capa + JCS); D4 inclinada a "producto" (Evidentia de pago). Referencia: `docs/investigacion/Referencia_Traza_Firma.md`.
+- `eventos_changelog.firmas_json` es `Signature[]` (M-of-N extensible), `[]` hasta T6. `hash_evento` excluye `confianza_clasificador` (metadata) y normaliza fechas (ISO) para que la cadena verifique tras round-trip por la BD.
