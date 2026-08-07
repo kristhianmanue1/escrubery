@@ -1,6 +1,6 @@
 # Contrato de API v0 — servicio de inteligencia sobre modelos y CLIs de IA
 
-**Estado:** propuesta v0. Versionado explícitamente: **se permite ruptura de compatibilidad hasta el cierre de la Fase 2**; a partir de ahí los cambios son aditivos o con versión nueva (`v1`).
+**Estado:** v0 **congelada al cierre de la Fase 2 (2026-08-07)**. A partir de aquí los cambios son **aditivos** o con versión nueva (`v1`). La ruptura explícita permitida hasta F2 ya no aplica.
 **Principio que implementa:** principio 6 del plan — contratos JSON estables desde la Fase 1, de modo que exponer el servicio como MCP en la Fase 5 sea un adaptador, no una reescritura.
 **Consumidores de referencia:** agentes ADRC, pipelines de expertoGobernanza (CLIs Python que emiten/consumen JSON por stdout), CAGF (verificación de hechos firmados desde la Fase 2).
 
@@ -41,7 +41,11 @@ Todo dato servido lleva su procedencia. Ninguna respuesta omite este bloque:
 
 ### 2.3 Canonicalización
 
-Las respuestas se serializan en JSON UTF-8. Desde la Fase 2, cualquier payload firmado se canonicaliza con **JCS/RFC 8785** antes de firmar, y la firma se expresa como `"ed25519:" + base64(firma)`. La clave pública del servicio se publica en un keyring JSON commiteado (formato compatible con `cagf-keyring/0.1`).
+Las respuestas se serializan en JSON UTF-8. Desde la Fase 2, cualquier payload firmado se canonicaliza con **JCS/RFC 8785** antes de firmar, y la firma se expresa como `"ed25519:" + base64(firma)`. La clave pública del servicio se publica en un keyring JSON commiteado (formato `cagf-keyring/0.2`, extiende `0.1` con multi-clave, `validity_window`, `status` y `successor_kid`).
+
+**Implementación de referencia de JCS:** `canonicalize()` en `backend/src/evidentia/jcs.ts` — JCS práctico RFC 8785-compatible (ordenamiento recursivo de claves por code unit UTF-16, sin espacios, UTF-8 crudo, números en forma shortest-round-trip). Los verificadores externos (CAGF, expertoGobernanza) deben reproducir este canonicalizado para validar firmas.
+
+**Evidentia (traza criptográfica):** operativa desde F2. Cada evento de changelog lleva `hash_evento_anterior` (cadena) y `firmas: [{key_id, sig, alg}]` (Ed25519 sobre el payload canónico). Verificación read-only y fail-closed vía `npm run evidentia:verificar --keyring datos/keys/evidentia-keyring.json`. Las operaciones `registrar_evidencia`/`verificar_evidencia` se exponen como operaciones del contrato en F5 (MCP); en F2 se accede por CLI/endpoint interno.
 
 ## 3. Operaciones
 
