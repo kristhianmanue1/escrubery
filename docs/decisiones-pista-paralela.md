@@ -1,6 +1,6 @@
 # Pista paralela de decisiones — escrubery
 
-**Estado:** iniciadas (abiertas). **Origen:** Fase 0 (plan v2 §3.3). **Actualizado:** 2026-08-07.
+**Estado:** D2 y D3 cerradas (2026-08-07); D1 y D4 abiertas (D4 inclinada a "producto"). **Origen:** Fase 0 (plan v2 §3.3). **Actualizado:** 2026-08-07.
 
 El costo real de estas decisiones es **calendario**, no ciclos de desarrollo: corren en paralelo a todas las fases. Cada una **bloquea una fase concreta**. El criterio de cierre de la Fase 0 (plan v2 §3) solo exige que estén *iniciadas* —documentadas como abiertas con responsable—, no resueltas.
 
@@ -9,9 +9,9 @@ El costo real de estas decisiones es **calendario**, no ciclos de desarrollo: co
 | ID | Decisión | Bloquea | Estado | Responsable |
 |---|---|---|---|---|
 | D1 | Revisión de ToS de los CLIs | Fase 3 (criterio de entrada) | Abierta — investigación pendiente | Ejecutor (curaduría) · Mediador (decisión) |
-| D2 | Esquema de llaves Ed25519 | Fase 2 | Abierta — diseño preliminar acordado; falta formalizar | Mediador |
-| D3 | Canonicalización de payloads firmados | Fase 2 | Casi cerrada — pendiente confirmar | Mediador |
-| D4 | Naturaleza del servicio (interno vs. producto) | Fase 5 (condición de activación) | Abierta — sin discutir | Mediador |
+| D2 | Evidentia: llaves Ed25519 (multi-capa) | Fase 2 | **Cerrada 2026-08-07** (modelo aprobado; impl. gradual F2/F4/público) | Mediador |
+| D3 | Canonicalización JCS/RFC 8785 | Fase 2 | **Cerrada 2026-08-07** (impl. Node en T0-F2) | Mediador |
+| D4 | Naturaleza del servicio (interno vs. producto) | Fase 5 (condición de activación) | Abierta — **inclinada a "producto"** (Evidentia de pago); cerrar al definir F5 | Mediador |
 
 ---
 
@@ -31,7 +31,7 @@ El costo real de estas decisiones es **calendario**, no ciclos de desarrollo: co
 
 ## D2 — Esquema de llaves Ed25519
 
-**Bloquea:** Fase 2 (firma por evento). **Estado:** abierta — el **diseño preliminar está acordado** (mapa de decisiones v1 + plan v2 §5.2); falta formalizar rotación, revocación y el keyring concreto.
+**Bloquea:** Fase 2 (firma por evento). **Estado:** **Cerrada 2026-08-07** — modelo multi-capa aprobado (multi-firma, cadena de confianza root→operativas, custodia tiered, anclaje externo en F4, revocación observable); implementación gradual F2 base / F4 robustez / público. La custodia concreta de la raíz (custodios, trigger de compromiso) se define al **activar** F4/público (no se necesita para la base de F2).
 
 **Feature:** *Evidentia* (nombre decretado 2026-08-07 por el Mediador; prevista para uso por **contrato de pago** en el futuro — condiciona D4).
 
@@ -53,7 +53,7 @@ El costo real de estas decisiones es **calendario**, no ciclos de desarrollo: co
 
 ## D3 — Canonicalización de payloads firmados
 
-**Bloquea:** Fase 2. **Estado:** casi cerrada — la opción técnica está decidida; falta confirmación explícita del Mediador y elegir implementación.
+**Bloquea:** Fase 2. **Estado:** **Cerrada 2026-08-07** — JCS/RFC 8785 confirmado; la implementación de referencia en Node se elige en T0 de F2 y se declara en el contrato v0 §2.3 para que los verificadores externos sepan qué esperar.
 
 **Ya acordado:** **JCS / RFC 8785** (JSON Canonicalization Scheme). No `sort_keys` casero, para que terceros verifiquen firmas sin replicar una implementación específica (plan v2 §5.2; contrato v0 §2.3).
 
@@ -65,7 +65,7 @@ El costo real de estas decisiones es **calendario**, no ciclos de desarrollo: co
 
 ## D4 — Naturaleza del servicio (interno vs. producto)
 
-**Bloquea:** Fase 5 (condición de activación: si la decisión es "interno", la Fase 5 se reduce a exponer MCP para el ecosistema sin niveles de acceso). **Estado:** abierta — sin discutir.
+**Bloquea:** Fase 5 (condición de activación: si la decisión es "interno", la Fase 5 se reduce a exponer MCP para el ecosistema sin niveles de acceso). **Estado:** abierta — **inclinada a "producto con niveles"** desde 2026-08-07: Evidentia decretada como feature de **pago futuro** implica consumidores externos y tiers. Se cierra formalmente al definir F5.
 
 **Decisión requerida (del Mediador):** ¿escrubery es una herramienta interna del ecosistema (ADRC, expertoGobernanza, CAGF), o un producto con niveles de acceso y consumidores externos?
 
