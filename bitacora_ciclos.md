@@ -92,3 +92,15 @@ Decreto del Mediador tras ronda adversarial `proceed`. Cumple los criterios del 
 | 2026-08-07 | F2.5 | MCP local stdio — servidor que expone las tools del contrato + Evidentia | 2 | 1 | -1 | `npm run mcp:probar`: 6 tools; `consultar_modelo` OK; `verificar_evidencia` ok (11 eventos, 10 firmados) |
 
 **Notas F2.5:** adelanto de F5 justificado por D4=interno (consumidores = agentes → MCP es su consumo nativo) y F3 bloqueada por D1. Reusa `consultas/modulo.ts` (F1) y `evidentia/verificar.ts` (F2). F5 queda como formalización (Agent Card firmado cuando F4 dé robustez). Configuración cliente (`.mcp.json`) en `docs/CONSUMO_INTERNO.md`.
+
+---
+
+## Fase 3 — preparación (criterios de entrada §6.1)
+
+| Fecha | Criterio | Estado | Evidencia |
+|---|---|---|---|
+| 2026-08-07 | (b) ToS diarios resuelta | ✅ | `docs/investigacion/tos-clis.md`: opencode + claude-code + codex-cli curados (PERMITIDO introspección) |
+| 2026-08-07 | (a) Sandbox probado | ✅ | `docker/sandbox/Dockerfile.opencode`; `docker run --rm escrubery-sandbox-opencode --version` → 1.18.15; `--help` captura 19 comandos (la ficha tenía 6 — **señal estrella de F3**: divergencia detectada) |
+| 2026-08-07 | (c) Presupuesto | ⏳ | con `--help` no se llaman modelos → costo ~0 (pendiente aprobación Mediador) |
+
+**8º CLI añadido:** opencode (`anomalyco/opencode`, MIT) — controlador principal del Mediador (corre GLM-5.2). Inventario: 8 CLIs, 18 comandos catalogados, 139 modelos.
