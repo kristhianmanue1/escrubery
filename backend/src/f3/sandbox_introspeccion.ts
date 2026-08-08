@@ -9,16 +9,42 @@ interface CmdHelp {
   cmd: string;
   desc: string;
 }
-const RE_CMD = /^ {2,}opencode\s+(\S+)\s{2,}(.+)$/;
 
-function extraerComandosOpencode(help: string): CmdHelp[] {
+const BINARIO: Record<string, string> = {
+  opencode: 'opencode',
+  'claude-code': 'claude',
+  'codex-cli': 'codex',
+};
+
+const RE_OPEN = /^ {2,}opencode\s+(\S+)\s{2,}(.+)$/;
+const RE_GEN = /^ {2,}(\S+)(?:\s+\[[^\]]+\])*\s{2,}(.+)$/;
+
+function extraerComandos(cli: string, help: string): CmdHelp[] {
   const out: CmdHelp[] = [];
   const vistos = new Set<string>();
+  const enSeccion = cli !== 'opencode';
+  let dentro = !enSeccion;
   for (const linea of help.split('\n')) {
-    const m = linea.match(RE_CMD);
-    if (m && m[1] !== '[project]' && !vistos.has(m[1])) {
-      vistos.add(m[1]);
-      out.push({ cmd: m[1], desc: m[2].trim() });
+    if (enSeccion) {
+      if (/^Commands:\s*$/.test(linea)) {
+        dentro = true;
+        continue;
+      }
+      if (dentro && linea.trim() === '') {
+        break;
+      }
+      if (!dentro) {
+        continue;
+      }
+    }
+    const re = cli === 'opencode' ? RE_OPEN : RE_GEN;
+    const m = linea.match(re);
+    if (m && m[1] !== '[project]') {
+      const cmd = m[1].split('|')[0];
+      if (!vistos.has(cmd)) {
+        vistos.add(cmd);
+        out.push({ cmd, desc: m[2].trim() });
+      }
     }
   }
   return out;
@@ -31,7 +57,8 @@ async function main(): Promise<void> {
     process.exit(2);
   }
   const cli = process.argv[2] ?? 'opencode';
-  const imagen = process.argv[3] ?? 'escrubery-sandbox-opencode';
+  const imagen = process.argv[3] ?? `escrubery-sandbox-${cli}`;
+  const binario = process.argv[4] ?? BINARIO[cli] ?? cli;
   const db = crearKysely(url);
   try {
     const r = spawnSync('docker', ['run', '--rm', '--init', imagen, '--help'], {
@@ -45,7 +72,7 @@ async function main(): Promise<void> {
     mkdirSync(dir, { recursive: true });
     writeFileSync(join(dir, `${fecha.toISOString()}.txt`), help);
 
-    const cmdsHelp = extraerComandosOpencode(help);
+    const cmdsHelp = extraerComandos(cli, help);
     const cliRow = await db
       .selectFrom('cli_productos')
       .select('id')
@@ -57,7 +84,10 @@ async function main(): Promise<void> {
         .select('comando')
         .where('cli_producto_id', '=', cliRow.id)
         .execute()
-    ).map((c) => c.comando.split(/\s+/)[1] ?? c.comando);
+    ).map((c) => {
+      const parts = c.comando.split(/\s+/);
+      return parts.length > 1 ? parts[1] : c.comando;
+    });
     const setBD = new Set(cmdsBD);
     const nuevos = cmdsHelp.filter((c) => !setBD.has(c.cmd));
 
@@ -66,7 +96,7 @@ async function main(): Promise<void> {
         .insertInto('cli_comandos')
         .values({
           cli_producto_id: cliRow.id,
-          comando: `opencode ${c.cmd}`,
+          comando: `${binario} ${c.cmd}`,
           flags_json: null,
           descripcion: c.desc || null,
           version_detectada_desde: null,
@@ -105,6 +135,7 @@ async function main(): Promise<void> {
       JSON.stringify(
         {
           cli,
+          binario,
           comandos_en_help: cmdsHelp.length,
           en_inventario_antes: cmdsBD.length,
           nuevos_insertados: nuevos.length,
