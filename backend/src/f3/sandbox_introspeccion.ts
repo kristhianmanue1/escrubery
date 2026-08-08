@@ -5,17 +5,23 @@ import { join } from 'node:path';
 import { crearKysely } from '../db/kysely';
 import { registrarEvento } from '../evidentia/event_log';
 
-const RE_CMD = /^ {2,}opencode\s+(\S+)/;
+interface CmdHelp {
+  cmd: string;
+  desc: string;
+}
+const RE_CMD = /^ {2,}opencode\s+(\S+)\s{2,}(.+)$/;
 
-function extraerComandosOpencode(help: string): string[] {
-  const cmds = new Set<string>();
+function extraerComandosOpencode(help: string): CmdHelp[] {
+  const out: CmdHelp[] = [];
+  const vistos = new Set<string>();
   for (const linea of help.split('\n')) {
     const m = linea.match(RE_CMD);
-    if (m && m[1] !== '[project]') {
-      cmds.add(m[1]);
+    if (m && m[1] !== '[project]' && !vistos.has(m[1])) {
+      vistos.add(m[1]);
+      out.push({ cmd: m[1], desc: m[2].trim() });
     }
   }
-  return [...cmds];
+  return out;
 }
 
 async function main(): Promise<void> {
@@ -53,7 +59,32 @@ async function main(): Promise<void> {
         .execute()
     ).map((c) => c.comando.split(/\s+/)[1] ?? c.comando);
     const setBD = new Set(cmdsBD);
-    const nuevos = cmdsHelp.filter((c) => !setBD.has(c));
+    const nuevos = cmdsHelp.filter((c) => !setBD.has(c.cmd));
+
+    for (const c of nuevos) {
+      await db
+        .insertInto('cli_comandos')
+        .values({
+          cli_producto_id: cliRow.id,
+          comando: `opencode ${c.cmd}`,
+          flags_json: null,
+          descripcion: c.desc || null,
+          version_detectada_desde: null,
+          fuente_url: `ejecucion_local_supervisada:${cli}/--help`,
+          fuente_tipo: 'ejecucion_local_supervisada',
+          fecha_obtencion: fecha.toISOString(),
+          hash_sha256_contenido_original: hash,
+          estado_verificacion: 'inferido_de_comportamiento',
+        })
+        .onConflict((oc) =>
+          oc.columns(['cli_producto_id', 'comando']).doUpdateSet({
+            descripcion: c.desc || null,
+            fecha_obtencion: fecha.toISOString(),
+            hash_sha256_contenido_original: hash,
+          }),
+        )
+        .execute();
+    }
 
     let eventoId: string | null = null;
     if (nuevos.length > 0) {
@@ -61,7 +92,7 @@ async function main(): Promise<void> {
         record_id: `ev-f3-${cli}-${Date.now()}`,
         cli_producto_id: cliRow.id,
         categoria: 'funcion_nueva',
-        resumen: `F3 introspeccion --help: ${nuevos.length} comando(s) no en inventario: ${nuevos.join(', ')}`,
+        resumen: `F3 introspeccion --help: ${nuevos.length} comando(s) anadidos al inventario: ${nuevos.map((c) => c.cmd).join(', ')}`,
         fuente_url: `ejecucion_local_supervisada:${cli}/--help`,
         fuente_tipo: 'ejecucion_local_supervisada',
         fecha_publicacion: fecha.toISOString(),
@@ -75,12 +106,11 @@ async function main(): Promise<void> {
         {
           cli,
           comandos_en_help: cmdsHelp.length,
-          en_inventario: cmdsBD.length,
-          nuevos_detectados: nuevos.length,
-          nuevos: nuevos,
+          en_inventario_antes: cmdsBD.length,
+          nuevos_insertados: nuevos.length,
+          nuevos: nuevos.map((c) => c.cmd),
           evento_evidentia: eventoId,
           hash_help: hash.slice(0, 12),
-          captura_guardada: `datos/fuentes/sandbox/${cli}/`,
         },
         null,
         2,
