@@ -1,0 +1,5 @@
+FROM node:20-alpine
+RUN apk add --no-cache bash curl ca-certificates \
+    && curl -fsSL https://x.ai/build/install | bash \
+    && ln -sf /root/.local/bin/grok /usr/local/bin/grok
+ENTRYPOINT ["grok"]
