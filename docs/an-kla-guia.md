@@ -5,7 +5,7 @@
 
 ## Dónde está todo
 
-- CLI: `.venv/bin/python -m an_kla --project-root . <subcomando>` (venv Python 3.12, tag `0.1.0-beta.6`).
+- CLI: `.venv/bin/python -m an_kla --project-root . <subcomando>` (venv Python 3.12, tag `v0.1.0-beta.11`, actualizado 2026-08-10).
 - Memoria local: `.an-kla/` (gitignored, nunca versionar). Estado del bloque gestionado: `.an-kla/context/`.
 - Bloque gestionado en `AGENTS.md` (líneas `an-kla:managed-begin/end`): **no editar a mano**; se muta con `context plan/update`.
 
@@ -68,7 +68,7 @@ El CLI valida contra esquemas **estrictos** (claves exactas, sin extras). Lo que
 
 ## Reglas beta (verificadas aquí)
 
-1. Solo `operation=add`; no se puede reemplazar ni borrar: una corrección se escribe como fact nuevo al lado.
+1. `operation=add` y `operation=supersede` (gobernado, desde beta.11); no se puede borrar: `refute` es flujo privilegiado aparte y `decay` sigue dando `skip`.
 2. `model_derived` → techo `summary` (el plan decide `write-summary` con reason `derived_authority_capped`; es normal).
 3. El `record` DEBE llevar `indexable_text` (o `text`/`render`/`summary`) o queda irrecuperable (`no_text`).
 4. Cada commit cambia la revisión: relee `status` antes del siguiente write o falla con `write_plan_base_changed`.
@@ -83,7 +83,8 @@ El CLI valida contra esquemas **estrictos** (claves exactas, sin extras). Lo que
 - Pedir `--budget` bajo y concluir "no existe el fact".
 - Editar el bloque gestionado de `AGENTS.md` a mano.
 
-## Estado de la memoria (a 2026-08-07, revisión 4)
+## Estado de la memoria (a 2026-08-10, revisión 14, identidad adoptada en beta.11)
 
-- `facts`: `estado-proyecto-2026-08-07` (estado Ficha v0), `escrubery-mapa-decisiones-v1` (docs canónicos y decisiones de firma), `escrubery-proximos-pasos-v1` (pendientes Fase 0 y alcance Fase 1).
-- `events`: incluye `evento-2026-08-07-integracion-an-kla`.
+- `facts`: `estado-proyecto-2026-08-07` (estado Ficha v0), `escrubery-mapa-decisiones-v1` (docs canónicos y decisiones de firma), `escrubery-proximos-pasos-v1` (pendientes Fase 0 y alcance Fase 1), estados post-F1/F2/F3 y `escrubery-plan-deuda-verificacion-2026-08-10` (plan decretado, Apache 2.0).
+- `events`: incluye `evento-2026-08-07-integracion-an-kla` y `evento-2026-08-10-plan-deuda-decretado`.
+- Upgrade a `v0.1.0-beta.11` (2026-08-10): requirió `identity adopt` (el proyecto era `legacy_unadopted`); el hook `check-updates` no avisa (el repo publica tags, no releases — 404 en la API de releases; comparar con `git ls-remote --tags`).
