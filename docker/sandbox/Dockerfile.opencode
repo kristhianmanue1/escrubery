@@ -1,3 +1,5 @@
 FROM node:20-alpine
-RUN npm install -g opencode-ai@1.18.15 --no-audit --no-fund --omit=dev
+# VERSION = ultima release detectada por el poller (rebuild solo cuando cambia)
+ARG VERSION=latest
+RUN npm install -g opencode-ai@${VERSION} --no-audit --no-fund --omit=dev
 ENTRYPOINT ["opencode"]

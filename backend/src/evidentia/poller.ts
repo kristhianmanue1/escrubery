@@ -72,6 +72,19 @@ export async function pollerCli(
   const releases = await fetchReleases(or.owner, or.repo, token);
   let eventos = 0;
   let muestra: { tag: string; categoria: string } | null = null;
+  // La release más reciente (índice 0) alimenta cli_productos.version_actual:
+  // es la versión publicada por el maintainer (fuente primaria). Esto dispara
+  // el rebuild del sandbox cuando difiere de la versión observada (§6.2).
+  const versionRelease =
+    releases[0]?.tag_name?.match(/(\d+\.\d+[\d.]*(?:[-.][\w.]+)?)/)?.[1] ??
+    null;
+  if (versionRelease && versionRelease !== cli.version_actual) {
+    await db
+      .updateTable('cli_productos')
+      .set({ version_actual: versionRelease })
+      .where('id', '=', cli.id)
+      .execute();
+  }
   for (const rel of releases) {
     const texto = `${rel.tag_name}: ${rel.body ?? ''}`;
     const c = clasificar(texto);
