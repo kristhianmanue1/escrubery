@@ -86,6 +86,19 @@ async function main(): Promise<void> {
   const binario = process.argv[4] ?? BINARIO[cli] ?? cli;
   const db = crearKysely(url);
   try {
+    // --version primero: alimenta cli_productos.version_actual (T3c)
+    const rv = spawnSync(
+      'docker',
+      ['run', '--rm', '--init', imagen, '--version'],
+      {
+        encoding: 'utf8',
+        timeout: 60000,
+      },
+    );
+    const versionRaw = `${rv.stdout ?? ''}${rv.stderr ?? ''}`.trim();
+    const version =
+      versionRaw.match(/(\d+\.\d+[\d.]*(?:[-.][\w.]+)?)/)?.[1] ?? null;
+
     const r = spawnSync('docker', ['run', '--rm', '--init', imagen, '--help'], {
       encoding: 'utf8',
       timeout: 60000,
@@ -103,18 +116,45 @@ async function main(): Promise<void> {
       .select('id')
       .where('nombre', '=', cli)
       .executeTakeFirstOrThrow();
-    const cmdsBD = (
+    // version_actual desde el sandbox (T3c) — dato de fuente primaria
+    if (version) {
       await db
-        .selectFrom('cli_comandos')
-        .select('comando')
-        .where('cli_producto_id', '=', cliRow.id)
-        .execute()
-    ).map((c) => {
-      const parts = c.comando.split(/\s+/);
-      return parts.length > 1 ? parts[1] : c.comando;
-    });
-    const setBD = new Set(cmdsBD);
-    const nuevos = cmdsHelp.filter((c) => !setBD.has(c.cmd));
+        .updateTable('cli_productos')
+        .set({
+          version_actual: version,
+          fecha_ultima_version: fecha,
+        })
+        .where('id', '=', cliRow.id)
+        .execute();
+    }
+    // Dedup contra TODAS las filas (cualquier fuente): un comando ya conocido
+    // por ficha (docs_oficial) NO es "nuevo" del sandbox, y su fila NO se
+    // toca (el onConflict no debe pisar fecha/hash de otra fuente).
+    const filasBD = await db
+      .selectFrom('cli_comandos')
+      .select(['comando', 'fuente_tipo'])
+      .where('cli_producto_id', '=', cliRow.id)
+      .execute();
+    const setTodos = new Set(
+      filasBD.map((c) => {
+        const parts = c.comando.split(/\s+/);
+        return parts.length > 1 ? parts[1] : c.comando;
+      }),
+    );
+    // T3a: eliminados = ingeridos por introspección previa que YA NO están
+    // en el --help (solo fuente ejecucion_local_supervisada: los de ficha
+    // curada no se marcan porque el help no es su fuente).
+    const setBD = new Set(
+      filasBD
+        .filter((c) => c.fuente_tipo === 'ejecucion_local_supervisada')
+        .map((c) => {
+          const parts = c.comando.split(/\s+/);
+          return parts.length > 1 ? parts[1] : c.comando;
+        }),
+    );
+    const setHelp = new Set(cmdsHelp.map((c) => c.cmd));
+    const nuevos = cmdsHelp.filter((c) => !setTodos.has(c.cmd));
+    const eliminados = [...setBD].filter((c) => !setHelp.has(c));
 
     for (const c of nuevos) {
       await db
@@ -162,16 +202,50 @@ async function main(): Promise<void> {
       eventoId = ev.record.record_id;
     }
 
+    // T3a: comando ausente del --help → deprecacion (evento) + vigencia
+    // vencida ya (no se borra: el historial permanece; deja de servirse
+    // como vigente y consulta lo degrada por caducidad).
+    let eventoEliminados: string | null = null;
+    if (eliminados.length > 0) {
+      const ev = await registrarEvento(db, {
+        record_id: `ev-f3-${cli}-removed-${Date.now()}`,
+        cli_producto_id: cliRow.id,
+        categoria: 'deprecacion',
+        resumen: `F3 introspeccion --help: ${eliminados.length} comando(s) ausentes en la version actual: ${eliminados.join(', ')}`,
+        fuente_url: `ejecucion_local_supervisada:${cli}/--help`,
+        fuente_tipo: 'ejecucion_local_supervisada',
+        fecha_publicacion: fecha.toISOString(),
+        confianza_clasificador: 0.9,
+      });
+      eventoEliminados = ev.record.record_id;
+      await db
+        .updateTable('cli_comandos')
+        .set({
+          vigente_hasta: fecha.toISOString(),
+          estado_verificacion: 'pendiente_de_verificar',
+        })
+        .where('cli_producto_id', '=', cliRow.id)
+        .where('fuente_tipo', '=', 'ejecucion_local_supervisada')
+        .where((eb) =>
+          eb.or(eliminados.map((e) => eb('comando', '=', `${binario} ${e}`))),
+        )
+        .execute();
+    }
+
     console.log(
       JSON.stringify(
         {
           cli,
           binario,
+          version_sandbox: version,
           comandos_en_help: cmdsHelp.length,
-          en_inventario_antes: cmdsBD.length,
+          en_inventario_antes: filasBD.length,
           nuevos_insertados: nuevos.length,
           nuevos: nuevos.map((c) => c.cmd),
+          eliminados_detectados: eliminados.length,
+          eliminados,
           evento_evidentia: eventoId,
+          evento_eliminados: eventoEliminados,
           hash_help: hash.slice(0, 12),
         },
         null,

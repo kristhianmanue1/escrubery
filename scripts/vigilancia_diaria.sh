@@ -92,12 +92,16 @@ else
   echo "-- poller vulnerable-mcp: OMITIDO (sin fuente local ni VULNERABLE_MCP_URL; feed real pendiente de insumo)"
 fi
 
-# --- Introspección activa F3 (diarios, ToS curados; presupuesto ~0: solo
-# --- --help/--version en contenedor efímero; decreto Mediador 2026-08-17).
+# --- Introspección activa F3 (presupuesto ~0: solo --help/--version en
+# --- contenedor efímero; decreto Mediador 2026-08-17). Diarios siempre;
+# --- semanales con ToS curado (qwen-code) cuando toca la ventana semanal.
 # --- Requiere Docker: si no está disponible, se omite con nota (las ventanas
 # --- de vigencia degradan los comandos solos — honesto, no silencioso).
+F3_SEMANALES=(qwen-code)
 if command -v docker >/dev/null 2>&1 && docker info >/dev/null 2>&1; then
-  for cli in "${DIARIOS[@]}"; do
+  CLIS_F3=("${DIARIOS[@]}")
+  [ "$HACER_SEMANAL" = "1" ] && CLIS_F3+=("${F3_SEMANALES[@]}")
+  for cli in "${CLIS_F3[@]}"; do
     echo "-- F3 introspección: $cli"
     IMAGEN="escrubery-sandbox-$cli"
     if ! docker image inspect "$IMAGEN" >/dev/null 2>&1; then
