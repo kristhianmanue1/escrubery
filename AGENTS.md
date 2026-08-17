@@ -33,6 +33,9 @@ docs/CONTRATO_API_v0.md    Contrato JSON de la API de consulta
 scripts/consultar          Comando de consulta de la Ficha v0
 scripts/generar_fichas_modelos.py  Regenera las fichas de proveedores desde LiteLLM
 scripts/check_sizes.py     Gate duro de tamaño de archivos (política §3)
+scripts/ci_local.sh        CI local (GitHub Actions sin presupuesto; ver docs/CI.md)
+scripts/vigilancia_diaria.sh  Vigilancia diaria: pollers + alertas (exit 0/10/2; docs/VIGILANCIA.md)
+scripts/refrescar_litellm.sh  Refresco idempotente LiteLLM: descarga → fichas → ingesta
 ```
 
 ## Comandos

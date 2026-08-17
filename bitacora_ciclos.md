@@ -146,8 +146,11 @@ Adversarial de gate: r1 `fix-and-retry` (HIGH: `feedbackInputValido` no total �
 | 2026-08-17 | deuda | T5 — Vigilancia diaria (pollers + alertas) | 1 | 1 | 0 | `scripts/vigilancia_diaria.sh` + `docs/VIGILANCIA.md` (launchd); **exit 10 real** (2 breaking_change de claude-code en ventana, marcadas NUEVAS), **exit 2 real** (precheck `pg_isready` con socket inexistente), exit 0 verificado por código (ventana con alertas activas); logs fechados en `var/vigilancia/logs/` (gitignored); semanal por estado (≥7 d); vmcp condicional a fuente existente (feed real pendiente de insumo) |
 | 2026-08-17 | deuda | T6 — Caducidad `vigente_hasta` + refresco LiteLLM | 1 | 1 | 0 | Mig `008_caducidad.sql` (`modelos.fecha_deprecacion` **columna propia** —decisión Mediador: conservar dato fuente— y `cli_comandos.vigente_hasta`); ingesta 24 h/7 d en 4 puntos; consulta degrada expirado (`pendiente_de_verificar` + `advertencia_caducidad`) — e2e BD real: modelo fresco confirmado, comando viejo degradado; refresco idempotente (`scripts/refrescar_litellm.sh` ×2 → 147 modelos, hash de contenido estable); spec de degradación; 78/78 |
 
-**Notas T3 (2026-08-17):**
-- **La activación real requiere push** (acción del Mediador); hasta entonces el gate local (política §5) es el vigente: `cd backend && npm run build && npx eslint "{src,apps,libs,test}/**/*.ts" && npm test`, luego `python3 scripts/check_sizes.py` desde la raíz.
+| 2026-08-17 | deuda | T3bis — CI local (Actions sin presupuesto mensual) | — | 0.25 | — | `scripts/ci_local.sh` → **CI LOCAL: VERDE (21 s)** (npm ci + build + eslint sin --fix + 79/79 + check_sizes); workflow `ci` a `workflow_dispatch` (sin auto-trigger hasta renovación de billing); `docs/CI.md` (reglas para agentes: gate = CI local, `gh` con scope admin, re-activación mensual); AGENTS.md lista los scripts |
+
+**Notas T3/T3bis (2026-08-17):**
+- **CI vigente = local** (decisión del Mediador): GitHub Actions agotó el billing (se renueva cada mes); el workflow queda manual (`workflow_dispatch`) y `docs/CI.md` documenta la re-activación (`gh workflow run ci` con scope admin). No reclamar "CI verde en la nube" mientras tanto.
+- La activación real requiere push (acción del Mediador); hasta entonces el gate local (política §5) es el vigente: `cd backend && npm run build && npx eslint "{src,apps,libs,test}/**/*.ts" && npm test`, luego `python3 scripts/check_sizes.py` desde la raíz.
 - El CI usa la misma receta que el gate local; Node 24 (igual que el host) y `npm ci` (reproducible desde lockfile).
 
 **Notas T5/T6 (2026-08-17):**

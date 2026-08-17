@@ -14,7 +14,7 @@ La **implementación ya diverge del contrato congelado §3.1/§3.2**, independie
 ## Hitos (cada uno dispara ronda adversarial, §6)
 
 - **H1 — Verificación propia automatizada:** `npm test` verde con specs de Evidentia (cadena/firma/verificar/clasificador), golden del shape post-errata y JCS validado contra test vectors RFC 8785. [cerrado por decreto del Mediador 2026-08-17; adversarial proceed r6]
-- **H2 — Operación continua:** pipeline CI definido y verde, vigilancia diaria (pollers + alertas) instalada con log de corrida real, y caducidad `vigente_hasta` corregida y activa con degradación visible. [adversarial-ok 2026-08-17 con MEDs aplicados; push hecho y launchd instalado/verificado; **CI bloqueado por facturación de GitHub Actions** (run 32050842683, ajuste pendiente del Mediador) — gate local vigente; cierre sujeto a decreto]
+- **H2 — Operación continua:** pipeline CI definido y verde, vigilancia diaria (pollers + alertas) instalada con log de corrida real, y caducidad `vigente_hasta` corregida y activa con degradación visible. [adversarial-ok 2026-08-17 con MEDs aplicados; **CI = local** (`scripts/ci_local.sh` VERDE, 2026-08-17): GitHub Actions sin presupuesto (billing mensual) → workflow en `workflow_dispatch` hasta re-activación (docs/CI.md); launchd instalado/verificado; cierre sujeto a decreto]
 - **H3 — Contrato y métricas honestas:** contrato v0 coherente con lo implementado (errata completa), métrica F1 publicada desde `consultas_log`, LICENSE presente. [adversarial-ok 2026-08-17; cierre sujeto a decreto del Mediador]
 
 ## Tareas y contratos
@@ -170,7 +170,7 @@ La bitácora registrará reales vs. estimados con la convención nueva de T7 (pr
 1. ~~**Decisión de licencia** (T8)~~ ✅ **Decidida: Apache 2.0** (2026-08-10, justificación registrada en T8).
 2. ~~**Decisión T4a**~~ ✅ **Decidida: documentar** los campos omitidos como no disponibles (2026-08-17, autorizada; implementación diferida a T4b).
 3. ~~**Instalación de la vigilancia** (T5)~~ ✅ Instalada y verificada (2026-08-17: `launchctl load` + corrida launchd exit 10; fix PATH documentado en `docs/VIGILANCIA.md`).
-4. ~~**Push para activar CI** (T3)~~ ✅ Push hecho (2026-08-17) — **pero la primera corrida no arrancó por facturación de GitHub Actions** (billing/spending limit, run 32050842683); ajustar billing queda como pendiente del Mediador para el criterio "verde en CI".
+4. ~~**Push para activar CI** (T3)~~ ✅ Push hecho (2026-08-17) — corrida bloqueada por billing de GitHub Actions (run 32050842683). **Resuelto por decisión del Mediador (2026-08-17): CI local** (`scripts/ci_local.sh`, VERDE) como vía vigente; el workflow queda en `workflow_dispatch` y se re-activa cuando el presupuesto mensual se renueve (procedimiento en `docs/CI.md`; `gh` tiene scope admin).
 5. **Token GitHub de mínimo privilegio** (opcional, T5).
 6. **Verificación de coherencia de licencia con el ecosistema CAGF/expertoGobernanza** (residual LOW del adversarial H3): los proyectos no residen bajo `~/www/aria/` — el Mediador debe registrar la verificación o declararla pendiente (nota en T8).
 

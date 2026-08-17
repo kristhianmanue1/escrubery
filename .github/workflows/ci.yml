@@ -1,11 +1,16 @@
 # CI (T3, plan de deuda): build + lint (sin --fix) + tests (con PostgreSQL
 # siempre activo — los specs de BD NUNCA se excluyen aquí) + gate de tamaños.
-# La activación real requiere push (acción del Mediador).
+#
+# DESACTIVADO como auto-trigger (2026-08-17): el billing de GitHub Actions
+# se agotó (se renueva mensualmente). Mientras tanto el CI vigente es LOCAL:
+# `scripts/ci_local.sh` (misma receta; ver docs/CI.md). Para re-activar la
+# nube cuando haya presupuesto: cambiar `on:` de vuelta a
+#   on: { push: {}, pull_request: {} }
+# y verificar con `gh workflow run ci` (gh tiene scope admin en este repo).
 name: ci
 
 on:
-  push:
-  pull_request:
+  workflow_dispatch: {}
 
 jobs:
   backend:
