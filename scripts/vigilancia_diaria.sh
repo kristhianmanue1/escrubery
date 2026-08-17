@@ -144,7 +144,7 @@ if command -v docker >/dev/null 2>&1 && docker info >/dev/null 2>&1; then
     echo "-- F3 introspección: $cli"
     IMAGEN="escrubery-sandbox-$cli"
     if ! docker image inspect "$IMAGEN" >/dev/null 2>&1; then
-      echo "   imagen $IMAGEN ausente: construyendo"
+      echo "   imagen $IMAGEN ausente: construyendo (@latest; si diverge, se autocorrige mañana)"
       if ! construir "$cli" "$IMAGEN" "latest"; then continue; fi
     else
       # Version del binario del sandbox vs version_publicada (poller) en BD:

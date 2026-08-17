@@ -44,3 +44,10 @@ Sin token de GitHub (insumo opcional del Mediador): presupuesto conservador
 **Nota (2026-08-17):** el script exporta `PATH` con las ubicaciones estándar de
 Homebrew porque launchd arranca con PATH mínimo (`node: command not found` en la
 primera corrida instalada). Si node vive en otra ruta, ajustar la línea del PATH.
+
+## Semántica de versiones (F3)
+
+- `cli_productos.version_actual` = **versión publicada** por el maintainer (última release de GitHub; la escribe el poller).
+- `cli_comandos.version_confirmada` = versión del binario del sandbox que corroboró el comando (la escribe la introspección).
+- `cli_productos.fecha_ultima_version` = fecha de **observación** del sandbox (no fecha de publicación de la release).
+- Rebuild: solo cuando sandbox != publicada, con `--build-arg VERSION` (el npm install re-ejecuta solo cuando la versión cambia de verdad).
