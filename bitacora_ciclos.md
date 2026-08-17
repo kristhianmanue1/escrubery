@@ -211,7 +211,7 @@ Criterios §6.1 completos: (a) sandbox probado ✅, (b) ToS diarios curados ✅,
 
 ---
 
-## FASE 3: CERRADA (adversarial `proceed` r4; decreto del Mediador pendiente)
+## FASE 3: CERRADA (decreto del Mediador 2026-08-17, tras adversarial `proceed` r4)
 
 **Ronda 4 (2026-08-17):** las 3 fallas del rebuild verificadas RESUELTAS con evidencia e2e del mismo día y sin simulación: 3 releases nuevas reales simultáneas (opencode 1.18.18, claude 2.1.233, codex 0.148.0-alpha.20) → poller escribió versiones → vigilancia detectó divergencia → rebuild `@versión` → introspección nueva → refresco de vigencias (65/87 comandos vigentes) — todo <24 h, sin intervención manual, presupuesto ~0. Regex del poller validada contra 9 tags reales/patológicos. **Totales F3: 2 ciclos est / 3 reales / desviación +1** (T0 0.5/0.5, T1 0.5/0.5, T2 0.5/0.25, T3 0.5/1.5 — T3 absorbió 4 rondas adversariales). Registro completo: bitácora r1-r4 arriba.
 
@@ -219,4 +219,4 @@ Criterios §6.1 completos: (a) sandbox probado ✅, (b) ToS diarios curados ✅,
 
 **Residuales LOW (a decidi del Mediador, no bloquean):** spec del eslabón poller→version_actual y flujo compare→build-arg (sugerido para F4/deuda); `fecha_ultima_version` documentada como observación en docs/VIGILANCIA.md; poller escribe version_actual también de CLIs pasivos (inofensivo).
 
-**Siguiente: F4** (robustez criptográfica: RFC 3161/Merkle, `external_anchor`) **o F5** (formalización MCP: Agent Card firmado, auth/rate-limit HTTP) — el MCP utilitario ya opera desde F2.5.
+**Siguiente: decisión de rumbo del Mediador — F4 (robustez criptográfica) o F5 (formalización MCP).** El MCP utilitario opera desde F2.5.

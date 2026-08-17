@@ -10,8 +10,8 @@ Servicio de inteligencia sobre modelos y CLIs de IA (ver `README.md`). Fase actu
 
 ## Estado actual
 
-- **Hecho:** F0–F2 + F2.5 (MCP) cerradas (tag `v0.2.0-alpha`); **plan de deuda CERRADO** (2026-08-17: tests 79/79, CI local `scripts/ci_local.sh`, vigilancia launchd, caducidad activa, Apache 2.0).
-- **En curso:** **Fase 3 — introspección activa automatizada** (ABIERTA por decreto 2026-08-17; presupuesto ~0 aprobado: solo `--help`/`--version`). Inventario: 9 CLIs (qwen-code añadido), 188 modelos.
+- **Hecho:** F0–F3 cerradas (plan de deuda también; vigilancia launchd con introspección sandbox auto-actualizada).
+- **En curso:** nada — decisión de rumbo pendiente: **F4** (robustez criptográfica) **o F5** (formalización MCP). Inventario: 9 CLIs, 188 modelos.
 - **Detalle y desviaciones:** `bitacora_ciclos.md` (hogar canónico; este bloque es solo el resumen — mantener ≤ 5 líneas, no narrar historial aquí).
 
 ## Roles (ADRC)
