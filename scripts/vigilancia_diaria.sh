@@ -27,7 +27,7 @@ exec > >(tee -a "$LOG") 2>&1
 trap 'rc=$?; echo "== fin (trap) — exit $rc =="; exit $rc' EXIT
 
 DIARIOS=(opencode claude-code codex-cli)
-SEMANALES=(grok-build kimi-code cline grok-cli-community)
+SEMANALES=(grok-build kimi-code cline grok-cli-community qwen-code)
 
 echo "== vigilancia escrubery — $(date -u +%Y-%m-%dT%H:%M:%SZ) =="
 

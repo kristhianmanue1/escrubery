@@ -1,6 +1,6 @@
 # Revisión de Términos de Servicio de los CLIs — escrubery (D1)
 
-**Estado:** 5/8 curados (opencode añadido como 8º CLI); diarios redefinidos = **opencode + claude-code + codex-cli** (controladores reales del Mediador); pendientes: grok-build (xAI inaccesible), antigravity, kimi-code (baja prioridad — caro, poco uso). **Bloquea:** Fase 3 (criterio de entrada plan v2 §6.1). **Decisión:** D1. **Responsable:** Ejecutor (curaduría) · Mediador (veredicto). **Actualizado:** 2026-08-07.
+**Estado:** 6/9 curados (qwen-code añadido como 9º CLI, 2026-08-17); diarios redefinidos = **opencode + claude-code + codex-cli** (controladores reales del Mediador); pendientes: grok-build (xAI inaccesible), antigravity, kimi-code (baja prioridad — caro, poco uso). **Bloquea:** Fase 3 (criterio de entrada plan v2 §6.1). **Decisión:** D1. **Responsable:** Ejecutor (curaduría) · Mediador (veredicto). **Actualizado:** 2026-08-17.
 
 ## Objetivo
 Determinar, por CLI, qué permite su ToS respecto a la **Fase 3** (introspección activa: ejecutar el CLI en contenedor efímero, capturar `--help`/`--version`) y usos futuros (benchmarking). Sin esto, F3 no inicia (riesgo operativo/legal).
@@ -24,6 +24,7 @@ Determinar, por CLI, qué permite su ToS respecto a la **Fase 3** (introspecció
 | antigravity-cli | google | ? | ? | ? | pendiente |
 | kimi-code | moonshot | ? | ? | ? | pendiente (baja prioridad — caro, poco uso) |
 | opencode | comunidad/Anomaly (MIT) | ✅ permitido | ✅ permitido | no_declara (licencia) | **curado** (controlador principal) |
+| qwen-code | qwenlm/Alibaba (Apache-2.0) | ✅ permitido | ✅ permitido | no_declara (licencia) | **curado** (9º CLI, 2026-08-17) |
 
 ---
 
@@ -84,3 +85,8 @@ Determinar, por CLI, qué permite su ToS respecto a la **Fase 3** (introspecció
 - El veredicto es **lectura informada, no asesoría legal**; el Mediador aprueba.
 - Distinguir grok-build (xAI, oficial) de grok-cli-community (superagent-ai, comunitario) — ToS distintos.
 - **Procedencia:** las fuentes LICENSE tienen hash exacto del archivo crudo; los ToS web tienen hash del HTML crudo (puede variar entre descargas por contenido dinámico — re-verificar al cerrar D1).
+
+### qwen-code — Apache License 2.0 ✅ (9º CLI, 2026-08-17)
+- **Fuente:** `https://raw.githubusercontent.com/QwenLM/qwen-code/main/LICENSE` · **fecha:** 2026-08-17 · **hash_sha256:** `55367b61ccd2a016a0159ad886bd66a3ee6cb5e873d0c75c803c897dd245b075`
+- **Cita:** "Subject to the terms and conditions of this License, each Contributor hereby grants… a perpetual, worldwide, non-exclusive, no-charge, royalty-free… license… to use, reproduce, prepare Derivative Works… and to **run** the Work and Derivative Works." (Apache 2.0 §2; texto canónico idéntico al de cline).
+- **Veredicto:** automatización **permitido** (licencia OSS autoriza ejecución; fork oficial de gemini-cli por el equipo Qwen); benchmarking **permitido**. Extracción: la licencia del CLI no restringe retener salidas; los modelos Qwen subyacentes (DashScope) se rigen por su propio ToS de servicio.

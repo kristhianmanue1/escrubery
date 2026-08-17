@@ -176,3 +176,19 @@ Adversarial de gate: r1 `fix-and-retry` (HIGH: `feedbackInputValido` no total �
 | 2026-08-17 | deuda | T8 — LICENSE + desviaciones conocidas documentadas | 0.5 | 0.5 | 0 | `LICENSE` Apache 2.0 (texto canónico, sha256 oficial verificado por adversarial) + README sin "Por definir"; CONSUMO_INTERNO: HTTP sin auth/rate-limit (→ F5); nota alcance F3 diarios en sección F3 |
 
 **Estado del plan (2026-08-17, tras adversarial H3 `proceed`, fila 8 del registro):** los 3 hitos verificados por adversarial. **Totales: 6.5 ciclos estimados / 7 reales / desviación +0.5** (única desviación: T1a). Pendientes del Mediador para el decreto final: (a) billing de GitHub Actions (CI definido y receta validada localmente, pero sin corrida verde en la nube); (b) verificación de coherencia de licencia con ecosistema CAGF/expertoGobernanza (insumo #6); (c) token GitHub opcional (T5). Vigilancia operativa (launchd, diaria 09:00).
+
+---
+
+## PLAN DE DEUDA: CERRADO (decreto del Mediador 2026-08-17)
+
+Los 3 hitos verificados por adversarial (registro filas 3-8) y decretados. **Totales: 6.75 ciclos estimados / 7.25 reales / desviación +0.5** (T1a +0.5, T3bis +0.25). CI = local (`scripts/ci_local.sh`, verde) mientras GitHub Actions esté sin presupuesto mensual (docs/CI.md documenta la re-activación). Vigilancia launchd operativa (diaria 09:00).
+
+## FASE 3: ABIERTA (decreto del Mediador 2026-08-17)
+
+Criterios §6.1 completos: (a) sandbox probado ✅, (b) ToS diarios curados ✅, **(c) presupuesto APROBADO por el Mediador (2026-08-17): solo `--help`/`--version` en contenedor efímero — sin llamadas a modelos, costo ~0**.
+
+| Fecha | Fase | Ticket | est. | reales | desv. | Evidencia |
+|---|---|---|---|---|---|---|
+| 2026-08-17 | F3 | T0 — 9º CLI qwen-code + proveedor qwen (DashScope) + ToS curado | 0.5 | 0.5 | 0 | Ficha `qwen-code.json` (Apache-2.0, hash de LICENSE real, oficial/qwenlm); ToS curado (6/9); mig `010` (CHECK +qwen); generador +`qwen:dashscope` → ficha 41 modelos (25 con precio); `./scripts/consultar oficialidad` → 9 CLIs; `consultar modelo qwen qwen3-coder-plus` → ventana 997952; `refrescar_litellm.sh` corrido; Dockerfile.qwen-code (build pendiente de Docker); vigilancia semanal +qwen-code |
+
+**Inventario (2026-08-17):** 9 CLIs, 18 comandos catalogados, 188 modelos (anthropic, google, moonshot, xai, zhipu, **qwen**).

@@ -1,0 +1,23 @@
+{
+  "esquema": "escrubery/ficha-cli/0.1",
+  "entidad": "cli",
+  "id": "qwen-code",
+  "nombre": "Qwen Code CLI",
+  "proveedor": "qwenlm",
+  "tipo": "oficial",
+  "repo_url": "https://github.com/QwenLM/qwen-code",
+  "licencia": "Apache-2.0",
+  "mecanismo_changelog": "releases de GitHub (QwenLM/qwen-code, fork de gemini-cli con releases frecuentes)",
+  "cadencia_monitoreo": "semanal",
+  "prioridad_seguridad": "media (CLI oficial del equipo Qwen; ritmo de releases alto por heredar base gemini-cli)",
+  "notas_gobernanza": "CLI oficial del equipo Qwen (org QwenLM, Alibaba). Fork de gemini-cli (Apache-2.0). Binario `qwen`; npm @qwen-code/qwen-code. Los modelos Qwen subyacentes se sirven vía DashScope (API de primera mano, litellm_provider=dashscope).",
+  "comandos": [],
+  "procedencia": {
+    "fuente_url": "https://raw.githubusercontent.com/QwenLM/qwen-code/main/LICENSE",
+    "fuente_tipo": "docs_oficial",
+    "fecha_obtencion": "2026-08-17T18:00:00Z",
+    "hash_sha256_contenido_original": "55367b61ccd2a016a0159ad886bd66a3ee6cb5e873d0c75c803c897dd245b075",
+    "estado_verificacion": "confirmado_por_docs_oficial",
+    "firma_ed25519": null
+  }
+}

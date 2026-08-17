@@ -10,7 +10,7 @@ El CLI lee PostgreSQL directamente (no requiere servidor HTTP corriendo). Desde 
 ~/www/aria/escrubery/scripts/consultar <operacion> [args]
 ```
 
-**Requisitos (ya satisfechos en el host):** PostgreSQL local activo (peer auth), BD `escrubery` migrada y poblada (139 modelos, 8 CLIs).
+**Requisitos (ya satisfechos en el host):** PostgreSQL local activo (peer auth), BD `escrubery` migrada y poblada (188 modelos, 9 CLIs).
 
 ### Operaciones (exit codes `0` ok / `1` sin_datos / `2` params)
 

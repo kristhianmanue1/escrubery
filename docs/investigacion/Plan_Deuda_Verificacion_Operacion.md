@@ -1,6 +1,6 @@
 # Plan: Deuda de verificación propia y operación continua (inter-fase, pre-F3)
 
-**Contexto:** el análisis crítico de 2026-08-10 detectó que el servicio verifica hechos de terceros pero no se verifica a sí mismo (tests ≈ 0, sin CI, sin scheduler, datos que envejecen en silencio, contrato congelado con operaciones no implementadas). Este plan cierra esa deuda **antes de abrir F3**. **Fecha:** 2026-08-10. **Estado:** **decretado por el Mediador (2026-08-10)** tras adversarial `proceed` (ronda 2); licencia decidida: **Apache 2.0**. **Fase del plan v2:** transversal (refuerza F1/F2; prerequisito de confianza para F3). **Fuente:** iniciativa del Mediador.
+**Contexto:** el análisis crítico de 2026-08-10 detectó que el servicio verifica hechos de terceros pero no se verifica a sí mismo (tests ≈ 0, sin CI, sin scheduler, datos que envejecen en silencio, contrato congelado con operaciones no implementadas). Este plan cierra esa deuda **antes de abrir F3**. **Fecha:** 2026-08-10. **Estado:** **CERRADO por decreto del Mediador (2026-08-17)**: H1+H2+H3 verificados por adversarial (8 rondas, filas 3-8); CI = local (`scripts/ci_local.sh`, verde) mientras Actions sin presupuesto mensual. Licencia: **Apache 2.0**. Totales: 6.75 est / 7.25 reales / +0.5. **Fase del plan v2:** transversal (refuerza F1/F2; prerequisito de confianza para F3). **Fuente:** iniciativa del Mediador.
 
 ## Objetivo y criterio de cierre
 
@@ -14,8 +14,8 @@ La **implementación ya diverge del contrato congelado §3.1/§3.2**, independie
 ## Hitos (cada uno dispara ronda adversarial, §6)
 
 - **H1 — Verificación propia automatizada:** `npm test` verde con specs de Evidentia (cadena/firma/verificar/clasificador), golden del shape post-errata y JCS validado contra test vectors RFC 8785. [cerrado por decreto del Mediador 2026-08-17; adversarial proceed r6]
-- **H2 — Operación continua:** pipeline CI definido y verde, vigilancia diaria (pollers + alertas) instalada con log de corrida real, y caducidad `vigente_hasta` corregida y activa con degradación visible. [adversarial-ok 2026-08-17 con MEDs aplicados; **CI = local** (`scripts/ci_local.sh` VERDE, 2026-08-17): GitHub Actions sin presupuesto (billing mensual) → workflow en `workflow_dispatch` hasta re-activación (docs/CI.md); launchd instalado/verificado; cierre sujeto a decreto]
-- **H3 — Contrato y métricas honestas:** contrato v0 coherente con lo implementado (errata completa), métrica F1 publicada desde `consultas_log`, LICENSE presente. [adversarial-ok 2026-08-17; cierre sujeto a decreto del Mediador]
+- **H2 — Operación continua:** pipeline CI definido y verde, vigilancia diaria (pollers + alertas) instalada con log de corrida real, y caducidad `vigente_hasta` corregida y activa con degradación visible. [adversarial-ok 2026-08-17 con MEDs aplicados; **CI = local** (`scripts/ci_local.sh` VERDE, 2026-08-17): GitHub Actions sin presupuesto (billing mensual) → workflow en `workflow_dispatch` hasta re-activación (docs/CI.md); launchd instalado/verificado; **cerrado por decreto del Mediador 2026-08-17**]
+- **H3 — Contrato y métricas honestas:** contrato v0 coherente con lo implementado (errata completa), métrica F1 publicada desde `consultas_log`, LICENSE presente. [adversarial-ok 2026-08-17; **cerrado por decreto del Mediador 2026-08-17**]
 
 ## Tareas y contratos
 
