@@ -1,6 +1,6 @@
 # Plan: F4a — Robustez criptográfica (CAGF completo, subset §7 del plan v2)
 
-**Contexto:** F3 cerrada; la cadena Evidentia detecta manipulación pero un atacante con acceso a la BD podría re-hacerla completa sin rastro (Referencia_Traza_Firma §5). Este plan añade **agregación Merkle + checkpoint firmado + sello RFC 3161** sobre la base de F2, sin rehacer la firma. **Fecha:** 2026-08-17. **Estado:** r2 (correcciones adversarial r1 aplicadas). **Fase del plan v2:** F4 (§7). **Fuente:** recomendación del Ejecutor aprobada por el Mediador.
+**Contexto:** F3 cerrada; la cadena Evidentia detecta manipulación pero un atacante con acceso a la BD podría re-hacerla completa sin rastro (Referencia_Traza_Firma §5). Este plan añade **agregación Merkle + checkpoint firmado + sello RFC 3161** sobre la base de F2, sin rehacer la firma. **Fecha:** 2026-08-17. **Estado:** implementado; adversarial de gate `proceed` 2026-08-17 (tercero verificó inclusión+sello con herramientas independientes); cierre sujeto a decreto del Mediador (custodia git = insumo #1). **Fase del plan v2:** F4 (§7). **Fuente:** recomendación del Ejecutor aprobada por el Mediador.
 
 ## Alcance y no-alcance
 
@@ -25,9 +25,9 @@
 
 ## Hitos
 
-- **H1 — Agregación e inclusión:** T0–T2. [pendiente]
-- **H2 — Sello externo + custodia:** T3–T4. [pendiente]
-- **H3 — Eslabones blindados:** T5–T6. [pendiente]
+- **H1 — Agregación e inclusión:** T0–T2. [adversarial-ok 2026-08-17]
+- **H2 — Sello externo + custodia:** T3–T4. [adversarial-ok 2026-08-17]
+- **H3 — Eslabones blindados:** T5–T6. [adversarial-ok 2026-08-17]
 
 ## Tareas y contratos
 

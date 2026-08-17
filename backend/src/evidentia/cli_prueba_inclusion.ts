@@ -1,4 +1,3 @@
-import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import type { Kysely } from 'kysely';
 import type { Database } from '../db/schema';
@@ -64,7 +63,6 @@ async function main(): Promise<void> {
       tree_size: dentro.length,
       path,
       merkle_root: archivado.payload.merkle_root,
-      verificacion_local: createHash('sha256').update('ok').digest('hex'),
       como_verificar:
         'raiz = fold(path): primera=hoja(0x00‖hash_evento); paso: izq? H(0x01‖sib‖raiz) : H(0x01‖raiz‖sib); comparar con merkle_root',
     };
