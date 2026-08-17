@@ -18,9 +18,29 @@ export const SKIP_DB = process.env.ESCRUBERY_SKIP_DB_SPECS === '1';
 const TEST_DB_URL =
   process.env.ESCRUBERY_TEST_DATABASE_URL ??
   'postgresql:///escrubery_test?host=/tmp';
-const ADMIN_URL =
-  process.env.ESCRUBERY_TEST_ADMIN_URL ?? 'postgresql:///postgres?host=/tmp';
 const MIGRATIONS_DIR = join(process.cwd(), 'db', 'migrations');
+
+/** Nombre de la BD de test derivado del path de la URL (residual H1→T3):
+ * coincide siempre con la BD a la que se conecta, sea cual sea la URL. */
+function nombreBdDeUrl(url: string): string {
+  const pathname = new URL(url).pathname;
+  const nombre = pathname.replace(/^\//, '').split(/[?/]/)[0];
+  if (!nombre) throw new Error(`no se pudo derivar el nombre de BD de ${url}`);
+  return nombre;
+}
+
+const TEST_DB_NAME = nombreBdDeUrl(TEST_DB_URL);
+
+function adminUrl(): string {
+  if (process.env.ESCRUBERY_TEST_ADMIN_URL) {
+    return process.env.ESCRUBERY_TEST_ADMIN_URL;
+  }
+  const u = new URL(TEST_DB_URL);
+  u.pathname = '/postgres';
+  return u.toString();
+}
+
+const ADMIN_URL = adminUrl();
 
 let db: Kysely<Database> | null = null;
 
@@ -29,10 +49,11 @@ async function asegurarBdCreada(): Promise<void> {
   await admin.connect();
   try {
     const { rows } = await admin.query<{ datname: string }>(
-      "SELECT datname FROM pg_database WHERE datname = 'escrubery_test'",
+      'SELECT datname FROM pg_database WHERE datname = $1',
+      [TEST_DB_NAME],
     );
     if (rows.length === 0) {
-      await admin.query('CREATE DATABASE escrubery_test');
+      await admin.query(`CREATE DATABASE ${TEST_DB_NAME}`);
     }
   } catch (err) {
     // 42P04 = duplicate_database (carrera con otro worker de jest)

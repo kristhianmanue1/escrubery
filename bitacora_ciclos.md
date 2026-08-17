@@ -107,7 +107,7 @@ Decreto del Mediador tras ronda adversarial `proceed`. Cumple los criterios del 
 
 ---
 
-## Plan de deuda — H1: Verificación propia automatizada (en curso)
+## Plan de deuda — H1: Verificación propia automatizada (CERRADO)
 
 | Fecha | Fase | Ticket | est. | reales | desv. | Evidencia |
 |---|---|---|---|---|---|---|
@@ -117,13 +117,11 @@ Decreto del Mediador tras ronda adversarial `proceed`. Cumple los criterios del 
 | 2026-08-17 | deuda | T4c — Endurecimiento validación/UX (fusionado con T1b según adversarial T4a) | 0.5 | 0.5 | 0 | CLI: tipo inválido → exit 2, id ausente → exit 2, BD caída → exit 3 + JSON `fuente_no_disponible` (verificado e2e); MCP ya no degrada id a `'desconocido'`; HTTP 400; contrato §1/§3.6/§4 actualizados |
 | 2026-08-17 | deuda | T1b — Golden del shape implementado post-errata (consultas) | 1 | 1 | 0 | `consultas.spec.ts`: goldens `listar`/`modelo`/`comando`/`ficha`/`oficialidad`/`feedback` (nuevo+duplicado) con fixtures semilla deterministas; 75/75 tests, 6 suites |
 
----
-
-## HITO H1: CERRADO (decreto del Mediador 2026-08-17)
-
-Adversarial de gate: r1 `fix-and-retry` (HIGH: `feedbackInputValido` no total — `null` → TypeError/exit 3/HTTP 500; LOW: `test_db` hardcodeaba nombre de BD, 4 vectores B.2 ausentes) → fix (guard null-safe + 7 specs de totalidad + vectores) → r2 `proceed`. **Total H1: 3.5 ciclos estimados / 4 reales / desviación +0.5** (T4a 0.5/0.5, T1a 1/1.5, T1b 1/1, T2 0.5/0.5, T4c 0.5/0.5). Criterio cumplido: `npm test` 75/75 (specs Evidentia + golden post-errata + JCS RFC 8785). Registro: filas 5-6 del plan de deuda.
-
-**Siguiente: H2 — Operación continua** (T3 CI, T5 vigilancia diaria, T6 caducidad).
+**Notas T4a (2026-08-17):**
+- Decisión del Mediador (insumo #2 del plan): **documentar** los campos omitidos como no disponibles en v0; su implementación queda en T4b (diferido).
+- La errata resultó más amplia que el hallazgo original (§3.1/§3.2): también §1 (CLI posicional, sin 429), §2.1 (`firma_ed25519` siempre null en consultas; listar/oficialidad sin bloque procedencia), §3.3 (shape de ficha), §3.6 (`estado_datos_hash` no disponible; enum `tipo` solo exigido en MCP), §4 (`detalles` ausente; códigos previstos no emitidos), §2.3 (`verificar_evidencia` en MCP desde F2.5).
+- `docs/CONSUMO_INTERNO.md` corregido (7→8 CLIs; procedencia e "índices" y "ficha resumida" alineados con la errata); descripción de la tool MCP `consultar_ficha` alineada ("resumida").
+- Ronda adversarial de T4a (2026-08-17): r1 `fix-and-retry` (1 HIGH: `flags` documentado como array cuando la implementación sirve captura cruda `null|{salida}`; 5 MED) → correcciones aplicadas → r2 `proceed` (ver registro adversarial del plan de deuda).
 
 **Notas T1a/T2 (2026-08-17):**
 - BD de test aislada `escrubery_test` (helper `fixtures/test_db.ts`): se crea/migra idempotentemente (advisory lock), nunca toca la BD real. `npm test` corre `--runInBand` (specs de BD comparten la BD de test; el paralelismo contaminaba la cadena).
@@ -132,8 +130,20 @@ Adversarial de gate: r1 `fix-and-retry` (HIGH: `feedbackInputValido` no total �
 - Exclusión local sin BD documentada en el encabezado de cada spec de BD: `ESCRUBERY_SKIP_DB_SPECS=1`; CI (T3) correrá siempre con PostgreSQL y sin la variable.
 - Desviación +0.5 en T1a: pelea con el runtime Jest/ESM de `kysely` (3 intentos: ts-jest ESM mode → babel-jest → runInBand por contaminación de workers). Primera desviación ≠ 0 desde F2 — prueba de la convención honesta de T7.
 
-**Notas T4a (2026-08-17):**
-- Decisión del Mediador (insumo #2 del plan): **documentar** los campos omitidos como no disponibles en v0; su implementación queda en T4b (diferido).
-- La errata resultó más amplia que el hallazgo original (§3.1/§3.2): también §1 (CLI posicional, sin 429), §2.1 (`firma_ed25519` siempre null en consultas; listar/oficialidad sin bloque procedencia), §3.3 (shape de ficha), §3.6 (`estado_datos_hash` no disponible; enum `tipo` solo exigido en MCP), §4 (`detalles` ausente; códigos previstos no emitidos), §2.3 (`verificar_evidencia` en MCP desde F2.5).
-- `docs/CONSUMO_INTERNO.md` corregido (7→8 CLIs; procedencia e "índices" y "ficha resumida" alineados con la errata); descripción de la tool MCP `consultar_ficha` alineada ("resumida").
-- Ronda adversarial de T4a (2026-08-17): r1 `fix-and-retry` (1 HIGH: `flags` documentado como array cuando la implementación sirve captura cruda `null|{salida}`; 5 MED) → correcciones aplicadas → r2 `proceed` (ver registro adversarial del plan de deuda).
+### HITO H1: CERRADO (decreto del Mediador 2026-08-17)
+
+Adversarial de gate: r1 `fix-and-retry` (HIGH: `feedbackInputValido` no total — `null` → TypeError/exit 3/HTTP 500; LOW: `test_db` hardcodeaba nombre de BD, 4 vectores B.2 ausentes) → fix (guard null-safe + 7 specs de totalidad + vectores) → r2 `proceed`. **Total H1: 3.5 ciclos estimados / 4 reales / desviación +0.5** (T4a 0.5/0.5, T1a 1/1.5, T1b 1/1, T2 0.5/0.5, T4c 0.5/0.5). Criterio cumplido: `npm test` 75/75 (specs Evidentia + golden post-errata + JCS RFC 8785). Registro: filas 5-6 del plan de deuda.
+
+---
+
+## Plan de deuda — H2: Operación continua (en curso)
+
+| Fecha | Fase | Ticket | est. | reales | desv. | Evidencia |
+|---|---|---|---|---|---|---|
+| 2026-08-17 | deuda | T3 — CI mínimo (GitHub Actions) | 0.5 | 0.5 | 0 | `.github/workflows/ci.yml` (47 líneas < 100): postgres:16 service siempre activo + build + eslint (sin `--fix`) + `npm test` (specs de BD incluidas, sin `ESCRUBERY_SKIP_DB_SPECS`) + check_sizes; residual H1 resuelto: `test_db.ts` deriva nombre de BD y admin URL de `ESCRUBERY_TEST_DATABASE_URL` (validado 75/75 vía URL TCP local); YAML parse OK |
+
+**Notas T3 (2026-08-17):**
+- **La activación real requiere push** (acción del Mediador); hasta entonces el gate local (política §5) es el vigente: `cd backend && npm run build && npx eslint "{src,apps,libs,test}/**/*.ts" && npm test`, luego `python3 scripts/check_sizes.py` desde la raíz.
+- El CI usa la misma receta que el gate local; Node 24 (igual que el host) y `npm ci` (reproducible desde lockfile).
+
+**Siguiente en H2:** T5 — Vigilancia diaria (pollers + alertas) ∥ T6 — Caducidad `vigente_hasta` + refresco LiteLLM.
