@@ -25,7 +25,7 @@ La implementación (F1/F2) divergía del texto congelado. Esta errata es **aclar
 El mismo contrato se expone por dos transportes:
 
 - **CLI:** `scripts/consultar <alias> [args posicionales]` → imprime la respuesta JSON por stdout, exit code `0` si hay respuesta, `1` si no hay datos, `2` error de uso, `3` error de infraestructura (p. ej. BD inalcanzable; error JSON con `codigo: "fuente_no_disponible"` por stderr — desde T4c). (Compatible con el patrón de los scripts de expertoGobernanza.) Alias: `listar`, `modelo <proveedor> <modelo_id>`, `comando <cli> [filtro]`, `ficha <cli|proveedor> <id>`, `oficialidad`, `feedback '<params_json>'`. *(Errata 5: invocación posicional, no JSON por operación.)*
-- **HTTP:** `POST /v0/<operacion>` con body JSON de parámetros → respuesta JSON. Errores con el formato de la Sección 4 y código HTTP coherente (`404` sin datos, `400` parámetros inválidos; `429` previsto, no disponible en v0 — errata 5).
+- **HTTP:** `POST /v0/<operacion>` con body JSON de parámetros → respuesta JSON (200). **Autenticación (F5, 2026-08-17):** header `X-API-Key` obligatorio (fail-closed: sin claves configuradas todo `/v0` responde 401); las claves se configuran como SHA-256 hex en `ESCRUBERY_API_KEYS` (separadas por coma) — la clave en claro nunca vive en el repo. **Rate limit (F5):** token bucket por clave, default 60 req/min (`ESCRUBERY_RATE_LIMIT_RPM`); exceso → `429` con `codigo: limite_de_tasa` y header `Retry-After`. Errores con el formato de la Sección 4 y código HTTP coherente (`404` sin datos, `400` parámetros inválidos, `401` no autorizado, `429` límite).
 
 ## 2. Convenciones comunes
 
@@ -267,14 +267,14 @@ Sin bloque `procedencia` (índice derivado; errata 6).
 ```json
 {
   "error": {
-    "codigo": "sin_datos | parametros_invalidos | fuente_no_disponible | limite_de_tasa",
+    "codigo": "sin_datos | parametros_invalidos | no_autorizado | fuente_no_disponible | limite_de_tasa",
     "mensaje": "legible en español",
     "detalles": { "campo": "modelo_id", "valor_recibido": "..." }
   }
 }
 ```
 
-*(Errata 8: `detalles` es opcional y no se emite en v0; `limite_de_tasa` es código previsto, no emitido en v0. `fuente_no_disponible` se emite desde T4c en el CLI ante fallo de infraestructura, exit 3.)*
+*(Errata 8: `detalles` es opcional y no se emite en v0. Desde F5 (2026-08-17) se emiten `no_autorizado` (HTTP 401) y `limite_de_tasa` (HTTP 429 + `Retry-After`); `fuente_no_disponible` se emite desde T4c en el CLI ante fallo de infraestructura, exit 3.)*
 
 `sin_datos` es una respuesta de primera clase (exit code 1 en CLI), no una excepción: los consumidores la usan para detectar demanda de datos faltantes (se registra en `consultas_log`).
 

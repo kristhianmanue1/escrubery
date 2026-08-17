@@ -216,6 +216,23 @@ echo "-- checkpoint + sello (F4a)"
 run_node src/evidentia/cli_checkpoint.ts
 run_node src/evidentia/cli_sellar.ts
 
+# --- Custodia git de checkpoints (AUTORIZADO por el Mediador 2026-08-17):
+# commit+push de SOLO datos/checkpoints/ — el anclaje externo es TSA + remoto.
+if git -C "$RAIZ" status --porcelain -- datos/checkpoints 2>/dev/null | grep -q .; then
+  if git -C "$RAIZ" add datos/checkpoints && \
+     git -C "$RAIZ" commit -m "chore(checkpoint): anclaje diario $(date -u +%Y-%m-%dT%H:%M:%SZ)" >/dev/null; then
+    if git -C "$RAIZ" push origin main >/dev/null 2>&1; then
+      echo "custodia: checkpoint commiteado y pusheado (anclaje externo completo)"
+    else
+      echo "FALLO push de checkpoints (custodia degradada a local; revisar credencial gh)"
+      FALLOS=$((FALLOS + 1))
+    fi
+  else
+    echo "FALLO commit de checkpoints"
+    FALLOS=$((FALLOS + 1))
+  fi
+fi
+
 if [ "$FALLOS" -gt 0 ]; then
   echo "== fin — exit 2 ($FALLOS fallo(s) de poller/introspección durante la corrida) =="
   exit 2

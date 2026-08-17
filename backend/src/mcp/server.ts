@@ -5,6 +5,7 @@ import {
   ListToolsRequestSchema,
 } from '@modelcontextprotocol/sdk/types.js';
 import { resolve } from 'node:path';
+import { readFileSync } from 'node:fs';
 import type { Kysely } from 'kysely';
 import {
   consultarComandoCli,
@@ -107,6 +108,12 @@ const TOOLS = [
       },
       required: ['tipo', 'descripcion', 'agente_reportante'],
     },
+  },
+  {
+    name: 'obtener_agent_card',
+    description:
+      'Devuelve la Agent Card firmada de escrubery (identidad del servicio; verificar con el keyring público).',
+    inputSchema: { type: 'object', properties: {} },
   },
 ];
 
@@ -217,6 +224,16 @@ server.setRequestHandler(CallToolRequestSchema, async (req) => {
           },
         };
         return texto(await reportarFeedback(d, input));
+      }
+      case 'obtener_agent_card': {
+        const rutaCard = resolve(
+          process.cwd(),
+          '..',
+          'datos',
+          'agent-card',
+          'agent-card.json',
+        );
+        return texto(JSON.parse(readFileSync(rutaCard, 'utf8')));
       }
       default:
         return {

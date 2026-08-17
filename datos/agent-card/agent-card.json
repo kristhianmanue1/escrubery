@@ -1,0 +1,53 @@
+{
+  "card": {
+    "schema": "escrubery/agent-card/0.1",
+    "nombre": "escrubery",
+    "descripcion": "Servicio de inteligencia sobre modelos y CLIs de IA con procedencia verificable (traza Evidentia firmada y sellada).",
+    "version": "0.2.0",
+    "transportes": {
+      "http": "POST /v0/<operacion> — header X-API-Key requerido; límite de tasa por clave",
+      "mcp": "stdio local (ver docs/CONSUMO_INTERNO.md para .mcp.json)"
+    },
+    "tools": [
+      {
+        "nombre": "consultar_modelo",
+        "descripcion": "Capacidades, precios, ventana de contexto y procedencia de un modelo de IA."
+      },
+      {
+        "nombre": "consultar_comando_cli",
+        "descripcion": "Comandos/flags de un CLI de agente (con filtro opcional)."
+      },
+      {
+        "nombre": "consultar_ficha",
+        "descripcion": "Ficha (resumida) de un CLI o de un proveedor."
+      },
+      {
+        "nombre": "oficialidad",
+        "descripcion": "CLIs oficial vs. comunitario (gobernanza)."
+      },
+      {
+        "nombre": "listar_entidades",
+        "descripcion": "CLIs y proveedores disponibles."
+      },
+      {
+        "nombre": "verificar_evidencia",
+        "descripcion": "Verifica la cadena Evidentia (read-only, fail-closed) con el keyring público."
+      },
+      {
+        "nombre": "obtener_agent_card",
+        "descripcion": "Devuelve esta Agent Card firmada (identidad del servicio)."
+      },
+      {
+        "nombre": "reportar_feedback",
+        "descripcion": "Reporta error/mejora/dato desactualizado (contrato de uso)."
+      }
+    ],
+    "keyring": "datos/keys/evidentia-keyring.json",
+    "generado_en": "2026-08-17T20:07:38.441Z"
+  },
+  "firma": {
+    "key_id": "escrubery-evidentia-001",
+    "alg": "ed25519",
+    "sig": "ed25519:NXtEkyX7JCeyj5XSE5POI+qQs3isf0rGG+GZLX4jZDfp7ePIZkcKz5GkThMhhkmzXZ2+ZB0UglekU4CZjItnCw=="
+  }
+}

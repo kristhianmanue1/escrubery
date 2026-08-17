@@ -2,8 +2,10 @@ import {
   BadRequestException,
   Body,
   Controller,
+  HttpCode,
   NotFoundException,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import type { Kysely } from 'kysely';
 import {
@@ -20,6 +22,7 @@ import {
 } from '../feedback/modulo';
 import { crearKysely } from '../db/kysely';
 import type { Database } from '../db/schema';
+import { AuthRateLimitGuard } from './auth.guard';
 
 let db: Kysely<Database> | null = null;
 
@@ -40,12 +43,15 @@ function err(codigo: string, mensaje: string, status: number): never {
 }
 
 @Controller('v0')
+@UseGuards(AuthRateLimitGuard)
 export class V0Controller {
+  @HttpCode(200)
   @Post('listar')
   async listar() {
     return listar(getDb());
   }
 
+  @HttpCode(200)
   @Post('consultar_modelo')
   async modelo(@Body() b: { proveedor?: string; modelo_id?: string }) {
     if (!b?.proveedor || !b?.modelo_id) {
@@ -58,6 +64,7 @@ export class V0Controller {
     return r;
   }
 
+  @HttpCode(200)
   @Post('consultar_comando_cli')
   async comando(@Body() b: { cli?: string; comando?: string }) {
     if (!b?.cli) {
@@ -70,6 +77,7 @@ export class V0Controller {
     return r;
   }
 
+  @HttpCode(200)
   @Post('consultar_ficha')
   async ficha(@Body() b: { entidad?: string; id?: string }) {
     if (!b?.entidad || !b?.id) {
@@ -82,11 +90,13 @@ export class V0Controller {
     return r;
   }
 
+  @HttpCode(200)
   @Post('oficialidad')
   async oficialidad() {
     return oficialidad(getDb());
   }
 
+  @HttpCode(200)
   @Post('reportar_feedback')
   async feedback(@Body() b: FeedbackInput) {
     if (!feedbackInputValido(b)) {

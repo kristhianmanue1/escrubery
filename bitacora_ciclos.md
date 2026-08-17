@@ -237,4 +237,20 @@ Criterios §6.1 completos: (a) sandbox probado ✅, (b) ToS diarios curados ✅,
 
 **Notas F4a:** custodia git de `datos/checkpoints/` (auto-commit/push por vigilancia vs handoff) queda como **insumo #1 del Mediador** — sin push a remoto, el anclaje TSA es fuerte pero el TSR vive solo en esta máquina (hoy se commitean con el ticket). Desviación +0.25 en T4: pelea de tipos Buffer/string de spawnSync + env ESCRUBERY_CHECKPOINT_DIR para specs.
 
-**Gate F4a (2026-08-17): adversarial `proceed`.** El revisor reprodujo como TERCERO PURO (Python/openssl independientes del repo): prueba de inclusión del evento `ev-cline-cli-v3.0.51`, raíz completa desde los 82 hashes, firma Ed25519, sello RFC 3161 offline (CAfile sistema), negativos (payload alterado → imprint mismatch), oráculo re-derivado, y la réplica del ataque de omisión. Custodia: checkpoint #1 (.json+.tsr) ya en `origin/main`. 9 LOW cosméticos (4 aplicados tras el veredicto; resto registrados). **Totales F4a: 4 est / 4.25 reales / +0.25.** Pendiente Mediador: decreto de cierre + insumo #1 (auto-push diario de datos/checkpoints/ vs handoff).
+---
+
+## FASE 4a: CERRADA (decreto del Mediador 2026-08-17)
+
+**Gate F4a (2026-08-17): adversarial `proceed`.** El revisor reprodujo como TERCERO PURO (Python/openssl independientes del repo): prueba de inclusión del evento `ev-cline-cli-v3.0.51`, raíz completa desde los 82 hashes, firma Ed25519, sello RFC 3161 offline (CAfile sistema), negativos (payload alterado → imprint mismatch), oráculo re-derivado, y la réplica del ataque de omisión. Custodia: checkpoint #1 (.json+.tsr) ya en `origin/main`. 9 LOW cosméticos (4 aplicados tras el veredicto; resto registrados). **Totales F4a: 4 est / 4.25 reales / +0.25.** Decreto de cierre y **insumo #1 RESUELTO: autorización dada (2026-08-17)** — la vigilancia hace auto-commit+push diario de SOLO `datos/checkpoints/` (implementado en el mismo commit).
+
+---
+
+## Fase 5 — Formalización MCP (plan v2 §8, D4=interno; en curso 2026-08-17)
+
+| Fecha | Fase | Ticket | est. | reales | desv. | Evidencia |
+|---|---|---|---|---|---|---|
+| 2026-08-17 | F5 | T0 — Agent Card firmado | 0.5 | 0.5 | 0 | `datos/agent-card/agent-card.json` (schema escrubery/agent-card/0.1, 8 tools, transportes http+mcp) firmada Ed25519 con la clave Evidentia (keyring público); `agent-card:generar`; verificador `verificarAgentCard` + specs (verifica / alterada falla / key_id inexistente); tool MCP `obtener_agent_card` |
+| 2026-08-17 | F5 | T1+T2 — Auth HTTP + rate-limit | 1 | 1 | 0 | `AuthRateLimitGuard` (X-API-Key → SHA-256 vs `ESCRUBERY_API_KEYS`, fail-closed sin claves) + token bucket por clave (60 rpm default, env); 401/429 con formato §4 + `Retry-After`; POST → 200 explícito (antes 201); specs supertest 401×2/200/429 + unit bucket; **e2e real**: 401 sin clave, 200 con clave (9 CLIs) |
+| 2026-08-17 | F5 | T3 — Contrato + docs | 0.25 | 0.25 | 0 | Contrato §1 (auth+429+200) y §4 (`no_autorizado` aditivo) actualizados; CONSUMO_INTERNO: cómo generar claves + Agent Card; clave API local generada (hash en `.env`, secreto fuera del repo) |
+
+**Notas F5:** el Agent Card usa la MISMA clave de Evidentia (D4=interno, sin niveles de acceso: una clave por consumidor, sin roles). Rate limit en memoria (single-instance; documentado). El `http.server` ajeno en :3000 del host obligó a probar en :3100 (el puerto real se define en `PORT`).
