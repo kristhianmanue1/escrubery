@@ -29,6 +29,7 @@ export interface ModelosTable {
   hash_sha256_contenido_original: string | null;
   estado_verificacion: string | null;
   vigente_hasta: Ts;
+  fecha_deprecacion: Ts;
 }
 
 export interface CliProductosTable {
@@ -54,6 +55,7 @@ export interface CliComandosTable {
   fecha_obtencion: Ts;
   hash_sha256_contenido_original: string | null;
   estado_verificacion: string | null;
+  vigente_hasta: Ts;
 }
 
 export interface ConsultasLogTable {

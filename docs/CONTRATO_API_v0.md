@@ -95,7 +95,8 @@ Las respuestas se serializan en JSON UTF-8. Desde la Fase 2, cualquier payload f
 }
 ```
 
-- `vigente_hasta` (aditivo, errata 2): TTL de vigencia del dato; `null` si no aplica.
+- `vigente_hasta` (aditivo, errata 2): TTL de vigencia del dato — `fecha_obtencion` + ventana del plan v2 §4.2 (24 h para precios/modelos, 7 d para comandos CLI); `null` si la fuente no declara fecha de obtención.
+- `advertencia_caducidad` (aditivo T6, 2026-08-17): presente **solo** cuando `vigente_hasta < ahora`; el dato se sirve con `estado_verificacion: pendiente_de_verificar` (nunca como confirmado) y texto legible con la fecha de vencimiento. Refrescar la fuente (p. ej. `scripts/refrescar_litellm.sh`) restaura el estado.
 - **No disponibles en v0** (errata 2; implementación diferida a T4b): `pesos_abiertos`, `precios.cache_lectura_por_millon`, `precios.tarifa_vigente_desde`.
 - `null` = la fuente no lo declara (nunca se infiere en silencio; ver `estado_verificacion`).
 
@@ -128,6 +129,7 @@ Las respuestas se serializan en JSON UTF-8. Desde la Fase 2, cualquier payload f
 ```
 
 - `comandos` es un **array**; cada comando lleva su bloque `procedencia`. `flags` es la captura cruda de la fuente: `null` si no se capturó, o `{ "salida": "<texto de --help>" }` si vino de ingesta asistida (errata 3).
+- `advertencia_caducidad` (aditivo T6, 2026-08-17): por comando, presente solo si su vigencia (7 d) venció; ese comando se sirve con `estado_verificacion: pendiente_de_verificar`.
 - **No disponibles en v0** (errata 3): array de flags parseadas (con `desde_version`), `subcomandos`, `comandos_equivalentes`, parámetro `version`.
 
 Regla de gobernanza (criterio de la Fase 1): `cli_producto.tipo` (`oficial | comunitario`) aparece **siempre**; dos productos distintos (Grok CLI comunitario vs. Grok Build oficial) nunca se mezclan en una respuesta sin distinguirse.

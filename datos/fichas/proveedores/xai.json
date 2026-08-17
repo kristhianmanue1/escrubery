@@ -517,6 +517,25 @@
       },
       "ventana_contexto_max": 256000
     },
+    "grok-4.20-0309-non-reasoning": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://docs.x.ai/docs/models",
+      "max_output_tokens": 1000000,
+      "modelo_id": "grok-4.20-0309-non-reasoning",
+      "precios": {
+        "cache_lectura_por_millon": 0.2,
+        "input_por_millon": 1.25,
+        "output_por_millon": 2.5
+      },
+      "ventana_contexto_max": 1000000
+    },
     "grok-4.20-0309-reasoning": {
       "capacidades": {
         "soporta_batch": null,
@@ -527,14 +546,14 @@
       },
       "fecha_deprecacion": null,
       "fuente_precio": "https://docs.x.ai/docs/models",
-      "max_output_tokens": 2000000,
+      "max_output_tokens": 1000000,
       "modelo_id": "grok-4.20-0309-reasoning",
       "precios": {
         "cache_lectura_por_millon": 0.2,
-        "input_por_millon": 2.0,
-        "output_por_millon": 6.0
+        "input_por_millon": 1.25,
+        "output_por_millon": 2.5
       },
-      "ventana_contexto_max": 2000000
+      "ventana_contexto_max": 1000000
     },
     "grok-4.20-beta-0309-non-reasoning": {
       "capacidades": {
@@ -546,14 +565,14 @@
       },
       "fecha_deprecacion": null,
       "fuente_precio": "https://docs.x.ai/docs/models",
-      "max_output_tokens": 2000000,
+      "max_output_tokens": 1000000,
       "modelo_id": "grok-4.20-beta-0309-non-reasoning",
       "precios": {
         "cache_lectura_por_millon": 0.2,
-        "input_por_millon": 2.0,
-        "output_por_millon": 6.0
+        "input_por_millon": 1.25,
+        "output_por_millon": 2.5
       },
-      "ventana_contexto_max": 2000000
+      "ventana_contexto_max": 1000000
     },
     "grok-4.20-beta-0309-reasoning": {
       "capacidades": {
@@ -565,14 +584,33 @@
       },
       "fecha_deprecacion": null,
       "fuente_precio": "https://docs.x.ai/docs/models",
-      "max_output_tokens": 2000000,
+      "max_output_tokens": 1000000,
       "modelo_id": "grok-4.20-beta-0309-reasoning",
       "precios": {
         "cache_lectura_por_millon": 0.2,
-        "input_por_millon": 2.0,
-        "output_por_millon": 6.0
+        "input_por_millon": 1.25,
+        "output_por_millon": 2.5
       },
-      "ventana_contexto_max": 2000000
+      "ventana_contexto_max": 1000000
+    },
+    "grok-4.20-multi-agent-0309": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://docs.x.ai/docs/models",
+      "max_output_tokens": 1000000,
+      "modelo_id": "grok-4.20-multi-agent-0309",
+      "precios": {
+        "cache_lectura_por_millon": 0.2,
+        "input_por_millon": 1.25,
+        "output_por_millon": 2.5
+      },
+      "ventana_contexto_max": 1000000
     },
     "grok-4.20-multi-agent-beta-0309": {
       "capacidades": {
@@ -584,14 +622,14 @@
       },
       "fecha_deprecacion": null,
       "fuente_precio": "https://docs.x.ai/docs/models",
-      "max_output_tokens": 2000000,
+      "max_output_tokens": 1000000,
       "modelo_id": "grok-4.20-multi-agent-beta-0309",
       "precios": {
         "cache_lectura_por_millon": 0.2,
-        "input_por_millon": 2.0,
-        "output_por_millon": 6.0
+        "input_por_millon": 1.25,
+        "output_por_millon": 2.5
       },
-      "ventana_contexto_max": 2000000
+      "ventana_contexto_max": 1000000
     },
     "grok-4.3": {
       "capacidades": {
@@ -644,7 +682,7 @@
       "max_output_tokens": 500000,
       "modelo_id": "grok-4.5",
       "precios": {
-        "cache_lectura_por_millon": 0.5,
+        "cache_lectura_por_millon": 0.3,
         "input_por_millon": 2.0,
         "output_por_millon": 6.0
       },
@@ -662,6 +700,25 @@
       "fuente_precio": "https://docs.x.ai/docs/models",
       "max_output_tokens": 500000,
       "modelo_id": "grok-4.5-latest",
+      "precios": {
+        "cache_lectura_por_millon": 0.3,
+        "input_por_millon": 2.0,
+        "output_por_millon": 6.0
+      },
+      "ventana_contexto_max": 500000
+    },
+    "grok-4.6": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://docs.x.ai/developers/models",
+      "max_output_tokens": 500000,
+      "modelo_id": "grok-4.6",
       "precios": {
         "cache_lectura_por_millon": 0.5,
         "input_por_millon": 2.0,
@@ -688,22 +745,41 @@
       },
       "ventana_contexto_max": 131072
     },
+    "grok-build-0.1": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://docs.x.ai/docs/models",
+      "max_output_tokens": 256000,
+      "modelo_id": "grok-build-0.1",
+      "precios": {
+        "cache_lectura_por_millon": 0.2,
+        "input_por_millon": 1.0,
+        "output_por_millon": 2.0
+      },
+      "ventana_contexto_max": 256000
+    },
     "grok-code-fast": {
       "capacidades": {
         "soporta_batch": null,
         "soporta_caching": true,
         "soporta_computer_use": null,
         "soporta_tool_use": true,
-        "soporta_vision": null
+        "soporta_vision": true
       },
       "fecha_deprecacion": null,
       "fuente_precio": "https://docs.x.ai/docs/models",
       "max_output_tokens": 256000,
       "modelo_id": "grok-code-fast",
       "precios": {
-        "cache_lectura_por_millon": 0.02,
-        "input_por_millon": 0.2,
-        "output_por_millon": 1.5
+        "cache_lectura_por_millon": 0.2,
+        "input_por_millon": 1.0,
+        "output_por_millon": 2.0
       },
       "ventana_contexto_max": 256000
     },
@@ -713,16 +789,16 @@
         "soporta_caching": true,
         "soporta_computer_use": null,
         "soporta_tool_use": true,
-        "soporta_vision": null
+        "soporta_vision": true
       },
-      "fecha_deprecacion": "2026-05-15",
+      "fecha_deprecacion": null,
       "fuente_precio": "https://docs.x.ai/docs/models",
       "max_output_tokens": 256000,
       "modelo_id": "grok-code-fast-1",
       "precios": {
-        "cache_lectura_por_millon": 0.02,
-        "input_por_millon": 0.2,
-        "output_por_millon": 1.5
+        "cache_lectura_por_millon": 0.2,
+        "input_por_millon": 1.0,
+        "output_por_millon": 2.0
       },
       "ventana_contexto_max": 256000
     },
@@ -732,16 +808,16 @@
         "soporta_caching": true,
         "soporta_computer_use": null,
         "soporta_tool_use": true,
-        "soporta_vision": null
+        "soporta_vision": true
       },
-      "fecha_deprecacion": "2026-05-15",
+      "fecha_deprecacion": null,
       "fuente_precio": "https://docs.x.ai/docs/models",
       "max_output_tokens": 256000,
       "modelo_id": "grok-code-fast-1-0825",
       "precios": {
-        "cache_lectura_por_millon": 0.02,
-        "input_por_millon": 0.2,
-        "output_por_millon": 1.5
+        "cache_lectura_por_millon": 0.2,
+        "input_por_millon": 1.0,
+        "output_por_millon": 2.0
       },
       "ventana_contexto_max": 256000
     },
@@ -767,11 +843,11 @@
   },
   "procedencia": {
     "estado_verificacion": "confirmado_por_docs_oficial",
-    "fecha_obtencion": "2026-08-07T15:23:30Z",
+    "fecha_obtencion": "2026-08-17T17:08:36Z",
     "firma_ed25519": null,
     "fuente_tipo": "litellm_json",
     "fuente_url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json",
-    "hash_sha256_contenido_original": "960279570fc4d2bdd56258a58ce30d124097cee61fdec6fdc483d4a057a4909b"
+    "hash_sha256_contenido_original": "b5595d7e8e039a131d6bb160e90c26678c05a0b437f72a4fe57f18a77c5f52ed"
   },
-  "total_modelos": 40
+  "total_modelos": 44
 }

@@ -105,12 +105,18 @@ async function main(): Promise<void> {
           fecha_obtencion: fecha.toISOString(),
           hash_sha256_contenido_original: hash,
           estado_verificacion: 'inferido_de_comportamiento',
+          vigente_hasta: new Date(
+            fecha.getTime() + 7 * 24 * 60 * 60 * 1000,
+          ).toISOString(),
         })
         .onConflict((oc) =>
           oc.columns(['cli_producto_id', 'comando']).doUpdateSet({
             descripcion: c.desc || null,
             fecha_obtencion: fecha.toISOString(),
             hash_sha256_contenido_original: hash,
+            vigente_hasta: new Date(
+              fecha.getTime() + 7 * 24 * 60 * 60 * 1000,
+            ).toISOString(),
           }),
         )
         .execute();

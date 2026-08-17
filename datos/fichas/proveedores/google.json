@@ -164,7 +164,7 @@
         "soporta_tool_use": true,
         "soporta_vision": true
       },
-      "fecha_deprecacion": null,
+      "fecha_deprecacion": "2026-03-31",
       "fuente_precio": "https://developers.googleblog.com/en/continuing-to-bring-you-our-latest-models-with-an-improved-gemini-2-5-flash-and-flash-lite-release/",
       "max_output_tokens": 65535,
       "modelo_id": "gemini-2.5-flash-lite-preview-09-2025",
@@ -240,7 +240,7 @@
         "soporta_tool_use": true,
         "soporta_vision": true
       },
-      "fecha_deprecacion": null,
+      "fecha_deprecacion": "2026-02-17",
       "fuente_precio": "https://developers.googleblog.com/en/continuing-to-bring-you-our-latest-models-with-an-improved-gemini-2-5-flash-and-flash-lite-release/",
       "max_output_tokens": 65535,
       "modelo_id": "gemini-2.5-flash-preview-09-2025",
@@ -335,7 +335,7 @@
         "soporta_tool_use": true,
         "soporta_vision": true
       },
-      "fecha_deprecacion": null,
+      "fecha_deprecacion": "2027-05-07",
       "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing#gemini-3.1-flash-lite",
       "max_output_tokens": 65536,
       "modelo_id": "gemini-3.1-flash-lite",
@@ -354,7 +354,7 @@
         "soporta_tool_use": true,
         "soporta_vision": true
       },
-      "fecha_deprecacion": null,
+      "fecha_deprecacion": "2026-05-25",
       "fuente_precio": "https://ai.google.dev/gemini-api/docs/models",
       "max_output_tokens": 65536,
       "modelo_id": "gemini-3.1-flash-lite-preview",
@@ -476,6 +476,25 @@
         "cache_lectura_por_millon": 0.15,
         "input_por_millon": 1.5,
         "output_por_millon": 7.5
+      },
+      "ventana_contexto_max": 1048576
+    },
+    "gemini-3.7-flash": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://ai.google.dev/pricing/gemini-3",
+      "max_output_tokens": 65536,
+      "modelo_id": "gemini-3.7-flash",
+      "precios": {
+        "cache_lectura_por_millon": 0.075,
+        "input_por_millon": 0.75,
+        "output_por_millon": 3.75
       },
       "ventana_contexto_max": 1048576
     },
@@ -639,7 +658,7 @@
         "soporta_tool_use": true,
         "soporta_vision": true
       },
-      "fecha_deprecacion": null,
+      "fecha_deprecacion": "2026-04-30",
       "fuente_precio": "https://ai.google.dev/gemini-api/docs/models#gemini-robotics-er-1-5-preview",
       "max_output_tokens": 65535,
       "modelo_id": "gemini-robotics-er-1.5-preview",
@@ -687,6 +706,25 @@
         "output_por_millon": 10.0
       },
       "ventana_contexto_max": 131072
+    },
+    "gemini-robotics-er-2-streaming-preview": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
+      "max_output_tokens": null,
+      "modelo_id": "gemini-robotics-er-2-streaming-preview",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 2.0,
+        "output_por_millon": 10.0
+      },
+      "ventana_contexto_max": null
     },
     "gemma-3-27b-it": {
       "capacidades": {
@@ -767,11 +805,11 @@
   },
   "procedencia": {
     "estado_verificacion": "confirmado_por_docs_oficial",
-    "fecha_obtencion": "2026-08-07T15:23:30Z",
+    "fecha_obtencion": "2026-08-17T17:08:36Z",
     "firma_ed25519": null,
     "fuente_tipo": "litellm_json",
     "fuente_url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json",
-    "hash_sha256_contenido_original": "960279570fc4d2bdd56258a58ce30d124097cee61fdec6fdc483d4a057a4909b"
+    "hash_sha256_contenido_original": "b5595d7e8e039a131d6bb160e90c26678c05a0b437f72a4fe57f18a77c5f52ed"
   },
-  "total_modelos": 40
+  "total_modelos": 42
 }

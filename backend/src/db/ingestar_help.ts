@@ -24,7 +24,10 @@ async function main(): Promise<void> {
   }
   const contenido = await readFile(desde, 'utf8');
   const hash = createHash('sha256').update(contenido).digest('hex');
-  const ahora = new Date().toISOString();
+  const ahora = new Date();
+  const vigenteCmd = new Date(
+    ahora.getTime() + 7 * 24 * 60 * 60 * 1000,
+  ).toISOString();
   const db = crearKysely(url);
   try {
     const cliRow = await db
@@ -47,18 +50,20 @@ async function main(): Promise<void> {
         version_detectada_desde: null,
         fuente_url: fuenteUrl,
         fuente_tipo: 'ejecucion_local_supervisada',
-        fecha_obtencion: ahora,
+        fecha_obtencion: ahora.toISOString(),
         hash_sha256_contenido_original: hash,
         estado_verificacion: 'inferido_de_comportamiento',
+        vigente_hasta: vigenteCmd,
       })
       .onConflict((oc) =>
         oc.columns(['cli_producto_id', 'comando']).doUpdateSet({
           flags_json: { salida: contenido },
           fuente_url: fuenteUrl,
           fuente_tipo: 'ejecucion_local_supervisada',
-          fecha_obtencion: ahora,
+          fecha_obtencion: ahora.toISOString(),
           hash_sha256_contenido_original: hash,
           estado_verificacion: 'inferido_de_comportamiento',
+          vigente_hasta: vigenteCmd,
         }),
       )
       .execute();

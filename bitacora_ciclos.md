@@ -141,9 +141,17 @@ Adversarial de gate: r1 `fix-and-retry` (HIGH: `feedbackInputValido` no total �
 | Fecha | Fase | Ticket | est. | reales | desv. | Evidencia |
 |---|---|---|---|---|---|---|
 | 2026-08-17 | deuda | T3 — CI mínimo (GitHub Actions) | 0.5 | 0.5 | 0 | `.github/workflows/ci.yml` (47 líneas < 100): postgres:16 service siempre activo + build + eslint (sin `--fix`) + `npm test` (specs de BD incluidas, sin `ESCRUBERY_SKIP_DB_SPECS`) + check_sizes; residual H1 resuelto: `test_db.ts` deriva nombre de BD y admin URL de `ESCRUBERY_TEST_DATABASE_URL` (validado 75/75 vía URL TCP local); YAML parse OK |
+| 2026-08-17 | deuda | T5 — Vigilancia diaria (pollers + alertas) | 1 | 1 | 0 | `scripts/vigilancia_diaria.sh` + `docs/VIGILANCIA.md` (launchd); **exit 10 real** (2 breaking_change de claude-code en ventana, marcadas NUEVAS), **exit 2 real** (precheck `pg_isready` con socket inexistente), exit 0 verificado por código (ventana con alertas activas); logs fechados en `var/vigilancia/logs/` (gitignored); semanal por estado (≥7 d); vmcp condicional a fuente existente (feed real pendiente de insumo) |
+| 2026-08-17 | deuda | T6 — Caducidad `vigente_hasta` + refresco LiteLLM | 1 | 1 | 0 | Mig `008_caducidad.sql` (`modelos.fecha_deprecacion` **columna propia** —decisión Mediador: conservar dato fuente— y `cli_comandos.vigente_hasta`); ingesta 24 h/7 d en 4 puntos; consulta degrada expirado (`pendiente_de_verificar` + `advertencia_caducidad`) — e2e BD real: modelo fresco confirmado, comando viejo degradado; refresco idempotente (`scripts/refrescar_litellm.sh` ×2 → 147 modelos, hash de contenido estable); spec de degradación; 78/78 |
 
 **Notas T3 (2026-08-17):**
 - **La activación real requiere push** (acción del Mediador); hasta entonces el gate local (política §5) es el vigente: `cd backend && npm run build && npx eslint "{src,apps,libs,test}/**/*.ts" && npm test`, luego `python3 scripts/check_sizes.py` desde la raíz.
 - El CI usa la misma receta que el gate local; Node 24 (igual que el host) y `npm ci` (reproducible desde lockfile).
+
+**Notas T5/T6 (2026-08-17):**
+- Adversarial de gate H2: `proceed` con 2 MED condicionantes, aplicados tras el veredicto: mig `009_backfill_caducidad.sql` (filas pre-T6 sin ventana → 0 filas sin ventana en BD real) y spec de rama `vigente_hasta NULL → no degrada` (79/79). LOWs aplicados: trap EXIT (logs registran exit final), `pg_isready -d $DATABASE_URL`, check HACER_SEMANAL vacío → exit 2. Registro: fila 7 del plan de deuda.
+- T6 decisión del Mediador (autorizada): `fecha_deprecacion` se conserva como **columna propia** (`modelos.fecha_deprecacion`, mig 008) — es dato real de la fuente (44 modelos la llevan); el TTL vive solo en `vigente_hasta`.
+- Efecto visible honesto: los comandos ingeridos de fichas del 2026-08-07 (ventana 7 d) sirven **degradados** (`pendiente_de_verificar` + `advertencia_caducidad`) hasta que la introspección diaria F3 los refresque — es el comportamiento prometido, no una regresión.
+- Feed vmcp: sin fuente local ni `VULNERABLE_MCP_URL`, el paso se omite con nota (feed real pendiente de insumo del Mediador).
 
 **Siguiente en H2:** T5 — Vigilancia diaria (pollers + alertas) ∥ T6 — Caducidad `vigente_hasta` + refresco LiteLLM.

@@ -52,6 +52,20 @@ interface FichaProveedor {
 const FICHAS =
   process.env.FICHAS_DIR ?? join(process.cwd(), '..', 'datos', 'fichas');
 
+// Ventanas de vigencia (plan v2 §4.2): 24 h precios/modelos, 7 d comandos CLI.
+const VENTANA_MODELO_MS = 24 * 60 * 60 * 1000;
+const VENTANA_COMANDO_MS = 7 * 24 * 60 * 60 * 1000;
+
+function vigenteHasta(
+  fechaObtencion: string | null,
+  ventanaMs: number,
+): string | null {
+  if (!fechaObtencion) return null;
+  const d = new Date(fechaObtencion);
+  if (Number.isNaN(d.getTime())) return null;
+  return new Date(d.getTime() + ventanaMs).toISOString();
+}
+
 async function main(): Promise<void> {
   const url = process.env.DATABASE_URL;
   if (!url) {
@@ -108,6 +122,10 @@ async function main(): Promise<void> {
           hash_sha256_contenido_original:
             p.hash_sha256_contenido_original ?? null,
           estado_verificacion: p.estado_verificacion ?? null,
+          vigente_hasta: vigenteHasta(
+            p.fecha_obtencion ?? null,
+            VENTANA_COMANDO_MS,
+          ),
         })
         .onConflict((oc) =>
           oc.columns(['cli_producto_id', 'comando']).doUpdateSet({
@@ -118,6 +136,10 @@ async function main(): Promise<void> {
             hash_sha256_contenido_original:
               p.hash_sha256_contenido_original ?? null,
             estado_verificacion: p.estado_verificacion ?? null,
+            vigente_hasta: vigenteHasta(
+              p.fecha_obtencion ?? null,
+              VENTANA_COMANDO_MS,
+            ),
           }),
         )
         .execute();
@@ -156,7 +178,11 @@ async function main(): Promise<void> {
           hash_sha256_contenido_original:
             p.hash_sha256_contenido_original ?? null,
           estado_verificacion: p.estado_verificacion ?? null,
-          vigente_hasta: m.fecha_deprecacion ?? null,
+          vigente_hasta: vigenteHasta(
+            p.fecha_obtencion ?? null,
+            VENTANA_MODELO_MS,
+          ),
+          fecha_deprecacion: m.fecha_deprecacion ?? null,
         })
         .onConflict((oc) =>
           oc.columns(['proveedor', 'modelo_id']).doUpdateSet({
@@ -174,7 +200,11 @@ async function main(): Promise<void> {
             hash_sha256_contenido_original:
               p.hash_sha256_contenido_original ?? null,
             estado_verificacion: p.estado_verificacion ?? null,
-            vigente_hasta: m.fecha_deprecacion ?? null,
+            vigente_hasta: vigenteHasta(
+              p.fecha_obtencion ?? null,
+              VENTANA_MODELO_MS,
+            ),
+            fecha_deprecacion: m.fecha_deprecacion ?? null,
           }),
         )
         .execute();

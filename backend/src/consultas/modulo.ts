@@ -34,6 +34,29 @@ function iso(d: Date | null): string | null {
   return d ? d.toISOString() : null;
 }
 
+/** Caducidad (T6, plan v2 §4.2): dato expirado se sirve degradado —
+ * estado_verificacion: pendiente_de_verificar + advertencia visible.
+ * Nunca se sirve como confirmado; null antes que inferir sigue intacto. */
+function caduco(vigenteHasta: Date | null): boolean {
+  return vigenteHasta !== null && vigenteHasta.getTime() < Date.now();
+}
+
+function procDegradado(
+  f: Procedible,
+  vigenteHasta: Date | null,
+): ProcedenciaResp {
+  const p = proc(f);
+  return caduco(vigenteHasta)
+    ? { ...p, estado_verificacion: 'pendiente_de_verificar' }
+    : p;
+}
+
+function advertencia(vigenteHasta: Date | null): string | undefined {
+  return caduco(vigenteHasta)
+    ? `dato con vigencia vencida el ${iso(vigenteHasta)}; trátalo como pendiente de verificación hasta refrescar la fuente`
+    : undefined;
+}
+
 export async function listar(db: Kysely<Database>) {
   const t0 = Date.now();
   const clis = await db
@@ -102,7 +125,8 @@ export async function consultarModelo(
           : Number(m.precio_output_por_millon),
     },
     vigente_hasta: iso(m.vigente_hasta),
-    procedencia: proc(m),
+    advertencia_caducidad: advertencia(m.vigente_hasta),
+    procedencia: procDegradado(m, m.vigente_hasta),
   };
   await registrarConsulta(
     db,
@@ -160,7 +184,8 @@ export async function consultarComandoCli(
       comando: c.comando,
       descripcion: c.descripcion,
       flags: c.flags_json,
-      procedencia: proc(c),
+      advertencia_caducidad: advertencia(c.vigente_hasta),
+      procedencia: procDegradado(c, c.vigente_hasta),
     })),
   };
   await registrarConsulta(
@@ -245,7 +270,8 @@ export async function consultarFicha(
       comandos: cmds.map((c) => ({
         comando: c.comando,
         descripcion: c.descripcion,
-        procedencia: proc(c),
+        advertencia_caducidad: advertencia(c.vigente_hasta),
+        procedencia: procDegradado(c, c.vigente_hasta),
       })),
     };
   }
@@ -291,7 +317,7 @@ export async function consultarFicha(
               : Number(m.precio_output_por_millon),
         },
       })),
-      procedencia: proc(proc0),
+      procedencia: procDegradado(proc0, proc0.vigente_hasta),
     };
   }
   await registrarConsulta(

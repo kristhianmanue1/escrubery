@@ -25,6 +25,9 @@ const d = SKIP_DB ? describe.skip : describe;
 const HASH_A = 'a'.repeat(64);
 const HASH_B = 'b'.repeat(64);
 const FECHA = new Date('2026-08-01T10:00:00.000Z');
+// Vigencia futura determinista (lejos de expirar): los goldens fosilizan el
+// shape SIN degradación; la degradación se cubre en su propio describe.
+const VIGENTE = new Date('2970-01-01T00:00:00.000Z');
 
 const PROC_COMANDO = {
   fuente_url: 'https://github.com/xai-org/grok-build',
@@ -83,6 +86,7 @@ async function sembrar(db: Kysely<Database>): Promise<void> {
         fecha_obtencion: FECHA,
         hash_sha256_contenido_original: HASH_A,
         estado_verificacion: 'confirmado_por_docs_oficial',
+        vigente_hasta: VIGENTE,
       },
       {
         cli_producto_id: cli.id,
@@ -94,6 +98,7 @@ async function sembrar(db: Kysely<Database>): Promise<void> {
         fecha_obtencion: FECHA,
         hash_sha256_contenido_original: HASH_B,
         estado_verificacion: 'confirmado_por_prueba_propia',
+        vigente_hasta: VIGENTE,
       },
     ])
     .execute();
@@ -118,6 +123,7 @@ async function sembrar(db: Kysely<Database>): Promise<void> {
       fecha_obtencion: FECHA,
       hash_sha256_contenido_original: HASH_B,
       estado_verificacion: 'confirmado_por_docs_oficial',
+      vigente_hasta: VIGENTE,
     })
     .execute();
 }
@@ -155,7 +161,8 @@ d('goldens del shape v0 (post-errata T4a)', () => {
         soporta_computer_use: false,
       },
       precios: { input_por_millon: 0.11, output_por_millon: 0.42 },
-      vigente_hasta: null,
+      vigente_hasta: '2970-01-01T00:00:00.000Z',
+      advertencia_caducidad: undefined,
       procedencia: {
         fuente_url:
           'https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json',
@@ -364,5 +371,120 @@ describe('feedbackInputValido — totalidad', () => {
         agente_reportante: { id: 'a' },
       }),
     ).toBe(true);
+  });
+});
+
+// T6 — caducidad: dato expirado se sirve degradado (estado_verificacion
+// pendiente_de_verificar + advertencia_caducidad), nunca como confirmado.
+d('caducidad de datos (T6)', () => {
+  const CADUCO = new Date('2026-08-02T10:00:00.000Z'); // vencido para siempre
+
+  beforeAll(async () => {
+    const db = await getDbTest();
+    await sembrar(db); // estado limpio y determinista
+    // modelo expirado (fecha_obtencion vieja + vigencia vencida)
+    await db
+      .insertInto('modelos')
+      .values({
+        proveedor: 'zhipu',
+        modelo_id: 'glm-viejo',
+        nombre_display: null,
+        ventana_contexto_max: 8192,
+        precio_input_por_millon: '1',
+        precio_output_por_millon: '2',
+        fuente_url: 'spec://caducidad',
+        fuente_tipo: 'litellm_json',
+        fecha_obtencion: new Date('2026-08-01T10:00:00.000Z'),
+        hash_sha256_contenido_original: 'c'.repeat(64),
+        estado_verificacion: 'confirmado_por_docs_oficial',
+        vigente_hasta: CADUCO,
+      })
+      .execute();
+    // comando expirado
+    const cli = await db
+      .selectFrom('cli_productos')
+      .select('id')
+      .where('nombre', '=', 'grok-build')
+      .executeTakeFirstOrThrow();
+    await db
+      .insertInto('cli_comandos')
+      .values({
+        cli_producto_id: cli.id,
+        comando: 'build-viejo',
+        flags_json: null,
+        descripcion: 'Comando con vigencia vencida',
+        fuente_url: 'spec://caducidad',
+        fuente_tipo: 'changelog_repo',
+        fecha_obtencion: new Date('2026-08-01T10:00:00.000Z'),
+        hash_sha256_contenido_original: 'c'.repeat(64),
+        estado_verificacion: 'confirmado_por_docs_oficial',
+        vigente_hasta: CADUCO,
+      })
+      .execute();
+  });
+
+  afterAll(async () => {
+    await cerrarDbTest();
+  });
+
+  it('modelo expirado → pendiente_de_verificar + advertencia_caducidad', async () => {
+    const db = await getDbTest();
+    const r = await consultarModelo(db, 'zhipu', 'glm-viejo');
+    expect(r?.vigente_hasta).toBe('2026-08-02T10:00:00.000Z');
+    expect(r?.advertencia_caducidad).toContain('vencida');
+    expect(r?.procedencia.estado_verificacion).toBe('pendiente_de_verificar');
+  });
+
+  it('modelo vigente → sin degradación (contraste)', async () => {
+    const db = await getDbTest();
+    const r = await consultarModelo(db, 'zhipu', 'glm-5.2');
+    expect(r?.procedencia.estado_verificacion).toBe(
+      'confirmado_por_docs_oficial',
+    );
+    expect(r?.advertencia_caducidad).toBeUndefined();
+  });
+
+  it('comando expirado → degradado por comando; vigente → intacto', async () => {
+    const db = await getDbTest();
+    const r = await consultarComandoCli(db, 'grok-build');
+    const viejo = r?.comandos.find((c) => c.comando === 'build-viejo');
+    const vigente = r?.comandos.find((c) => c.comando === 'build');
+    expect(viejo?.advertencia_caducidad).toContain('vencida');
+    expect(viejo?.procedencia.estado_verificacion).toBe(
+      'pendiente_de_verificar',
+    );
+    expect(vigente?.advertencia_caducidad).toBeUndefined();
+    expect(vigente?.procedencia.estado_verificacion).toBe(
+      'confirmado_por_docs_oficial',
+    );
+  });
+  it('vigente_hasta null (fuente sin ventana) → NO degrada (rama viva en el 75% de comandos reales)', async () => {
+    const db = await getDbTest();
+    const cli = await db
+      .selectFrom('cli_productos')
+      .select('id')
+      .where('nombre', '=', 'grok-build')
+      .executeTakeFirstOrThrow();
+    await db
+      .insertInto('cli_comandos')
+      .values({
+        cli_producto_id: cli.id,
+        comando: 'build-sin-ventana',
+        flags_json: null,
+        descripcion: 'Sin vigente_hasta',
+        fuente_url: 'spec://caducidad',
+        fuente_tipo: 'changelog_repo',
+        fecha_obtencion: new Date('2020-01-01T00:00:00.000Z'), // viejísimo
+        hash_sha256_contenido_original: 'd'.repeat(64),
+        estado_verificacion: 'inferido_de_comportamiento',
+        vigente_hasta: null, // sin ventana declarada: no debe degradar
+      })
+      .execute();
+    const r = await consultarComandoCli(db, 'grok-build');
+    const cmd = r?.comandos.find((c) => c.comando === 'build-sin-ventana');
+    expect(cmd?.advertencia_caducidad).toBeUndefined();
+    expect(cmd?.procedencia.estado_verificacion).toBe(
+      'inferido_de_comportamiento',
+    );
   });
 });
