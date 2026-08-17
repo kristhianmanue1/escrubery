@@ -256,3 +256,13 @@ Criterios §6.1 completos: (a) sandbox probado ✅, (b) ToS diarios curados ✅,
 **Notas F5:** el Agent Card usa la MISMA clave de Evidentia (D4=interno, sin niveles de acceso: una clave por consumidor, sin roles). Rate limit en memoria (single-instance; documentado). El `http.server` ajeno en :3000 del host obligó a probar en :3100 (el puerto real se define en `PORT`).
 
 **Gate F5 (2026-08-17): adversarial `proceed`.** Revisor verificó firma de la card con cripto independiente, fail-closed del auth (sin env → 401 siempre; clave en claro excluida por el check hex), matemática del bucket, cobertura del guard en todo /v0, 401 sin consumir tokens, y docs sin contradicciones. 1 MED (`.env.example` sin las vars nuevas — aplicado en `c53f8ca`) + 5 LOW registrados como deuda (timing-safe compare al exponer externamente, 401 sin bucket por IP, drift potencial de descripciones de tools triplicadas, scope mixto del commit b81c3ad, open handle de Jest). 121/121.
+
+---
+
+## FASE 5: CERRADA (decreto del Mediador 2026-08-17) — PLAN v2 COMPLETO
+
+Criterio §8 cumplido (agente externo se conecta, lista tools, obtiene respuesta verificable — specs + e2e + Agent Card verificada por adversarial con cripto independiente). **Totales F5: 1.75 est / 1.75 reales / 0.**
+
+**HITO MAYOR: el plan v2 (F0–F5) está IMPLEMENTADO COMPLETO** — Ficha v0 → MVP consulta → Evidentia firmada → introspección activa auto-actualizada → robustez criptográfica (Merkle+RFC 3161) → servicio formalizado (auth, rate-limit, Agent Card). Más el plan de deuda (H1–H3) ejecutado entre medias. El roadmap original del servicio, de punta a punta.
+
+**Candidatos siguientes (a decisión del Mediador):** T4b `resolver_identidad_modelo` (necesidad real de expertoGobernanza, ADR-0002; la operación está prometida en contrato §5 desde la errata T4a) · hardening LOWs F5 (timing-safe compare, single-source de descripciones de tools, 401 por IP, open handle Jest) · F4b batería de pruebas activas (bloqueado por presupuesto de modelos).
