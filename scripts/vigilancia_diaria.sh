@@ -209,6 +209,13 @@ if [ "$RC" != "0" ] && [ "$RC" != "10" ]; then
   echo "FALLO procesando estado/alertas (rc=$RC): tratado como infra"
   exit 2
 fi
+
+# --- F4a: checkpoint del día + sello RFC 3161 (corre también con RC=10 y con
+# --- FALLOS>0: ancla lo que haya; solo se omite si la infra murió antes).
+echo "-- checkpoint + sello (F4a)"
+run_node src/evidentia/cli_checkpoint.ts
+run_node src/evidentia/cli_sellar.ts
+
 if [ "$FALLOS" -gt 0 ]; then
   echo "== fin — exit 2 ($FALLOS fallo(s) de poller/introspección durante la corrida) =="
   exit 2

@@ -100,6 +100,20 @@ export interface EventosChangelogTable {
   firmado: Generated<boolean>;
 }
 
+export interface CheckpointsTable {
+  id: Generated<number>;
+  tip_evento_id: number;
+  eventos_hasta: number;
+  merkle_root: string;
+  firmado_json: string;
+  key_id: string;
+  sig: string;
+  timestamp_rfc3161: Buffer | null;
+  tsa_url: string | null;
+  external_anchor: unknown;
+  creado_en: Ts;
+}
+
 export interface Database {
   modelos: ModelosTable;
   cli_productos: CliProductosTable;
@@ -107,4 +121,5 @@ export interface Database {
   consultas_log: ConsultasLogTable;
   feedback: FeedbackTable;
   eventos_changelog: EventosChangelogTable;
+  checkpoints: CheckpointsTable;
 }

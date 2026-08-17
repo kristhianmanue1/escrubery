@@ -19,11 +19,50 @@ async function main(): Promise<void> {
   const db = crearKysely(url);
   try {
     const r = await verificarTodo(db, keyringPath);
-    console.log(
-      `verificar: ${r.ok ? 'OK' : 'FAIL'} (total=${r.total}, firmados=${r.firmados})`,
-    );
-    if (!r.ok) {
-      console.error('errores:\n  ' + r.errores.join('\n  '));
+    if (process.argv.includes('--json')) {
+      // F4a T6 — cobertura §7: eventos confirmado_por_prueba_propia y su anclaje
+      const eventos = await db
+        .selectFrom('eventos_changelog')
+        .select(['id', 'record_id', 'fecha_deteccion'])
+        .execute();
+      const ultimoSellado = await db
+        .selectFrom('checkpoints')
+        .select('eventos_hasta')
+        .where('timestamp_rfc3161', 'is not', null)
+        .orderBy('eventos_hasta', 'desc')
+        .limit(1)
+        .executeTakeFirst();
+      console.log(
+        JSON.stringify(
+          {
+            ok: r.ok,
+            total: r.total,
+            firmados: r.firmados,
+            errores: r.errores,
+            checkpoints: r.checkpoints,
+            cobertura_anclaje_evidentia: {
+              eventos_totales: eventos.length,
+              anclados_por_sello: ultimoSellado
+                ? eventos.filter((e) => e.id <= ultimoSellado.eventos_hasta)
+                    .length
+                : 0,
+              ultimo_checkpoint_sellado_hasta:
+                ultimoSellado?.eventos_hasta ?? null,
+              nota: 'un evento está anclado si existe checkpoint sellado con eventos_hasta >= su id; los eventos F3 (introspección sandbox) son la fuente de confirmado_por_prueba_propia del servicio',
+            },
+          },
+          null,
+          2,
+        ),
+      );
+    } else {
+      console.log(
+        `verificar: ${r.ok ? 'OK' : 'FAIL'} (total=${r.total}, firmados=${r.firmados})` +
+          ` [checkpoints: ${r.checkpoints.total}, sellados: ${r.checkpoints.sellados}, pendientes: ${r.checkpoints.pendientes}]`,
+      );
+      if (!r.ok) {
+        console.error('errores:\n  ' + r.errores.join('\n  '));
+      }
     }
     process.exit(r.ok ? 0 : 1);
   } finally {

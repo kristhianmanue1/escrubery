@@ -65,6 +65,8 @@ Las respuestas se serializan en JSON UTF-8. Desde la Fase 2, cualquier payload f
 
 **Diarios de introspección sandbox (F3):** `datos/fuentes/sandbox/<cli>/<ts>.txt` lleva una primera línea `# --version: <salida>` seguida del `--help` crudo. El `hash_sha256_contenido_original` de las filas generadas por introspección corresponde al **texto del `--help`** (sin la cabecera `# --version:`); para reproducirlo desde el archivo: omitir la primera línea.
 
+**Checkpoints anclados (F4a, aditivo 2026-08-17):** periódicamente (vigilancia diaria) se ancla el prefijo de eventos `id ≤ eventos_hasta` con un **checkpoint**: árbol **Merkle RFC 6962** (hoja `SHA256(0x00‖hash_evento)`, nodo `SHA256(0x01‖L‖R)`), payload JCS `{tip_hash, merkle_root, eventos_hasta, creado_en}` firmado Ed25519 (misma clave del keyring) y **sellado RFC 3161** por TSA público (DigiCert; cadena a raíces públicas). Custodia: `datos/checkpoints/<ts>.json` + `.tsr` (commiteados — el anclaje externo es TSA **+ git remoto**). Verificación por tercero: `evidentia:verificar` (firma, archivo↔BD, raíz del prefijo vivo, sello) y `evidentia:prueba-inclusion -- --record <id> --checkpoint <archivo>` (prueba de inclusión offline). Borrar eventos y re-hacer la cadena queda delatado por el checkpoint archivado.
+
 ## 3. Operaciones
 
 ### 3.1 `consultar_modelo`

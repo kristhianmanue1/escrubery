@@ -220,3 +220,19 @@ Criterios §6.1 completos: (a) sandbox probado ✅, (b) ToS diarios curados ✅,
 **Residuales LOW (a decidi del Mediador, no bloquean):** spec del eslabón poller→version_actual y flujo compare→build-arg (sugerido para F4/deuda); `fecha_ultima_version` documentada como observación en docs/VIGILANCIA.md; poller escribe version_actual también de CLIs pasivos (inofensivo).
 
 **Siguiente: decisión de rumbo del Mediador — F4 (robustez criptográfica) o F5 (formalización MCP).** El MCP utilitario opera desde F2.5.
+
+---
+
+## Fase 4a — Robustez criptográfica (2026-08-17; plan propio con adversarial de plan r1 fix-and-retry / r2 proceed)
+
+| Fecha | Fase | Ticket | est. | reales | desv. | Evidencia |
+|---|---|---|---|---|---|---|
+| 2026-08-17 | F4a | T0 — Mig 012 `checkpoints` | 0.25 | 0.25 | 0 | `UNIQUE(eventos_hasta)`; `checkpoint_id` de eventos deprecado |
+| 2026-08-17 | F4a | T1 — Merkle RFC 6962 + checkpoint firmado | 1 | 1 | 0 | Raíces contra **oráculo Python independiente** (1/2/3/7 hojas); **checkpoint #1 real**: 82 eventos, raíz `f8982b5a…`; archivo `datos/checkpoints/` (payload JCS + sig + key_id); skip idempotente verificado; spec prefijo estable (insert N+1 no invalida) |
+| 2026-08-17 | F4a | T2 — Prueba de inclusión offline | 0.5 | 0.5 | 0 | `evidentia:prueba-inclusion` lee el ARCHIVO (tercero) + `leaf_index`/direcciones RFC 6962; specs: toda hoja verifica (1-13), path/dirección/hoja alterados fallan; bug de orden hoja→raíz corregido |
+| 2026-08-17 | F4a | T3 — Sello RFC 3161 | 1 | 1 | 0 | TSA **DigiCert** (default; su cert encadena a raíces públicas — freetsa usa CA auto-firmada, quedó como alterno por env); `openssl ts` con `-no_nonce` (descartado por diseño); verificación offline: firma CMS + CAfile resuelto portátil (keychain macOS) + EKU + imprint=SHA-256(firmado_json); **sello real verificado**; spec tercero re-canonicaliza JCS del archivo y verifica; payload alterado → no verifica |
+| 2026-08-17 | F4a | T4 — Integración + detección de omisión | 0.5 | 0.75 | +0.25 | Vigilancia: checkpoint+sello al final (corre con RC=10/FALLOS>0); `verificar` endurecido: firma/archivo↔BD(JCS)/raíz prefijo vivo/TSR + huérfanos + cola_sin_anclar; **spec de OMISIÓN: borrar evento + rehacer cadena → FALLA; borrar también la fila → archivo huérfano delata**; contrato §2.3 aditivo; 110/110 |
+| 2026-08-17 | F4a | T5 — Specs eslabones | 0.5 | 0.5 | 0 | poller→version_actual con fetch mockeado (sin red): 4 casos incl. tags patológicos (rust-v0.148.0-alpha.20) y tag sin versión → intacta |
+| 2026-08-17 | F4a | T6 — Cobertura | 0.25 | 0.25 | 0 | `evidentia:verificar --json`: cobertura_anclaje (82/82 anclados por el checkpoint sellado), checkpoints {total/sellados/pendientes/cola} |
+
+**Notas F4a:** custodia git de `datos/checkpoints/` (auto-commit/push por vigilancia vs handoff) queda como **insumo #1 del Mediador** — sin push a remoto, el anclaje TSA es fuerte pero el TSR vive solo en esta máquina (hoy se commitean con el ticket). Desviación +0.25 en T4: pelea de tipos Buffer/string de spawnSync + env ESCRUBERY_CHECKPOINT_DIR para specs.

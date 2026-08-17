@@ -1,5 +1,5 @@
 import { generateKeyPairSync } from 'node:crypto';
-import { writeFileSync } from 'node:fs';
+import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import {
   SKIP_DB,
@@ -26,6 +26,10 @@ beforeAll(async () => {
   const db = await getDbTest();
   cliId = await sembrarCliTest(db);
   dir = dirTemp();
+  // los checks de custodia de checkpoints (T4) miran datos/checkpoints del
+  // servicio real; en test apuntan a un subdir propio (no el de keyrings).
+  mkdirSync(join(dir, 'checkpoints'), { recursive: true });
+  process.env.ESCRUBERY_CHECKPOINT_DIR = join(dir, 'checkpoints');
 });
 
 afterAll(async () => {
