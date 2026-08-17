@@ -266,3 +266,9 @@ Criterio §8 cumplido (agente externo se conecta, lista tools, obtiene respuesta
 **HITO MAYOR: el plan v2 (F0–F5) está IMPLEMENTADO COMPLETO** — Ficha v0 → MVP consulta → Evidentia firmada → introspección activa auto-actualizada → robustez criptográfica (Merkle+RFC 3161) → servicio formalizado (auth, rate-limit, Agent Card). Más el plan de deuda (H1–H3) ejecutado entre medias. El roadmap original del servicio, de punta a punta.
 
 **Candidatos siguientes (a decisión del Mediador):** T4b `resolver_identidad_modelo` (necesidad real de expertoGobernanza, ADR-0002; la operación está prometida en contrato §5 desde la errata T4a) · hardening LOWs F5 (timing-safe compare, single-source de descripciones de tools, 401 por IP, open handle Jest) · F4b batería de pruebas activas (bloqueado por presupuesto de modelos).
+
+---
+
+## RELEASE v0.3.0 (2026-08-17)
+
+Tag anotado + [GitHub Release](https://github.com/kristhianmanue1/escrubery/releases/tag/v0.3.0) publicados con notas de versión completas (plan de deuda + F3 + F4a + F5). Gates pre-release: CI local VERDE (139 s), 121/121, árbol limpio en `9ee3c4d`. **Primer release formal del servicio; el plan v2 (F0–F5) queda congelado en esta foto.** Siguientes candidatos sin cambio: T4b, hardening LOWs, F4b (presupuesto).
