@@ -112,6 +112,15 @@ Decreto del Mediador tras ronda adversarial `proceed`. Cumple los criterios del 
 | Fecha | Fase | Ticket | est. | reales | desv. | Evidencia |
 |---|---|---|---|---|---|---|
 | 2026-08-17 | deuda | T4a — Errata completa del contrato v0 | 0.5 | 0.5 | 0 | `docs/CONTRATO_API_v0.md` §0 (9 puntos): §3.4/§3.5 → §5 + T4b; §3.1/§3.2/§3.3 shapes implementados; listar/oficialidad documentadas (§3.7/§3.8); `python3 scripts/check_sizes.py` → OK |
+| 2026-08-17 | deuda | T1a — Specs Jest de Evidentia | 1 | 1.5 | +0.5 | `cd backend && npm test` → 54/54 (cadena OK/rota, firma ok/alterada, fail-closed sin keyring, kid fuera de keyring, firma sin prefijo, firmado-sin-firmas, 7 categorías); `ESCRUBERY_SKIP_DB_SPECS=1 npm test` → 41 passed + 13 skipped |
+| 2026-08-17 | deuda | T2 — JCS conforme a RFC 8785 | 0.5 | 0.5 | 0 | Vectores RFC (números shortest-round-trip, strings/escapes, orden claves UTF-16 con surrogate pair, U+2028/29 crudos) **pasan con la implementación casera** — no se adoptó `canonicalize`; round-trip firma→re-canonicalización verificado; `npm test` verde |
+
+**Notas T1a/T2 (2026-08-17):**
+- BD de test aislada `escrubery_test` (helper `fixtures/test_db.ts`): se crea/migra idempotentemente (advisory lock), nunca toca la BD real. `npm test` corre `--runInBand` (specs de BD comparten la BD de test; el paralelismo contaminaba la cadena).
+- `kysely` es ESM-only → `jest.config.js` nuevo con babel-jest solo para `kysely/dist` (devDeps: `@babel/preset-env` + `@babel/core`); el resto ts-jest CJS.
+- **Decisión registrar (DoD T1a):** los scripts `probar_*` (`evidentia:probar-cadena`, `probar-firma`) se **conservan** como demos manuales post-despliegue (referenciados en la bitácora F2); los specs son el gate automatizado. Ningún comportamiento de producción cambió.
+- Exclusión local sin BD documentada en el encabezado de cada spec de BD: `ESCRUBERY_SKIP_DB_SPECS=1`; CI (T3) correrá siempre con PostgreSQL y sin la variable.
+- Desviación +0.5 en T1a: pelea con el runtime Jest/ESM de `kysely` (3 intentos: ts-jest ESM mode → babel-jest → runInBand por contaminación de workers). Primera desviación ≠ 0 desde F2 — prueba de la convención honesta de T7.
 
 **Notas T4a (2026-08-17):**
 - Decisión del Mediador (insumo #2 del plan): **documentar** los campos omitidos como no disponibles en v0; su implementación queda en T4b (diferido).
