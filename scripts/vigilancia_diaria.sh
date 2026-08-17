@@ -101,19 +101,48 @@ fi
 # --- de vigencia degradan los comandos solos — honesto, no silencioso).
 F3_SEMANALES=(qwen-code)
 if command -v docker >/dev/null 2>&1 && docker info >/dev/null 2>&1; then
+  # ¿La última release conocida (poller F2) es más nueva que la version del
+  # sandbox (cli_productos.version_actual)? Si sí, rebuild con --pull: sin
+  # esto la imagen cachea el npm install y el inventario queda congelado en
+  # la versión del primer build (HIGH adversarial r2; criterio §6.2).
   CLIS_F3=("${DIARIOS[@]}")
   [ "$HACER_SEMANAL" = "1" ] && CLIS_F3+=("${F3_SEMANALES[@]}")
   for cli in "${CLIS_F3[@]}"; do
     echo "-- F3 introspección: $cli"
     IMAGEN="escrubery-sandbox-$cli"
-    if ! docker image inspect "$IMAGEN" >/dev/null 2>&1; then
+    REBUILD_FLAG=""
+    if docker image inspect "$IMAGEN" >/dev/null 2>&1; then
+      # version del sandbox vs version_actual en BD: si difieren, rebuild
+      V_SANDBOX=$(docker run --rm "$IMAGEN" --version 2>/dev/null | grep -oE '[0-9]+\.[0-9]+[0-9.]*([-._][0-9A-Za-z.]+)?' | head -1)
+      V_BD=$(cd "$BACKEND" && node --env-file=.env --import tsx -e "
+import { crearKysely } from './src/db/kysely';
+async function main() {
+  const db = crearKysely(process.env.DATABASE_URL!);
+  const r = await db.selectFrom('cli_productos').select('version_actual')
+    .where('nombre', '=', process.argv[1] ?? '').executeTakeFirst();
+  console.log(r?.version_actual ?? '');
+  await db.destroy();
+}
+main();
+" "$cli" 2>/dev/null)
+      if [ -n "$V_SANDBOX" ] && [ -n "$V_BD" ] && [ "$V_SANDBOX" != "$V_BD" ]; then
+        echo "   versión sandbox ($V_SANDBOX) != BD ($V_BD): rebuild"
+        REBUILD_FLAG="--pull"
+      fi
+    else
       echo "   imagen $IMAGEN ausente: construyendo"
+      REBUILD_FLAG="--pull"
+    fi
+    if [ -n "$REBUILD_FLAG" ]; then
       case "$cli" in
         codex-cli) DOCKERFILE=Dockerfile.codex ;;
         *) DOCKERFILE="Dockerfile.$cli" ;;
       esac
-      docker build -q -t "$IMAGEN" "$RAIZ/docker/sandbox" -f "$RAIZ/docker/sandbox/$DOCKERFILE" >/dev/null \
-        || { echo "FALLO DE INFRAESTRUCTURA construyendo $IMAGEN"; exit 2; }
+      if ! docker build -q $REBUILD_FLAG -t "$IMAGEN" "$RAIZ/docker/sandbox" -f "$RAIZ/docker/sandbox/$DOCKERFILE" >/dev/null; then
+        echo "FALLO construyendo $IMAGEN (continuando con el resto)"
+        FALLOS=$((FALLOS + 1))
+        continue
+      fi
     fi
     run_node src/f3/sandbox_introspeccion.ts "$cli"
   done

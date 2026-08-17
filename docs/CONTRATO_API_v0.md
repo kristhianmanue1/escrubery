@@ -63,6 +63,8 @@ Las respuestas se serializan en JSON UTF-8. Desde la Fase 2, cualquier payload f
 
 **Evidentia (traza criptográfica):** operativa desde F2. Cada evento de changelog lleva `hash_evento_anterior` (cadena) y `firmas: [{key_id, sig, alg}]` (Ed25519 sobre el payload canónico). Verificación read-only y fail-closed vía `npm run evidentia:verificar --keyring datos/keys/evidentia-keyring.json`. `verificar_evidencia` se expone como *tool* del MCP local desde F2.5 (errata 9); `registrar_evidencia` sigue sin exponerse. Ambas entrarán al contrato en F5.
 
+**Diarios de introspección sandbox (F3):** `datos/fuentes/sandbox/<cli>/<ts>.txt` lleva una primera línea `# --version: <salida>` seguida del `--help` crudo. El `hash_sha256_contenido_original` de las filas generadas por introspección corresponde al **texto del `--help`** (sin la cabecera `# --version:`); para reproducirlo desde el archivo: omitir la primera línea.
+
 ## 3. Operaciones
 
 ### 3.1 `consultar_modelo`
@@ -130,6 +132,7 @@ Las respuestas se serializan en JSON UTF-8. Desde la Fase 2, cualquier payload f
 
 - `comandos` es un **array**; cada comando lleva su bloque `procedencia`. `flags` es la captura cruda de la fuente: `null` si no se capturó, o `{ "salida": "<texto de --help>" }` si vino de ingesta asistida (errata 3).
 - `advertencia_caducidad` (aditivo T6, 2026-08-17): por comando, presente solo si su vigencia (7 d) venció; ese comando se sirve con `estado_verificacion: pendiente_de_verificar`.
+- **Semántica de confirmación (F3):** los comandos cuya fuente original es documentación (p. ej. *slash-commands* o flags de docs) **nunca son confirmables** por introspección `--help` — degradan por caducidad con su procedencia intacta, lo cual es intencional (honesto ≠ borrado). La confirmación del sandbox se registra en columnas separadas (`hash_confirmacion_sandbox`, `version_confirmada`), sin tocar la procedencia original.
 - **No disponibles en v0** (errata 3): array de flags parseadas (con `desde_version`), `subcomandos`, `comandos_equivalentes`, parámetro `version`.
 
 Regla de gobernanza (criterio de la Fase 1): `cli_producto.tipo` (`oficial | comunitario`) aparece **siempre**; dos productos distintos (Grok CLI comunitario vs. Grok Build oficial) nunca se mezclan en una respuesta sin distinguirse.
