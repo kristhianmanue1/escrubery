@@ -56,7 +56,7 @@ const TOOLS = [
   },
   {
     name: 'consultar_ficha',
-    description: 'Ficha completa de un CLI o de un proveedor.',
+    description: 'Ficha (resumida) de un CLI o de un proveedor.',
     inputSchema: {
       type: 'object',
       properties: {

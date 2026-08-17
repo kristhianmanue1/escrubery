@@ -127,10 +127,11 @@ DoD:
 - [ ] Nota en `docs/CONSUMO_INTERNO.md`: HTTP sin auth ni rate-limit en alpha interna (desviación conocida frente al `429` del contrato); se resuelve en F5 o antes si se expone fuera de localhost.
 - [ ] Nota en `bitacora_ciclos.md` (sección F3 preparación): alcance de introspección diaria = opencode/claude-code/codex-cli (ToS curados); grok-build/kimi-code/antigravity/cline/grok-cli-community excluidos hasta resolver D1 para ellos.
 
-## Tarea diferida (fuera de este plan)
+## Tareas diferidas (fuera de este plan)
 
 - **T4b — Implementar `resolver_identidad_modelo` (y `politica_datos_proveedor`):** funcionalidad nueva, no deuda. Requiere plan propio con los requisitos de expertoGobernanza (ADR-0002) y entra como versión aditiva del contrato. Se agenda tras H3 o en paralelo a F3, a decisión del Mediador.
-- **Numeración:** T4 se descompone en T4a (errata, este plan) y T4b (implementación, diferido); no existe T4 "a secas".
+- **T4c — Endurecimiento de validación y UX del CLI (registrado 2026-08-17 en el adversarial de T4a):** (a) validar enum `tipo` y `agente_reportante.id` obligatorio real en HTTP/CLI (hoy el MCP degrada id ausente a `'desconocido'`, server.ts:189); (b) distinguir exit de fallo fatal de infraestructura del exit 1 `sin_datos` en el CLI; (c) alinear el usage `listar [clis|proveedores]` con el comportamiento. Mini-ticket, ~0.5 cic; puede fusionarse con T1b si el Mediador lo aprueba.
+- **Numeración:** T4 se descompone en T4a (errata, este plan), T4b (implementación §3.4/§3.5) y T4c (validación/UX, adversarial T4a); no existe T4 "a secas".
 
 ## Orden recomendado
 
@@ -177,6 +178,8 @@ La bitácora registrará reales vs. estimados con la convención nueva de T7 (pr
 |---|---|---|---|---|
 | 1 (2026-08-10) | Subagente fresco, modelo glm-5.2 (decorrelación vs. autor kimi) | `fix-and-retry` | 2 BLOCKER (T1b fosilizaría shape divergente del contrato; T6 añade campo sin actualizar contrato), 4 HIGH (`vigente_hasta` ya existe y se puebla con `fecha_deprecacion`; `cli_comandos` sin columna; T5 sin distinción BD caída vs. alerta; T3↔T1a contradictorios sobre BD en CI), 3 MED, 2 LOW | Correcciones aplicadas: T4a ampliada a errata completa y puesta como prerequisito de T1b; T6 corregida (bug semántico, migración `cli_comandos`, contrato en el mismo ticket); T5 con exit codes 0/10/2 y estado de corrida; T3/T1a unificados (CI siempre con Postgres; gate lint sin `--fix`); notas de numeración T4 y proceso-puro; gate de comandos corregido (raíz, `npx eslint`). |
 | 2 (2026-08-10) | Mismo revisor (resume; verifica correcciones) | **`proceed`** | Los 11 hallazgos de r1 verificados como resueltos con evidencia línea por línea; sin BLOCKER/HIGH nuevos. 3 residuales aplicados en esta versión: gate adversarial de T4a asignado a H1 (MED), decisión `fecha_deprecacion` asignada al Mediador con cierre explícito (LOW), path de migraciones corregido (LOW). Verificaciones del proyecto: procedencia OK, oficial/comunitario OK, contrato v0 OK (resuelto vía T4a/T6), generados intactos OK. | **Plan aprobado para ejecutar.** El Mediador puede aplicar Git y abrir T4a. |
+| 3 (2026-08-17) | Subagente fresco, glm-5.2 (decorrelación vs. autor) — T4a r1 | `fix-and-retry` | 1 HIGH (§3.2 documentaba `flags` como array; la implementación sirve captura cruda `null \| {salida}` — lo fosilizaría como correcto en T1b), 5 MED (enum §2.2 sin acotar a `modelos.proveedor`; `version_servicio` null en CLI sin declarar; deferral enum sin dueño; CONSUMO_INTERNO sobreprometía procedencia; "ficha completa" residual en MCP+doc), 3 LOW. | Correcciones aplicadas: shape `flags` crudo documentado; enum acotado; nulabilidad declarada; **T4c** registrado (validación/UX, ~0.5 cic); CONSUMO_INTERNO y tool MCP alineados; mapeo `listar_entidades` documentado; desviación exit fatal del CLI documentada. Gates: check_sizes/build/eslint OK (+ fix de formato prettier preexistente en `sandbox_introspeccion.ts`). |
+| 4 (2026-08-17) | Mismo revisor (resume; verifica correcciones) — T4a r2 | **`proceed`** | 9/9 hallazgos de r3 resueltos o diferidos con dueño explícito (T4c), verificados línea por línea contra código; 2 LOW cosméticos (typo "Numerología", fila de registro) aplicados tras el veredicto. `datos/` intacto. | **T4a cerrado.** Gate formal de H1 sigue siendo al completar T1a/T1b/T2; T4a queda verificado. |
 
 ## Enlaces
 

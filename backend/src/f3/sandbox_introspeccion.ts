@@ -153,6 +153,9 @@ async function main(): Promise<void> {
 }
 
 main().catch((err) => {
-  console.error('error fatal:', err instanceof Error ? err.message : String(err));
+  console.error(
+    'error fatal:',
+    err instanceof Error ? err.message : String(err),
+  );
   process.exit(1);
 });

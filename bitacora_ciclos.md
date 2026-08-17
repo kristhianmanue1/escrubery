@@ -104,3 +104,17 @@ Decreto del Mediador tras ronda adversarial `proceed`. Cumple los criterios del 
 | 2026-08-07 | (c) Presupuesto | ⏳ | con `--help` no se llaman modelos → costo ~0 (pendiente aprobación Mediador) |
 
 **8º CLI añadido:** opencode (`anomalyco/opencode`, MIT) — controlador principal del Mediador (corre GLM-5.2). Inventario: 8 CLIs, 18 comandos catalogados, 139 modelos.
+
+---
+
+## Plan de deuda — H1: Verificación propia automatizada (en curso)
+
+| Fecha | Fase | Ticket | est. | reales | desv. | Evidencia |
+|---|---|---|---|---|---|---|
+| 2026-08-17 | deuda | T4a — Errata completa del contrato v0 | 0.5 | 0.5 | 0 | `docs/CONTRATO_API_v0.md` §0 (9 puntos): §3.4/§3.5 → §5 + T4b; §3.1/§3.2/§3.3 shapes implementados; listar/oficialidad documentadas (§3.7/§3.8); `python3 scripts/check_sizes.py` → OK |
+
+**Notas T4a (2026-08-17):**
+- Decisión del Mediador (insumo #2 del plan): **documentar** los campos omitidos como no disponibles en v0; su implementación queda en T4b (diferido).
+- La errata resultó más amplia que el hallazgo original (§3.1/§3.2): también §1 (CLI posicional, sin 429), §2.1 (`firma_ed25519` siempre null en consultas; listar/oficialidad sin bloque procedencia), §3.3 (shape de ficha), §3.6 (`estado_datos_hash` no disponible; enum `tipo` solo exigido en MCP), §4 (`detalles` ausente; códigos previstos no emitidos), §2.3 (`verificar_evidencia` en MCP desde F2.5).
+- `docs/CONSUMO_INTERNO.md` corregido (7→8 CLIs; procedencia e "índices" y "ficha resumida" alineados con la errata); descripción de la tool MCP `consultar_ficha` alineada ("resumida").
+- Ronda adversarial de T4a (2026-08-17): r1 `fix-and-retry` (1 HIGH: `flags` documentado como array cuando la implementación sirve captura cruda `null|{salida}`; 5 MED) → correcciones aplicadas → r2 `proceed` (ver registro adversarial del plan de deuda).

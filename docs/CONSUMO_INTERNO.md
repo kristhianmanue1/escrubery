@@ -10,7 +10,7 @@ El CLI lee PostgreSQL directamente (no requiere servidor HTTP corriendo). Desde 
 ~/www/aria/escrubery/scripts/consultar <operacion> [args]
 ```
 
-**Requisitos (ya satisfechos en el host):** PostgreSQL local activo (peer auth), BD `escrubery` migrada y poblada (139 modelos, 7 CLIs).
+**Requisitos (ya satisfechos en el host):** PostgreSQL local activo (peer auth), BD `escrubery` migrada y poblada (139 modelos, 8 CLIs).
 
 ### Operaciones (exit codes `0` ok / `1` sin_datos / `2` params)
 
@@ -25,7 +25,7 @@ consultar modelo moonshot kimi-k2-0905-preview     # → JSON con precios, venta
 consultar comando claude-code                      # → {cli_producto:{...tipo...}, comandos:[...]}
 consultar comando claude-code mcp                  # filtrado
 
-# Ficha completa de una entidad
+# Ficha (resumida) de una entidad
 consultar ficha cli grok-build                     # oficial
 consultar ficha proveedor zhipu                    # modelos del proveedor
 
@@ -36,7 +36,7 @@ consultar oficialidad                              # → tipo por CLI (grok-buil
 consultar feedback '{"tipo":"error","descripcion":"...","agente_reportante":{"id":"<tu-agente>"}}'
 ```
 
-Toda respuesta trae bloque `procedencia` (`fuente_url`, `fecha_obtencion`, `hash_sha256_contenido_original`, `estado_verificacion`, `firma_ed25519`).
+Toda respuesta de dato trae bloque `procedencia` (`fuente_url`, `fecha_obtencion`, `hash_sha256_contenido_original`, `estado_verificacion`, `firma_ed25519`) — salvo los índices `listar`/`oficialidad`, que no lo llevan (errata 6 del contrato).
 
 ### Evidentia (verificar hechos firmados)
 
