@@ -92,6 +92,29 @@ else
   echo "-- poller vulnerable-mcp: OMITIDO (sin fuente local ni VULNERABLE_MCP_URL; feed real pendiente de insumo)"
 fi
 
+# --- Introspección activa F3 (diarios, ToS curados; presupuesto ~0: solo
+# --- --help/--version en contenedor efímero; decreto Mediador 2026-08-17).
+# --- Requiere Docker: si no está disponible, se omite con nota (las ventanas
+# --- de vigencia degradan los comandos solos — honesto, no silencioso).
+if command -v docker >/dev/null 2>&1 && docker info >/dev/null 2>&1; then
+  for cli in "${DIARIOS[@]}"; do
+    echo "-- F3 introspección: $cli"
+    IMAGEN="escrubery-sandbox-$cli"
+    if ! docker image inspect "$IMAGEN" >/dev/null 2>&1; then
+      echo "   imagen $IMAGEN ausente: construyendo"
+      case "$cli" in
+        codex-cli) DOCKERFILE=Dockerfile.codex ;;
+        *) DOCKERFILE="Dockerfile.$cli" ;;
+      esac
+      docker build -q -t "$IMAGEN" "$RAIZ/docker/sandbox" -f "$RAIZ/docker/sandbox/$DOCKERFILE" >/dev/null \
+        || { echo "FALLO DE INFRAESTRUCTURA construyendo $IMAGEN"; exit 2; }
+    fi
+    run_node src/f3/sandbox_introspeccion.ts "$cli"
+  done
+else
+  echo "-- F3 introspección: OMITIDA (Docker no disponible; los comandos degradan por caducidad solos)"
+fi
+
 # --- Alertas alta severidad (<24h) ---
 echo "-- alertas"
 ALERTAS_OUT="$VDIR/alertas_ultima.json"

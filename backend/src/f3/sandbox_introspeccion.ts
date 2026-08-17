@@ -14,9 +14,14 @@ const BINARIO: Record<string, string> = {
   opencode: 'opencode',
   'claude-code': 'claude',
   'codex-cli': 'codex',
+  'qwen-code': 'qwen',
 };
 
 const RE_OPEN = /^ {2,}opencode\s+(\S+)\s{2,}(.+)$/;
+// qwen-code (hereda de gemini-cli): "  qwen mcp     Manage MCP servers"
+// — comando multi-palabra "qwen <sub>"; el default es "qwen [query..]".
+// "qwen extensions <command>": el sub-comando lleva placeholder <...>.
+const RE_QWEN = /^ {2,}qwen\s+(\S+)(?:\s+<[^>]+>)*(\s+\[[^\]]+\])*\s{2,}(.+)$/;
 const RE_GEN = /^ {2,}(\S+)(?:\s+\[[^\]]+\])*\s{2,}(.+)$/;
 
 function extraerComandos(cli: string, help: string): CmdHelp[] {
@@ -37,13 +42,33 @@ function extraerComandos(cli: string, help: string): CmdHelp[] {
         continue;
       }
     }
-    const re = cli === 'opencode' ? RE_OPEN : RE_GEN;
-    const m = linea.match(re);
-    if (m && m[1] !== '[project]') {
-      const cmd = m[1].split('|')[0];
-      if (!vistos.has(cmd)) {
-        vistos.add(cmd);
-        out.push({ cmd, desc: m[2].trim() });
+    let m: RegExpMatchArray | null = null;
+    if (cli === 'opencode') {
+      m = linea.match(RE_OPEN);
+      if (m && m[1] !== '[project]') {
+        const cmd = m[1].split('|')[0];
+        if (!vistos.has(cmd)) {
+          vistos.add(cmd);
+          out.push({ cmd, desc: m[2].trim() });
+        }
+      }
+    } else if (cli === 'qwen-code') {
+      m = linea.match(RE_QWEN);
+      if (m && m[1] !== '[query..]') {
+        const cmd = m[1].split('|')[0];
+        if (!vistos.has(cmd)) {
+          vistos.add(cmd);
+          out.push({ cmd, desc: m[3].trim() });
+        }
+      }
+    } else {
+      m = linea.match(RE_GEN);
+      if (m) {
+        const cmd = m[1].split('|')[0];
+        if (!vistos.has(cmd)) {
+          vistos.add(cmd);
+          out.push({ cmd, desc: m[2].trim() });
+        }
       }
     }
   }
