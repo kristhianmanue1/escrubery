@@ -11,7 +11,7 @@ Servicio de inteligencia sobre modelos y CLIs de IA (ver `README.md`). Fase actu
 ## Estado actual
 
 - **Hecho:** F0–F4a cerradas (F4a: Merkle RFC 6962 + checkpoints firmados + sello RFC 3161 DigiCert + detección de omisión; custodia git diaria autorizada).
-- **En curso:** **Fase 5 — formalización MCP** (Agent Card firmado, auth + rate-limit HTTP). Inventario: 9 CLIs, 188 modelos.
+- **En curso:** **Fase 5 — formalización MCP** (implementada: Agent Card firmada, auth X-API-Key + rate-limit 429; adversarial `proceed`, decreto pendiente). Inventario: 9 CLIs, 188 modelos.
 - **Detalle y desviaciones:** `bitacora_ciclos.md` (hogar canónico; este bloque es solo el resumen — mantener ≤ 5 líneas, no narrar historial aquí).
 
 ## Roles (ADRC)
