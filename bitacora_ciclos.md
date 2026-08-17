@@ -2,7 +2,7 @@
 
 Registro de trabajo por fase/ticket según el plan v2 (§10) y la política de agentes (§9). Hogar canónico del detalle de avance; `AGENTS.md` solo lleva el resumen.
 
-**Convención:** 1 ciclo = lo que un Ejecutor completa y deja verificable en una sesión. Desviación = ciclos reales − estimados.
+**Convención (T7, desde 2026-08-17):** 1 ciclo = lo que un Ejecutor completa y deja verificable en una sesión. **Desviación** = ciclos reales − estimados, y registra el re-trabajo (p. ej. fix-and-retry de adversarial) como fracción de ciclo. Una desviación 0 sistemática se trata como señal de estimación inválida, no como logro. Primer ejemplo: T1a +0.5 (pelea Jest/ESM).
 
 | Fecha | Fase | Ticket / trabajo | Ciclos est. | Ciclos reales | Desviación | Evidencia |
 |---|---|---|---|---|---|---|
@@ -105,6 +105,8 @@ Decreto del Mediador tras ronda adversarial `proceed`. Cumple los criterios del 
 
 **8º CLI añadido:** opencode (`anomalyco/opencode`, MIT) — controlador principal del Mediador (corre GLM-5.2). Inventario: 8 CLIs, 18 comandos catalogados, 139 modelos.
 
+**Alcance de introspección diaria F3 (T8, 2026-08-17):** opencode/claude-code/codex-cli (ToS curados, `docs/investigacion/tos-clis.md`); grok-build/kimi-code/antigravity/cline/grok-cli-community **excluidos** de la ejecución activa hasta resolver D1 (ToS) para ellos — solo vigilancia pasiva (pollers de releases).
+
 ---
 
 ## Plan de deuda — H1: Verificación propia automatizada (CERRADO)
@@ -136,7 +138,7 @@ Adversarial de gate: r1 `fix-and-retry` (HIGH: `feedbackInputValido` no total �
 
 ---
 
-## Plan de deuda — H2: Operación continua (en curso)
+## Plan de deuda — H2: Operación continua (VERIFICADO por adversarial 2026-08-17)
 
 | Fecha | Fase | Ticket | est. | reales | desv. | Evidencia |
 |---|---|---|---|---|---|---|
@@ -154,4 +156,20 @@ Adversarial de gate: r1 `fix-and-retry` (HIGH: `feedbackInputValido` no total �
 - Efecto visible honesto: los comandos ingeridos de fichas del 2026-08-07 (ventana 7 d) sirven **degradados** (`pendiente_de_verificar` + `advertencia_caducidad`) hasta que la introspección diaria F3 los refresque — es el comportamiento prometido, no una regresión.
 - Feed vmcp: sin fuente local ni `VULNERABLE_MCP_URL`, el paso se omite con nota (feed real pendiente de insumo del Mediador).
 
+**Notas T7/T8 (2026-08-17):**
+- **Nota de proceso puro:** este plan de deuda es 100% proceso (0 entregable de producto nuevo: tests, CI, vigilancia, caducidad, licencia — nada que un consumidor nuevo del servicio pueda consultar distinto). El ratio proceso/producto fue decisión registrada del Mediador (2026-08-10) y F3 puede iniciar su preparación restante en paralelo — de hecho F3-T0/T1 ya avanzaron antes del plan.
+- **CI bloqueado por facturación (2026-08-17):** la primera corrida del workflow (`run 32050842683`) no arrancó: "recent account payments have failed or your spending limit needs to be increased" (GitHub Actions billing, ajuste pendiente del Mediador). El pipeline está definido y su receta validada localmente (75/75 vía URL TCP); el gate local queda vigente hasta que el CI corra verde.
+- **Vigilancia instalada (2026-08-17):** `launchctl load com.escrubery.vigilancia` + corrida vía launchd verificada (exit 10 con alertas "ya conocida (no atendida)"; fix del PATH de launchd aplicado y documentado en `docs/VIGILANCIA.md`).
+
 **Siguiente en H2:** T5 — Vigilancia diaria (pollers + alertas) ∥ T6 — Caducidad `vigente_hasta` + refresco LiteLLM.
+
+---
+
+## Plan de deuda — H3: Contrato y métricas honestas (VERIFICADO 2026-08-17)
+
+| Fecha | Fase | Ticket | est. | reales | desv. | Evidencia |
+|---|---|---|---|---|---|---|
+| 2026-08-17 | deuda | T7 — Métrica F1 real + convención de desviación honesta | 0.5 | 0.5 | 0 | `npm run metricas:f1` → 53 consultas: bd 41 (77.4%), sin_datos 12 (22.6%); `fuente_externa` 0 (caché-al-consultar no implementado — honesto); convención en el encabezado de esta bitácora |
+| 2026-08-17 | deuda | T8 — LICENSE + desviaciones conocidas documentadas | 0.5 | 0.5 | 0 | `LICENSE` Apache 2.0 (texto canónico, sha256 oficial verificado por adversarial) + README sin "Por definir"; CONSUMO_INTERNO: HTTP sin auth/rate-limit (→ F5); nota alcance F3 diarios en sección F3 |
+
+**Estado del plan (2026-08-17, tras adversarial H3 `proceed`, fila 8 del registro):** los 3 hitos verificados por adversarial. **Totales: 6.5 ciclos estimados / 7 reales / desviación +0.5** (única desviación: T1a). Pendientes del Mediador para el decreto final: (a) billing de GitHub Actions (CI definido y receta validada localmente, pero sin corrida verde en la nube); (b) verificación de coherencia de licencia con ecosistema CAGF/expertoGobernanza (insumo #6); (c) token GitHub opcional (T5). Vigilancia operativa (launchd, diaria 09:00).

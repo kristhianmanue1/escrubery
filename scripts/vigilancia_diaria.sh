@@ -10,6 +10,10 @@
 # Estado y logs en var/vigilancia/ (gitignored). Instalación: docs/VIGILANCIA.md.
 set -uo pipefail
 
+# launchd ejecuta con PATH mínimo (/usr/bin:/bin): añadir ubicaciones estándar
+# de node/python3 (Homebrew en Apple Silicon e Intel) para que los pollers arranquen.
+export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
+
 RAIZ=$(cd "$(dirname "$0")/.." && pwd)
 BACKEND="$RAIZ/backend"
 VDIR="${ESCRUBERY_VIGILANCIA_DIR:-$RAIZ/var/vigilancia}"

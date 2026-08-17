@@ -14,8 +14,8 @@ La **implementación ya diverge del contrato congelado §3.1/§3.2**, independie
 ## Hitos (cada uno dispara ronda adversarial, §6)
 
 - **H1 — Verificación propia automatizada:** `npm test` verde con specs de Evidentia (cadena/firma/verificar/clasificador), golden del shape post-errata y JCS validado contra test vectors RFC 8785. [cerrado por decreto del Mediador 2026-08-17; adversarial proceed r6]
-- **H2 — Operación continua:** pipeline CI definido y verde, vigilancia diaria (pollers + alertas) instalada con log de corrida real, y caducidad `vigente_hasta` corregida y activa con degradación visible. [adversarial-ok 2026-08-17 con MEDs aplicados; primera corrida del CI requiere push; instalación launchd es acción del Mediador; cierre sujeto a decreto]
-- **H3 — Contrato y métricas honestas:** contrato v0 coherente con lo implementado (errata completa), métrica F1 publicada desde `consultas_log`, LICENSE presente. [pendiente]
+- **H2 — Operación continua:** pipeline CI definido y verde, vigilancia diaria (pollers + alertas) instalada con log de corrida real, y caducidad `vigente_hasta` corregida y activa con degradación visible. [adversarial-ok 2026-08-17 con MEDs aplicados; push hecho y launchd instalado/verificado; **CI bloqueado por facturación de GitHub Actions** (run 32050842683, ajuste pendiente del Mediador) — gate local vigente; cierre sujeto a decreto]
+- **H3 — Contrato y métricas honestas:** contrato v0 coherente con lo implementado (errata completa), métrica F1 publicada desde `consultas_log`, LICENSE presente. [adversarial-ok 2026-08-17; cierre sujeto a decreto del Mediador]
 
 ## Tareas y contratos
 
@@ -168,10 +168,11 @@ La bitácora registrará reales vs. estimados con la convención nueva de T7 (pr
 ## Insumos requeridos del Mediador
 
 1. ~~**Decisión de licencia** (T8)~~ ✅ **Decidida: Apache 2.0** (2026-08-10, justificación registrada en T8).
-2. **Decisión T4a:** documentar campos omitidos como no disponibles (recomendado) vs. implementarlos (crece el plan).
-3. **Instalación de la vigilancia** (T5): correr el instalador launchd en su máquina.
-4. **Push para activar CI** (T3).
+2. ~~**Decisión T4a**~~ ✅ **Decidida: documentar** los campos omitidos como no disponibles (2026-08-17, autorizada; implementación diferida a T4b).
+3. ~~**Instalación de la vigilancia** (T5)~~ ✅ Instalada y verificada (2026-08-17: `launchctl load` + corrida launchd exit 10; fix PATH documentado en `docs/VIGILANCIA.md`).
+4. ~~**Push para activar CI** (T3)~~ ✅ Push hecho (2026-08-17) — **pero la primera corrida no arrancó por facturación de GitHub Actions** (billing/spending limit, run 32050842683); ajustar billing queda como pendiente del Mediador para el criterio "verde en CI".
 5. **Token GitHub de mínimo privilegio** (opcional, T5).
+6. **Verificación de coherencia de licencia con el ecosistema CAGF/expertoGobernanza** (residual LOW del adversarial H3): los proyectos no residen bajo `~/www/aria/` — el Mediador debe registrar la verificación o declararla pendiente (nota en T8).
 
 ## Registro adversarial
 
@@ -184,6 +185,7 @@ La bitácora registrará reales vs. estimados con la convención nueva de T7 (pr
 | 5 (2026-08-17) | Subagente fresco, glm-5.2 (decorrelación) — **gate H1** (T4a+T1a+T2+T4c+T1b) | `fix-and-retry` | 1 HIGH: `feedbackInputValido` no total — input `null` lanzaba TypeError → CLI exit 3 (clasificaba error de usuario como infra) y HTTP 500 (regresión vs null-safe previo); 2 LOW (test_db hardcodea `escrubery_test` pese a URL configurable; jcs.spec sin 4 vectores de la tabla B.2 del RFC). Gates ejecutados por el revisor: 64/64, skip-DB verificado empíricamente, e2e CLI 0/1/2/3. | Fix del guard null-safe + 7 specs de totalidad (corren siempre, fuera del skip) + 4 vectores B.2 añadidos; e2e `feedback 'null'` → exit 2. LOW test_db diferido a T3 (registrado en su DoD). |
 | 6 (2026-08-17) | Mismo revisor (resume) — gate H1 r2 | **`proceed`** | HIGH resuelto con evidencia e2e (exit 2, HTTP 400 por lectura); specs de totalidad verificadas fuera del skip (52 passed en modo skip-DB); B.2 completo; 1 LOW cosmético (bitácora 64→75) aplicado tras el veredicto. 75/75, 6 suites; build/eslint/check_sizes OK; `datos/` intacto. | **H1 verificado por adversarial.** Cierre del hito sujeto a decreto del Mediador. |
 | 7 (2026-08-17) | Subagente fresco, glm-5.2 (decorrelación) — **gate H2** (T3+T5+T6) | **`proceed`** (condicionado a 2 MED) | Sin BLOCKER/HIGH. 2 MED: (a) 55/73 filas de `cli_comandos` pre-T6 con fecha_obtencion pero `vigente_hasta` NULL → envejecían en silencio (la promesa central de H2); (b) rama `vigente_hasta NULL → no degrada` sin spec (75% de comandos reales). 5 LOW (heredoc semanal sin check, pg_isready no derivaba de DATABASE_URL, logs exit-2 sin código final, toEqual/undefined, ficha sin spec expirada). Procedencia verificada con shasum: fichas regeneradas = hash del JSON commiteado; refresco idempotente; exit codes a prueba de balas en lo auditado; corridas reales 10/2/2. | MEDs aplicados tras el veredicto: mig `009_backfill_caducidad.sql` (0 filas quedan sin ventana en BD real) + spec de rama null (79/79). LOWs aplicados: trap EXIT en log, `pg_isready -d $DATABASE_URL`, check de HACER_SEMANAL vacío → exit 2. **H2 verificado; cierre sujeto a decreto del Mediador.** |
+| 8 (2026-08-17) | Subagente fresco, glm-5.2 (decorrelación) — **gate H3** (T7+T8; cierra el plan) | **`proceed`** | Sin BLOCKER/HIGH. 1 MED: plan desactualizado en el gate final (bracket H2 + insumos 2-4 sin marcar pese a push/launchd/decisión T4a hechos) — subestimaba el progreso. 2 LOW: verificación de coherencia de licencia con ecosistema CAGF/expertoGobernanza sin evidencia (paths no resuelven) → registrada como insumo pendiente; `export PATH` antepone Homebrew en interactivo (aceptable, documentado). Métrica F1 verificada contra BD con psql independiente (41/12 → 77.4/22.6% exactos); LICENSE = texto canónico Apache 2.0 (sha256 oficial); launchctl verificado (exit 10). | MED aplicado tras el veredicto (bracket H2 + insumos al día). LOW licencia-ecosistema → insumo #6 del plan. **H3 verificado; plan completo listo para decreto del Mediador** (CI verde en la nube queda pendiente de billing). |
 
 ## Enlaces
 

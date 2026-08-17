@@ -96,3 +96,4 @@ npm run mcp:server    # arranca el servidor en modo escucha (lo que usa el agent
 - **Procedencia:** todo dato servido lleva fuente+fecha+hash; `null` = la fuente no lo declara (nunca se infiere).
 - **Gobernanza:** grok-build (oficial xAI) ≠ grok-cli-community (comunitario superagent-ai); nunca se mezclan.
 - **Sin IA en el path:** las consultas se responden desde BD, sin invocar modelos (Fases 0–2).
+- **Desviación conocida (T8, plan de deuda):** HTTP sin auth ni rate-limit en alpha interna — el `429`/auth del contrato v0 no está disponible todavía; se resuelve en F5 o antes si el servicio se expone fuera de localhost.

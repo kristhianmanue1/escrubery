@@ -40,3 +40,7 @@ launchctl start com.escrubery.vigilancia   # corrida manual inmediata
 La métrica "<24 h" solo se declara operativa tras la primera corrida instalada.
 Sin token de GitHub (insumo opcional del Mediador): presupuesto conservador
 (~4-9 req/día, muy por debajo de 60 req/h).
+
+**Nota (2026-08-17):** el script exporta `PATH` con las ubicaciones estándar de
+Homebrew porque launchd arranca con PATH mínimo (`node: command not found` en la
+primera corrida instalada). Si node vive en otra ruta, ajustar la línea del PATH.

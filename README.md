@@ -87,4 +87,4 @@ Las duraciones se estiman en ciclos agente-nativos (lo que un Ejecutor completa 
 
 ## Licencia
 
-Por definir.
+**Apache 2.0** (decisión del Mediador, 2026-08-10; ver `LICENSE`). Justificación resumida: §3 (cesión de patentes) protege el esquema Evidentia y a quien lo adopte; §5 fija términos de contribución explícitos ante contribuciones de agentes operados por terceros; §6 protege la marca si el servicio termina siendo producto.
