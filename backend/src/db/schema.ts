@@ -56,6 +56,8 @@ export interface CliComandosTable {
   hash_sha256_contenido_original: string | null;
   estado_verificacion: string | null;
   vigente_hasta: Ts;
+  hash_confirmacion_sandbox: string | null;
+  version_confirmada: string | null;
 }
 
 export interface ConsultasLogTable {

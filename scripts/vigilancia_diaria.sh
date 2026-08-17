@@ -65,10 +65,12 @@ echo "semanal este ciclo: $HACER_SEMANAL"
 
 cd "$BACKEND"
 
+FALLOS=0
 run_node() {
   if ! node --env-file=.env --import tsx "$@"; then
-    echo "FALLO DE INFRAESTRUCTURA en: $* (ver log)"
-    exit 2
+    echo "FALLO en: $* (continuando con el resto; se reportará exit 2 al final)"
+    FALLOS=$((FALLOS + 1))
+    return 1
   fi
 }
 
@@ -161,6 +163,10 @@ PY
 RC=$?
 if [ "$RC" != "0" ] && [ "$RC" != "10" ]; then
   echo "FALLO procesando estado/alertas (rc=$RC): tratado como infra"
+  exit 2
+fi
+if [ "$FALLOS" -gt 0 ]; then
+  echo "== fin — exit 2 ($FALLOS fallo(s) de poller/introspección durante la corrida) =="
   exit 2
 fi
 echo "== fin — exit $RC =="

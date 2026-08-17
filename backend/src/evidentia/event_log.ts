@@ -75,11 +75,7 @@ export async function registrarEvento(
       checkpoint_id: null,
     })
     .onConflict((oc) =>
-      oc.columns(['cli_producto_id', 'fuente_url', 'resumen']).doUpdateSet({
-        categoria: record.categoria,
-        confianza_clasificador: record.confianza_clasificador,
-        fecha_publicacion: record.fecha_publicacion,
-      }),
+      oc.columns(['cli_producto_id', 'fuente_url', 'resumen']).doNothing(),
     )
     .execute();
   return { record, hash };
