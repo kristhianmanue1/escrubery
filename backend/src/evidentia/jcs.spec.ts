@@ -20,6 +20,11 @@ describe('JCS / RFC 8785 — números (shortest round-trip)', () => {
     [1e-27, '1e-27'],
     [Number.MAX_SAFE_INTEGER, '9007199254740991'],
     [-3.141592653589793, '-3.141592653589793'],
+    // fronteras del Apéndice B.2 del RFC
+    [9.999999999999997e22, '9.999999999999997e+22'],
+    [1e23, '1e+23'],
+    [5e-324, '5e-324'],
+    [1.7976931348623157e308, '1.7976931348623157e+308'],
   ];
   it.each(casos)('serializa %p como %s', (n, esperado) => {
     expect(canonicalize(n)).toBe(esperado);

@@ -15,7 +15,7 @@ import {
 } from '../consultas/modulo';
 import type { Database } from '../db/schema';
 import { crearKysely } from '../db/kysely';
-import { reportarFeedback } from '../feedback/modulo';
+import { reportarFeedback, TIPOS_FEEDBACK } from '../feedback/modulo';
 import { verificarTodo } from '../evidentia/verificar';
 
 let db: Kysely<Database> | null = null;
@@ -181,12 +181,35 @@ server.setRequestHandler(CallToolRequestSchema, async (req) => {
               configuration_fingerprint?: unknown;
             }
           | undefined;
+        if (
+          typeof ar?.id !== 'string' ||
+          ar.id.length === 0 ||
+          !(TIPOS_FEEDBACK as readonly string[]).includes(String(a.tipo)) ||
+          typeof a.descripcion !== 'string' ||
+          a.descripcion.length === 0
+        ) {
+          return {
+            content: [
+              {
+                type: 'text' as const,
+                text: JSON.stringify({
+                  error: {
+                    codigo: 'parametros_invalidos',
+                    mensaje:
+                      'tipo (error|mejora|dato_desactualizado), descripcion y agente_reportante.id requeridos',
+                  },
+                }),
+              },
+            ],
+            isError: true,
+          };
+        }
         const input = {
           tipo: String(a.tipo),
           descripcion: String(a.descripcion),
           consulta_origen: a.consulta_origen ?? undefined,
           agente_reportante: {
-            id: typeof ar?.id === 'string' ? ar.id : 'desconocido',
+            id: ar.id,
             configuration_fingerprint:
               typeof ar?.configuration_fingerprint === 'string'
                 ? ar.configuration_fingerprint

@@ -20,6 +20,23 @@ export interface FeedbackResp {
   };
 }
 
+export const TIPOS_FEEDBACK = [
+  'error',
+  'mejora',
+  'dato_desactualizado',
+] as const;
+
+export function feedbackInputValido(i: FeedbackInput): boolean {
+  if (!i || typeof i !== 'object') return false;
+  return (
+    (TIPOS_FEEDBACK as readonly string[]).includes(i.tipo) &&
+    typeof i.descripcion === 'string' &&
+    i.descripcion.length > 0 &&
+    typeof i.agente_reportante?.id === 'string' &&
+    i.agente_reportante.id.length > 0
+  );
+}
+
 function dedupHash(i: FeedbackInput): string {
   const norm = i.descripcion.trim().toLowerCase();
   return createHash('sha256')

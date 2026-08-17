@@ -13,7 +13,11 @@ import {
   listar,
   oficialidad,
 } from '../consultas/modulo';
-import { reportarFeedback, type FeedbackInput } from '../feedback/modulo';
+import {
+  feedbackInputValido,
+  reportarFeedback,
+  type FeedbackInput,
+} from '../feedback/modulo';
 import { crearKysely } from '../db/kysely';
 import type { Database } from '../db/schema';
 
@@ -85,10 +89,10 @@ export class V0Controller {
 
   @Post('reportar_feedback')
   async feedback(@Body() b: FeedbackInput) {
-    if (!b?.tipo || !b?.descripcion || !b?.agente_reportante?.id) {
+    if (!feedbackInputValido(b)) {
       err(
         'parametros_invalidos',
-        'tipo, descripcion y agente_reportante.id requeridos',
+        'tipo (error|mejora|dato_desactualizado), descripcion y agente_reportante.id requeridos',
         400,
       );
     }

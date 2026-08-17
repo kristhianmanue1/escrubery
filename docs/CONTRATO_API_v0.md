@@ -24,7 +24,7 @@ La implementación (F1/F2) divergía del texto congelado. Esta errata es **aclar
 
 El mismo contrato se expone por dos transportes:
 
-- **CLI:** `scripts/consultar <alias> [args posicionales]` → imprime la respuesta JSON por stdout, exit code `0` si hay respuesta, `1` si no hay datos, `2` error de uso. (Compatible con el patrón de los scripts de expertoGobernanza.) Alias: `listar`, `modelo <proveedor> <modelo_id>`, `comando <cli> [filtro]`, `ficha <cli|proveedor> <id>`, `oficialidad`, `feedback '<params_json>'`. *(Errata 5: invocación posicional, no JSON por operación. Desviación conocida: un fallo fatal de infraestructura — p. ej. BD inalcanzable — sale también exit `1` con texto plano por stderr; la distinción va con T4c.)*
+- **CLI:** `scripts/consultar <alias> [args posicionales]` → imprime la respuesta JSON por stdout, exit code `0` si hay respuesta, `1` si no hay datos, `2` error de uso, `3` error de infraestructura (p. ej. BD inalcanzable; error JSON con `codigo: "fuente_no_disponible"` por stderr — desde T4c). (Compatible con el patrón de los scripts de expertoGobernanza.) Alias: `listar`, `modelo <proveedor> <modelo_id>`, `comando <cli> [filtro]`, `ficha <cli|proveedor> <id>`, `oficialidad`, `feedback '<params_json>'`. *(Errata 5: invocación posicional, no JSON por operación.)*
 - **HTTP:** `POST /v0/<operacion>` con body JSON de parámetros → respuesta JSON. Errores con el formato de la Sección 4 y código HTTP coherente (`404` sin datos, `400` parámetros inválidos; `429` previsto, no disponible en v0 — errata 5).
 
 ## 2. Convenciones comunes
@@ -199,7 +199,7 @@ El servicio se mejora con el feedback de quienes lo usan. Consumir el servicio *
 }
 ```
 
-- `tipo` es enum cerrado; `descripcion` es obligatorio. *(Nota de implementación: el enum se exige en el esquema MCP; HTTP/CLI solo validan presencia — el endurecimiento de validación (enum, `agente_reportante.id` obligatorio real) y del uso/exit del CLI es el mini-ticket **T4c**.)*
+- `tipo` es enum cerrado; `descripcion` y `agente_reportante.id` son obligatorios y **se validan en las tres superficies** (HTTP 400 / CLI exit 2 / MCP `isError` — endurecido en T4c; antes el MCP degradaba id ausente a `'desconocido'`).
 - `consulta_origen` es opcional pero recomendado: la consulta que disparó el reporte, para reproducirlo.
 - `agente_reportante.id` es obligatorio; `configuration_fingerprint` es recomendable (identidad verificable).
 
@@ -267,7 +267,7 @@ Sin bloque `procedencia` (índice derivado; errata 6).
 }
 ```
 
-*(Errata 8: `detalles` es opcional y no se emite en v0; `fuente_no_disponible` y `limite_de_tasa` son códigos previstos, no emitidos en v0.)*
+*(Errata 8: `detalles` es opcional y no se emite en v0; `limite_de_tasa` es código previsto, no emitido en v0. `fuente_no_disponible` se emite desde T4c en el CLI ante fallo de infraestructura, exit 3.)*
 
 `sin_datos` es una respuesta de primera clase (exit code 1 en CLI), no una excepción: los consumidores la usan para detectar demanda de datos faltantes (se registra en `consultas_log`).
 

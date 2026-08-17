@@ -6,7 +6,11 @@ import {
   listar,
   oficialidad,
 } from './consultas/modulo';
-import { reportarFeedback, type FeedbackInput } from './feedback/modulo';
+import {
+  reportarFeedback,
+  feedbackInputValido,
+  type FeedbackInput,
+} from './feedback/modulo';
 
 function usage(): never {
   console.error(
@@ -14,11 +18,23 @@ function usage(): never {
       error: {
         codigo: 'parametros_invalidos',
         mensaje:
-          'uso:\n  consultar listar [clis|proveedores]\n  consultar modelo <proveedor> <modelo_id>\n  consultar comando <cli_id> [filtro]\n  consultar ficha cli <id> | consultar ficha proveedor <id>\n  consultar oficialidad',
+          'uso:\n  consultar listar\n  consultar modelo <proveedor> <modelo_id>\n  consultar comando <cli_id> [filtro]\n  consultar ficha cli <id> | consultar ficha proveedor <id>\n  consultar oficialidad\n  consultar feedback <params_json>',
       },
     }),
   );
   process.exit(2);
+}
+
+function fatal(err: unknown): never {
+  console.error(
+    JSON.stringify({
+      error: {
+        codigo: 'fuente_no_disponible',
+        mensaje: `error fatal: ${err instanceof Error ? err.message : String(err)}`,
+      },
+    }),
+  );
+  process.exit(3);
 }
 
 function out(obj: unknown): void {
@@ -101,9 +117,7 @@ async function main(): Promise<void> {
         } catch {
           usage();
         }
-        if (!input.tipo || !input.descripcion || !input.agente_reportante?.id) {
-          usage();
-        }
+        if (!feedbackInputValido(input)) usage();
         out(await reportarFeedback(db, input));
         break;
       }
@@ -115,10 +129,4 @@ async function main(): Promise<void> {
   }
 }
 
-main().catch((err) => {
-  console.error(
-    'error fatal:',
-    err instanceof Error ? err.message : String(err),
-  );
-  process.exit(1);
-});
+main().catch((err) => fatal(err));
