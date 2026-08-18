@@ -1,6 +1,9 @@
+import { createHash } from 'node:crypto';
 import { readdir, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import type { Kysely } from 'kysely';
 import { crearKysely } from './kysely';
+import type { Database } from './schema';
 
 interface Procedencia {
   fuente_url: string | null;
@@ -39,6 +42,7 @@ interface ModeloFicha {
   precios: {
     input_por_millon: number | null;
     output_por_millon: number | null;
+    cache_lectura_por_millon: number | null;
   } | null;
   fecha_deprecacion: string | null;
 }
@@ -64,6 +68,175 @@ function vigenteHasta(
   const d = new Date(fechaObtencion);
   if (Number.isNaN(d.getTime())) return null;
   return new Date(d.getTime() + ventanaMs).toISOString();
+}
+
+// --- Curaduría de identidad (T4b-T0) ---------------------------------------
+// Capa separada de los generados (§7): datos/fichas/curaduria/*.json. Llena
+// familia_arquitectura/pesos_abiertos (LiteLLM no los cubre) con su PROPIA
+// procedencia en curaduria_json; la procedencia LiteLLM de la fila queda
+// intacta. Fail-closed: si el self-hash declarado no reproduce, no se aplica.
+
+interface CuraduriaEntry {
+  familia_arquitectura: string | null;
+  pesos_abiertos: boolean | null;
+  fuente_url: string | null;
+}
+
+interface CuraduriaAlias {
+  issuer_id: string;
+  proveedor: string;
+  modelo_id: string;
+  notas: string | null;
+}
+
+interface CuraduriaEndpoint {
+  endpoint: string;
+  proveedor: string;
+  notas: string | null;
+}
+
+interface CuraduriaIdentidad {
+  esquema: string;
+  modelos: Record<string, CuraduriaEntry>;
+  aliases: CuraduriaAlias[];
+  endpoints: CuraduriaEndpoint[];
+  procedencia: Procedencia;
+}
+
+/** Self-hash del archivo: sha256 del JSON (indent 2, sin ascii-escape, claves
+ * ordenadas) con el campo hash vacío — mismo convenio que el script de sellado. */
+function selfHashCuraduria(d: CuraduriaIdentidad): string {
+  const copia = {
+    ...d,
+    procedencia: { ...d.procedencia, hash_sha256_contenido_original: '' },
+  };
+  const canon = JSON.stringify(copia, null, 2);
+  return createHash('sha256').update(canon, 'utf8').digest('hex');
+}
+
+async function aplicarCuraduriaIdentidad(
+  db: Kysely<Database>,
+): Promise<number> {
+  const dir = join(FICHAS, 'curaduria');
+  let archivos: string[];
+  try {
+    archivos = (await readdir(dir)).filter((f) => f.endsWith('.json'));
+  } catch {
+    return 0; // sin capa de curaduría todavía — no es error
+  }
+  let n = 0;
+  for (const archivo of archivos.sort()) {
+    const texto = await readFile(join(dir, archivo), 'utf8');
+    const d = JSON.parse(texto) as CuraduriaIdentidad;
+    if (d.esquema !== 'escrubery/curaduria-identidad/0.1') {
+      throw new Error(`curaduría ${archivo}: esquema desconocido ${d.esquema}`);
+    }
+    const calculado = selfHashCuraduria(d);
+    const declarado = d.procedencia?.hash_sha256_contenido_original ?? '';
+    if (calculado !== declarado) {
+      throw new Error(
+        `curaduría ${archivo}: hash declarado ${declarado.slice(0, 12)}… != calculado ${calculado.slice(0, 12)}… (¿edición sin re-sellado?)`,
+      );
+    }
+    for (const [clave, entry] of Object.entries(d.modelos ?? {})) {
+      const [proveedor, ...resto] = clave.split('/');
+      const modeloId = resto.join('/');
+      if (!proveedor || !modeloId) {
+        throw new Error(`curaduría ${archivo}: clave inválida "${clave}"`);
+      }
+      const curaduriaJson = {
+        esquema: d.esquema,
+        familia_arquitectura: entry.familia_arquitectura ?? null,
+        pesos_abiertos: entry.pesos_abiertos ?? null,
+        fuente_url: entry.fuente_url ?? null,
+        procedencia: d.procedencia,
+      };
+      const r = await db
+        .updateTable('modelos')
+        .set({
+          familia_arquitectura: entry.familia_arquitectura ?? null,
+          pesos_abiertos: entry.pesos_abiertos ?? null,
+          curaduria_json: curaduriaJson,
+        })
+        .where('proveedor', '=', proveedor)
+        .where('modelo_id', '=', modeloId)
+        .executeTakeFirst();
+      n += Number(r.numUpdatedRows ?? 0);
+    }
+
+    // aliases issuer_id → identidad canónica (con procedencia de la curaduría)
+    for (const a of d.aliases ?? []) {
+      if (!a.issuer_id || !a.proveedor || !a.modelo_id) {
+        throw new Error(
+          `curaduría ${archivo}: alias incompleto ${JSON.stringify(a)}`,
+        );
+      }
+      await db
+        .insertInto('identidad_alias')
+        .values({
+          issuer_id: a.issuer_id,
+          proveedor: a.proveedor,
+          modelo_id: a.modelo_id,
+          notas: a.notas ?? null,
+          fuente_url: d.procedencia.fuente_url ?? null,
+          fuente_tipo: d.procedencia.fuente_tipo ?? null,
+          fecha_obtencion: d.procedencia.fecha_obtencion ?? null,
+          hash_sha256_contenido_original:
+            d.procedencia.hash_sha256_contenido_original ?? null,
+          estado_verificacion: d.procedencia.estado_verificacion ?? null,
+        })
+        .onConflict((oc) =>
+          oc.column('issuer_id').doUpdateSet({
+            proveedor: a.proveedor,
+            modelo_id: a.modelo_id,
+            notas: a.notas ?? null,
+            fuente_url: d.procedencia.fuente_url ?? null,
+            fuente_tipo: d.procedencia.fuente_tipo ?? null,
+            fecha_obtencion: d.procedencia.fecha_obtencion ?? null,
+            hash_sha256_contenido_original:
+              d.procedencia.hash_sha256_contenido_original ?? null,
+            estado_verificacion: d.procedencia.estado_verificacion ?? null,
+          }),
+        )
+        .execute();
+    }
+
+    // endpoints → proveedor (con procedencia de la curaduría)
+    for (const e of d.endpoints ?? []) {
+      if (!e.endpoint || !e.proveedor) {
+        throw new Error(
+          `curaduría ${archivo}: endpoint incompleto ${JSON.stringify(e)}`,
+        );
+      }
+      await db
+        .insertInto('identidad_endpoints')
+        .values({
+          endpoint: e.endpoint,
+          proveedor: e.proveedor,
+          notas: e.notas ?? null,
+          fuente_url: d.procedencia.fuente_url ?? null,
+          fuente_tipo: d.procedencia.fuente_tipo ?? null,
+          fecha_obtencion: d.procedencia.fecha_obtencion ?? null,
+          hash_sha256_contenido_original:
+            d.procedencia.hash_sha256_contenido_original ?? null,
+          estado_verificacion: d.procedencia.estado_verificacion ?? null,
+        })
+        .onConflict((oc) =>
+          oc.column('endpoint').doUpdateSet({
+            proveedor: e.proveedor,
+            notas: e.notas ?? null,
+            fuente_url: d.procedencia.fuente_url ?? null,
+            fuente_tipo: d.procedencia.fuente_tipo ?? null,
+            fecha_obtencion: d.procedencia.fecha_obtencion ?? null,
+            hash_sha256_contenido_original:
+              d.procedencia.hash_sha256_contenido_original ?? null,
+            estado_verificacion: d.procedencia.estado_verificacion ?? null,
+          }),
+        )
+        .execute();
+    }
+  }
+  return n;
 }
 
 async function main(): Promise<void> {
@@ -172,6 +345,8 @@ async function main(): Promise<void> {
           soporta_computer_use: caps?.soporta_computer_use ?? null,
           precio_input_por_millon: pre?.input_por_millon ?? null,
           precio_output_por_millon: pre?.output_por_millon ?? null,
+          precio_cache_lectura_por_millon:
+            pre?.cache_lectura_por_millon ?? null,
           fuente_url: p.fuente_url ?? null,
           fuente_tipo: p.fuente_tipo ?? null,
           fecha_obtencion: p.fecha_obtencion ?? null,
@@ -194,6 +369,8 @@ async function main(): Promise<void> {
             soporta_computer_use: caps?.soporta_computer_use ?? null,
             precio_input_por_millon: pre?.input_por_millon ?? null,
             precio_output_por_millon: pre?.output_por_millon ?? null,
+            precio_cache_lectura_por_millon:
+              pre?.cache_lectura_por_millon ?? null,
             fuente_url: p.fuente_url ?? null,
             fuente_tipo: p.fuente_tipo ?? null,
             fecha_obtencion: p.fecha_obtencion ?? null,
@@ -212,9 +389,11 @@ async function main(): Promise<void> {
     }
   }
 
+  const nCur = await aplicarCuraduriaIdentidad(db);
+
   await db.destroy();
   console.log(
-    `ingesta: ${nCli} cli_productos, ${nCmd} cli_comandos, ${nMod} modelos`,
+    `ingesta: ${nCli} cli_productos, ${nCmd} cli_comandos, ${nMod} modelos, ${nCur} filas con curaduría de identidad`,
   );
 }
 

@@ -7,6 +7,10 @@ import {
   oficialidad,
 } from './consultas/modulo';
 import {
+  paramsResolverValidos,
+  resolverIdentidadModelo,
+} from './consultas/resolver';
+import {
   reportarFeedback,
   feedbackInputValido,
   type FeedbackInput,
@@ -18,7 +22,7 @@ function usage(): never {
       error: {
         codigo: 'parametros_invalidos',
         mensaje:
-          'uso:\n  consultar listar\n  consultar modelo <proveedor> <modelo_id>\n  consultar comando <cli_id> [filtro]\n  consultar ficha cli <id> | consultar ficha proveedor <id>\n  consultar oficialidad\n  consultar feedback <params_json>',
+          'uso:\n  consultar listar\n  consultar modelo <proveedor> <modelo_id>\n  consultar comando <cli_id> [filtro]\n  consultar ficha cli <id> | consultar ficha proveedor <id>\n  consultar oficialidad\n  consultar resolver <issuer_id> | consultar resolver <modelo_id> <endpoint>\n  consultar feedback <params_json>',
       },
     }),
   );
@@ -106,6 +110,26 @@ async function main(): Promise<void> {
       }
       case 'oficialidad': {
         out(await oficialidad(db));
+        break;
+      }
+      case 'resolver': {
+        // dos formas (contrato §3.9): 1 arg = issuer_id; 2 args = modelo+endpoint
+        const [a, b] = rest;
+        const params =
+          b === undefined ? { issuer_id: a } : { modelo_id: a, endpoint: b };
+        if (!paramsResolverValidos(params)) usage();
+        const r = await resolverIdentidadModelo(db, params);
+        if (!r) {
+          out({
+            error: {
+              codigo: 'sin_datos',
+              mensaje: `identidad no resoluble: ${JSON.stringify(params)} (sin dato curado que la respalde; nunca se adivina)`,
+            },
+          });
+          process.exitCode = 1;
+        } else {
+          out(r);
+        }
         break;
       }
       case 'feedback': {

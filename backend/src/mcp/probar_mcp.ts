@@ -39,6 +39,24 @@ async function main(): Promise<void> {
       },
     })) as { content: TextContent[] };
     console.log('reportar_feedback:', fb.content?.[0]?.text?.slice(0, 90));
+    // T4b: resolver por alias curado (si la semilla está ingerida) + params inválidos
+    const res = (await client.callTool({
+      name: 'resolver_identidad_modelo',
+      arguments: { issuer_id: 'claude-sonnet-5-cowork' },
+    })) as { content: TextContent[]; isError?: boolean };
+    console.log(
+      'resolver_identidad_modelo:',
+      (res.content?.[0]?.text ?? '').slice(0, 140),
+    );
+    const resBad = (await client.callTool({
+      name: 'resolver_identidad_modelo',
+      arguments: { issuer_id: 'x', modelo_id: 'y', endpoint: 'z' },
+    })) as { content: TextContent[]; isError?: boolean };
+    console.log(
+      'resolver params inválidos (isError):',
+      resBad.isError,
+      (resBad.content?.[0]?.text ?? '').slice(0, 120),
+    );
   } finally {
     await client.close();
   }

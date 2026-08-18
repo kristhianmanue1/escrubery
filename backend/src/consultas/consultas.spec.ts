@@ -117,6 +117,7 @@ async function sembrar(db: Kysely<Database>): Promise<void> {
       soporta_computer_use: false,
       precio_input_por_millon: '0.11',
       precio_output_por_millon: '0.42',
+      precio_cache_lectura_por_millon: '0.05',
       fuente_url:
         'https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json',
       fuente_tipo: 'litellm_json',
@@ -160,7 +161,14 @@ d('goldens del shape v0 (post-errata T4a)', () => {
         soporta_batch: null,
         soporta_computer_use: false,
       },
-      precios: { input_por_millon: 0.11, output_por_millon: 0.42 },
+      precios: {
+        input_por_millon: 0.11,
+        output_por_millon: 0.42,
+        cache_lectura_por_millon: 0.05, // T4b: servido desde la fuente LiteLLM
+      },
+      // T4b (aditivo): null aquí porque la semilla del spec no lleva curaduría
+      pesos_abiertos: null,
+      familia_arquitectura: null,
       vigente_hasta: '2970-01-01T00:00:00.000Z',
       advertencia_caducidad: undefined,
       procedencia: {

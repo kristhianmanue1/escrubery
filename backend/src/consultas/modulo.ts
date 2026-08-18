@@ -123,7 +123,17 @@ export async function consultarModelo(
         m.precio_output_por_millon === null
           ? null
           : Number(m.precio_output_por_millon),
+      // T4b (errata 2): el dato ya existía en la fuente LiteLLM; ahora servido.
+      cache_lectura_por_millon:
+        m.precio_cache_lectura_por_millon === null
+          ? null
+          : Number(m.precio_cache_lectura_por_millon),
     },
+    // T4b (aditivo): identidad; null si la curaduría no los declara (la
+    // procedencia de estos dos campos vive en curaduria_json, no en el
+    // bloque procedencia de la respuesta — que es la de LiteLLM).
+    pesos_abiertos: m.pesos_abiertos,
+    familia_arquitectura: m.familia_arquitectura,
     vigente_hasta: iso(m.vigente_hasta),
     advertencia_caducidad: advertencia(m.vigente_hasta),
     procedencia: procDegradado(m, m.vigente_hasta),

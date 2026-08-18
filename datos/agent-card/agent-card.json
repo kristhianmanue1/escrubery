@@ -40,14 +40,18 @@
       {
         "nombre": "reportar_feedback",
         "descripcion": "Reporta error/mejora/dato desactualizado (contrato de uso)."
+      },
+      {
+        "nombre": "resolver_identidad_modelo",
+        "descripcion": "Resuelve un identificador declarado por agente/harness a la identidad canónica verificada (registro externo, nunca adivina)."
       }
     ],
     "keyring": "datos/keys/evidentia-keyring.json",
-    "generado_en": "2026-08-17T20:07:38.441Z"
+    "generado_en": "2026-08-18T12:19:10.258Z"
   },
   "firma": {
     "key_id": "escrubery-evidentia-001",
     "alg": "ed25519",
-    "sig": "ed25519:NXtEkyX7JCeyj5XSE5POI+qQs3isf0rGG+GZLX4jZDfp7ePIZkcKz5GkThMhhkmzXZ2+ZB0UglekU4CZjItnCw=="
+    "sig": "ed25519:x87Q+mLgE7eKMZDXVH6oPLeNzt8G80glsvJK0OjsKkuJmpkXfxkYr/0eEsyuOq0wYODbSW+ch4KS5kx+Zr/iBQ=="
   }
 }

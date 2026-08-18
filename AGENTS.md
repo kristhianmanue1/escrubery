@@ -12,7 +12,7 @@ Servicio de inteligencia sobre modelos y CLIs de IA (ver `README.md`). Fase actu
 
 - **Hecho:** F0–F4a cerradas (F4a: Merkle RFC 6962 + checkpoints firmados + sello RFC 3161 DigiCert + detección de omisión; custodia git diaria autorizada).
 - **Hecho:** plan v2 COMPLETO (F0–F5 cerradas por decreto 2026-08-17).
-- **En curso:** nada — candidatos: T4b `resolver_identidad_modelo` (ADR-0002), hardening LOWs F5, F4b (presupuesto).
+- **En curso:** H5 T4b `resolver_identidad_modelo` + campos pendientes (plan `docs/investigacion/Plan_Hardening_F5_y_T4b.md`). H4 hardening LOWs F5 cerrado 2026-08-18 (adversarial proceed). Candidato restante: F4b (presupuesto).
 - **Detalle y desviaciones:** `bitacora_ciclos.md` (hogar canónico; este bloque es solo el resumen — mantener ≤ 5 líneas, no narrar historial aquí).
 
 ## Roles (ADRC)

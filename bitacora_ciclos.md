@@ -272,3 +272,29 @@ Criterio §8 cumplido (agente externo se conecta, lista tools, obtiene respuesta
 ## RELEASE v0.3.0 (2026-08-17)
 
 Tag anotado + [GitHub Release](https://github.com/kristhianmanue1/escrubery/releases/tag/v0.3.0) publicados con notas de versión completas (plan de deuda + F3 + F4a + F5). Gates pre-release: CI local VERDE (139 s), 121/121, árbol limpio en `9ee3c4d`. **Primer release formal del servicio; el plan v2 (F0–F5) queda congelado en esta foto.** Siguientes candidatos sin cambio: T4b, hardening LOWs, F4b (presupuesto).
+
+---
+
+## Post-v0.3.0 — H4: Hardening LOWs F5 (CERRADO, adversarial proceed 2026-08-18)
+
+Plan: `docs/investigacion/Plan_Hardening_F5_y_T4b.md`. Decisiones del Mediador (2026-08-18): alcance T4b = resolver + campos pendientes; orden = hardening primero; casos reales = curaduría sintética.
+
+| Fecha | Fase | Ticket | est. | reales | desv. | Evidencia |
+|---|---|---|---|---|---|---|
+| 2026-08-18 | H4 | HF5-T1 — timing-safe compare | 0.25 | 0.25 | 0 | `hashCoincidente` (timingSafeEqual sobre SHA-256 hex de 64 chars, reduce sin early-exit por clave); specs: longitud distinta → false sin excepción, fail-closed con lista vacía; 13/13 |
+| 2026-08-18 | H4 | HF5-T2 — single-source de tools | 0.5 | 0.5 | 0 | `src/mcp/tools.ts` catálogo único; lo consumen `server.ts` y `generar_agent_card.ts`; spec anti-drift card↔catálogo (3/3); **la card firmada NO se regeneró** (descripciones canónicas = las de la card; MCP adoptó); CONSUMO_INTERNO corrige la lista vieja de 6→8 tools |
+| 2026-08-18 | H4 | HF5-T3 — bucket por IP en 401 | 0.5 | 0.5 | 0 | `ESCRUBERY_AUTH_LIMIT_RPM` (default 20/min) solo consume en fallos de auth; clave válida opera aunque la IP tenga el bucket agotado (verificado por adversarial en el flujo); exceso → 429 `limite_de_tasa` §4 + Retry-After; `.env.example` + CONSUMO_INTERNO (in-memory single-instance documentado) |
+| 2026-08-18 | H4 | HF5-T4 — open handle de Jest | 0.25 | 0.25 | 0 | causa raíz: pool Kysely cacheado en `v0.controller.ts` sin destruir (`--detectOpenHandles` no detecta sockets pg — ceguera conocida); `cerrarDbV0()` + afterAll; `npx jest` termina limpio sin warning, script sin `--forceExit` |
+
+**Gate H4:** `bash scripts/ci_local.sh` → VERDE (18 s): build + lint 0 errores (3 warnings preexistentes de `no-unsafe-argument` en líneas previas a H4) + **131/131** (121 de F5 + 10 nuevos: 5 hashCoincidente, 2 bucket IP, 3 catálogo) + check_sizes. Modo SKIP_DB: 95 passed + 36 skipped.
+
+**Adversarial H4 (2026-08-18, subagente independiente):** `proceed`. Verificó DoD por DoD con evidencia ejecutada: timing-safe real (sin camino de texto crudo), orden de comprobaciones del guard (clave válida no toca bucket IP), spec anti-drift no tautológico, card firmada intacta (`git diff` vacío sobre el JSON + firma verifica), contrato congelado sin cambios, sin secretos. **3 LOW residuales (registrados, no bloquean, fix al escalar):** (1) Map de buckets por IP sin poda/TTL — crecimiento sin cota bajo ataque sostenido; (2) detrás de reverse proxy sin `trust proxy` todos los clientes comparten el bucket del proxy — más estricto, nunca bypass; (3) el spec "clave válida no consume bucket IP" corre solo con BD (en el gate corrió y pasó).
+
+**Total H4: 1.5 ciclos est / 1.5 reales / desviación 0** (una sesión; estimación y ejecución del mismo Ejecutor — la desviación 0 se declara honesta por ser el primer caso post-convención T7 con tarea bien acotada).
+
+---
+
+## Post-v0.3.0 — H5: T4b identidad de modelos (EN CURSO)
+
+| Fecha | Fase | Ticket | est. | reales | desv. | Evidencia |
+|---|---|---|---|---|---|---|

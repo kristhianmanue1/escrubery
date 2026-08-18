@@ -23,6 +23,14 @@ export interface ModelosTable {
     string | number | null,
     string | number | null
   >;
+  precio_cache_lectura_por_millon: ColumnType<
+    string | null,
+    string | number | null,
+    string | number | null
+  >;
+  pesos_abiertos: boolean | null;
+  familia_arquitectura: string | null;
+  curaduria_json: unknown;
   fuente_url: string | null;
   fuente_tipo: string | null;
   fecha_obtencion: Ts;
@@ -114,6 +122,31 @@ export interface CheckpointsTable {
   creado_en: Ts;
 }
 
+export interface IdentidadAliasTable {
+  id: Generated<number>;
+  issuer_id: string;
+  proveedor: string;
+  modelo_id: string;
+  notas: string | null;
+  fuente_url: string | null;
+  fuente_tipo: string | null;
+  fecha_obtencion: Ts;
+  hash_sha256_contenido_original: string | null;
+  estado_verificacion: string | null;
+}
+
+export interface IdentidadEndpointsTable {
+  id: Generated<number>;
+  endpoint: string;
+  proveedor: string;
+  notas: string | null;
+  fuente_url: string | null;
+  fuente_tipo: string | null;
+  fecha_obtencion: Ts;
+  hash_sha256_contenido_original: string | null;
+  estado_verificacion: string | null;
+}
+
 export interface Database {
   modelos: ModelosTable;
   cli_productos: CliProductosTable;
@@ -122,4 +155,6 @@ export interface Database {
   feedback: FeedbackTable;
   eventos_changelog: EventosChangelogTable;
   checkpoints: CheckpointsTable;
+  identidad_alias: IdentidadAliasTable;
+  identidad_endpoints: IdentidadEndpointsTable;
 }

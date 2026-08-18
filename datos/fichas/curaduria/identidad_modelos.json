@@ -1,0 +1,124 @@
+{
+  "aliases": [
+    {
+      "issuer_id": "claude-sonnet-5-cowork",
+      "modelo_id": "claude-sonnet-5",
+      "notas": "Sufijo '-cowork' de harness: el identificador declarado por el agente incluye el harness; la identidad del modelo es la de la API subyacente. Caso canónico del shape original de resolver_identidad_modelo (contrato, git d43c134^).",
+      "proveedor": "anthropic"
+    },
+    {
+      "issuer_id": "glm-5.1-opencode",
+      "modelo_id": "glm-5.1",
+      "notas": "Semilla sintética (decisión del Mediador 2026-08-18): patrón '<modelo>-<harness>' declarado por un agente opencode; ilustra resolución modelo+harness y el caso multi-proveedor (glm-5.1 vive en los catálogos zhipu y qwen — la familia, no el catálogo, da la decorrelación).",
+      "proveedor": "zhipu"
+    },
+    {
+      "issuer_id": "qwen3.8-max-token-plan",
+      "modelo_id": "qwen3.8-max",
+      "notas": "Semilla sintética: sufijo de plan de facturación ('-token-plan') que algunos consumidores añaden al id del modelo; la identidad es la del modelo servido.",
+      "proveedor": "qwen"
+    }
+  ],
+  "descripcion": "Curaduría propia de identidad (T4b, errata 1 del contrato v0). Capa SEPARADA de los generados: se edita a mano con criterio y lleva su propia procedencia (no pisa la procedencia LiteLLM de las filas de modelos). Secciones: 'modelos' (familia_arquitectura/pesos_abiertos por modelo — la base de decorrelación de ADR-0002), 'aliases' (issuer_id declarado por agente/harness a identidad canónica) y 'endpoints' (endpoint público a proveedor). Los casos semilla son sintéticos salvo donde la fuente pública lo documenta; los casos reales de consumidores entran vía reportar_feedback y amplían este archivo. null = no documentado; nunca se infiere.",
+  "endpoints": [
+    {
+      "endpoint": "https://api.anthropic.com",
+      "proveedor": "anthropic"
+    },
+    {
+      "endpoint": "https://dashscope.aliyuncs.com",
+      "proveedor": "qwen"
+    },
+    {
+      "endpoint": "https://generativelanguage.googleapis.com",
+      "proveedor": "google"
+    },
+    {
+      "endpoint": "https://api.moonshot.cn",
+      "proveedor": "moonshot"
+    },
+    {
+      "endpoint": "https://api.x.ai",
+      "proveedor": "xai"
+    },
+    {
+      "endpoint": "https://open.bigmodel.cn",
+      "proveedor": "zhipu"
+    }
+  ],
+  "esquema": "escrubery/curaduria-identidad/0.1",
+  "modelos": {
+    "anthropic/claude-sonnet-5": {
+      "familia_arquitectura": "claude",
+      "fuente_url": "https://docs.anthropic.com/en/docs/about-claude/models",
+      "pesos_abiertos": false
+    },
+    "google/gemini-2.5-pro": {
+      "familia_arquitectura": "gemini",
+      "fuente_url": "https://ai.google.dev/gemini-api/docs/models",
+      "pesos_abiertos": false
+    },
+    "google/gemma-3-27b-it": {
+      "familia_arquitectura": "gemma",
+      "fuente_url": "https://ai.google.dev/gemma",
+      "pesos_abiertos": true
+    },
+    "moonshot/kimi-k2-0905-preview": {
+      "familia_arquitectura": "kimi",
+      "fuente_url": "https://platform.moonshot.cn/docs/intro",
+      "pesos_abiertos": false
+    },
+    "qwen/deepseek-v4-flash": {
+      "familia_arquitectura": "deepseek",
+      "fuente_url": "https://www.alibabacloud.com/help/en/model-studio/models",
+      "pesos_abiertos": null
+    },
+    "qwen/glm-5.2": {
+      "familia_arquitectura": "glm",
+      "fuente_url": "https://www.alibabacloud.com/help/en/model-studio/models",
+      "pesos_abiertos": null
+    },
+    "qwen/kimi-k2.7-code": {
+      "familia_arquitectura": "kimi",
+      "fuente_url": "https://www.alibabacloud.com/help/en/model-studio/models",
+      "pesos_abiertos": null
+    },
+    "qwen/qwen3-30b-a3b": {
+      "familia_arquitectura": "qwen3",
+      "fuente_url": "https://www.alibabacloud.com/help/en/model-studio/models",
+      "pesos_abiertos": true
+    },
+    "qwen/qwen3.8-max": {
+      "familia_arquitectura": "qwen3",
+      "fuente_url": "https://www.alibabacloud.com/help/en/model-studio/models",
+      "pesos_abiertos": false
+    },
+    "qwen/qwq-plus": {
+      "familia_arquitectura": "qwq",
+      "fuente_url": "https://www.alibabacloud.com/help/en/model-studio/models",
+      "pesos_abiertos": false
+    },
+    "xai/grok-4": {
+      "familia_arquitectura": "grok",
+      "fuente_url": "https://docs.x.ai/docs/models",
+      "pesos_abiertos": false
+    },
+    "zhipu/glm-5": {
+      "familia_arquitectura": "glm",
+      "fuente_url": "https://open.bigmodel.cn/dev/howuse/model",
+      "pesos_abiertos": false
+    },
+    "zhipu/glm-5.1": {
+      "familia_arquitectura": "glm",
+      "fuente_url": "https://open.bigmodel.cn/dev/howuse/model",
+      "pesos_abiertos": false
+    }
+  },
+  "procedencia": {
+    "estado_verificacion": "pendiente_de_verificar",
+    "fecha_obtencion": "2026-08-18T12:05:04Z",
+    "fuente_tipo": "curaduria_propia",
+    "fuente_url": null,
+    "hash_sha256_contenido_original": "7a4b73b956442ef1ab1b491d19ec4192eb78bf1adb93fe0ccd51cfe1068f0c77"
+  }
+}
