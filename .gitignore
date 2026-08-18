@@ -25,3 +25,7 @@ backend/.env
 
 # Vigilancia T5: estado y logs locales (politica §3: logs exentos de tamaño)
 var/
+
+# Estado local de herramientas de agente (Qwen Code)
+.qwen/
+**/.qwen/
