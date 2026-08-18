@@ -312,3 +312,9 @@ Plan: `docs/investigacion/Plan_Hardening_F5_y_T4b.md`. Decisiones del Mediador (
 - Decisión de diseño clave: la curaduría de identidad lleva su **propia** procedencia (`curaduria_json`) — la procedencia LiteLLM de las filas de `modelos` queda intacta.
 - Semilla sintética (decisión Mediador): los 3 aliases y 13 entradas de modelos son patrones ilustrativos marcados `pendiente_de_verificar`; los casos reales de expertoGobernanza entran vía `reportar_feedback`.
 - **El caso de uso que motivó el ticket quedó servido:** qwen3.8-max input $2.0/M vs caché $0.25/M (87.5% de descuento) ya es consultable por API/MCP/CLI.
+
+---
+
+## RELEASE v0.4.0 (2026-08-18)
+
+Tag anotado + [GitHub Release](https://github.com/kristhianmanue1/escrubery/releases/tag/v0.4.0) publicados sobre `7234fd8` (incluye housekeeping `.qwen/`→`.gitignore`, LOW del adversarial). Contenido: resolver_identidad_modelo (contrato §3.9) + cache_lectura_por_millon/pesos_abiertos/familia_arquitectura servidos (errata 2) + hardening H4 + fixes CLI args extra (run orquestado bajo el estándar de orquestación v2.1 del orquestador, evidencia en `docs/planning/`). **Adversarial de release: APTO_PARA_RELEASE** (modalidad C coordinada por el supervisor, 12/12 verificaciones con evidencia ejecutada; firma de card y self-hash de curaduría reproducidos con cripto independiente; 0 BLOCKER/HIGH/MED, 4 LOW registrados). Gates: CI verde 140/140, check_sizes OK. Siguientes candidatos: casos reales del resolver (feedback), args extra en listar/oficialidad/feedback, politica_datos_proveedor, F4b (presupuesto).
