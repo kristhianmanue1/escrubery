@@ -61,6 +61,8 @@ async function main(): Promise<void> {
         break;
       }
       case 'modelo': {
+        // exactamente 2 posicionales (contrato §1): 0, 1 o 3+ → uso inválido (exit 2)
+        if (rest.length !== 2) usage();
         const [proveedor, modeloId] = rest;
         if (!proveedor || !modeloId) usage();
         const r = await consultarModelo(db, proveedor, modeloId);
@@ -78,6 +80,8 @@ async function main(): Promise<void> {
         break;
       }
       case 'comando': {
+        // 1 obligatorio + filtro opcional (contrato §1): 0 o 3+ → uso inválido (exit 2)
+        if (rest.length === 0 || rest.length > 2) usage();
         const [cli, filtro] = rest;
         if (!cli) usage();
         const r = await consultarComandoCli(db, cli, filtro);
@@ -92,6 +96,8 @@ async function main(): Promise<void> {
         break;
       }
       case 'ficha': {
+        // exactamente 2 posicionales (contrato §1): 0, 1 o 3+ → uso inválido (exit 2)
+        if (rest.length !== 2) usage();
         const [entidad, id] = rest;
         if (!entidad || !id) usage();
         const r = await consultarFicha(db, entidad, id);
