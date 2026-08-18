@@ -11,7 +11,7 @@
 La implementación (F1/F2) divergía del texto congelado. Esta errata es **aclaratoria y aditiva**: nada implementado se retira; los campos prometidos y no implementados se declaran **no disponibles en v0**. Referencia de implementación: `backend/src/consultas/modulo.ts`, `backend/src/cli.ts`, `backend/src/http/v0.controller.ts`, `backend/src/mcp/server.ts`.
 
 1. **§3.4/§3.5 se publicaron sin implementación** (ninguna superficie las expone). Se mueven a §5 "Operaciones previstas fuera de v0" con esta nota. Su implementación es el ticket diferido **T4b**.
-2. **§3.1:** la implementación añade `vigente_hasta` (aditivo) y no sirve `pesos_abiertos`, `precios.cache_lectura_por_millon` ni `precios.tarifa_vigente_desde` (no disponibles en v0).
+2. **§3.1:** la implementación añade `vigente_hasta` (aditivo). **Actualizado por T4b (2026-08-18):** `precios.cache_lectura_por_millon`, `pesos_abiertos` y `familia_arquitectura` **ya se sirven** (aditivo; el primero ya existía en la fuente LiteLLM; los otros dos vienen de la capa de curaduría, con su propia procedencia). `precios.tarifa_vigente_desde` **sigue no disponible** (la fuente no la declara).
 3. **§3.2:** el shape real es `comandos[]` con procedencia por comando; `subcomandos`, `comandos_equivalentes`, el array de flags parseadas (con `desde_version`) y el parámetro `version` no están disponibles en v0. `cli_producto.nombre_display` es aditivo. El campo `flags` sirve la **captura cruda** (`null` o `{ "salida": "<texto>" }`), nunca un array parseado.
 4. **§3.3:** la respuesta real es la forma resumida documentada ahora (no el "documento de ficha" originalmente descrito).
 5. **§1:** el CLI usa alias posicionales (`consultar modelo <proveedor> <modelo_id>`), no `'<params_json>'` (solo `feedback` toma JSON). `limite_de_tasa`/`429` no está disponible en v0 (sin rate-limit; ver `docs/CONSUMO_INTERNO.md`).
@@ -24,7 +24,7 @@ La implementación (F1/F2) divergía del texto congelado. Esta errata es **aclar
 
 El mismo contrato se expone por dos transportes:
 
-- **CLI:** `scripts/consultar <alias> [args posicionales]` → imprime la respuesta JSON por stdout, exit code `0` si hay respuesta, `1` si no hay datos, `2` error de uso, `3` error de infraestructura (p. ej. BD inalcanzable; error JSON con `codigo: "fuente_no_disponible"` por stderr — desde T4c). (Compatible con el patrón de los scripts de expertoGobernanza.) Alias: `listar`, `modelo <proveedor> <modelo_id>`, `comando <cli> [filtro]`, `ficha <cli|proveedor> <id>`, `oficialidad`, `feedback '<params_json>'`. *(Errata 5: invocación posicional, no JSON por operación.)*
+- **CLI:** `scripts/consultar <alias> [args posicionales]` → imprime la respuesta JSON por stdout, exit code `0` si hay respuesta, `1` si no hay datos, `2` error de uso, `3` error de infraestructura (p. ej. BD inalcanzable; error JSON con `codigo: "fuente_no_disponible"` por stderr — desde T4c). (Compatible con el patrón de los scripts de expertoGobernanza.) Alias: `listar`, `modelo <proveedor> <modelo_id>`, `comando <cli> [filtro]`, `ficha <cli|proveedor> <id>`, `oficialidad`, `resolver <issuer_id> | resolver <modelo_id> <endpoint>` (aditivo T4b), `feedback '<params_json>'`. *(Errata 5: invocación posicional, no JSON por operación.)*
 - **HTTP:** `POST /v0/<operacion>` con body JSON de parámetros → respuesta JSON (200). **Autenticación (F5, 2026-08-17):** header `X-API-Key` obligatorio (fail-closed: sin claves configuradas todo `/v0` responde 401); las claves se configuran como SHA-256 hex en `ESCRUBERY_API_KEYS` (separadas por coma) — la clave en claro nunca vive en el repo. **Rate limit (F5):** token bucket por clave, default 60 req/min (`ESCRUBERY_RATE_LIMIT_RPM`); exceso → `429` con `codigo: limite_de_tasa` y header `Retry-After`. Errores con el formato de la Sección 4 y código HTTP coherente (`404` sin datos, `400` parámetros inválidos, `401` no autorizado, `429` límite).
 
 ## 2. Convenciones comunes
@@ -92,16 +92,20 @@ Las respuestas se serializan en JSON UTF-8. Desde la Fase 2, cualquier payload f
   },
   "precios": {
     "input_por_millon": 0.0,
-    "output_por_millon": 0.0
+    "output_por_millon": 0.0,
+    "cache_lectura_por_millon": 0.0
   },
+  "pesos_abiertos": null,
+  "familia_arquitectura": null,
   "vigente_hasta": null,
   "procedencia": { "...": "..." }
 }
 ```
 
+- `cache_lectura_por_millon`, `pesos_abiertos`, `familia_arquitectura` (aditivos T4b, 2026-08-18): el primero viene de la fuente LiteLLM (misma procedencia de la respuesta); los otros dos de la capa de curaduría (`null` si no declarados; su procedencia vive en `curaduria_json` de la fila, no en el bloque `procedencia` de la respuesta).
 - `vigente_hasta` (aditivo, errata 2): TTL de vigencia del dato — `fecha_obtencion` + ventana del plan v2 §4.2 (24 h para precios/modelos, 7 d para comandos CLI); `null` si la fuente no declara fecha de obtención.
 - `advertencia_caducidad` (aditivo T6, 2026-08-17): presente **solo** cuando `vigente_hasta < ahora`; el dato se sirve con `estado_verificacion: pendiente_de_verificar` (nunca como confirmado) y texto legible con la fecha de vencimiento. Refrescar la fuente (p. ej. `scripts/refrescar_litellm.sh`) restaura el estado.
-- **No disponibles en v0** (errata 2; implementación diferida a T4b): `pesos_abiertos`, `precios.cache_lectura_por_millon`, `precios.tarifa_vigente_desde`.
+- **No disponible en v0** (errata 2): `precios.tarifa_vigente_desde` (la fuente no la declara). `pesos_abiertos` y `precios.cache_lectura_por_millon` ya se sirven desde T4b (2026-08-18).
 - `null` = la fuente no lo declara (nunca se infiere en silencio; ver `estado_verificacion`).
 
 ### 3.2 `consultar_comando_cli`
@@ -262,6 +266,37 @@ El servicio se mejora con el feedback de quienes lo usan. Consumir el servicio *
 
 Sin bloque `procedencia` (índice derivado; errata 6).
 
+### 3.9 `resolver_identidad_modelo` (aditiva T4b, 2026-08-18 — ADR-0002)
+
+Registro externo, **no autodeclarado**: resuelve un identificador declarado por un agente/CLI/harness a la identidad canónica, usando exclusivamente datos curados (`datos/fichas/curaduria/`, `fuente_tipo: curaduria_propia`). Implementa el shape original de la retirada §3.4 (errata 1); el número de sección es nuevo para no reutilizar números retirados (disciplina de congelamiento).
+
+**Parámetros (exactamente una forma):** `{ "issuer_id": "claude-sonnet-5-cowork" }` **o** `{ "modelo_id": "qwen3.8-max", "endpoint": "https://dashscope.aliyuncs.com" }`. Formas mezcladas o vacías → `parametros_invalidos` (400 / exit 2 / MCP `isError`).
+
+**Respuesta (resuelto):**
+
+```json
+{
+  "resuelto": true,
+  "identidad_canonica": {
+    "proveedor": "anthropic",
+    "modelo_id": "claude-sonnet-5",
+    "familia_arquitectura": "claude",
+    "pesos_abiertos": false
+  },
+  "advertencias": [
+    "Sufijo '-cowork' de harness: la identidad del modelo es la de la API subyacente",
+    "familia_arquitectura/pesos_abiertos provienen de curaduría propia (procedencia en curaduria_json de la fila)"
+  ],
+  "configuration_fingerprint_sugerido": "sha256:<sha256 del JCS de {proveedor, modelo_id}>",
+  "procedencia": { "...": "bloque de la fila curada (alias o endpoint)" }
+}
+```
+
+- **Nunca adivina:** identificador sin dato curado que lo respalde → `sin_datos` (404 / exit 1 / MCP `isError`). Igual si el endpoint es conocido pero el modelo no está en el catálogo (identidad incompleta = sin datos, fail-closed).
+- `familia_arquitectura` es la base de decorrelación de un quórum multi-proveedor: dos CLIs sobre el mismo modelo no decorrelacionan; la familia identifica el linaje aunque el modelo se sirva por varios catálogos (p. ej. `glm-5.1` en zhipu y en qwen/DashScope). `null` si la curaduría no lo declara.
+- `pesos_abiertos`: solo donde la fuente pública lo documenta; `null` en otro caso.
+- La semilla curada actual es sintética (decisión del Mediador 2026-08-18); los casos reales de consumidores entran vía `reportar_feedback` y amplían la curaduría.
+
 ## 4. Errores
 
 ```json
@@ -282,5 +317,6 @@ Sin bloque `procedencia` (índice derivado; errata 6).
 
 No forman parte de este contrato todavía; se versionan al entrar:
 
-- `resolver_identidad_modelo` y `politica_datos_proveedor` — **se publicaron como §3.4/§3.5 sin implementación (errata 1, detectada 2026-08-10)**; su implementación es el ticket diferido T4b del plan de deuda. Los shapes originales quedan registrados en el historial Git de este documento (pre-errata) como base de diseño.
+- `resolver_identidad_modelo` — **IMPLEMENTADA como §3.9 (aditiva T4b, 2026-08-18)** con el shape original de la retirada §3.4 (errata 1) como base de diseño.
+- `politica_datos_proveedor` — se publicó como §3.5 sin implementación (errata 1); **sigue diferida** (requiere curaduría de políticas de retención/entrenamiento/transferencia por proveedor). Shape original en el historial Git (pre-errata).
 - `obtener_eventos_changelog` (Fase 2), `obtener_estado_verificacion` (Fase 2+), `verificar_firma` (Fase 2, lado cliente), y las herramientas MCP de la Fase 5, que envolverán estas mismas operaciones.

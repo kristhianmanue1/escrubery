@@ -294,7 +294,17 @@ Plan: `docs/investigacion/Plan_Hardening_F5_y_T4b.md`. Decisiones del Mediador (
 
 ---
 
-## Post-v0.3.0 — H5: T4b identidad de modelos (EN CURSO)
+## Post-v0.3.0 — H5: T4b identidad de modelos (2026-08-18; adversarial de cierre PENDIENTE)
 
 | Fecha | Fase | Ticket | est. | reales | desv. | Evidencia |
 |---|---|---|---|---|---|---|
+| 2026-08-18 | H5 | T4b-T0 — mig 013 + ingesta cache_lectura + curaduría | 0.5 | 0.5 | 0 | Mig 013 (3 columnas + `curaduria_json`); `precio_cache_lectura_por_millon` servido desde la ficha LiteLLM (112 modelos con precio de caché en BD real; qwen3.8-max = 0.250000); capa `datos/fichas/curaduria/identidad_modelos.json` con self-hash reproducible (verificación fail-closed en ingesta) y procedencia propia que NO pisa la de LiteLLM; 13/13 filas curadas |
+| 2026-08-18 | H5 | T4b-T1 — mig 014 + módulo resolver + specs | 1 | 1 | 0 | Mig 014 (`identidad_alias` + `identidad_endpoints`, procedencia por fila); `resolverIdentidadModelo` (issuer_id o modelo+endpoint; **nunca adivina**; fail-closed: endpoint conocido + modelo fuera de catálogo → sin_datos); fingerprint `sha256:JCS({proveedor,modelo_id})`; 9/9 specs (fixtures con proveedor 'otro' del enum §2.2); ingesta real: 3 aliases + 6 endpoints |
+| 2026-08-18 | H5 | T4b-T2 — superficies + Agent Card + goldens | 1 | 1 | 0 | CLI `consultar resolver` exit 0/1/2 e2e; HTTP e2e 401/200/404/400 (clave válida resuelve `claude-sonnet-5-cowork` → anthropic/claude-sonnet-5 y `qwen3.8-max`+dashscope → qwen/qwen3.8-max familia qwen3); MCP `mcp:probar` con la tool nueva (resuelto + isError en params mezclados); `consultar_modelo` sirve `cache_lectura_por_millon`/`pesos_abiertos`/`familia_arquitectura` (goldens actualizados); Agent Card regenerada y firmada (9 tools); 140/140 |
+| 2026-08-18 | H5 | T4b-T3 — contrato §3.9 + docs + bitácora | 0.5 | — | — | Contrato: §3.9 nueva (aditiva; no reutiliza números retirados), §3.1 ejemplo + notas, §1 alias `resolver`, §5 estado actualizado, errata 2 puesta al día; CONSUMO_INTERNO 8→9 tools; bitácora esta sección |
+
+**Notas T4b:**
+- **Compromiso de commits (autorización del Mediador por presupuesto de tokens):** `75e13ed` (H4) y `7bf0d94` (T4b); el 1º lleva 3 archivos mixtos (tools.ts/server.ts/v0.controller.ts) documentado en su mensaje.
+- Decisión de diseño clave: la curaduría de identidad lleva su **propia** procedencia (`curaduria_json`) — la procedencia LiteLLM de las filas de `modelos` queda intacta.
+- Semilla sintética (decisión Mediador): los 3 aliases y 13 entradas de modelos son patrones ilustrativos marcados `pendiente_de_verificar`; los casos reales de expertoGobernanza entran vía `reportar_feedback`.
+- **El caso de uso que motivó el ticket quedó servido:** qwen3.8-max input $2.0/M vs caché $0.25/M (87.5% de descuento) ya es consultable por API/MCP/CLI.

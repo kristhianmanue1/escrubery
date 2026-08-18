@@ -61,7 +61,7 @@ ln -s ~/www/aria/escrubery/scripts/consultar /usr/local/bin/escrubery
 
 Servidor MCP **local stdio** que expone las operaciones como *tools* nativas para agentes MCP (Claude Code, Cline, etc.). **Reusa** el módulo de consultas (F1) y Evidentia (F2); sin red ni puerto.
 
-**Tools expuestas (8):** `consultar_modelo`, `consultar_comando_cli`, `consultar_ficha`, `oficialidad`, `listar_entidades`, `verificar_evidencia`, `obtener_agent_card`, `reportar_feedback`. La fuente canónica de nombres y descripciones es `backend/src/mcp/tools.ts` (la consumen el servidor MCP y el generador de la Agent Card; el spec `src/mcp/tools.spec.ts` bloquea el drift contra la card firmada).
+**Tools expuestas (9):** `consultar_modelo`, `consultar_comando_cli`, `consultar_ficha`, `oficialidad`, `listar_entidades`, `verificar_evidencia`, `obtener_agent_card`, `reportar_feedback`, `resolver_identidad_modelo` (T4b, 2026-08-18). La fuente canónica de nombres y descripciones es `backend/src/mcp/tools.ts` (la consumen el servidor MCP y el generador de la Agent Card; el spec `src/mcp/tools.spec.ts` bloquea el drift contra la card firmada).
 
 ### Configurar un agente cliente (ej. Claude Code)
 
