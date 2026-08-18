@@ -294,14 +294,18 @@ Plan: `docs/investigacion/Plan_Hardening_F5_y_T4b.md`. Decisiones del Mediador (
 
 ---
 
-## Post-v0.3.0 — H5: T4b identidad de modelos (2026-08-18; adversarial de cierre PENDIENTE)
+## Post-v0.3.0 — H5: T4b identidad de modelos (CERRADO, adversarial proceed 2026-08-18; push a origin/main)
 
 | Fecha | Fase | Ticket | est. | reales | desv. | Evidencia |
 |---|---|---|---|---|---|---|
 | 2026-08-18 | H5 | T4b-T0 — mig 013 + ingesta cache_lectura + curaduría | 0.5 | 0.5 | 0 | Mig 013 (3 columnas + `curaduria_json`); `precio_cache_lectura_por_millon` servido desde la ficha LiteLLM (112 modelos con precio de caché en BD real; qwen3.8-max = 0.250000); capa `datos/fichas/curaduria/identidad_modelos.json` con self-hash reproducible (verificación fail-closed en ingesta) y procedencia propia que NO pisa la de LiteLLM; 13/13 filas curadas |
 | 2026-08-18 | H5 | T4b-T1 — mig 014 + módulo resolver + specs | 1 | 1 | 0 | Mig 014 (`identidad_alias` + `identidad_endpoints`, procedencia por fila); `resolverIdentidadModelo` (issuer_id o modelo+endpoint; **nunca adivina**; fail-closed: endpoint conocido + modelo fuera de catálogo → sin_datos); fingerprint `sha256:JCS({proveedor,modelo_id})`; 9/9 specs (fixtures con proveedor 'otro' del enum §2.2); ingesta real: 3 aliases + 6 endpoints |
 | 2026-08-18 | H5 | T4b-T2 — superficies + Agent Card + goldens | 1 | 1 | 0 | CLI `consultar resolver` exit 0/1/2 e2e; HTTP e2e 401/200/404/400 (clave válida resuelve `claude-sonnet-5-cowork` → anthropic/claude-sonnet-5 y `qwen3.8-max`+dashscope → qwen/qwen3.8-max familia qwen3); MCP `mcp:probar` con la tool nueva (resuelto + isError en params mezclados); `consultar_modelo` sirve `cache_lectura_por_millon`/`pesos_abiertos`/`familia_arquitectura` (goldens actualizados); Agent Card regenerada y firmada (9 tools); 140/140 |
-| 2026-08-18 | H5 | T4b-T3 — contrato §3.9 + docs + bitácora | 0.5 | — | — | Contrato: §3.9 nueva (aditiva; no reutiliza números retirados), §3.1 ejemplo + notas, §1 alias `resolver`, §5 estado actualizado, errata 2 puesta al día; CONSUMO_INTERNO 8→9 tools; bitácora esta sección |
+| 2026-08-18 | H5 | T4b-T3 — contrato §3.9 + docs + bitácora | 0.5 | 0.5 | 0 | Contrato: §3.9 nueva (aditiva; no reutiliza números retirados), §3.1 ejemplo + notas, §1 alias `resolver`, §5 estado actualizado, errata 2 puesta al día; CONSUMO_INTERNO 8→9 tools; bitácora esta sección |
+
+**Adversarial H5 (2026-08-18, subagente independiente, evidencia ejecutada):** `proceed`. Verificó: CI verde 140/140; firma de la Agent Card con cripto independiente (Python ed25519/JCS contra keyring; alterada → falla); self-hash de la curaduría reproducido de forma independiente Y fail-closed probado por ejecución (copia corrupta → la ingesta aborta exit 1 sin escribir); 0 semillas huérfanas (aliases/endpoints/curaduría existen en las fichas y respetan el enum); grep exhaustivo sin lógica de inferencia; procedencia LiteLLM intacta con curaduría anidada; contrato aditivo (diff 145ee90..HEAD); e2e de las 3 superficies + fingerprint reproducido + consultas_log en todos los caminos. **1 LOW registrado (no bloquea, fix al próximo ticket):** el CLI `resolver` tolera 3+ argumentos posicionales y descarta en silencio los extras (debiera exit 2); sin falso positivo posible (fail-closed intacto). **Observaciones (no defectos):** matching de endpoint exacto (trailing slash / http vs https → sin_datos, coherente con "nunca adivina"); asimetría justificada alias (resuelve con null+advertencia) vs endpoint (fail-closed, el modelo lo aporta el usuario).
+
+**Total H5: 3 ciclos est / 3 reales / desviación 0.** Commits: `75e13ed` (H4) + `7bf0d94` (T4b) + `8294356` (docs) — push a `origin/main` autorizado por el Mediador (2026-08-18). Memoria AN-KLA actualizada (revisión 35→36: facts de estado/gotchas + eventos).
 
 **Notas T4b:**
 - **Compromiso de commits (autorización del Mediador por presupuesto de tokens):** `75e13ed` (H4) y `7bf0d94` (T4b); el 1º lleva 3 archivos mixtos (tools.ts/server.ts/v0.controller.ts) documentado en su mensaje.

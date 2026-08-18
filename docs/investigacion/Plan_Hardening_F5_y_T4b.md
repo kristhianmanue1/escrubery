@@ -1,6 +1,6 @@
 # Plan: Hardening LOWs F5 + T4b identidad de modelos
 
-**Contexto:** post-release v0.3.0 (plan v2 completo). Dos candidatos pendientes a decisión del Mediador, ambos aprobados el 2026-08-18: saneamiento de la deuda LOW de F5 y la implementación diferida T4b (errata 1 del contrato). **Fecha:** 2026-08-18. **Estado:** borrador (espera visto bueno del Mediador).
+**Contexto:** post-release v0.3.0 (plan v2 completo). Dos candidatos pendientes a decisión del Mediador, ambos aprobados el 2026-08-18: saneamiento de la deuda LOW de F5 y la implementación diferida T4b (errata 1 del contrato). **Fecha:** 2026-08-18. **Estado:** CERRADO (H4 y H5 con adversarial `proceed`; detalle en `bitacora_ciclos.md`).
 **Fase del plan v2:** post-F5 (trabajo aditivo; sin fase nueva). **Fuente:** iniciativa del Mediador (candidatos del cierre F5).
 
 ## Decisiones del Mediador (2026-08-18)
@@ -16,8 +16,8 @@
 
 ## Hitos (cada uno dispara ronda adversarial, §6)
 
-- **H4 — Hardening F5:** 4 LOWs corregidos, CI local verde, sin cambio de contrato público. [pendiente]
-- **H5 — T4b identidad:** `resolver` operativo en las 3 superficies + campos nuevos servidos + contrato actualizado aditivamente. [pendiente]
+- **H4 — Hardening F5:** 4 LOWs corregidos, CI local verde, sin cambio de contrato público. [adversarial-ok 2026-08-18, proceed]
+- **H5 — T4b identidad:** `resolver` operativo en las 3 superficies + campos nuevos servidos + contrato actualizado aditivamente. [adversarial-ok 2026-08-18, proceed; 1 LOW residual registrado]
 
 ---
 
