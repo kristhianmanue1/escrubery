@@ -113,7 +113,9 @@ async function main(): Promise<void> {
         break;
       }
       case 'resolver': {
-        // dos formas (contrato §3.9): 1 arg = issuer_id; 2 args = modelo+endpoint
+        // dos formas (contrato §3.9): 1 arg = issuer_id; 2 args = modelo+endpoint;
+        // cualquier otra cantidad (0 o 3+) es uso inválido (exit 2), sin descartar extras en silencio
+        if (rest.length !== 1 && rest.length !== 2) usage();
         const [a, b] = rest;
         const params =
           b === undefined ? { issuer_id: a } : { modelo_id: a, endpoint: b };
