@@ -18,6 +18,11 @@ import type { Database } from '../db/schema';
 import { crearKysely } from '../db/kysely';
 import { reportarFeedback, TIPOS_FEEDBACK } from '../feedback/modulo';
 import { verificarTodo } from '../evidentia/verificar';
+import {
+  paramsResolverValidos,
+  resolverIdentidadModelo,
+} from '../consultas/resolver';
+import { TOOLS_CATALOGO } from './tools';
 
 let db: Kysely<Database> | null = null;
 
@@ -32,90 +37,67 @@ function getDb(): Kysely<Database> {
   return db;
 }
 
-const TOOLS = [
-  {
-    name: 'consultar_modelo',
-    description:
-      'Capacidades, precios, ventana de contexto y procedencia de un modelo de IA.',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        proveedor: { type: 'string' },
-        modelo_id: { type: 'string' },
+// inputSchema por tool (solo MCP; la Agent Card declara nombre+descripcion).
+// Los metadatos name/description vienen del catálogo único (src/mcp/tools.ts).
+const INPUT_SCHEMAS: Record<string, object> = {
+  consultar_modelo: {
+    type: 'object',
+    properties: {
+      proveedor: { type: 'string' },
+      modelo_id: { type: 'string' },
+    },
+    required: ['proveedor', 'modelo_id'],
+  },
+  consultar_comando_cli: {
+    type: 'object',
+    properties: { cli: { type: 'string' }, comando: { type: 'string' } },
+    required: ['cli'],
+  },
+  consultar_ficha: {
+    type: 'object',
+    properties: {
+      entidad: { type: 'string', enum: ['cli', 'proveedor'] },
+      id: { type: 'string' },
+    },
+    required: ['entidad', 'id'],
+  },
+  reportar_feedback: {
+    type: 'object',
+    properties: {
+      tipo: {
+        type: 'string',
+        enum: ['error', 'mejora', 'dato_desactualizado'],
       },
-      required: ['proveedor', 'modelo_id'],
-    },
-  },
-  {
-    name: 'consultar_comando_cli',
-    description: 'Comandos/flags de un CLI de agente (con filtro opcional).',
-    inputSchema: {
-      type: 'object',
-      properties: { cli: { type: 'string' }, comando: { type: 'string' } },
-      required: ['cli'],
-    },
-  },
-  {
-    name: 'consultar_ficha',
-    description: 'Ficha (resumida) de un CLI o de un proveedor.',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        entidad: { type: 'string', enum: ['cli', 'proveedor'] },
-        id: { type: 'string' },
-      },
-      required: ['entidad', 'id'],
-    },
-  },
-  {
-    name: 'oficialidad',
-    description:
-      'Lista los CLIs marcando oficial vs. comunitario (gobernanza).',
-    inputSchema: { type: 'object', properties: {} },
-  },
-  {
-    name: 'listar_entidades',
-    description: 'CLIs y proveedores disponibles en el servicio.',
-    inputSchema: { type: 'object', properties: {} },
-  },
-  {
-    name: 'verificar_evidencia',
-    description:
-      'Verifica la cadena criptográfica Evidentia (read-only, fail-closed) con el keyring público.',
-    inputSchema: { type: 'object', properties: {} },
-  },
-  {
-    name: 'reportar_feedback',
-    description:
-      'Reporta un error, mejora o dato desactualizado (contrato de uso §3.6). Deduplica por hash.',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        tipo: {
-          type: 'string',
-          enum: ['error', 'mejora', 'dato_desactualizado'],
+      descripcion: { type: 'string' },
+      consulta_origen: { type: 'object' },
+      agente_reportante: {
+        type: 'object',
+        properties: {
+          id: { type: 'string' },
+          configuration_fingerprint: { type: 'string' },
         },
-        descripcion: { type: 'string' },
-        consulta_origen: { type: 'object' },
-        agente_reportante: {
-          type: 'object',
-          properties: {
-            id: { type: 'string' },
-            configuration_fingerprint: { type: 'string' },
-          },
-          required: ['id'],
-        },
+        required: ['id'],
       },
-      required: ['tipo', 'descripcion', 'agente_reportante'],
+    },
+    required: ['tipo', 'descripcion', 'agente_reportante'],
+  },
+  resolver_identidad_modelo: {
+    type: 'object',
+    properties: {
+      issuer_id: { type: 'string' },
+      modelo_id: { type: 'string' },
+      endpoint: { type: 'string' },
     },
   },
-  {
-    name: 'obtener_agent_card',
-    description:
-      'Devuelve la Agent Card firmada de escrubery (identidad del servicio; verificar con el keyring público).',
-    inputSchema: { type: 'object', properties: {} },
-  },
-];
+};
+
+const SIN_PARAMS = { type: 'object', properties: {} };
+
+const TOOLS = TOOLS_CATALOGO.map((t) => ({
+  name: t.nombre,
+  description: t.descripcion,
+  inputSchema: INPUT_SCHEMAS[t.nombre] ?? SIN_PARAMS,
+}));
 
 function texto(obj: unknown) {
   return { content: [{ type: 'text' as const, text: JSON.stringify(obj) }] };
@@ -234,6 +216,36 @@ server.setRequestHandler(CallToolRequestSchema, async (req) => {
           'agent-card.json',
         );
         return texto(JSON.parse(readFileSync(rutaCard, 'utf8')));
+      }
+      case 'resolver_identidad_modelo': {
+        const params = {
+          issuer_id: a.issuer_id,
+          modelo_id: a.modelo_id,
+          endpoint: a.endpoint,
+        };
+        if (!paramsResolverValidos(params)) {
+          return {
+            content: [
+              {
+                type: 'text' as const,
+                text: JSON.stringify({
+                  error: {
+                    codigo: 'parametros_invalidos',
+                    mensaje:
+                      'issuer_id, o bien modelo_id + endpoint (exactamente una forma)',
+                  },
+                }),
+              },
+            ],
+            isError: true,
+          };
+        }
+        const r = await resolverIdentidadModelo(d, params);
+        return r
+          ? texto(r)
+          : sinDatos(
+              'identidad no resoluble (sin dato curado; nunca se adivina)',
+            );
       }
       default:
         return {

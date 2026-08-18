@@ -22,6 +22,10 @@ import {
 } from '../feedback/modulo';
 import { crearKysely } from '../db/kysely';
 import type { Database } from '../db/schema';
+import {
+  paramsResolverValidos,
+  resolverIdentidadModelo,
+} from '../consultas/resolver';
 import { AuthRateLimitGuard } from './auth.guard';
 
 let db: Kysely<Database> | null = null;
@@ -35,6 +39,15 @@ function getDb(): Kysely<Database> {
     db = crearKysely(url);
   }
   return db;
+}
+
+/** Solo para specs (HF5-T4): destruye el pool cacheado — sin esto Jest
+ * queda con un handle abierto de pg y no termina tras la suite. */
+export async function cerrarDbV0(): Promise<void> {
+  if (db) {
+    await db.destroy();
+    db = null;
+  }
 }
 
 function err(codigo: string, mensaje: string, status: number): never {
@@ -94,6 +107,29 @@ export class V0Controller {
   @Post('oficialidad')
   async oficialidad() {
     return oficialidad(getDb());
+  }
+
+  @HttpCode(200)
+  @Post('resolver_identidad_modelo')
+  async resolver(
+    @Body() b: { issuer_id?: string; modelo_id?: string; endpoint?: string },
+  ) {
+    if (!paramsResolverValidos(b)) {
+      err(
+        'parametros_invalidos',
+        'issuer_id, o bien modelo_id + endpoint (exactamente una forma)',
+        400,
+      );
+    }
+    const r = await resolverIdentidadModelo(getDb(), b);
+    if (!r) {
+      err(
+        'sin_datos',
+        'identidad no resoluble (sin dato curado que la respalde; nunca se adivina)',
+        404,
+      );
+    }
+    return r;
   }
 
   @HttpCode(200)

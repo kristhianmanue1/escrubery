@@ -17,8 +17,9 @@ function rpmConfigurado(): number {
 
 export function consumirToken(
   identificador: string,
+  rpmOverride?: number,
 ): { ok: true; rpm: number } | { ok: false; rpm: number; retryAfterS: number } {
-  const rpm = rpmConfigurado();
+  const rpm = rpmOverride ?? rpmConfigurado();
   const ahora = Date.now();
   const b = buckets.get(identificador) ?? { tokens: rpm, ultimoMs: ahora };
   // reposición proporcional al tiempo transcurrido

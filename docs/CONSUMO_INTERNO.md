@@ -61,7 +61,7 @@ ln -s ~/www/aria/escrubery/scripts/consultar /usr/local/bin/escrubery
 
 Servidor MCP **local stdio** que expone las operaciones como *tools* nativas para agentes MCP (Claude Code, Cline, etc.). **Reusa** el módulo de consultas (F1) y Evidentia (F2); sin red ni puerto.
 
-**Tools expuestas:** `consultar_modelo`, `consultar_comando_cli`, `consultar_ficha`, `oficialidad`, `listar_entidades`, `verificar_evidencia`.
+**Tools expuestas (8):** `consultar_modelo`, `consultar_comando_cli`, `consultar_ficha`, `oficialidad`, `listar_entidades`, `verificar_evidencia`, `obtener_agent_card`, `reportar_feedback`. La fuente canónica de nombres y descripciones es `backend/src/mcp/tools.ts` (la consumen el servidor MCP y el generador de la Agent Card; el spec `src/mcp/tools.spec.ts` bloquea el drift contra la card firmada).
 
 ### Configurar un agente cliente (ej. Claude Code)
 
@@ -97,3 +97,4 @@ npm run mcp:server    # arranca el servidor en modo escucha (lo que usa el agent
 - **Gobernanza:** grok-build (oficial xAI) ≠ grok-cli-community (comunitario superagent-ai); nunca se mezclan.
 - **Sin IA en el path:** las consultas se responden desde BD, sin invocar modelos (Fases 0–2).
 - **HTTP con auth + rate-limit (F5, 2026-08-17):** toda llamada a `POST /v0/*` requiere header `X-API-Key`. Las claves se configuran en `backend/.env` (`ESCRUBERY_API_KEYS`, hashes SHA-256). Para generar una clave para tu agente: `CLAVE=$(openssl rand -hex 24)` y `HASH=$(printf %s "$CLAVE" | shasum -a 256 | cut -d' ' -f1)`; el HASH se añade a `.env` del servicio, la clave en claro va al consumidor. Límite: 60 req/min por clave (configurable). Respuestas 401/429 con el formato de error del contrato §4. **Agent Card:** `datos/agent-card/agent-card.json` (firmada Ed25519, verificable con el keyring público) — tool MCP `obtener_agent_card`.
+- **Hardening (H4, 2026-08-18):** (a) la comparación de claves es timing-safe (`timingSafeEqual` sobre SHA-256, sin early-exit por clave); (b) los intentos de auth FALLIDOS se limitan por IP — default 20 req/min, configurable con `ESCRUBERY_AUTH_LIMIT_RPM`; las peticiones con clave válida no consumen de este bucket. Ambos límites son token-bucket **en memoria (single-instance)**: si el servicio escala a múltiples procesos/instancias hay que migrarlos a almacenamiento compartido (se documenta aquí para no reclamar protección distribuida).

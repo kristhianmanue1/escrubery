@@ -4,46 +4,14 @@ import {
   firmarAgentCard,
   type AgentCard,
 } from './agent_card';
+import { TOOLS_CATALOGO } from '../mcp/tools';
 
 // F5 T0 — genera datos/agent-card/agent-card.json firmado con la clave
 // Evidentia del Mediador (misma del keyring público).
+// HF5-T2: las tools vienen del catálogo único (src/mcp/tools.ts); el spec
+// src/mcp/tools.spec.ts verifica que la card firmada no derive de él.
 
-const TOOLS = [
-  {
-    nombre: 'consultar_modelo',
-    descripcion:
-      'Capacidades, precios, ventana de contexto y procedencia de un modelo de IA.',
-  },
-  {
-    nombre: 'consultar_comando_cli',
-    descripcion: 'Comandos/flags de un CLI de agente (con filtro opcional).',
-  },
-  {
-    nombre: 'consultar_ficha',
-    descripcion: 'Ficha (resumida) de un CLI o de un proveedor.',
-  },
-  {
-    nombre: 'oficialidad',
-    descripcion: 'CLIs oficial vs. comunitario (gobernanza).',
-  },
-  {
-    nombre: 'listar_entidades',
-    descripcion: 'CLIs y proveedores disponibles.',
-  },
-  {
-    nombre: 'verificar_evidencia',
-    descripcion:
-      'Verifica la cadena Evidentia (read-only, fail-closed) con el keyring público.',
-  },
-  {
-    nombre: 'obtener_agent_card',
-    descripcion: 'Devuelve esta Agent Card firmada (identidad del servicio).',
-  },
-  {
-    nombre: 'reportar_feedback',
-    descripcion: 'Reporta error/mejora/dato desactualizado (contrato de uso).',
-  },
-];
+const TOOLS = TOOLS_CATALOGO;
 
 function main(): void {
   const kid = process.argv[2] ?? 'escrubery-evidentia-001';
