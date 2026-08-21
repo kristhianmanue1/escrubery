@@ -153,7 +153,7 @@ export function probeOpencode(dirSalida: string): ReporteProbe {
         fuente: superficie,
         fecha_observacion: new Date().toISOString(),
         carga_sha256: hashSha256(`muestra:${tipo}`),
-        carga_ref: null,
+        carga_ref: 'muestra_sintetica',
         sensibilidad: {
           contiene_conversacion: false,
           contiene_io_herramientas: false,

@@ -73,8 +73,7 @@ export function probeKimi(dirSalida: string) {
     sesion_iniciada: {
       veredicto: 'ok',
       conteo: sesiones.size,
-      metodo:
-        'directorio de sesión con ≥1 wire.jsonl con mensajes (32 directorios, 30 con mensajes)',
+      metodo: 'directorio de sesión con ≥1 wire.jsonl con mensajes',
     },
     prompt_enviado: {
       veredicto: 'ok',
@@ -104,7 +103,7 @@ export function probeKimi(dirSalida: string) {
       veredicto: 'ok',
       conteo: c.compactionBegin,
       metodo:
-        "message.type='CompactionBegin' (61) contrastado con CompactionEnd (56); se cuenta Begin",
+        "message.type='CompactionBegin'; CompactionEnd disponible como contraste; se cuenta Begin",
     },
     sesion_cerrada: {
       veredicto: 'no_disponible',
@@ -131,7 +130,7 @@ export function probeKimi(dirSalida: string) {
       fuente: superficie,
       fecha_observacion: new Date().toISOString(),
       carga_sha256: hashSha256(`muestra:${tipo}`),
-      carga_ref: null,
+      carga_ref: 'muestra_sintetica',
       sensibilidad: {
         contiene_conversacion: false,
         contiene_io_herramientas: false,

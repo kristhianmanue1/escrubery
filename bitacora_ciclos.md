@@ -334,9 +334,9 @@ Tag anotado + [GitHub Release](https://github.com/kristhianmanue1/escrubery/rele
 
 ---
 
-## Post-v0.4.0 — H6: conversation-event/v0 + probes (APROBADO por el Mediador 2026-08-21; en curso)
+## Post-v0.4.0 — H6: conversation-event/v0 + probes (APROBADO por el Mediador 2026-08-21; adversarial `proceed` — espera decreto de cierre)
 
-Plan: `docs/investigacion/Plan_Conversation_Event_v0.md` (issue #2). Alcance: contrato `conversation-event/v0` + probes read-only (opencode/codex/cline/kimi) + decisión de adaptadores. Sin colectores automáticos ni escritura AN-KLA.
+Plan: `docs/investigacion/Plan_Conversation_Event_v0.md` (issue #2). Alcance: contrato `conversation-event/v0` + probes read-only (opencode/codex/cline/kimi) + decisión de adaptadores. Sin colectores automáticos ni escritura AN-KLA. **Totales H6: 2.75 est / 2.75 reales / desviación 0.**
 
 | Fecha | Fase | Ticket | est. | reales | desv. | Evidencia |
 |---|---|---|---|---|---|---|
@@ -346,3 +346,5 @@ Plan: `docs/investigacion/Plan_Conversation_Event_v0.md` (issue #2). Alcance: co
 | 2026-08-21 | H6 | CE-T3 — Probe cline (read-only sessions.db + tasks) | 0.5 | 0.5 | 0 | `--cli cline` sobre ~/.cline/data real (174 sesiones, 19 tareas): **único CLI con sesion_cerrada ok** (168 ended_at+exit_code); prompts ok (223 por role); turnos parciales (completion_result 15; failed 8 + 87/174 sesiones failed — señal de gobernanza); compactacion no_disponible; 6 muestras validadas; gate privacidad 0 matches (solo role/type/say/ask proyectados); evidencia `docs/investigacion/probes/cline-2026-08-21.md`; CI LOCAL VERDE |
 | 2026-08-21 | H6 | CE-T4 — Probe kimi-code (read-only wire.jsonl) | 0.5 | 0.5 | 0 | `--cli kimi-code` sobre ~/.kimi/sessions real (32 dirs, 30 con mensajes): 5/7 ok — el wire es el más rico por tipo nativo (TurnBegin 1789, TurnEnd 1637, **StepInterrupted 107 y CompactionBegin 61 únicos entre los 4**); turno_fallido/sesion_cerrada no_disponible; 5 muestras validadas; gate privacidad 0 matches (`user_input` en claro jamás proyectado); evidencia `docs/investigacion/probes/kimi-code-2026-08-21.md`; CI LOCAL VERDE |
 | 2026-08-21 | H6 | CE-T5 — Decisión de adaptadores | 0.25 | 0.25 | 0 | `docs/investigacion/probes/DECISION_ADAPTADORES.md`: matriz 16 ok / 4 parcial / 8 nd; superficie por CLI (todas `almacen_interno`/`interna`); decisiones: colector solo-artefactos, turno_fallido = hueco transversal (hooks = ToS), sesion_cerrada solo cline, validación schema fail-closed por evento, privacidad como DoD permanente; colector NO implementado (delimitación del issue) |
+
+**Adversarial H6 (2026-08-21, subagente independiente): `proceed`.** Verificó por ejecución: CI verde 164/164 con BD completa; contrato resistente a mutaciones (6/6 muestras maliciosas rechazadas); árbol del repo bit-idéntico tras re-correr los 4 probes (checksum md5); grep creativo con tokens reales de las 4 fuentes sobre reportes y stdouts → 0 fugas; los 8 no_disponible honestos (null + método); matriz exacta vs reportes; sin secretos. 4 LOW: 2 aplicados tras el veredicto (marcas `muestra_sintetica`, números de prosa en kimi), 2 documentados en la decisión (WAL sidecars, `cli_version` prosa → contrato v1). Comentario en issue #2 con el resumen; cierre del issue pendiente del decreto del Mediador.

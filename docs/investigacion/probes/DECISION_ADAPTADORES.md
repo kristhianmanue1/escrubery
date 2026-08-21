@@ -54,6 +54,19 @@ cobertura fuerte es por CLI.
 - La integración AN-KLA (F8-E del issue #1) consume esta decisión como insumo; su momento
   se decide aparte.
 
+## Notas de la ronda adversarial (2026-08-21, `proceed`)
+
+4 LOW registrados; 2 aplicados tras el veredicto (marcas `muestra_sintetica` en `carga_ref`;
+números de prosa eliminados de kimi). Pendientes documentados:
+
+- **WAL sidecars (LOW):** abrir una BD SQLite en modo WAL con `readOnly:true` puede crear
+  `-shm`/`-wal` junto a la fuente (comportamiento estándar de lectura WAL; verificado por
+  el adversarial con experimento controlado). No toca contenido ni repo. `immutable=1` solo
+  serviría para snapshots congelados, no fuentes vivas.
+- **`cli_version` en muestras (LOW → contrato v1):** las muestras globales de codex/cline
+  llevan prosa donde iría una versión (válido por `minLength 1`). Para v1 del contrato:
+  admitir `null` o una const `no_proyectada`.
+
 ## Evidencia
 
 - Contrato: `datos/schemas/conversation-event-v0.schema.json` (validador ajv + 18 specs).
