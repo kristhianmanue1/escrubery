@@ -10,10 +10,9 @@ Servicio de inteligencia sobre modelos y CLIs de IA (ver `README.md`). Fase actu
 
 ## Estado actual
 
-- **Hecho:** F0–F4a cerradas (F4a: Merkle RFC 6962 + checkpoints firmados + sello RFC 3161 DigiCert + detección de omisión; custodia git diaria autorizada).
-- **Hecho:** plan v2 COMPLETO (F0–F5 cerradas por decreto 2026-08-17).
-- **Hecho:** release **v0.4.0** publicado (2026-08-18): resolver_identidad_modelo (§3.9) + campos errata 2 + hardening F5; adversarial de release APTO_PARA_RELEASE.
-- **En curso:** nada. Candidatos: casos reales del resolver (feedback), args extra en listar/oficialidad/feedback, `politica_datos_proveedor`, F4b (presupuesto).
+- **Hecho:** plan v2 COMPLETO (F0–F5) + releases **v0.3.0/v0.4.0/v0.5.0** publicadas.
+- **Hecho (2026-08-21):** H6 cerrado — contrato `conversation-event/v0` (diseño, no servido) + 4 probes read-only + decisión de adaptadores; issues #1 y #2 cerrados.
+- **En curso:** nada. Candidatos: colector conversation-event (superficie decidida en `docs/investigacion/probes/DECISION_ADAPTADORES.md`), casos reales del resolver (feedback), args extra en listar/oficialidad/feedback, `politica_datos_proveedor`, F4b (presupuesto).
 - **Detalle y desviaciones:** `bitacora_ciclos.md` (hogar canónico; este bloque es solo el resumen — mantener ≤ 5 líneas, no narrar historial aquí).
 
 ## Roles (ADRC)
