@@ -3,6 +3,7 @@ import { join } from 'node:path';
 import { probeOpencode } from './opencode';
 import { probeCodex } from './codex';
 import { probeCline } from './cline';
+import { probeKimi } from './kimi';
 
 // Entrada: npm run probe:conversacion -- --cli <opencode|codex-cli|cline|kimi-code>
 // Read-only: solo lee artefactos locales; escribe exclusivamente bajo var/probes/.
@@ -40,7 +41,12 @@ function main(): void {
     console.log(JSON.stringify(r, null, 2));
     return;
   }
-  console.error(`probe ${cli}: no implementado aún (ticket CE-T4)`);
+  if (cli === 'kimi-code') {
+    const r = probeKimi(dirSalida);
+    console.log(JSON.stringify(r, null, 2));
+    return;
+  }
+  console.error(`probe ${cli}: no registrado`);
   process.exit(2);
 }
 
