@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:escrubery:schema:conversation-event:v0",
+  "title": "EventoDeConversacionV0",
+  "description": "Contrato vendor-neutral para eventos de conversacion de CLIs. Diseño (no servido por la API v0); origen: issue #2 + plan docs/investigacion/Plan_Conversation_Event_v0.md. Los probes read-only producen eventos conforme a este schema; jamas contienen contenido de conversacion (solo hashes y conteos).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "evento_id",
+    "cli",
+    "cli_version",
+    "sesion_id_hash",
+    "tipo",
+    "fuente",
+    "fecha_observacion",
+    "carga_sha256",
+    "sensibilidad"
+  ],
+  "properties": {
+    "schema": {
+      "const": "escrubery/conversation-event/v0"
+    },
+    "evento_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "UUID v4 por evento emitido por el probe."
+    },
+    "cli": {
+      "enum": ["opencode", "codex-cli", "cline", "kimi-code"]
+    },
+    "cli_version": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Versión del CLI cuyo historial se observó (formato del maintainer)."
+    },
+    "sesion_id_hash": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "description": "Hash del ID de sesión nativo. Nunca el ID en claro (puede contener rutas o nombres de usuario)."
+    },
+    "turno_id_hash": {
+      "type": ["string", "null"],
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "description": "Hash del ID de turno nativo cuando el CLI lo expone; null si no existe un ID estable (p. ej. Cline/OpenCode a veces)."
+    },
+    "secuencia": {
+      "type": ["integer", "null"],
+      "minimum": 0,
+      "description": "Índice del evento dentro de la sesión si la fuente lo permite derivar; null si no es derivable sin ambigüedad."
+    },
+    "tipo": {
+      "enum": [
+        "sesion_iniciada",
+        "prompt_enviado",
+        "turno_finalizado",
+        "turno_fallido",
+        "turno_interrumpido",
+        "compactacion",
+        "sesion_cerrada"
+      ]
+    },
+    "fuente": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tipo", "interfaz", "estabilidad"],
+      "properties": {
+        "tipo": {
+          "enum": ["oficial_hook", "oficial_api", "oficial_export", "stream_soportado", "almacen_interno"]
+        },
+        "interfaz": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Nombre de la superficie concreta (p. ej. 'opencode.db (sqlite)', 'rollout-*.jsonl', 'hooks:SessionEnd')."
+        },
+        "estabilidad": {
+          "enum": ["estable", "beta", "experimental", "interna"],
+          "description": "Declarada por la documentación del maintainer; 'interna' = formato interno sin compromiso de estabilidad."
+        },
+        "fuente_url": {
+          "type": ["string", "null"],
+          "format": "uri",
+          "description": "Documentación oficial de la superficie si existe; null si es artefacto local sin doc pública."
+        }
+      }
+    },
+    "fecha_observacion": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Momento en que el probe observó el dato (no el timestamp original del evento, que vive hasheado en la carga)."
+    },
+    "carga_sha256": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "description": "Hash SHA-256 del evento nativo crudo que originó este evento normalizado. Permite evidencia verificable sin retener contenido."
+    },
+    "carga_ref": {
+      "type": ["string", "null"],
+      "description": "Referencia local protegida al artefacto origen (bajo var/probes/, gitignored). Nunca contenido crudo ni URI publicable. null si no se retiene."
+    },
+    "sensibilidad": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["contiene_conversacion", "contiene_io_herramientas", "estado_redaccion"],
+      "properties": {
+        "contiene_conversacion": {
+          "type": "boolean",
+          "description": "true si la carga original contiene texto de usuario/modelo. El repo solo admite false: la carga vive hasheada/fuera."
+        },
+        "contiene_io_herramientas": {
+          "type": "boolean",
+          "description": "true si la carga original contiene entrada/salida de herramientas (paths, diffs, comandos)."
+        },
+        "estado_redaccion": {
+          "enum": ["no_requerida", "pendiente", "redactada", "rechazada"]
+        }
+      }
+    }
+  }
+}

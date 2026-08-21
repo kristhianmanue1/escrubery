@@ -321,6 +321,8 @@ Tag anotado + [GitHub Release](https://github.com/kristhianmanue1/escrubery/rele
 
 ---
 
+---
+
 ## Post-v0.4.0 — Operación (2026-08-21)
 
 | Fecha | Trabajo | est. | reales | desv. | Evidencia |
@@ -329,3 +331,13 @@ Tag anotado + [GitHub Release](https://github.com/kristhianmanue1/escrubery/rele
 | 2026-08-21 | ALERTA `introspeccion_omitida` + `estado.f3_introspeccion` cuando Docker falta (seam `ESCRUBERY_DOCKER_BIN`) | 0.25 | 0.25 | 0 | Rama omitida verificada con stub (ALERTA + estado `omitida_docker`); rama ok verificada con corrida real; docs/VIGILANCIA.md actualizado. Observación: build codex @0.150.0-alpha.5 falló porque el tag GitHub precede al paquete npm (npm ≤ alpha.3) — externo y transitorio; el camino resiliente (FALLOS+1, exit 2, reinteto diario) funcionó según diseño |
 
 **Issue #1 cerrado** (2026-08-21) con mapeo hallazgo→resolución: 4 BLOCKER + 5 HIGH resueltos entre F3/F4a/deuda-H1-H3/H4/H5; la sección AN-KLA F8-E se conserva como insumo de diseño enlazado a #2. **Issue #2 decretado** como siguiente ciclo: plan propuesto en `docs/investigacion/Plan_Conversation_Event_v0.md` (contrato `conversation-event/v0` + 4 probes read-only + decisión de adaptadores; espera aprobación del plan por el Mediador). Señal de mejora registrada (sin ticket): clasificador de etiqueta única sobre-clasifica release notes mixtas (caso claude 2.1.236).
+
+---
+
+## Post-v0.4.0 — H6: conversation-event/v0 + probes (APROBADO por el Mediador 2026-08-21; en curso)
+
+Plan: `docs/investigacion/Plan_Conversation_Event_v0.md` (issue #2). Alcance: contrato `conversation-event/v0` + probes read-only (opencode/codex/cline/kimi) + decisión de adaptadores. Sin colectores automáticos ni escritura AN-KLA.
+
+| Fecha | Fase | Ticket | est. | reales | desv. | Evidencia |
+|---|---|---|---|---|---|---|
+| 2026-08-21 | H6 | CE-T0 — Contrato `conversation-event/v0` | 0.5 | 0.5 | 0 | `datos/schemas/conversation-event-v0.schema.json` (draft 2020-12, `additionalProperties: false`, 7 tipos enum, IDs hasheados, bloque sensibilidad — fusión plan + borrador issue #2); validador `backend/src/probes/conversation_event.ts` (ajv 2020-12 + ajv-formats devDeps; `.npmrc` `legacy-peer-deps` documentado por conflicto peer ts-jest/babel preexistente); 18 specs (7 válidos por tipo + 8 inválidos: prop extra, tipo fuera de enum, required ausente, uuid malo, hash sin patrón, versión vacía, fecha mala, estabilidad fuera de enum) + vector sha256 conocido; contrato §5 anexo no-servido; CI LOCAL VERDE (164/164) |

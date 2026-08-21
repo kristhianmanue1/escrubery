@@ -28,6 +28,7 @@ Servicio de inteligencia sobre modelos y CLIs de IA (ver `README.md`). Fase actu
 datos/fichas/clis/         Fichas v0 de CLIs (curadurizadas, se editan a mano con criterio)
 datos/fichas/proveedores/  Fichas v0 de modelos (GENERADAS — no editar a mano)
 datos/fuentes/             Descargas crudas de fuentes externas (insumo de hash)
+datos/schemas/             Contratos JSON de diseño (conversation-event/v0; no servidos)
 docs/investigacion/        Investigación, plan v1/v2 y análisis crítico
 docs/politica-agentes.md   Política de trabajo con agentes (v1.0)
 docs/plantillas-agente.md  Plantillas plan/contrato/checkpoint/adversarial/reporte
