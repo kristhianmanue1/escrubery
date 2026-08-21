@@ -10,6 +10,15 @@ en 24 h (cualquiera, no solo nuevas — no se silencian las no atendidas) ·
 `2` infra caída (BD inalcanzable, GitHub, etc.). Estado en `var/vigilancia/estado.json`
 (gitignored); logs fechados en `var/vigilancia/logs/`.
 
+**Alertas de operación (2026-08-21):** además de las alertas de changelog, la
+corrida emite `ALERTA [introspeccion_omitida] ...` cuando Docker no está
+disponible y la introspección F3 se omite (el inventario vivo queda congelado
+hasta que Docker vuelva; los comandos degradan por caducidad solos — omisión
+honesta por decreto F3-T2, no cambia el exit code). El campo
+`f3_introspeccion` de `estado.json` registra `ok | omitida_docker` por corrida.
+**Seam de prueba:** `ESCRUBERY_DOCKER_BIN` permite apuntar el binario de Docker
+a un stub que falla, para verificar esa rama sin tumbar el Docker real.
+
 ## Instalación (launchd — acción del Mediador)
 
 `~/Library/LaunchAgents/com.escrubery.vigilancia.plist`:

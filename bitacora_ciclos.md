@@ -318,3 +318,14 @@ Plan: `docs/investigacion/Plan_Hardening_F5_y_T4b.md`. Decisiones del Mediador (
 ## RELEASE v0.4.0 (2026-08-18)
 
 Tag anotado + [GitHub Release](https://github.com/kristhianmanue1/escrubery/releases/tag/v0.4.0) publicados sobre `7234fd8` (incluye housekeeping `.qwen/`→`.gitignore`, LOW del adversarial). Contenido: resolver_identidad_modelo (contrato §3.9) + cache_lectura_por_millon/pesos_abiertos/familia_arquitectura servidos (errata 2) + hardening H4 + fixes CLI args extra (run orquestado bajo el estándar de orquestación v2.1 del orquestador, evidencia en `docs/planning/`). **Adversarial de release: APTO_PARA_RELEASE** (modalidad C coordinada por el supervisor, 12/12 verificaciones con evidencia ejecutada; firma de card y self-hash de curaduría reproducidos con cripto independiente; 0 BLOCKER/HIGH/MED, 4 LOW registrados). Gates: CI verde 140/140, check_sizes OK. Siguientes candidatos: casos reales del resolver (feedback), args extra en listar/oficialidad/feedback, politica_datos_proveedor, F4b (presupuesto).
+
+---
+
+## Post-v0.4.0 — Operación (2026-08-21)
+
+| Fecha | Trabajo | est. | reales | desv. | Evidencia |
+|---|---|---|---|---|---|
+| 2026-08-21 | Triaje de 4 alertas de vigilancia (2 nuevas + 2 conocidas) + recuperación de incidente Docker | 0.25 | 0.25 | 0 | `var/vigilancia/triaje-2026-08-21.md` (local): codex 0.149.0 fix_seguridad CORRECTA (prioridad de actualización); claude 2.1.238 defendible-leve; 2.1.236 sobre-clasificada; opencode 1.18.19 defendible. Docker caído omitió F3 a las 15:00Z → relanzado, vigilancia re-corrida 17:54Z: rebuild opencode 1.18.21 + claude 2.1.238, checkpoint #6 sellado y pusheado |
+| 2026-08-21 | ALERTA `introspeccion_omitida` + `estado.f3_introspeccion` cuando Docker falta (seam `ESCRUBERY_DOCKER_BIN`) | 0.25 | 0.25 | 0 | Rama omitida verificada con stub (ALERTA + estado `omitida_docker`); rama ok verificada con corrida real; docs/VIGILANCIA.md actualizado. Observación: build codex @0.150.0-alpha.5 falló porque el tag GitHub precede al paquete npm (npm ≤ alpha.3) — externo y transitorio; el camino resiliente (FALLOS+1, exit 2, reinteto diario) funcionó según diseño |
+
+**Issue #1 cerrado** (2026-08-21) con mapeo hallazgo→resolución: 4 BLOCKER + 5 HIGH resueltos entre F3/F4a/deuda-H1-H3/H4/H5; la sección AN-KLA F8-E se conserva como insumo de diseño enlazado a #2. **Issue #2 decretado** como siguiente ciclo: plan propuesto en `docs/investigacion/Plan_Conversation_Event_v0.md` (contrato `conversation-event/v0` + 4 probes read-only + decisión de adaptadores; espera aprobación del plan por el Mediador). Señal de mejora registrada (sin ticket): clasificador de etiqueta única sobre-clasifica release notes mixtas (caso claude 2.1.236).

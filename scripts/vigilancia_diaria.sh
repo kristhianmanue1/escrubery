@@ -29,6 +29,10 @@ trap 'rc=$?; echo "== fin (trap) — exit $rc =="; exit $rc' EXIT
 DIARIOS=(opencode claude-code codex-cli)
 SEMANALES=(grok-build kimi-code cline grok-cli-community qwen-code)
 
+# Seam de prueba: permite apuntar a un stub que falla (verificación de la rama
+# de omisión sin tumbar el Docker real). Documentado en docs/VIGILANCIA.md.
+DOCKER_BIN="${ESCRUBERY_DOCKER_BIN:-docker}"
+
 echo "== vigilancia escrubery — $(date -u +%Y-%m-%dT%H:%M:%SZ) =="
 
 # --- Precheck de infraestructura (exit 2, no 10: infra ≠ alerta) ---
@@ -124,7 +128,7 @@ construir() {
     codex-cli) local dockerfile=Dockerfile.codex ;;
     *) local dockerfile="Dockerfile.$cli" ;;
   esac
-  if ! docker build -q --build-arg "VERSION=$version" -t "$imagen" \
+  if ! "$DOCKER_BIN" build -q --build-arg "VERSION=$version" -t "$imagen" \
     "$RAIZ/docker/sandbox" -f "$RAIZ/docker/sandbox/$dockerfile" >/dev/null; then
     echo "FALLO construyendo $imagen (continuando con el resto)"
     FALLOS=$((FALLOS + 1))
@@ -133,7 +137,8 @@ construir() {
   return 0
 }
 
-if command -v docker >/dev/null 2>&1 && docker info >/dev/null 2>&1; then
+F3_ESTADO="ok"
+if command -v "$DOCKER_BIN" >/dev/null 2>&1 && "$DOCKER_BIN" info >/dev/null 2>&1; then
   # ¿La última release conocida (poller F2) es más nueva que la version del
   # sandbox (cli_productos.version_actual)? Si sí, rebuild con --pull: sin
   # esto la imagen cachea el npm install y el inventario queda congelado en
@@ -143,14 +148,14 @@ if command -v docker >/dev/null 2>&1 && docker info >/dev/null 2>&1; then
   for cli in "${CLIS_F3[@]}"; do
     echo "-- F3 introspección: $cli"
     IMAGEN="escrubery-sandbox-$cli"
-    if ! docker image inspect "$IMAGEN" >/dev/null 2>&1; then
+    if ! "$DOCKER_BIN" image inspect "$IMAGEN" >/dev/null 2>&1; then
       echo "   imagen $IMAGEN ausente: construyendo (@latest; si diverge, se autocorrige mañana)"
       if ! construir "$cli" "$IMAGEN" "latest"; then continue; fi
     else
       # Version del binario del sandbox vs version_publicada (poller) en BD:
       # divergen -> rebuild con --build-arg VERSION (la capa npm se invalida
       # naturalmente porque cambia el comando; sin --no-cache, presupuesto ~0).
-      V_SANDBOX=$(docker run --rm "$IMAGEN" --version 2>/dev/null | grep -oE '[0-9]+\.[0-9]+[0-9.]*([-._][0-9A-Za-z.]+)?' | head -1)
+      V_SANDBOX=$("$DOCKER_BIN" run --rm "$IMAGEN" --version 2>/dev/null | grep -oE '[0-9]+\.[0-9]+[0-9.]*([-._][0-9A-Za-z.]+)?' | head -1)
       V_BD=$(consultar_version "$cli")
       if [ -z "$V_BD" ]; then
         echo "   aviso: sin version_publicada en BD para $cli (¿query fallo?); sin rebuild"
@@ -162,7 +167,12 @@ if command -v docker >/dev/null 2>&1 && docker info >/dev/null 2>&1; then
     run_node src/f3/sandbox_introspeccion.ts "$cli"
   done
 else
-  echo "-- F3 introspección: OMITIDA (Docker no disponible; los comandos degradan por caducidad solos)"
+  # Incidencia 2026-08-21: esta omisión vivía solo como nota enterrada en el
+  # log y el inventario vivo quedó congelado un día sin señal visible. Ahora
+  # se marca como ALERTA y queda en estado.json (f3_introspeccion) para el
+  # operador. Exit sin cambio por decreto F3-T2 (omisión honesta ≠ infra caída).
+  echo "ALERTA [introspeccion_omitida] Docker no disponible: F3 omitida hoy; los comandos degradan por caducidad solos (inventario vivo congelado hasta que Docker vuelva)"
+  F3_ESTADO="omitida_docker"
 fi
 
 # --- Alertas alta severidad (<24h) ---
@@ -175,11 +185,12 @@ fi
 cat "$ALERTAS_OUT"
 
 # Marca nuevas vs conocidas, actualiza estado y decide exit (0/10).
-python3 - "$ESTADO" "$ALERTAS_OUT" "$HACER_SEMANAL" <<'PY'
+python3 - "$ESTADO" "$ALERTAS_OUT" "$HACER_SEMANAL" "$F3_ESTADO" <<'PY'
 import json, sys
 from pathlib import Path
 from datetime import datetime, timezone
-estado_path, alertas_path, hacer_semanal = Path(sys.argv[1]), Path(sys.argv[2]), sys.argv[3]
+estado_path, alertas_path = Path(sys.argv[1]), Path(sys.argv[2])
+hacer_semanal, f3_estado = sys.argv[3], sys.argv[4]
 raw = json.loads(alertas_path.read_text())
 alertas = raw["alertas_alta_severidad_ultimas_24h"]
 ids = [a["record_id"] for a in raw.get("alertas", [])]
@@ -199,6 +210,7 @@ ahora = datetime.now(timezone.utc).isoformat()
 estado = {
     "ultima_corrida": ahora,
     "alertas_conocidas": sorted(set(ids) | previos),
+    "f3_introspeccion": f3_estado,
 }
 estado["ultima_semanal"] = ahora if hacer_semanal == "1" else (ultima_semanal or ahora)
 estado_path.write_text(json.dumps(estado, indent=2) + "\n")
