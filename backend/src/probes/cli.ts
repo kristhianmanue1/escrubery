@@ -1,6 +1,7 @@
 import { mkdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { probeOpencode } from './opencode';
+import { probeCodex } from './codex';
 
 // Entrada: npm run probe:conversacion -- --cli <opencode|codex-cli|cline|kimi-code>
 // Read-only: solo lee artefactos locales; escribe exclusivamente bajo var/probes/.
@@ -28,7 +29,12 @@ function main(): void {
     console.log(JSON.stringify(r, null, 2));
     return;
   }
-  console.error(`probe ${cli}: no implementado aún (tickets CE-T2/T3/T4)`);
+  if (cli === 'codex-cli') {
+    const r = probeCodex(dirSalida);
+    console.log(JSON.stringify(r, null, 2));
+    return;
+  }
+  console.error(`probe ${cli}: no implementado aún (tickets CE-T3/T4)`);
   process.exit(2);
 }
 

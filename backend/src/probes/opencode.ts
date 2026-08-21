@@ -3,13 +3,9 @@ import { join } from 'node:path';
 import { DatabaseSync } from 'node:sqlite';
 import { randomUUID } from 'node:crypto';
 import { validarEventoConversacion, hashSha256 } from './conversation_event';
-import type { EventoConversacion } from './conversation_event';
+import type { EventoConversacion, VeredictoTipo } from './conversation_event';
 
-export interface VeredictoTipo {
-  veredicto: 'ok' | 'parcial' | 'no_disponible';
-  conteo: number | null;
-  metodo: string;
-}
+export type { VeredictoTipo };
 
 export interface ReporteProbe {
   cli: string;

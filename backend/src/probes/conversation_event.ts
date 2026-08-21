@@ -63,6 +63,12 @@ export interface ResultadoValidacion {
   errores: ErrorObject[] | null;
 }
 
+export interface VeredictoTipo {
+  veredicto: 'ok' | 'parcial' | 'no_disponible';
+  conteo: number | null;
+  metodo: string;
+}
+
 /** Valida un evento contra conversation-event/v0 (draft 2020-12). */
 export function validarEventoConversacion(datos: unknown): ResultadoValidacion {
   cargarValidador();
