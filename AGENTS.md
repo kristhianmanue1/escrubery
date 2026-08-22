@@ -81,6 +81,7 @@ python3 scripts/check_sizes.py                # gate duro de tamaños (política
 
 - No hacer `commit`, `push` ni otras mutaciones de git sin autorización explícita del Mediador.
 - `datos/fuentes/` contiene descargas crudas de fuentes públicas: se commitean (son la evidencia del hash).
+- **Staging por ruta explícita** (higiene-staging, 2026-08-22): prohibido `git add -A` / `git add .` / `git commit -a` para trabajo de agente. Todo path nuevo que entra en un commit debe corresponder al alcance declarado en su mensaje (gate local: `scripts/hooks/pre-commit`; ver `docs/planning/tarjeta-higiene-staging-git.md`).
 
 <!-- an-kla:managed-begin {"content_sha256":"sha256:a1478300fbfacfe73edc2409e1340a7f1b909da869ce7fe39c2da5000813e152","id":"agent-context","schema":"an-kla/context-block/v1","version":"0.1.0-beta.11"} -->
 ## AN-KLA Memory

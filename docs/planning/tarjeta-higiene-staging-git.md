@@ -1,6 +1,7 @@
-# Tarea: higiene-staging-git (propuesta de ticket)
+# Tarea: higiene-staging-git (CERRADA 2026-08-22 por decreto "adelante")
 
-**Estado:** PROPUESTO — espera decreto del Mediador. **Fecha:** 2026-08-21.
+**Estado:** CERRADA — regla en `AGENTS.md` §Git + gate `scripts/hooks/commit-msg` +
+instalador `scripts/instalar_hooks.sh`; verificación 6/6 por ejecución. **Fecha:** 2026-08-21 (propuesta) / 2026-08-22 (ejecución).
 **Origen:** desviación registrada en `bitacora_ciclos.md` (commit `466af40` incorporó
 `docs/investigacion/Propuesta_Harness_Runtime_Assurance.md` fuera del alcance de su mensaje).
 **Tamaño estimado:** 0.25 ciclos.
@@ -24,16 +25,19 @@ primitiva más débil. Se trata de nivelar hacia arriba.
    de agente. Antes de commitear, `git status --porcelain` se revisa y todo path que entre
    debe corresponder al alcance declarado en el mensaje.
 
-2. **Gate mecánico `scripts/hooks/pre-commit` + instalador idempotente:**
+2. **Gate mecánico `scripts/hooks/commit-msg` + instalador idempotente:**
    falla (exit 1) cuando el índice contiene un archivo **antes sin trackear** (`git diff
    --cached --diff-filter=A --name-only`) cuyo path no aparezca citado en el mensaje del
    commit, salvo rutas en una allow-list corta y justificada (`datos/fuentes/`,
    `datos/checkpoints/`, `docs/investigacion/probes/`).
-   - Nota honesta: `.git/hooks/` **no se versiona** (verificado: hoy no hay ninguno
-     instalado y no hay husky). El hook vive en `scripts/hooks/` y se instala con
-     `scripts/instalar_hooks.sh`; es una barrera local, evadible con `--no-verify`.
-     En la escala L1–L4 de la propuesta HRA esto es **L3 (verificada)**, no L4. Declararlo
-     así en el propio ticket es parte del entregable: el proyecto no se auto-sobrevende.
+   - **Hallazgo de implementación (por ejecución):** en git 2.50 `pre-commit` corre
+     ANTES de que exista `COMMIT_EDITMSG` (y también antes que `prepare-commit-msg`),
+     así que no puede leer el mensaje. El gate vive en `commit-msg`, que recibe el
+     archivo de mensaje como `$1`. Fail-closed: archivos nuevos + mensaje ilegible → rechaza.
+   - Nota honesta: `.git/hooks/` **no se versiona**. El hook vive en `scripts/hooks/` y
+     se instala con `scripts/instalar_hooks.sh`; es una barrera local, evadible con
+     `--no-verify`. En la escala L1–L4 de la propuesta HRA esto es **L3 (verificada)**,
+     no L4. Declararlo así en el propio ticket es parte del entregable.
 
 3. **Verificación por ejecución (DoD):** commit de prueba con un archivo nuevo no citado →
    rechazado; el mismo archivo citado en el mensaje → aceptado; commit sin archivos nuevos →

@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+# commit-msg — gate de higiene de staging (tarjeta-higiene-staging-git).
+# Falla (exit 1) si el índice contiene un archivo NUEVO (antes sin trackear)
+# cuyo path no aparece citado en el mensaje del commit, salvo allow-list.
+# Barrera local L3 (verificada, evadible con --no-verify): no es L4.
+# Por qué commit-msg y no pre-commit: git 2.50 escribe COMMIT_EDITMSG
+# DESPUÉS de pre-commit (verificado por ejecución), así que pre-commit no
+# puede leer el mensaje. commit-msg recibe el archivo ya escrito como $1
+# y corre antes de confirmar: mismo gate, orden correcto.
+
+set -uo pipefail
+
+MSG_FILE="${1:?commit-msg sin archivo de mensaje}"
+MSG=$(cat "$MSG_FILE" 2>/dev/null || true)
+
+# Allow-list: rutas de evidencia automatizada cuyo mensaje no las cita una a una.
+ALLOW='^(datos/fuentes/|datos/checkpoints/|docs/investigacion/probes/)'
+
+NUEVOS=$(git diff --cached --diff-filter=A --name-only 2>/dev/null)
+[ -z "$NUEVOS" ] && exit 0
+[ -z "$MSG" ] && exit 1  # hay archivos nuevos y no hay mensaje legible: fail-closed
+
+FALTAN=""
+for ruta in $NUEVOS; do
+  printf '%s' "$ruta" | grep -qE "$ALLOW" && continue
+  case "$MSG" in
+    *"$ruta"*) continue ;;
+    *) FALTAN="${FALTAN}  ${ruta}
+" ;;
+  esac
+done
+
+if [ -n "$FALTAN" ]; then
+  echo "commit-msg: archivo(s) nuevo(s) sin citar en el mensaje del commit:" >&2
+  printf '%s\n' "$FALTAN" >&2
+  echo "Cita la ruta en el mensaje, o usa staging por ruta explícita (AGENTS.md §Git)." >&2
+  exit 1
+fi
+exit 0
