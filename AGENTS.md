@@ -13,7 +13,7 @@ Servicio de inteligencia sobre modelos y CLIs de IA (ver `README.md`). Fase actu
 - **Hecho:** plan v2 COMPLETO (F0–F5) + releases **v0.3.0/v0.4.0/v0.5.0** publicadas.
 - **Hecho (2026-08-21/22):** H6 (`conversation-event/v0`, diseño) · H7 (Harness–Runtime Assurance: censo 5 CLIs × 8 normas, `datos/fichas/curaduria/`) · H8 (memoria enforcada AN-KLA L3, cerrada por decreto 2026-08-22: inyección viva en ambos runtimes —SessionStart en claude-code, por llamada LLM en opencode—; limitaciones declaradas MED-1 y `experimental.*`).
 - **Hecho (2026-08-22):** H7-T4 cerrado — verificación activa: 4/4 celdas L4 de codex verificadas por ejecución; hallazgos V6 (claude-code headless default-deny), V7b (bypass bash→.env real), V7a (read auto-reject, re-captura post-gate). Fichas `assurance-verificacion/`, reporte `docs/investigacion/hra/reporte-verificacion-2026-08-22.md`, transcripts con hash en `datos/fuentes/verificacion-activa/`. Skopos notificado.
-- **Candidatos:** colector conversation-event, casos reales del resolver, `politica_datos_proveedor`, F4b (presupuesto), censo OpenBot (gobernanza de agentes vía gateway externo + política CEL fail-closed; fuente y fecha en bitácora §Cierre H8).
+- **Candidatos:** `politica_datos_proveedor`, casos reales del resolver, F4b (presupuesto) · **aparcados por decreto 2026-08-22:** colector conversation-event (plan H9 bloqueado por adversarial independiente r2 — 4 CRÍTICO, sin consumidor) y análisis OpenBot (documento de investigación, NO ficha). Detalle en bitácora §H9 y §Candidatos.
 - **Detalle y desviaciones:** `bitacora_ciclos.md` (hogar canónico; este bloque es solo el resumen — mantener ≤ 5 líneas, no narrar historial aquí).
 
 ## Roles (ADRC)
