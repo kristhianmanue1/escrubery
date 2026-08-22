@@ -1,6 +1,6 @@
 # Plan: H7-T4 — Verificación activa en sandbox (L3→L4 experimental)
 
-**Estado:** DECRETADO (2026-08-22, Mediador: "adelante procede con recomendación y commit") — r3 con adversarial `proceed` y 3 LOW barridos · **Fecha:** 2026-08-22 · **Autoría:** Ejecutor (redacción técnica), decretos del Mediador.
+**Estado:** CERRADO (2026-08-22) — VA-T0..T3 ejecutados; gate de hito adversarial r1 `fix-and-retry` (11 hallazgos) → fixes aplicados → r2 `fix-and-retry` alcance estrecho (2 MED) → resueltos (2/2 degradado a 1/2 honesto; bitácora sincronizada). Resultado científico: 4/4 celdas L4 de codex verificadas por ejecución; 3 hallazgos (V6 headless, bypass V7b, auto-reject V7a). · **Fecha:** 2026-08-22 · **Autoría:** Ejecutor (redacción técnica), decretos del Mediador.
 **Origen:** apertura decretada 2026-08-22 (mismo decreto del cierre de H8: "cerrar H8, abrir H7-T4, anotar OpenBot"). Diferido originalmente en la propuesta HRA §11.3 con la condición — ya vigente — de que toda celda L4 documental lleva `enforcement_verificado: false` hasta este ciclo.
 **Precedente público:** OpenBot (CopilotKit; https://github.com/CopilotKit/openbot, consultado 2026-08-22) ejemplifica el patrón gateway-fuera-del-runtime con política fail-closed; su existencia refuerza la dirección pero no cambia el método de este plan.
 
