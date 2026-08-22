@@ -33,13 +33,23 @@ async function anklaOk(): Promise<boolean> {
   }
 }
 
+async function ensureGateDir(): Promise<void> {
+  await Bun.write(`${GATE_DIR}/.keep`, "").catch(() => {})
+  // mkdir recursivo idempotente (Bun.write no crea directorios intermedios)
+  const proc = Bun.spawnSync(["mkdir", "-p", GATE_DIR])
+  void proc
+}
+
 function logEvento(tipo: string, sid: string, extra = ""): void {
+  // append atómico via spawn (el read-modify-write de Bun.file pierde líneas
+  // bajo concurrencia — hallazgo MED-5 adversarial)
   const ts = new Date().toISOString()
   const linea = `{"ts":"${ts}","tipo":"${tipo}","session_id":"${sid}"${extra ? "," + extra : ""}}\n`
-  Bun.file(LOG).text().then((t) => Bun.write(LOG, t + linea)).catch(() => Bun.write(LOG, linea))
+  Bun.spawnSync(["sh", "-c", `printf '%s' "$1" >> "${LOG}"`, "--", linea])
 }
 
 async function sellar(sid: string, estado: string): Promise<void> {
+  await ensureGateDir()
   await Bun.write(
     `${GATE_DIR}/${sid}.seal`,
     JSON.stringify({ estado, ts: new Date().toISOString() }) + "\n",
@@ -57,6 +67,7 @@ async function estadoSello(sid: string): Promise<string | null> {
 }
 
 export const AnklaGatePlugin: Plugin = async () => {
+  await ensureGateDir()
   return {
     "session.created": async (input: unknown) => {
       const sid =
@@ -67,11 +78,17 @@ export const AnklaGatePlugin: Plugin = async () => {
       await sellar(sid, ok ? "ok" : "degraded")
       logEvento(ok ? "session_created_exec" : "degraded", sid)
     },
-    "tool.execute.before": async (input: unknown, output: unknown) => {
+    "tool.execute.before": async (input: unknown) => {
       const inp = input as { tool?: string; sessionID?: string }
-      if (inp?.tool !== "edit") return // edit cubre edit/write/patch (docs permissions)
+      // input.tool es el TOOL-ID, no el permiso: edit/write/patch son TRES
+      // tools distintas que el permiso 'edit' agrupa (HIGH-1 adversarial:
+      // filtrar solo 'edit' dejaba pasar write/patch — la creación de archivos).
+      const toolsEscritura = new Set(["edit", "write", "patch"])
+      if (!inp?.tool || !toolsEscritura.has(inp.tool)) return
       const sid = inp.sessionID ?? "sin-session-id"
       const estado = await estadoSello(sid)
+      // Sello inválido ("?") se trata como AUSENTE: remediar lazy, no pasar
+      // (MED-2 adversarial: JSON inválido no debe abrir la puerta).
       if (estado === "ok" || estado === "degraded" || estado === "lazy_inject") {
         if (estado === "degraded") logEvento("gate_pass_degraded", sid)
         return

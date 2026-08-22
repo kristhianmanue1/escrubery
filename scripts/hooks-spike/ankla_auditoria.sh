@@ -1,11 +1,30 @@
 #!/usr/bin/env bash
 # ankla_auditoria.sh — Pieza 3 (L3 post-hoc): reporte del gate de memoria.
 # Lee var/ankla-gate/log.jsonl y resume: sesiones, inyecciones al arranque vs
-# lazy, bloqueos, degradaciones. Ejecutar tras sesiones reales (los sellos de
-# prueba se limpian con --limpiar-test).
+# lazy, bloqueos, degradaciones. --limpiar-test borra sellos/log de session_id
+# test-* (las corridas de verificación no contaminan la auditoría).
 set -uo pipefail
 RAIZ="$(cd "$(dirname "$0")/../.." && pwd)"
-LOG="$RAIZ/var/ankla-gate/log.jsonl"
+GATE_DIR="$RAIZ/var/ankla-gate"
+LOG="$GATE_DIR/log.jsonl"
+
+if [ "${1:-}" = "--limpiar-test" ]; then
+  find "$GATE_DIR" -name 'test-*.seal' -delete 2>/dev/null
+  [ -f "$LOG" ] && python3 - "$LOG" <<'PY'
+import json, sys
+lineas = []
+for l in open(sys.argv[1]):
+    try:
+        if not json.loads(l).get("session_id","").startswith("test-"):
+            lineas.append(l)
+    except Exception:
+        pass
+open(sys.argv[1],"w").writelines(lineas)
+PY
+  echo "sellos y eventos test-* limpiados"
+  exit 0
+fi
+
 [ -f "$LOG" ] || { echo "sin log aún (ninguna sesión ha pasado por el gate)"; exit 0; }
 
 python3 - "$LOG" <<'PY'

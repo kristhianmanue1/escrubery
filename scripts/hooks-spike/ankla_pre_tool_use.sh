@@ -25,14 +25,18 @@ SEAL="$GATE_DIR/$SID.seal"
 log_evento() { printf '%s\n' "{\"ts\":\"$1\",\"tipo\":\"$2\",\"session_id\":\"$3\",\"tool\":\"$4\"}" >> "$LOG"; }
 
 if [ -f "$SEAL" ]; then
-  ESTADO=$(python3 -c "import json; print(json.load(open('$SEAL')).get('estado','?'))" 2>/dev/null || echo "?")
+  ESTADO=$(python3 -c "import json; print(json.load(open('$SEAL')).get('estado','?'))" 2>/dev/null || echo "invalido")
   if [ "$ESTADO" = "degraded" ]; then
     log_evento "$TS" "gate_pass_degraded" "$SID" "$TOOL"
     echo "ankla-gate: AN-KLA degradado en esta sesión — escritura permitida con aviso (fail-open declarado)." >&2
     exit 0
   fi
-  log_evento "$TS" "gate_pass" "$SID" "$TOOL"
-  exit 0
+  if [ "$ESTADO" = "ok" ] || [ "$ESTADO" = "lazy_inject" ]; then
+    log_evento "$TS" "gate_pass" "$SID" "$TOOL"
+    exit 0
+  fi
+  # ESTADO invalido/'?' (JSON corrupto o campo ausente): tratar como AUSENTE y
+  # caer a la remediación lazy — nunca abrir por defecto (MED-2 adversarial).
 fi
 
 # Sin sello: bloquear esta llamada y remediar lazy (AN-KLA corre AHORA en la sesión).
