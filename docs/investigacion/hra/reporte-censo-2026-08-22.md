@@ -54,4 +54,4 @@ claude-code es harness de parte de este proyecto: su ficha requiere revisión ad
 - Taxonomía y criterios: `docs/investigacion/hra/taxonomia-l1-l4.md`.
 - Fundamento y decretos: `docs/investigacion/Propuesta_Harness_Runtime_Assurance.md` (v0.2).
 
-**Notificación cruzada (decreto §11.6):** este reporte es insumo declarado para skopos (ADR-010 §9: referencia con procedencia, nunca autoridad) y para el módulo "Agent Execution Profile" (Scripting). Puntero a notificar a ambos al cerrar el hito.
+**Notificación cruzada (decreto §11.6):** este reporte es insumo declarado para skopos (ADR-010 §9: referencia con procedencia, nunca autoridad) y para el módulo "Agent Execution Profile" (Scripting). **Notificado 2026-08-22:** skopos recibió el puntero (`docs/evidencia/insumo-escrubery-2026-08-22.md` en su repo) cubriendo este reporte + `DECISION_ADAPTADORES.md` como insumo directo para su familia de parsers multi-CLI. Puntero recíproco: esta línea.
