@@ -1,6 +1,6 @@
 # Propuesta: Harness–Runtime Assurance (HRA) — el censo de paredes del ecosistema agéntico
 
-**Estado:** DECRETADA (consenso resuelto 2026-08-22, §11) — se materializa como ciclo **H7**. Este documento queda como fundamento; los tickets viven en la bitácora y sus entregables bajo `docs/investigacion/hra/`.
+**Estado:** CERRADA — ciclo H7 completado y decretado (2026-08-22): taxonomía + schema + censo 40 celdas + reporte público; adversarial `proceed` con T3b aplicado; MED-4 decretado (cita+URL+fecha para HTML dinámico). Este documento queda como fundamento; entregables en `docs/investigacion/hra/` y `datos/fichas/curaduria/assurance_*.json`. Verificación activa (H7-T4) queda diferida a decreto propio.
 **Versión:** 0.2 (decretos §11 incorporados) · **Fecha:** 2026-08-21 (propuesta) / 2026-08-22 (decreto) · **Autoría:** escala y fundamento, insight del Mediador (2026-08-21); redacción técnica, Ejecutor; erratas §2.3, revisión crítica independiente.
 **Origen:** línea de investigación abierta por el Mediador tras el cierre de H6. Consumidores declarados: skopos (ADR-010 §9) y el proyecto "Scripting" mencionado por el Mediador.
 
