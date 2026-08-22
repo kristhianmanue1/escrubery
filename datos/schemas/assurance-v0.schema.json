@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:escrubery:schema:assurance:v0",
+  "title": "FichaAssuranceV0",
+  "description": "Ficha HRA: distribucion de garantia de un CLI/perfil frente al corpus N1-N8. Fase 1: documento de investigacion (decreto §11.4), NO servido por la API. Toda celda lleva evidencia citable o pendiente_de_verificar (fail-closed). Toda L4 documental lleva enforcement_verificado=false (decreto §11.3).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "cli_id",
+    "perfil",
+    "corpus_id",
+    "n9_gate",
+    "distribucion_garantia",
+    "normas",
+    "estado_verificacion",
+    "procedencia"
+  ],
+  "properties": {
+    "schema": { "const": "escrubery/assurance/v0" },
+    "cli_id": {
+      "enum": ["claude-code", "codex-cli", "opencode", "cline", "kimi-code"]
+    },
+    "perfil": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Configuracion de runtime nominal documentada por el maintainer (fase 1: un perfil por CLI)."
+    },
+    "corpus_id": { "const": "hra-corpus/n1-n8@2026-08-22" },
+    "n9_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["estado", "nota", "evidencia"],
+      "properties": {
+        "estado": {
+          "enum": ["gate_cerrado", "gate_abierto_verificado", "pendiente_de_verificar"],
+          "description": "gate_abierto = el agente puede modificar su propia config de permisos en el perfil (capa toda L4 de la fila a L3); gate_cerrado = hay mecanismo que lo impide con evidencia."
+        },
+        "nota": { "type": "string", "minLength": 1 },
+        "evidencia": { "$ref": "#/$defs/evidencia" }
+      }
+    },
+    "distribucion_garantia": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["L1", "L2", "L3", "L4", "pendiente"],
+      "properties": {
+        "L1": { "type": "integer", "minimum": 0 },
+        "L2": { "type": "integer", "minimum": 0 },
+        "L3": { "type": "integer", "minimum": 0 },
+        "L4": { "type": "integer", "minimum": 0 },
+        "pendiente": { "type": "integer", "minimum": 0 }
+      },
+      "description": "Cada norma cuenta UNA vez en su peldano maximo. L1+L2+L3+L4+pendiente = 8 (tamano del corpus)."
+    },
+    "normas": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "items": { "$ref": "#/$defs/norma" }
+    },
+    "estado_verificacion": {
+      "enum": ["curado", "parcial", "pendiente_de_verificar"]
+    },
+    "procedencia": { "$ref": "#/$defs/procedencia" }
+  },
+  "$defs": {
+    "evidencia": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fuente_url", "fecha_obtencion"],
+      "properties": {
+        "fuente_url": {
+          "type": ["string", "null"],
+          "description": "URL o ruta del repo de la fuente; null solo si vive en evento Evidentia (entonces evento_evidentia es obligatorio)."
+        },
+        "fecha_obtencion": { "type": "string", "format": "date" },
+        "hash_sha256": {
+          "type": ["string", "null"],
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "evento_evidentia": {
+          "type": ["string", "null"],
+          "description": "record_id del evento changelog ingerido que respalda la cita."
+        }
+      }
+    },
+    "mecanismo": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["peldano", "donde", "evidencia"],
+      "properties": {
+        "peldano": { "enum": ["L1", "L2", "L3", "L4"] },
+        "donde": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Nombre concreto del mecanismo (p. ej. 'sandbox read-deny **/.env', 'hook PreToolUse con veto')."
+        },
+        "enforcement_verificado": {
+          "type": "boolean",
+          "description": "false en TODA L4 de fase 1 (decreto §11.3: verificacion activa diferida a H7-T4)."
+        },
+        "evidencia": { "$ref": "#/$defs/evidencia" }
+      }
+    },
+    "norma": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["norma_id", "estado"],
+      "properties": {
+        "norma_id": {
+          "enum": ["N1", "N2", "N3", "N4", "N5", "N6", "N7", "N8"]
+        },
+        "estado": { "enum": ["clasificada", "pendiente_de_verificar"] },
+        "peldano_maximo": { "enum": ["L1", "L2", "L3", "L4"] },
+        "capado_por_n9": { "type": "boolean" },
+        "mecanismos": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/mecanismo" }
+        },
+        "nota": { "type": "string" }
+      }
+    },
+    "procedencia": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fuente_tipo", "fuente_url", "fecha_obtencion", "hash_sha256"],
+      "properties": {
+        "fuente_tipo": { "const": "curaduria_propia" },
+        "fuente_url": { "type": "string" },
+        "fecha_obtencion": { "type": "string", "format": "date" },
+        "hash_sha256": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "description": "Self-hash reproducible del contenido curado (patron T4b)."
+        }
+      }
+    }
+  }
+}

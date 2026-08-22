@@ -372,3 +372,14 @@ Tag anotado + [GitHub Release](https://github.com/kristhianmanue1/escrubery/rele
 **Reparación decidida:** aditiva, no destructiva. Se descarta reescribir la historia (`rebase` + `push --force`) por tres razones: (1) `466af40` ya está en `origin/main`, así que exigiría force-push sobre historia publicada — autoridad distinta de la que se otorgó para el push; (2) la norma **N3** del corpus de la propia propuesta lista `force-push` como arquetipo de daño irreversible; (3) la doctrina del repo para este caso es aditiva y ya está escrita (contrato v0 solo-aditivo tras F2; AN-KLA `refute`/`supersede` conservan el record original). Se verificó además que los checkpoints firmados anclan el `merkle_root` de Evidentia y **no** hashes de commit, por lo que ni la reescritura habría corrompido la cadena criptográfica ni esta anotación la altera. Ticket de higiene derivado: `docs/planning/tarjeta-higiene-staging-git.md`.
 
 | 2026-08-22 | higiene | tarjeta-higiene-staging-git ejecutada (decreto "adelante") | 0.25 | 0.5 | +0.25 | Regla AGENTS.md §Git (staging por ruta explícita, prohibido `add -A`/`.`/`-a`); gate `scripts/hooks/commit-msg` + `scripts/instalar_hooks.sh`. **DoD 6/6 por ejecución** (sin cita → rechaza; citado/edición/allow-list → pasa). Desviación +0.25: hallazgo real — git 2.50 corre `pre-commit` antes de escribir `COMMIT_EDITMSG` (y antes que `prepare-commit-msg`), verificado por ejecución con hooks de debug; el gate vive en `commit-msg` (recibe el mensaje como $1, fail-closed si ilegible). Cuenta como primer dato del censo HRA: L3 verificada, no L4, declarada en la propia tarjeta |
+
+---
+
+## H7 — Harness–Runtime Assurance (DECRETADO 2026-08-22: "adelante con recomendaciones" — las 6 del §11)
+
+Propuesta: `docs/investigacion/Propuesta_Harness_Runtime_Assurance.md` v0.2 (decretos incorporados). Fase 1 pasiva; T4 activo diferido; solo documento; 5 CLIs × 8 normas; N9 como gate global.
+
+| Fecha | Fase | Ticket | est. | reales | desv. | Evidencia |
+|---|---|---|---|---|---|---|
+| 2026-08-22 | H7 | T0 — Taxonomía L1–L4 formal + matriz de decisión | 0.5 | 0.5 | 0 | `docs/investigacion/hra/taxonomia-l1-l4.md`: criterios binarios por peldaño (fronteras L1/L2 y L2/L3 explícitas), reglas de asignación (fail-closed, máximo con lista, N9 cap), formato de celda, 5 prohibiciones del clasificador; caso especial aprobación interactiva = L2/L3 nunca L4 |
+| 2026-08-22 | H7 | T1 — Corpus congelado + schema `escrubery/assurance/v0` + validador | 0.5 | 0.5 | 0 | `datos/schemas/assurance-v0.schema.json` (draft 2020-12, `additionalProperties:false`, corpus_id congelado, `enforcement_verificado` en mecanismos L4, N9 gate obligatorio); validador `backend/src/hra/assurance.ts` (ajv + self-hash patrón T4b + `calcularDistribucion` con capa N9); 11 specs (enum 5 CLIs, prop extra, 7 normas ≠ 8, corpus alterno, hash reproducible e independiente del orden, capa N9 L4→L3); CI LOCAL VERDE |

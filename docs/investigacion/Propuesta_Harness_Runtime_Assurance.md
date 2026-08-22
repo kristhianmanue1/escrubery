@@ -1,7 +1,7 @@
 # Propuesta: Harness–Runtime Assurance (HRA) — el censo de paredes del ecosistema agéntico
 
-**Estado:** PROPUESTA EN CONSENSO — espera decreto del Mediador. No es un plan aprobado; al decretarse se materializa como `Plan_H7_Harness_Runtime_Assurance.md` con tickets y adversarial de plan (§7).
-**Versión:** 0.1.1 (erratas §2.3 aplicadas antes del decreto; sin cambio de alcance ni de tesis) · **Fecha:** 2026-08-21 · **Autoría:** escala y fundamento, insight del Mediador (2026-08-21); redacción técnica, Ejecutor; erratas §2.3, revisión crítica 2026-08-21.
+**Estado:** DECRETADA (consenso resuelto 2026-08-22, §11) — se materializa como ciclo **H7**. Este documento queda como fundamento; los tickets viven en la bitácora y sus entregables bajo `docs/investigacion/hra/`.
+**Versión:** 0.2 (decretos §11 incorporados) · **Fecha:** 2026-08-21 (propuesta) / 2026-08-22 (decreto) · **Autoría:** escala y fundamento, insight del Mediador (2026-08-21); redacción técnica, Ejecutor; erratas §2.3, revisión crítica independiente.
 **Origen:** línea de investigación abierta por el Mediador tras el cierre de H6. Consumidores declarados: skopos (ADR-010 §9) y el proyecto "Scripting" mencionado por el Mediador.
 
 ## 1. Fundamento
@@ -185,14 +185,14 @@ Gates por hito: CI local verde, check_sizes, adversarial §6 con revisión indep
 | Formatos internos que cambian (lección H6) | `version_cli` y `perfil` en cada fila; vigencia con caducidad como el resto del catálogo |
 | Alcance explotable (9 CLIs × N normas × M perfiles) | Fase 1: 5 CLIs × 8 normas × 1 perfil representativo; el resto `pendiente_de_verificar` |
 
-## 11. Preguntas para el consenso (a decretar por el Mediador)
+## 11. Preguntas para el consenso — DECRETADAS por el Mediador (2026-08-22, "adelante con recomendaciones")
 
-1. **Alcance de CLIs:** ¿los 5 con primitivas ricas (claude-code, codex-cli, opencode, cline, kimi-code) o los 9 del inventario (los 4 restantes entrarían con más `pendiente_de_verificar`)?
-2. **Corpus de normas:** ¿la semilla N1–N8 refleja tus prioridades? ¿Falta alguna (p. ej. N9 "no spawn de subagentes sin límite", N10 "no modificar la propia configuración de permisos")?
-3. **H7-T4 (verificación activa):** ¿diferido como propone el plan, o entra al ciclo?
-4. **Servicio:** ¿fase 1 solo como documento público de investigación, o ya se expone la ficha `assurance/v0` por CLI/HTTP (§3.x aditiva)?
-5. **Nombre del módulo:** se propone **Harness–Runtime Assurance (HRA)**; alternativa en español: "Garantía Declarada/Enforcada". ¿Cuál decreta?
-6. **Vinculación con skopos/Scripting:** ¿se notifica este documento a sus repositorios como insumo (puntero cruzado), o se espera a que lo pidan?
+1. **Alcance:** ✅ **5 CLIs** (claude-code, codex-cli, opencode, cline, kimi-code). Los otros 4 quedan fuera de la fase 1 (filas `pendiente_de_verificar` que diluirían la señal).
+2. **Corpus:** ✅ **N1–N8 + N9 como gate, no como fila**: "el agente no puede modificar su propia configuración de permisos" **capa el peldaño máximo de toda la fila** (un runtime donde el agente puede reescribir su allow-list tiene L4 efectivo cero en la tabla entera). El corpus de celdas sigue siendo 8; N9 es modificador global.
+3. **H7-T4 (verificación activa):** ✅ **diferido**, con condición aplicada: toda celda L4 documental lleva `enforcement_verificado: false` — el documento público jamás insinúa confirmación experimental.
+4. **Servicio:** ✅ **solo documento** en fase 1. API/§3.x solo si hay consumidor real (skopos/Scripting) que lo pida.
+5. **Nombre:** ✅ **HRA (Harness–Runtime Assurance)**; schema `escrubery/assurance/v0`.
+6. **skopos/Scripting:** ✅ **notificación en H7-T3** (cuando exista el reporte), no antes.
 
 ## 12. Criterio de cierre del ciclo (cuando se decrete)
 
