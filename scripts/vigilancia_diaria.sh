@@ -28,7 +28,6 @@ trap 'rc=$?; echo "== fin (trap) — exit $rc =="; exit $rc' EXIT
 
 DIARIOS=(opencode claude-code codex-cli)
 SEMANALES=(grok-build kimi-code cline grok-cli-community qwen-code)
-
 # Seam de prueba: permite apuntar a un stub que falla (verificación de la rama
 # de omisión sin tumbar el Docker real). Documentado en docs/VIGILANCIA.md.
 DOCKER_BIN="${ESCRUBERY_DOCKER_BIN:-docker}"
@@ -103,7 +102,7 @@ fi
 # --- semanales con ToS curado (qwen-code) cuando toca la ventana semanal.
 # --- Requiere Docker: si no está disponible, se omite con nota (las ventanas
 # --- de vigencia degradan los comandos solos — honesto, no silencioso).
-F3_SEMANALES=(qwen-code)
+F3_SEMANALES=(qwen-code cline kimi-code)
 
 # Version publicada por el maintainer (la escribe el poller F2 en BD).
 consultar_version() {

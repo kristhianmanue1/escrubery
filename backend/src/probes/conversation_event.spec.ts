@@ -61,12 +61,13 @@ describe('contrato conversation-event/v0', () => {
       expect(validarEventoConversacion(e).valido).toBe(true);
     });
 
-    it('valida los 4 CLIs del enum', () => {
+    it('valida los 5 CLIs del enum', () => {
       for (const cli of [
         'opencode',
         'codex-cli',
         'cline',
         'kimi-code',
+        'claude-code',
       ] as const) {
         const e = muestraBase('prompt_enviado');
         e.cli = cli;

@@ -15,6 +15,8 @@ const BINARIO: Record<string, string> = {
   'claude-code': 'claude',
   'codex-cli': 'codex',
   'qwen-code': 'qwen',
+  cline: 'cline',
+  'kimi-code': 'kimi',
 };
 
 const RE_OPEN =

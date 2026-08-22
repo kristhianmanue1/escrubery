@@ -354,3 +354,15 @@ Plan: `docs/investigacion/Plan_Conversation_Event_v0.md` (issue #2). Alcance: co
 ## RELEASE v0.5.0 (2026-08-21)
 
 Tag anotado + [GitHub Release](https://github.com/kristhianmanue1/escrubery/releases/tag/v0.5.0) publicados sobre `a05463e` (16 commits desde v0.4.0: H6 completo + hardening vigilancia + cierres de issues #1/#2). Contenido: contrato `conversation-event/v0` (**de diseño, no servido** — anexo §5), 4 probes read-only (opencode 815 / codex 254 / cline 174 / kimi 30 sesiones reales, 0 fugas verificadas), `ALERTA introspeccion_omitida` + seam `ESCRUBERY_DOCKER_BIN`. Gates pre-release: CI local VERDE (164/164), árbol limpio, adversarial de hito `proceed`. **API servida sin cambios (surfaces HTTP/MCP/CLI intactas, cero migraciones).** Siguientes candidatos: colector conversation-event (superficie decidida), casos reales del resolver, args extra, `politica_datos_proveedor`, F4b (presupuesto).
+
+---
+
+## Post-v0.5.0 — Habilitación cline/kimi + probe claude-code (decreto "paquete 1+2", 2026-08-22)
+
+| Fecha | Fase | Ticket | est. | reales | desv. | Evidencia |
+|---|---|---|---|---|---|---|
+| 2026-08-22 | D1 | ToS kimi-code curado (MIT; cline ya estaba Apache 2.0) | 0.25 | 0.25 | 0 | `docs/investigacion/tos-clis.md` 7/9 curados; LICENSE cruda archivada con hash `23cc68e1…` en `datos/fuentes/tos/kimi-code/` |
+| 2026-08-22 | F3 | Sandbox cline + kimi-code habilitados e introspectados | 0.5 | 0.5 | 0 | `Dockerfile.cline` (debian-slim glibc — el binario bun-compiled no corre en alpine/musl, hallazgo documentado) + rebuild kimi 0.38.0; `--version`/`--help` OK; parser RE_GEN sin cambios (15 comandos cline, 10 kimi); `BINARIO` +cline/kimi; vigilancia F3_SEMANALES extendida; primera introspección real: 15+0 nuevos (idempotente), eventos Evidentia |
+| 2026-08-22 | H6b | CE-T6 — Probe claude-code (read-only projects/*.jsonl) | 0.5 | 0.5 | 0 | `--cli claude-code` sobre 158 sesiones reales: 4 ok / 1 parcial / 2 nd (turnos por stop_reason 1679, prompts 12687 excluyendo isMeta/isSidechain, api_errors 52, compact_boundary 8); enum schema +claude-code (contrato aditivo, specs a 5 CLIs); gate privacidad 0 matches; evidencia `docs/investigacion/probes/claude-code-2026-08-22.md`; DECISION_ADAPTADORES extendida (21 ok/5 parcial/9 nd, 35 celdas) — **los 5 CLIs principales con ficha viva + diario mapeado** |
+
+**Inventario tras el paquete:** 9 CLIs (7 con ToS curado, 6 introspectables: 3 diarios + 3 semanales), 112 comandos, 188 modelos. Pendientes ToS: grok-build (xAI inaccesible), antigravity.

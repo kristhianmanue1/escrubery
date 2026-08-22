@@ -1,0 +1,6 @@
+FROM node:22-slim
+# VERSION = ultima release detectada por el poller (rebuild solo cuando cambia).
+# Base debian-slim (glibc): el binario nativo de cline (bun-compiled) no corre en alpine/musl.
+ARG VERSION=latest
+RUN npm install -g cline@${VERSION} --no-audit --no-fund --omit=dev
+ENTRYPOINT ["cline"]

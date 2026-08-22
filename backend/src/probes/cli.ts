@@ -4,17 +4,22 @@ import { probeOpencode } from './opencode';
 import { probeCodex } from './codex';
 import { probeCline } from './cline';
 import { probeKimi } from './kimi';
+import { probeClaudeCode } from './claude';
 
-// Entrada: npm run probe:conversacion -- --cli <opencode|codex-cli|cline|kimi-code>
+// Entrada: npm run probe:conversacion -- --cli <opencode|codex-cli|cline|kimi-code|claude-code>
 // Read-only: solo lee artefactos locales; escribe exclusivamente bajo var/probes/.
 const RAIZ = join(__dirname, '../../..');
 
 function main(): void {
   const i = process.argv.indexOf('--cli');
   const cli = i >= 0 ? process.argv[i + 1] : '';
-  if (!['opencode', 'codex-cli', 'cline', 'kimi-code'].includes(cli)) {
+  if (
+    !['opencode', 'codex-cli', 'cline', 'kimi-code', 'claude-code'].includes(
+      cli,
+    )
+  ) {
     console.error(
-      'uso: npm run probe:conversacion -- --cli <opencode|codex-cli|cline|kimi-code>',
+      'uso: npm run probe:conversacion -- --cli <opencode|codex-cli|cline|kimi-code|claude-code>',
     );
     process.exit(2);
   }
@@ -43,6 +48,11 @@ function main(): void {
   }
   if (cli === 'kimi-code') {
     const r = probeKimi(dirSalida);
+    console.log(JSON.stringify(r, null, 2));
+    return;
+  }
+  if (cli === 'claude-code') {
+    const r = probeClaudeCode(dirSalida);
     console.log(JSON.stringify(r, null, 2));
     return;
   }

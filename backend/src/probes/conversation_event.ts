@@ -6,7 +6,7 @@ import addFormats from 'ajv-formats';
 export interface EventoConversacion {
   schema: 'escrubery/conversation-event/v0';
   evento_id: string;
-  cli: 'opencode' | 'codex-cli' | 'cline' | 'kimi-code';
+  cli: 'opencode' | 'codex-cli' | 'cline' | 'kimi-code' | 'claude-code';
   cli_version: string;
   sesion_id_hash: string;
   turno_id_hash?: string | null;

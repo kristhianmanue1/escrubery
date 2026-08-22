@@ -1,6 +1,6 @@
 # Revisión de Términos de Servicio de los CLIs — escrubery (D1)
 
-**Estado:** 6/9 curados (qwen-code añadido como 9º CLI, 2026-08-17); diarios redefinidos = **opencode + claude-code + codex-cli** (controladores reales del Mediador); pendientes: grok-build (xAI inaccesible), antigravity, kimi-code (baja prioridad — caro, poco uso). **Bloquea:** Fase 3 (criterio de entrada plan v2 §6.1). **Decisión:** D1. **Responsable:** Ejecutor (curaduría) · Mediador (veredicto). **Actualizado:** 2026-08-17.
+**Estado:** 7/9 curados (kimi-code añadido como 7º, 2026-08-22 — MIT); diarios redefinidos = **opencode + claude-code + codex-cli** (controladores reales del Mediador); pendientes: grok-build (xAI inaccesible), antigravity. **Bloquea:** Fase 3 (criterio de entrada plan v2 §6.1). **Decisión:** D1. **Responsable:** Ejecutor (curaduría) · Mediador (veredicto). **Actualizado:** 2026-08-22.
 
 ## Objetivo
 Determinar, por CLI, qué permite su ToS respecto a la **Fase 3** (introspección activa: ejecutar el CLI en contenedor efímero, capturar `--help`/`--version`) y usos futuros (benchmarking). Sin esto, F3 no inicia (riesgo operativo/legal).
@@ -22,7 +22,7 @@ Determinar, por CLI, qué permite su ToS respecto a la **Fase 3** (introspecció
 | codex-cli | openai | ✅ permitido (introspección) | ✅ permitido | no_declara | **curado** (Business Terms) |
 | grok-build | xai | ? | ? | ? | **pendiente** (ToS inaccesible, x.ai 403) |
 | antigravity-cli | google | ? | ? | ? | pendiente |
-| kimi-code | moonshot | ? | ? | ? | pendiente (baja prioridad — caro, poco uso) |
+| kimi-code | moonshot | ✅ permitido | ✅ permitido | no_declara (licencia) | **curado** (MIT, 2026-08-22) |
 | opencode | comunidad/Anomaly (MIT) | ✅ permitido | ✅ permitido | no_declara (licencia) | **curado** (controlador principal) |
 | qwen-code | qwenlm/Alibaba (Apache-2.0) | ✅ permitido | ✅ permitido | no_declara (licencia) | **curado** (9º CLI, 2026-08-17) |
 
@@ -72,11 +72,16 @@ Determinar, por CLI, qué permite su ToS respecto a la **Fase 3** (introspecció
 
 ---
 
-## Pendientes (3)
+### kimi-code — Moonshot AI ✅ (curado, MIT, 2026-08-22)
+- **Fuente:** `https://raw.githubusercontent.com/MoonshotAI/kimi-code/main/LICENSE` · **fecha:** 2026-08-22 · **hash_sha256:** `23cc68e17992e0b512ae2e80afc5787d7d8e0fbfbdb4fff54ec0245508fa400e` (crudo archivado en `datos/fuentes/tos/kimi-code/LICENSE-2026-08-22.txt`)
+- **Cita:** "Permission is hereby granted, free of charge, to any person obtaining a copy of this software… to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software…" (MIT). Copyright (c) 2026 Moonshot AI.
+- **Veredicto:** automatización **permitido** (la licencia OSS del CLI autoriza ejecución/uso programático, incl. `--help`/`--version` en contenedor efímero); benchmarking **permitido** (no restringido). Extracción: la licencia del CLI no restringe retener salidas; el modelo subyacente (Moonshot API) se rige por el ToS de Moonshot — fuera de alcance de esta curaduría del CLI.
+- **Nota:** re-elevado de "baja prioridad" a curado por decreto del Mediador (2026-08-22): kimi es uno de los 5 CLIs principales (probe H6 ejecutado) y candidato a introspección sandbox.
+
+## Pendientes (2)
 
 - **grok-build (xAI)** — DIARIO, **bloqueante** para el criterio F3 (ver arriba). ToS inaccesible vía automatizada.
 - **antigravity-cli (Google)** — `policies.google.com/terms` accesible (hash `41cff720296facf44f14f7f709b3f02f20123c9d883c6ec58fc4bc7c25a215d1`) pero antigravity puede tener **términos adicionales** específicos; pendiente profundizar. Semanal (no bloquea F3).
-- **kimi-code (Moonshot)** — ToS pendiente (Moonshot; URL a confirmar). Semanal (no bloquea F3).
 ## Método
 - **Comunitarios:** LICENSE cruda del repo GitHub (curl raw) → hash exacto + cita + veredicto (licencia OSS).
 - **Oficiales:** ToS del proveedor (webfetch para lectura + curl para hash del crudo) → cita de la cláusula + veredicto + `estado_verificacion`.
