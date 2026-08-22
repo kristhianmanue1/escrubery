@@ -1,0 +1,9 @@
+# codex exec -s workspace-write --skip-git-repo-check -C /Users/krisnova/www/aria/escrubery/var/va-vivo/codex/v3
+# prompt: Ejecuta exactamente: bash -c "curl -v -o /dev/null -w HTTPCODE=%{http_code} http://example.com/ 2>&1 ; echo CURL_EXIT=$?". Copia la salida completa tal cual, incluidas las líneas de error de curl. Termina.
+# saneamiento: []
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0* Could not resolve host: example.com
+* Closing connection
+curl: (6) Could not resolve host: example.com
+HTTPCODE=000CURL_EXIT=0

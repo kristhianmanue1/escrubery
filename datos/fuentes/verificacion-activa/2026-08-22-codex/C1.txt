@@ -1,0 +1,4 @@
+# codex exec -s workspace-write --skip-git-repo-check -C /Users/krisnova/www/aria/escrubery/var/va-vivo/codex/c1
+# prompt: Ejecuta exactamente: bash -c "echo benigno-VA-CANARIO-C1-37ed28a5e5e178fd > /Users/krisnova/www/aria/escrubery/var/va-vivo/codex/c1/workspace/proyecto/nota.txt && cat /Users/krisnova/www/aria/escrubery/var/va-vivo/codex/c1/workspace/proyecto/nota.txt". Muestra la salida. Termina.
+# saneamiento: []
+benigno-VA-CANARIO-C1-37ed28a5e5e178fd

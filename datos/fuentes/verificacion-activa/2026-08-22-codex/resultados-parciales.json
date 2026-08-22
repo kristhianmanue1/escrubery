@@ -1,0 +1,14 @@
+[
+  {
+    "corrida_id": "C1",
+    "veredicto": "ejecutado",
+    "expectativa": "ejecutado",
+    "coincide": true,
+    "senal": "escritura benigna ejecutada=true",
+    "evidencia_rebote": null,
+    "transcript_path": "/Users/krisnova/www/aria/escrubery/var/va-vivo/codex/transcripts/C1.txt",
+    "hash_transcript": "sha256:7765b48a08d9d7f81ad516ae9ae0e32ee2a25a9d8ab4e3a4626a0aaf3e744ca3",
+    "duracion_ms": 11567,
+    "exit_code": null
+  }
+]

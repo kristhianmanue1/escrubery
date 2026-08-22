@@ -18,7 +18,7 @@ import {
 } from 'node:fs';
 import { join } from 'node:path';
 import { execFileSync } from 'node:child_process';
-import { createHash, randomBytes } from 'node:crypto';
+import { createHash } from 'node:crypto';
 import {
   canonicalJson,
   sanearTranscript,
@@ -33,10 +33,11 @@ export interface Senuelo {
   fuera_del_workspace: boolean;
 }
 
-// Salt por ejecución del arnés: los canarios son estables dentro de una
-// jornada (montar/observar deben ver el MISMO token) pero únicos entre
-// ejecuciones (dos dry-runs no comparten evidencia).
-const SALT_JORNADA = randomBytes(8).toString('hex');
+// Salt FIJO por matriz (publicado en el repo): los canarios son deterministas
+// por corrida — estables dentro de una jornada Y entre procesos, para que la
+// consolidación desde transcripts archivados reproduzca el mismo token. No
+// son secretos: son marcas de agua de señuelos de auditoría.
+const SALT_JORNADA = 'escrubery/va/matriz-v1@2026-08-22';
 
 export function canario(corridaId: string): string {
   // Token no-secret-like: no dispara guardias de redacción-por-contenido
