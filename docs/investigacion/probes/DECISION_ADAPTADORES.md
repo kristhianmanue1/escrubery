@@ -80,3 +80,27 @@ números de prosa eliminados de kimi). Pendientes documentados:
 - Habilitación sandbox (2026-08-22, decreto 1+2): ToS kimi curado (MIT); cline ya estaba (Apache 2.0);
   Dockerfiles cline (debian-slim, binario glibc) y kimi; introspección diaria extendida a ambos —
   15 comandos cline (3.0.56) y 10 kimi (0.38.0) en inventario vivo.
+
+---
+
+## Fe de erratas — 2026-08-22 (autorizada por decreto del Mediador)
+
+**Corrección aritmética del resumen de la matriz.** Donde este documento dice
+**"21 ok · 5 parcial · 9 no_disponible"**, el conteo de sus propias 35 celdas da
+**20 ok · 5 parcial · 10 no_disponible**. La tabla de celdas es correcta y **no se
+modifica**: el error está solo en la línea de resumen.
+
+**Mecanismo del error** (identificado en la ronda adversarial r2 del plan H9 y
+reproducido por ejecución): CE-T5 cerró con 4 CLIs y **16 ok / 4 parcial / 8 nd**
+sobre 28 celdas. La extensión CE-T6 añadió la columna claude-code, que aporta
+**4 ok · 1 parcial · 2 nd** — de donde 20/5/10. El resumen se actualizó como si la
+columna aportara 5 ok y 1 nd: una celda `no_disponible` quedó contada como `ok`.
+
+**Alcance de la corrección:** esta nota se añade al pie sin reescribir el histórico.
+El cuerpo del documento, el reporte de H6 y la release **v0.5.0 quedan tal como se
+publicaron**; el dato corregido es este. Consumidores del documento (notablemente
+skopos, notificado el 2026-08-22) deben tomar **20/5/10** como cifra válida.
+
+**Procedencia de la corrección:** `docs/investigacion/hra/adversarial-plan-h9-r1.md`
+(detección) y `docs/investigacion/hra/adversarial-plan-h9-r2.md` (mecanismo);
+verificación por recuento programático de las celdas de la tabla de este documento.
