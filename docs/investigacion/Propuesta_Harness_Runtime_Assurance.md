@@ -1,7 +1,7 @@
 # Propuesta: Harness–Runtime Assurance (HRA) — el censo de paredes del ecosistema agéntico
 
 **Estado:** PROPUESTA EN CONSENSO — espera decreto del Mediador. No es un plan aprobado; al decretarse se materializa como `Plan_H7_Harness_Runtime_Assurance.md` con tickets y adversarial de plan (§7).
-**Versión:** 0.1 · **Fecha:** 2026-08-21 · **Autoría:** escala y fundamento, insight del Mediador (2026-08-21); redacción técnica, Ejecutor.
+**Versión:** 0.1.1 (erratas §2.3 aplicadas antes del decreto; sin cambio de alcance ni de tesis) · **Fecha:** 2026-08-21 · **Autoría:** escala y fundamento, insight del Mediador (2026-08-21); redacción técnica, Ejecutor; erratas §2.3, revisión crítica 2026-08-21.
 **Origen:** línea de investigación abierta por el Mediador tras el cierre de H6. Consumidores declarados: skopos (ADR-010 §9) y el proyecto "Scripting" mencionado por el Mediador.
 
 ## 1. Fundamento
@@ -42,11 +42,51 @@ Reglas de clasificación:
 
 ### 2.3 La métrica derivada
 
+> **Errata 1 (2026-08-21, previa al decreto).** La versión 0.1 de esta sección proponía un escalar
+> `brecha = |declaradas| − |≥L3| − |=L4|·peso`. Se **retira**: las normas L4 también son ≥L3, de modo
+> que se restaban dos veces; mezclaba un conteo con un conteo ponderado; y podía dar negativo, con lo
+> cual no era una distancia en ningún sentido. Se sustituye por el vector de distribución, que es lo
+> que el propio "reporte estrella" ya enunciaba en prosa y que no pierde información.
+
+**La métrica es un vector, no un escalar.** Por terna {CLI, perfil, corpus} se reporta la
+distribución de las normas del corpus por peldaño máximo alcanzado:
+
 ```
-brecha_de_garantia(cli) = |{normas declaradas}| − |{normas con evidencia ≥ L3}| − |{normas con evidencia = L4}·peso|
+distribucion_garantia(cli, perfil) = { L1: a, L2: b, L3: c, L4: d, pendiente: e }
+   con a + b + c + d + e = |corpus|
 ```
 
-Reporte estrella (detectable automáticamente): *"Este CLI declara 17 restricciones; 5 tienen enforcement fuera del modelo."* Es la distancia declarado-vs-enforcado, el análogo agéntico del "¿tiene frenos?".
+Cada norma cuenta **una sola vez**, en su peldaño máximo. `pendiente` son las normas sin evidencia
+citable (regla fail-closed de §2.2): no son un cero, son una ausencia de medición, y se reportan
+aparte para que nadie las lea como "no lo tiene".
+
+No se define un escalar de "brecha". Comprimir el vector a un número invita a rankear CLIs por una
+cifra cuyo significado depende del corpus elegido, y el corpus es una decisión editorial de
+escrubery, no una propiedad de los productos. El entregable público es el vector más la frase que
+lo lee:
+
+> *"Frente al corpus N1–N8, este CLI en su perfil `default-sandbox` tiene 3 normas enforcadas fuera
+> del modelo (L4), 2 verificables por registro (L3), 2 solo declaradas (L1) y 1 sin evidencia
+> citable."*
+
+#### Denominador: qué se está contando
+
+> **Errata 2 (2026-08-21, previa al decreto).** La versión 0.1 decía "normas declaradas" en la
+> fórmula y `5 CLIs × 8 normas` en §7-T2 — dos denominadores distintos y dos investigaciones
+> distintas. El ejemplo original ("declara 17 restricciones") lo delataba: con un corpus de 8, 17 es
+> imposible. Se fija el denominador antes de clasificar nada.
+
+Se distinguen dos magnitudes que la v0.1 confundía:
+
+| Magnitud | Denominador | Qué afirma | Uso |
+|---|---|---|---|
+| **Cobertura** (principal) | El corpus fijo N1–N8, idéntico para todos los CLIs | "De lo que a nosotros nos importa, este sistema enforca X" | Comparable entre CLIs; es la tabla de §7-T2 |
+| **Autocumplimiento** (secundaria) | Las restricciones que el propio CLI declara en su documentación | "De lo que este producto promete, enforca X" | No comparable entre CLIs; se registra como columna aparte con su propia procedencia |
+
+**El denominador principal es el corpus fijo.** Es la única de las dos que permite poner cinco
+productos en la misma tabla, y es la que §7-T2 ya ejecuta (5 × 8 = 40 celdas). El autocumplimiento se
+registra por CLI cuando la fuente lo permita, nunca se mezcla con la cobertura en la misma cifra, y
+su ausencia va `null` — no se infiere del silencio de la documentación.
 
 ## 3. Corpus de normas (semilla, editable en consenso)
 
@@ -96,7 +136,9 @@ Capa de curaduría `datos/fichas/curaduria/assurance_<cli>.json` (regla dura: no
       ]
     }
   ],
-  "brecha_de_garantia": {"declaradas": 8, "verificadas_o_mayor": 4, "enforcadas": 3},
+  "corpus_id": "N1-N8/v0",
+  "distribucion_garantia": {"L1": 2, "L2": 0, "L3": 2, "L4": 3, "pendiente": 1},
+  "autocumplimiento": {"declaradas_por_el_cli": null, "con_evidencia_L4": null},
   "estado_verificacion": "curado",
   "procedencia": {"fuente_tipo": "curaduria_propia", "fuente_url": "...", "fecha_obtencion": "...", "hash_sha256": "..."}
 }
@@ -116,7 +158,7 @@ No toca el contrato API v0 congelado; si se sirve por API después, entra como �
 | H7-T0 | Taxonomía L1–L4 formal + matriz de decisión fail-closed + este documento promovido a plan | 0.5 | Adversarial de PLAN obligatorio (módulo nuevo) |
 | H7-T1 | Corpus de normas N1–N8 congelado + esquema `escrubery/assurance/v0` + validador (patrón ajv de H6) | 0.5 | |
 | H7-T2 | Inventario pasivo y clasificación L1–L4 de 5 CLIs × 8 normas (40 celdas con evidencia o `pendiente_de_verificar`) | 1 | Máximo de rigor: cada celda citable o null |
-| H7-T3 | Reporte `brecha_de_garantia` por CLI + documento público de hallazgos | 0.5 | El entregable estrella del consenso |
+| H7-T3 | Reporte `distribucion_garantia` por CLI + documento público de hallazgos | 0.5 | El entregable estrella del consenso |
 | H7-T4 | (Diferido) Verificación activa en sandbox | 1 | Decreto aparte; presupuesto y adversarial propios |
 
 Gates por hito: CI local verde, check_sizes, adversarial §6 con revisión independiente (verificar que cada peldaño citado existe en la fuente citada, con hash).
@@ -156,7 +198,7 @@ Gates por hito: CI local verde, check_sizes, adversarial §6 con revisión indep
 
 - Taxonomía con adversarial de plan `proceed`.
 - 40 celdas clasificadas (o `pendiente_de_verificar` explícito) con evidencia citable y hash.
-- Reporte `brecha_de_garantia` publicado para los 5 CLIs.
+- Reporte `distribucion_garantia` (vector L1–L4 + pendiente) publicado para los 5 CLIs, con `corpus_id` explícito.
 - Adversarial de hito que re-verifique una muestra de clasificaciones contra sus fuentes.
 - Bitácora y este documento actualizados a estado CERRADO.
 
