@@ -12,7 +12,7 @@ Servicio de inteligencia sobre modelos y CLIs de IA (ver `README.md`). Fase actu
 
 - **Hecho:** plan v2 COMPLETO (F0–F5) + releases **v0.3.0/v0.4.0/v0.5.0** publicadas.
 - **Hecho (2026-08-21/22):** H6 (`conversation-event/v0`, diseño) · H7 (Harness–Runtime Assurance: censo 5 CLIs × 8 normas, `datos/fichas/curaduria/`) · H8 (memoria enforcada AN-KLA L3, cerrada por decreto 2026-08-22: inyección viva en ambos runtimes —SessionStart en claude-code, por llamada LLM en opencode—; limitaciones declaradas MED-1 y `experimental.*`).
-- **En curso:** H7-T4 — verificación activa en sandbox (salto L3→L4: gate fuera del runtime; precedente OpenBot, ver bitácora §Cierre H8). Apertura decretada 2026-08-22.
+- **En curso:** H7-T4 — verificación activa en sandbox (plan decretado 2026-08-22: `docs/investigacion/Plan_H7_T4_Verificacion_Activa.md`, 11 corridas/12 vector-intentos, adversarial de plan 3 rondas `proceed`; primer ticket VA-T0).
 - **Candidatos:** colector conversation-event, casos reales del resolver, `politica_datos_proveedor`, F4b (presupuesto), censo OpenBot (gobernanza de agentes vía gateway externo + política CEL fail-closed; fuente y fecha en bitácora §Cierre H8).
 - **Detalle y desviaciones:** `bitacora_ciclos.md` (hogar canónico; este bloque es solo el resumen — mantener ≤ 5 líneas, no narrar historial aquí).
 
