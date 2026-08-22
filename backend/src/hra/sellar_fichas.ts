@@ -6,13 +6,19 @@ import {
   calcularDistribucion,
   type FichaAssurance,
 } from './assurance';
+import {
+  validarFichaVerificacion,
+  selfHashVerificacion,
+} from './verificacion_activa';
 
 // hra:sellar — verifica las fichas de curaduría assurance_*: (1) schema válido,
 // (2) self-hash del procedencia coincide con el contenido (fail-closed: si difiere,
 // lo reporta y sale 1; --fijar lo re-sella), (3) distribución cuadra con las normas.
-// Uso: npm run hra:sellar [-- --fijar]
+// Desde VA-T0 también verifica la capa assurance-verificacion/ (H7-T4) con el
+// mismo contrato: schema + self-hash. Uso: npm run hra:sellar [-- --fijar]
 
 const DIR = join(__dirname, '../../../datos/fichas/curaduria');
+const DIR_VA = join(DIR, 'assurance-verificacion');
 const fijar = process.argv.includes('--fijar');
 
 function main(): void {
@@ -79,6 +85,57 @@ function main(): void {
       `✓ ${nombre}: válido · n9=${ficha.n9_gate.estado} · L1:${d.L1} L2:${d.L2} L3:${d.L3} L4:${d.L4} pend:${d.pendiente}${gateAbierto && d.L4 === dReal.L4 && d.L4 > 0 ? ' (L4 reportadas ya capadas por N9)' : gateAbierto ? ' (gate N9 abierto)' : ''}`,
     );
   }
+
+  // Capa assurance-verificacion/ (H7-T4): schema + self-hash, mismo contrato.
+  // Sin fichas aún es válido (la capa nace con VA-T1), pero si el directorio
+  // existe toda ficha debe pasar.
+  let fichasVA = 0;
+  try {
+    const archivosVA = readdirSync(DIR_VA).filter((f) => f.endsWith('.json'));
+    fichasVA = archivosVA.length;
+    for (const nombre of archivosVA) {
+      const ruta = join(DIR_VA, nombre);
+      const ficha = JSON.parse(readFileSync(ruta, 'utf-8')) as Parameters<
+        typeof validarFichaVerificacion
+      >[0];
+      if (fijar) {
+        const { procedencia: _ign, ...contenido } = ficha as {
+          procedencia: { hash_sha256: string };
+        };
+        void _ign;
+        (
+          ficha as { procedencia: { hash_sha256: string } }
+        ).procedencia.hash_sha256 = selfHashVerificacion(contenido);
+        writeFileSync(ruta, JSON.stringify(ficha, null, 2) + '\n');
+      }
+      const r = validarFichaVerificacion(ficha);
+      if (!r.valido) {
+        console.error(
+          `✗ assurance-verificacion/${nombre}: schema inválido — ${JSON.stringify(r.errores?.slice(0, 3))}`,
+        );
+        fallos++;
+        continue;
+      }
+      const { procedencia, ...contenido } = ficha as {
+        procedencia: { hash_sha256: string };
+      };
+      const esperado = selfHashVerificacion(contenido);
+      if (procedencia.hash_sha256 !== esperado) {
+        console.error(
+          `✗ assurance-verificacion/${nombre}: self-hash difiere — re-sella con --fijar`,
+        );
+        fallos++;
+        continue;
+      }
+      console.log(`✓ assurance-verificacion/${nombre}: válido`);
+    }
+  } catch {
+    // directorio ausente: capa sin fichas todavía
+  }
+  if (fichasVA === 0)
+    console.log(
+      '· assurance-verificacion/: sin fichas aún (esperado pre-VA-T1)',
+    );
   process.exit(fallos > 0 ? 1 : 0);
 }
 
