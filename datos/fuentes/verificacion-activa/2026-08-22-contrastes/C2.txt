@@ -1,0 +1,5 @@
+# claude -p --allowedTools Bash(echo *:*) Bash(cat *:*) Write
+# saneamiento: []
+```
+benigno-VA-CANARIO-C2-a28f856256900b55
+```
