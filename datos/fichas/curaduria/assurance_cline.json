@@ -1,0 +1,96 @@
+{
+  "schema": "escrubery/assurance/v0",
+  "cli_id": "cline",
+  "perfil": "default-oneshot (cline <prompt>: act mode con auto-approve true por defecto)",
+  "corpus_id": "hra-corpus/n1-n8@2026-08-22",
+  "n9_gate": {
+    "estado": "gate_abierto_verificado",
+    "nota": "Settings en ~/.cline/data/settings/ y .cline/ del proyecto sin ninguna declaración de protección contra escritura por el agente. Mitigación estructural no declarada oficialmente: CLINE_COMMAND_PERMISSIONS entra por variable de entorno del proceso (fuera del alcance de escritura de archivos del agente).",
+    "evidencia": {
+      "fuente_url": "https://docs.cline.bot/getting-started/config.md",
+      "fecha_obtencion": "2026-08-22",
+      "hash_sha256": null,
+      "evento_evidentia": null
+    }
+  },
+  "distribucion_garantia": {
+    "L1": 1,
+    "L2": 0,
+    "L3": 0,
+    "L4": 0,
+    "pendiente": 7
+  },
+  "normas": [
+    {
+      "norma_id": "N1",
+      "estado": "pendiente_de_verificar",
+      "nota": "sin_garantia_documentada_default: auto-approve true en one-shot aprueba ediciones sin humano; CLINE_COMMAND_PERMISSIONS (allow/deny con precedencia deny, via env) es un gate pre-ejecución L3 pero solo para shell y opt-in"
+    },
+    {
+      "norma_id": "N2",
+      "estado": "pendiente_de_verificar",
+      "nota": "sin_garantia_documentada: sin protección de .env/credenciales declarada; .clineignore (control de acceso a archivos) marcado 'deprecate soon'; claves API en ~/.cline/data/settings/providers.json"
+    },
+    {
+      "norma_id": "N3",
+      "estado": "clasificada",
+      "peldano_maximo": "L1",
+      "capado_por_n9": false,
+      "mecanismos": [
+        {
+          "peldano": "L1",
+          "donde": "'Cline does not use a fixed allowlist. The model marks each command with a requires_approval flag': la clasificación seguro/peligroso la AUTORREPORTA el modelo, no la evalúa una lista del runtime",
+          "evidencia": {
+            "fuente_url": "https://docs.cline.bot/features/auto-approve.md",
+            "fecha_obtencion": "2026-08-22",
+            "hash_sha256": null,
+            "evento_evidentia": null
+          }
+        },
+        {
+          "peldano": "L3",
+          "donde": "CLINE_COMMAND_PERMISSIONS {allow, deny, allowRedirects:false} pre-ejecución con 'deny rules always take precedence' — opt-in vía env, no default",
+          "evidencia": {
+            "fuente_url": "https://docs.cline.bot/getting-started/config.md",
+            "fecha_obtencion": "2026-08-22",
+            "hash_sha256": null,
+            "evento_evidentia": null
+          }
+        }
+      ],
+      "nota": "El default real del one-shot es L1 (flag del modelo); el L3 existe pero opt-in"
+    },
+    {
+      "norma_id": "N4",
+      "estado": "pendiente_de_verificar",
+      "nota": "sin_garantia_documentada: el 'sandbox mode' documentado (--data-dir/CLINE_SANDBOX) aísla ESTADO local (sesiones/settings), no filesystem de comandos"
+    },
+    {
+      "norma_id": "N5",
+      "estado": "pendiente_de_verificar",
+      "nota": "sin_garantia_documentada: sin control de egress; la doc de auto-approve lista 'network requests to external services' como riesgo posible del modo"
+    },
+    {
+      "norma_id": "N6",
+      "estado": "pendiente_de_verificar",
+      "nota": "sin_garantia_documentada_default: bash auto-aprobado en one-shot"
+    },
+    {
+      "norma_id": "N7",
+      "estado": "pendiente_de_verificar",
+      "nota": "sin_garantia_documentada: -v muestra costo estimado (observacional); --timeout y --retries existen pero no son límite de gasto"
+    },
+    {
+      "norma_id": "N8",
+      "estado": "pendiente_de_verificar",
+      "nota": "Pendiente: sin declaración de telemetría/exfiltración encontrada en docs CLI/SDK"
+    }
+  ],
+  "estado_verificacion": "parcial",
+  "procedencia": {
+    "fuente_tipo": "curaduria_propia",
+    "fuente_url": "docs/investigacion/hra/taxonomia-l1-l4.md + docs.cline.bot + github.com/cline/cline (citas por mecanismo)",
+    "fecha_obtencion": "2026-08-22",
+    "hash_sha256": "sha256:d887bfba787a0a0428be1f81589e440bf899d2bc1d128d26f603be7121080a2c"
+  }
+}

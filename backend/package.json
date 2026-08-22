@@ -39,7 +39,8 @@
     "f3:introspectar": "node --env-file=.env --import tsx src/f3/sandbox_introspeccion.ts",
     "metricas:f1": "node --env-file=.env --import tsx src/metricas/f1.ts",
     "cli": "node --env-file=.env --import tsx src/cli.ts",
-    "probe:conversacion": "tsx src/probes/cli.ts"
+    "probe:conversacion": "tsx src/probes/cli.ts",
+    "hra:sellar": "tsx src/hra/sellar_fichas.ts"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.30.0",

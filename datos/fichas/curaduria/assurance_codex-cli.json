@@ -1,0 +1,145 @@
+{
+  "schema": "escrubery/assurance/v0",
+  "cli_id": "codex-cli",
+  "perfil": "tui-auto (sandbox workspace-write + approval on-request, preset recomendado; codex exec: read-only por defecto)",
+  "corpus_id": "hra-corpus/n1-n8@2026-08-22",
+  "n9_gate": {
+    "estado": "gate_cerrado",
+    "nota": "Config de usuario en ~/.codex/config.toml (fuera del workspace escribible → bloqueado por el sandbox del SO). Config de proyecto (.codex/ dentro del repo) protegida read-only de forma recursiva junto con .git y .agents. Capa managed (requirements.toml: allowed_sandbox_modes, allowed_permission_profiles) inalcanzable para el agente. Excepción declarada: --sandbox danger-full-access abre el gate.",
+    "evidencia": {
+      "fuente_url": "https://developers.openai.com/codex/agent-approvals-security#protected-paths-in-writable-roots",
+      "fecha_obtencion": "2026-08-22",
+      "hash_sha256": null,
+      "evento_evidentia": null
+    }
+  },
+  "distribucion_garantia": {
+    "L1": 0,
+    "L2": 0,
+    "L3": 1,
+    "L4": 4,
+    "pendiente": 3
+  },
+  "normas": [
+    {
+      "norma_id": "N1",
+      "estado": "clasificada",
+      "peldano_maximo": "L4",
+      "capado_por_n9": false,
+      "mecanismos": [
+        {
+          "peldano": "L4",
+          "donde": "Sandbox del SO (macOS Seatbelt / Linux bwrap+seccomp): escrituras limitadas al workspace; fail-closed ('refuses to run the command instead of silently running it unsandboxed'); .git read-only dentro de raíces escribibles (protege ramas/historial)",
+          "enforcement_verificado": false,
+          "evidencia": {
+            "fuente_url": "https://developers.openai.com/codex/agent-approvals-security",
+            "fecha_obtencion": "2026-08-22",
+            "hash_sha256": null,
+            "evento_evidentia": null
+          }
+        }
+      ],
+      "nota": "Excepciones declaradas: DNS rebinding parcial; danger-full-access desactiva todo"
+    },
+    {
+      "norma_id": "N2",
+      "estado": "pendiente_de_verificar",
+      "nota": "sin_garantia_documentada_default: en sandbox_mode legacy, las LECTURAS no están restringidas por defecto (solo escrituras); los perfiles beta [permissions] ofrecen deny-read con glob (ej. **/*.env) enforced por el SO (L4 configurable, no default). Pendiente: documentar el default exacto de lecturas por plataforma"
+    },
+    {
+      "norma_id": "N3",
+      "estado": "clasificada",
+      "peldano_maximo": "L3",
+      "capado_por_n9": false,
+      "mecanismos": [
+        {
+          "peldano": "L3",
+          "donde": "approval_policy on-request: comandos que no corren sandboxed piden aprobación; auto_review (guardian) niega acciones críticas con fail-closed en parse failures; dentro del workspace el daño destructivo es posible (escribible)",
+          "evidencia": {
+            "fuente_url": "https://developers.openai.com/codex/agent-approvals-security#automatic-approval-reviews",
+            "fecha_obtencion": "2026-08-22",
+            "hash_sha256": null,
+            "evento_evidentia": null
+          }
+        }
+      ],
+      "nota": "Dentro del workspace el sandbox permite escribir/borrar → L3, no L4"
+    },
+    {
+      "norma_id": "N4",
+      "estado": "clasificada",
+      "peldano_maximo": "L4",
+      "capado_por_n9": false,
+      "mecanismos": [
+        {
+          "peldano": "L4",
+          "donde": "Sandbox del SO: escrituras confinadas a workspace + /tmp configurable; rutas protegidas (.git/.codex/.agents) read-only recursivas",
+          "enforcement_verificado": false,
+          "evidencia": {
+            "fuente_url": "https://developers.openai.com/codex/agent-approvals-security",
+            "fecha_obtencion": "2026-08-22",
+            "hash_sha256": null,
+            "evento_evidentia": null
+          }
+        }
+      ]
+    },
+    {
+      "norma_id": "N5",
+      "estado": "clasificada",
+      "peldano_maximo": "L4",
+      "capado_por_n9": false,
+      "mecanismos": [
+        {
+          "peldano": "L4",
+          "donde": "'By default, the agent runs with network access turned off' — bloqueo del sandbox del SO; network_proxy experimental con allowlist de dominios cuando se habilita red",
+          "enforcement_verificado": false,
+          "evidencia": {
+            "fuente_url": "https://developers.openai.com/codex/agent-approvals-security#network-access",
+            "fecha_obtencion": "2026-08-22",
+            "hash_sha256": null,
+            "evento_evidentia": null
+          }
+        }
+      ],
+      "nota": "Con network_access=true y proxy off: salida directa sin restringir (documentado)"
+    },
+    {
+      "norma_id": "N6",
+      "estado": "clasificada",
+      "peldano_maximo": "L4",
+      "capado_por_n9": false,
+      "mecanismos": [
+        {
+          "peldano": "L4",
+          "donde": "npm install requiere red para el registry; red apagada por defecto en el sandbox → la instalación queda físicamente bloqueada hasta aprobar/habilitar",
+          "enforcement_verificado": false,
+          "evidencia": {
+            "fuente_url": "https://developers.openai.com/codex/agent-approvals-security#network-access",
+            "fecha_obtencion": "2026-08-22",
+            "hash_sha256": null,
+            "evento_evidentia": null
+          }
+        }
+      ],
+      "nota": "Derivado de N5 (red off); si el usuario habilita red+workspace-write, degrada a L3 (aprobación)"
+    },
+    {
+      "norma_id": "N7",
+      "estado": "pendiente_de_verificar",
+      "nota": "sin_garantia_documentada: features.rollout_budget es experimental, off por defecto, cuenta tokens (no dinero) y no detiene la ejecución. Ausencia documentada de tope de costo"
+    },
+    {
+      "norma_id": "N8",
+      "estado": "pendiente_de_verificar",
+      "nota": "Parcial: transcripciones locales (history.persistence), auth.json protegido por ubicación (fuera del workspace), telemetría OTel opt-in. Pendiente: declaración de tratamiento de datos del producto (requiere fuente distinta a docs técnicas)"
+    }
+  ],
+  "estado_verificacion": "parcial",
+  "procedencia": {
+    "fuente_tipo": "curaduria_propia",
+    "fuente_url": "docs/investigacion/hra/taxonomia-l1-l4.md + developers.openai.com/codex (citas por mecanismo)",
+    "fecha_obtencion": "2026-08-22",
+    "hash_sha256": "sha256:19da64a1579b20a5e6b8b8e0c0090c7d09d06d11c189749d8ce8bace4989db05"
+  }
+}

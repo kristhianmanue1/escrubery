@@ -1,0 +1,141 @@
+{
+  "schema": "escrubery/assurance/v0",
+  "cli_id": "kimi-code",
+  "perfil": "default-manual (default_permission_mode = manual)",
+  "corpus_id": "hra-corpus/n1-n8@2026-08-22",
+  "n9_gate": {
+    "estado": "gate_abierto_verificado",
+    "nota": "kimi distribuye un skill integrado para editar su propia config: '/update-config — Inspect or edit config.toml (model, provider, permission, hooks)' con builtin_product_skills=true por defecto. Sin protección de escritura declarada sobre ~/.kimi/config.toml. Única barrera en modo manual: Write/Edit requieren aprobación. En yolo/auto/-p el agente reescribe sus permission.rules sin gate.",
+    "evidencia": {
+      "fuente_url": "https://moonshotai.github.io/kimi-code/en/reference/slash-commands.md",
+      "fecha_obtencion": "2026-08-22",
+      "hash_sha256": null,
+      "evento_evidentia": null
+    }
+  },
+  "distribucion_garantia": {
+    "L1": 0,
+    "L2": 1,
+    "L3": 4,
+    "L4": 0,
+    "pendiente": 3
+  },
+  "normas": [
+    {
+      "norma_id": "N1",
+      "estado": "clasificada",
+      "peldano_maximo": "L3",
+      "capado_por_n9": false,
+      "mecanismos": [
+        {
+          "peldano": "L3",
+          "donde": "manual mode: Write/Edit requieren aprobación por defecto; permission.rules con decision=allow|deny|ask y patrón por herramienta+argumento (primera coincidencia gana), con campo reason para auditoría",
+          "evidencia": {
+            "fuente_url": "https://moonshotai.github.io/kimi-code/en/configuration/config-files.md",
+            "fecha_obtencion": "2026-08-22",
+            "hash_sha256": null,
+            "evento_evidentia": null
+          }
+        }
+      ],
+      "nota": "Aprobación interactiva = L3 según taxonomía"
+    },
+    {
+      "norma_id": "N2",
+      "estado": "clasificada",
+      "peldano_maximo": "L3",
+      "capado_por_n9": false,
+      "mecanismos": [
+        {
+          "peldano": "L3",
+          "donde": "'Sensitive files such as .env files and private keys are automatically filtered out' de Grep/Glob (incl. include_ignored); gap declarado: Read directo de .env sin bloqueo",
+          "evidencia": {
+            "fuente_url": "https://moonshotai.github.io/kimi-code/en/reference/tools.md",
+            "fecha_obtencion": "2026-08-22",
+            "hash_sha256": null,
+            "evento_evidentia": null
+          }
+        }
+      ],
+      "nota": "Cobertura parcial: búsqueda filtrada, lectura directa no"
+    },
+    {
+      "norma_id": "N3",
+      "estado": "clasificada",
+      "peldano_maximo": "L3",
+      "capado_por_n9": false,
+      "mecanismos": [
+        {
+          "peldano": "L3",
+          "donde": "Bash requiere aprobación por defecto en manual; reglas con patrón de argumento (ej. Bash(rm -rf*) → deny); [tools] enabled/disabled 'is enforced again before execution'",
+          "evidencia": {
+            "fuente_url": "https://moonshotai.github.io/kimi-code/en/reference/tools.md",
+            "fecha_obtencion": "2026-08-22",
+            "hash_sha256": null,
+            "evento_evidentia": null
+          }
+        }
+      ],
+      "nota": "Doble enforcement declarado: presentación al modelo + pre-ejecución"
+    },
+    {
+      "norma_id": "N4",
+      "estado": "pendiente_de_verificar",
+      "nota": "sin_garantia_documentada_default: sin sandbox del SO ni límite de filesystem declarado; Plan mode restringe Write al archivo de plan (L2, modo opt-in, no default)"
+    },
+    {
+      "norma_id": "N5",
+      "estado": "pendiente_de_verificar",
+      "nota": "sin_garantia_documentada: WebSearch/FetchURL auto-allow; sin control de egress para Bash declarado"
+    },
+    {
+      "norma_id": "N6",
+      "estado": "clasificada",
+      "peldano_maximo": "L3",
+      "capado_por_n9": false,
+      "mecanismos": [
+        {
+          "peldano": "L3",
+          "donde": "Bash (ejecución, incluye npm) requiere aprobación por defecto en manual mode",
+          "evidencia": {
+            "fuente_url": "https://moonshotai.github.io/kimi-code/en/reference/tools.md",
+            "fecha_obtencion": "2026-08-22",
+            "hash_sha256": null,
+            "evento_evidentia": null
+          }
+        }
+      ]
+    },
+    {
+      "norma_id": "N7",
+      "estado": "clasificada",
+      "peldano_maximo": "L2",
+      "capado_por_n9": false,
+      "mecanismos": [
+        {
+          "peldano": "L2",
+          "donde": "loop_control.max_steps_per_turn y max_attempts_per_step (default 10): límites de bucle del runtime que acotan el gasto por turno (pasos, no dinero)",
+          "evidencia": {
+            "fuente_url": "https://moonshotai.github.io/kimi-code/en/configuration/config-files.md",
+            "fecha_obtencion": "2026-08-22",
+            "hash_sha256": null,
+            "evento_evidentia": null
+          }
+        }
+      ],
+      "nota": "Proxy honesto: limita pasos/intentos, no costo monetario; /usage es observacional"
+    },
+    {
+      "norma_id": "N8",
+      "estado": "pendiente_de_verificar",
+      "nota": "Hallazgo negativo citable: api_key 'written in plain text in the config file' y sin fallback a variables de entorno; export de sesiones existe (kimi export). Pendiente declaración de telemetría"
+    }
+  ],
+  "estado_verificacion": "parcial",
+  "procedencia": {
+    "fuente_tipo": "curaduria_propia",
+    "fuente_url": "docs/investigacion/hra/taxonomia-l1-l4.md + moonshotai.github.io/kimi-code (citas por mecanismo)",
+    "fecha_obtencion": "2026-08-22",
+    "hash_sha256": "sha256:6d50bc71581223dd29799903b28b05909c27f20758d42e280facbd2e13c4c4e8"
+  }
+}

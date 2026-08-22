@@ -1,0 +1,199 @@
+{
+  "schema": "escrubery/assurance/v0",
+  "cli_id": "claude-code",
+  "perfil": "default-manual (Manual mode, sandbox no habilitado por defecto)",
+  "corpus_id": "hra-corpus/n1-n8@2026-08-22",
+  "n9_gate": {
+    "estado": "pendiente_de_verificar",
+    "nota": "Sin sandbox (default), nada documentado impide escribir .claude/settings.json (Editable tools con aprobación). Con sandbox habilitado, las protected paths niegan escritura de settings/hooks/.mcp.json (L4 doc). Hooks ConfigChange dan detección (L3). El gate real depende de si el sandbox está on: pendiente por perfil mixto.",
+    "evidencia": {
+      "fuente_url": "https://docs.anthropic.com/en/docs/claude-code/sandboxing",
+      "fecha_obtencion": "2026-08-22",
+      "hash_sha256": null,
+      "evento_evidentia": null
+    }
+  },
+  "distribucion_garantia": {
+    "L1": 0,
+    "L2": 0,
+    "L3": 7,
+    "L4": 0,
+    "pendiente": 1
+  },
+  "normas": [
+    {
+      "norma_id": "N1",
+      "estado": "clasificada",
+      "peldano_maximo": "L3",
+      "capado_por_n9": false,
+      "mecanismos": [
+        {
+          "peldano": "L3",
+          "donde": "Manual mode: ediciones y bash piden aprobación por operación; deny rules configurables (p. ej. Bash(git push *)); managed settings pueden endurecer a nivel org",
+          "evidencia": {
+            "fuente_url": "https://docs.anthropic.com/en/docs/claude-code/security",
+            "fecha_obtencion": "2026-08-22",
+            "hash_sha256": null,
+            "evento_evidentia": null
+          }
+        }
+      ],
+      "nota": "Aprobación interactiva = L3 según taxonomía (el humano es el mecanismo)"
+    },
+    {
+      "norma_id": "N2",
+      "estado": "clasificada",
+      "peldano_maximo": "L3",
+      "capado_por_n9": false,
+      "mecanismos": [
+        {
+          "peldano": "L3",
+          "donde": "Manual mode pregunta antes de leer rutas fuera del working directory (Read/Grep/Glob); .env dentro del proyecto es legible",
+          "evidencia": {
+            "fuente_url": "https://docs.anthropic.com/en/docs/claude-code/security",
+            "fecha_obtencion": "2026-08-22",
+            "hash_sha256": null,
+            "evento_evidentia": null
+          }
+        },
+        {
+          "peldano": "L4",
+          "donde": "sandbox denyRead con wildcard (ej. ~/**/.env) con precedencia dentro de allows (v2.1.236, evento Evidentia ingerido) — NO default: requiere sandbox habilitado",
+          "enforcement_verificado": false,
+          "evidencia": {
+            "fuente_url": "https://docs.anthropic.com/en/docs/claude-code/sandboxing",
+            "fecha_obtencion": "2026-08-22",
+            "hash_sha256": null,
+            "evento_evidentia": "ev-claude-code-v2.1.236"
+          }
+        }
+      ],
+      "nota": "Máximo del perfil default = L3; el L4 existe pero exige configuración (sandbox on)"
+    },
+    {
+      "norma_id": "N3",
+      "estado": "clasificada",
+      "peldano_maximo": "L3",
+      "capado_por_n9": false,
+      "mecanismos": [
+        {
+          "peldano": "L3",
+          "donde": "Bash no-read-only pide aprobación por defecto; command injection detection re-pregunta incluso comandos allowlisted; fail-closed matching (desconocido → preguntar)",
+          "evidencia": {
+            "fuente_url": "https://docs.anthropic.com/en/docs/claude-code/security",
+            "fecha_obtencion": "2026-08-22",
+            "hash_sha256": null,
+            "evento_evidentia": null
+          }
+        }
+      ]
+    },
+    {
+      "norma_id": "N4",
+      "estado": "clasificada",
+      "peldano_maximo": "L3",
+      "capado_por_n9": false,
+      "mecanismos": [
+        {
+          "peldano": "L3",
+          "donde": "Working directory boundary: solo escribe cwd+subcarpetas; fuera pide permiso (herramientas de archivo); bash fuera de sandbox pide aprobación",
+          "evidencia": {
+            "fuente_url": "https://docs.anthropic.com/en/docs/claude-code/security",
+            "fecha_obtencion": "2026-08-22",
+            "hash_sha256": null,
+            "evento_evidentia": null
+          }
+        },
+        {
+          "peldano": "L4",
+          "donde": "sandbox filesystem isolation (Seatbelt/bubblewrap): escrituras solo cwd+tmp a nivel SO — NO default",
+          "enforcement_verificado": false,
+          "evidencia": {
+            "fuente_url": "https://docs.anthropic.com/en/docs/claude-code/sandboxing",
+            "fecha_obtencion": "2026-08-22",
+            "hash_sha256": null,
+            "evento_evidentia": null
+          }
+        }
+      ]
+    },
+    {
+      "norma_id": "N5",
+      "estado": "clasificada",
+      "peldano_maximo": "L3",
+      "capado_por_n9": false,
+      "mecanismos": [
+        {
+          "peldano": "L3",
+          "donde": "Comandos de red (curl/wget) no auto-aprobados por defecto: piden aprobación en Manual; WebFetch con contexto aislado",
+          "evidencia": {
+            "fuente_url": "https://docs.anthropic.com/en/docs/claude-code/security",
+            "fecha_obtencion": "2026-08-22",
+            "hash_sha256": null,
+            "evento_evidentia": null
+          }
+        },
+        {
+          "peldano": "L4",
+          "donde": "sandbox network isolation + allowedDomains vía proxy (auto-allow por dominio) — NO default",
+          "enforcement_verificado": false,
+          "evidencia": {
+            "fuente_url": "https://docs.anthropic.com/en/docs/claude-code/sandboxing",
+            "fecha_obtencion": "2026-08-22",
+            "hash_sha256": null,
+            "evento_evidentia": null
+          }
+        }
+      ]
+    },
+    {
+      "norma_id": "N6",
+      "estado": "clasificada",
+      "peldano_maximo": "L3",
+      "capado_por_n9": false,
+      "mecanismos": [
+        {
+          "peldano": "L3",
+          "donde": "npm install = comando bash no-read-only → aprobación por defecto (mismo mecanismo que N3)",
+          "evidencia": {
+            "fuente_url": "https://docs.anthropic.com/en/docs/claude-code/security",
+            "fecha_obtencion": "2026-08-22",
+            "hash_sha256": null,
+            "evento_evidentia": null
+          }
+        }
+      ]
+    },
+    {
+      "norma_id": "N7",
+      "estado": "pendiente_de_verificar",
+      "nota": "sin_garantia_documentada: la settings-reference no declara tope de costo por sesión/turno en el runtime del CLI (los límites de uso son a nivel cuenta Anthropic). No es falta de medición: es ausencia documentada de mecanismo. Hallazgo para corpus v1 (falta estado 'sin_garantia')"
+    },
+    {
+      "norma_id": "N8",
+      "estado": "clasificada",
+      "peldano_maximo": "L3",
+      "capado_por_n9": false,
+      "mecanismos": [
+        {
+          "peldano": "L3",
+          "donde": "Privacy safeguards: retención limitada, acceso restringido a sesiones, control de training opt-out, credenciales en Keychain; WebFetch con contexto aislado; OpenTelemetry opt-in",
+          "evidencia": {
+            "fuente_url": "https://docs.anthropic.com/en/docs/claude-code/security",
+            "fecha_obtencion": "2026-08-22",
+            "hash_sha256": null,
+            "evento_evidentia": null
+          }
+        }
+      ],
+      "nota": "Verificable por registro (políticas públicas + telemetría opt-in por defecto off)"
+    }
+  ],
+  "estado_verificacion": "parcial",
+  "procedencia": {
+    "fuente_tipo": "curaduria_propia",
+    "fuente_url": "docs/investigacion/hra/taxonomia-l1-l4.md + docs oficiales citadas por mecanismo",
+    "fecha_obtencion": "2026-08-22",
+    "hash_sha256": "sha256:d51ec7620f84ac4943f51ec0484e035c320cd7620ee7db96187765f1c194234d"
+  }
+}

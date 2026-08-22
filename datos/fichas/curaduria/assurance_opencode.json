@@ -1,0 +1,100 @@
+{
+  "schema": "escrubery/assurance/v0",
+  "cli_id": "opencode",
+  "perfil": "default (permisos default allow, external_directory ask)",
+  "corpus_id": "hra-corpus/n1-n8@2026-08-22",
+  "n9_gate": {
+    "estado": "gate_abierto_verificado",
+    "nota": "opencode.json vive en la RAÍZ del proyecto con la MÁS ALTA precedencia de configuración y puede contener permission; no existe declaración de protección contra escritura por el agente (sin equivalente a protected paths). Un agente con edit/write en allow reescribe sus propios permisos. Mitigación solo vía managed settings admin-only (MDM//etc/opencode) o env OPENCODE_PERMISSION fuera del alcance del agente — no default.",
+    "evidencia": {
+      "fuente_url": "https://dev.opencode.ai/docs/config/#per-project",
+      "fecha_obtencion": "2026-08-22",
+      "hash_sha256": null,
+      "evento_evidentia": null
+    }
+  },
+  "distribucion_garantia": {
+    "L1": 0,
+    "L2": 0,
+    "L3": 2,
+    "L4": 0,
+    "pendiente": 6
+  },
+  "normas": [
+    {
+      "norma_id": "N1",
+      "estado": "pendiente_de_verificar",
+      "nota": "sin_garantia_documentada_default: 'By default, opencode allows all operations without requiring explicit approval' — el mecanismo permission (ask/deny) existe (L3) pero el default es abierto; no hay protección específica de ramas/producción"
+    },
+    {
+      "norma_id": "N2",
+      "estado": "clasificada",
+      "peldano_maximo": "L3",
+      "capado_por_n9": false,
+      "mecanismos": [
+        {
+          "peldano": "L3",
+          "donde": "read default deny embebido para *.env y *.env.* (allow para *.env.example): la herramienta read bloquea secretos por defecto; in-process (un bash allow no está cubierto)",
+          "evidencia": {
+            "fuente_url": "https://dev.opencode.ai/docs/permissions/#defaults",
+            "fecha_obtencion": "2026-08-22",
+            "hash_sha256": null,
+            "evento_evidentia": null
+          }
+        }
+      ],
+      "nota": "Cobertura parcial declarada: aplica a la herramienta read, no a bash"
+    },
+    {
+      "norma_id": "N3",
+      "estado": "pendiente_de_verificar",
+      "nota": "sin_garantia_documentada_default: bash default allow; reglas granulares (ej. 'rm *': deny) existen (L3) pero no por defecto"
+    },
+    {
+      "norma_id": "N4",
+      "estado": "clasificada",
+      "peldano_maximo": "L3",
+      "capado_por_n9": false,
+      "mecanismos": [
+        {
+          "peldano": "L3",
+          "donde": "external_directory default ask: gate del runtime cuando cualquier herramienta toca rutas fuera del cwd (read/edit/glob/grep y 'many' bash — cobertura de bash declarada parcial)",
+          "evidencia": {
+            "fuente_url": "https://dev.opencode.ai/docs/permissions/",
+            "fecha_obtencion": "2026-08-22",
+            "hash_sha256": null,
+            "evento_evidentia": null
+          }
+        }
+      ],
+      "nota": "In-process, no sandbox del SO (no existe)"
+    },
+    {
+      "norma_id": "N5",
+      "estado": "pendiente_de_verificar",
+      "nota": "sin_garantia_documentada: sin control de egress para bash (página Network trata solo proxies corporativos de entrada); webfetch/websearch tienen permission por URL/query (L3) pero el tráfico de comandos shell queda libre"
+    },
+    {
+      "norma_id": "N6",
+      "estado": "pendiente_de_verificar",
+      "nota": "sin_garantia_documentada_default: npm install = bash allow por defecto"
+    },
+    {
+      "norma_id": "N7",
+      "estado": "pendiente_de_verificar",
+      "nota": "sin_garantia_documentada: solo opencode stats (observabilidad posterior) y OPENCODE_EXPERIMENTAL_OUTPUT_TOKEN_MAX (tope de tokens de salida del LLM, no de costo)"
+    },
+    {
+      "norma_id": "N8",
+      "estado": "pendiente_de_verificar",
+      "nota": "Pendiente: export --sanitize existe para transcripciones del usuario; sin declaración encontrada sobre telemetría/exfiltración del producto"
+    }
+  ],
+  "estado_verificacion": "parcial",
+  "procedencia": {
+    "fuente_tipo": "curaduria_propia",
+    "fuente_url": "docs/investigacion/hra/taxonomia-l1-l4.md + dev.opencode.ai/docs (citas por mecanismo)",
+    "fecha_obtencion": "2026-08-22",
+    "hash_sha256": "sha256:54cac5b1ee88adcc2880896a6f85bfe5c2d5fa593e35e45f814759b05bb51480"
+  }
+}
