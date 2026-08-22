@@ -13,7 +13,8 @@ Servicio de inteligencia sobre modelos y CLIs de IA (ver `README.md`). Fase actu
 - **Hecho:** plan v2 COMPLETO (F0–F5) + releases **v0.3.0/v0.4.0/v0.5.0** publicadas.
 - **Hecho (2026-08-21):** H6 cerrado — contrato `conversation-event/v0` (diseño, no servido) + 4 probes read-only + decisión de adaptadores; issues #1 y #2 cerrados.
 - **Hecho (2026-08-22):** H7 cerrado — Harness–Runtime Assurance: taxonomía L1–L4 + censo 5 CLIs × 8 normas (`datos/fichas/curaduria/assurance_*.json`, verificador `npm run hra:sellar`) + reporte público (`docs/investigacion/hra/reporte-censo-2026-08-22.md`). Higiene de staging con gate `commit-msg`.
-- **En curso:** nada. Candidatos: H7-T4 verificación activa en sandbox (decreto propio), notificación cruzada a skopos/Scripting, colector conversation-event, casos reales del resolver, `politica_datos_proveedor`, F4b (presupuesto).
+- **En curso (2026-08-22):** H8 — memoria enforcada AN-KLA (hooks claude-code + plugin opencode, `scripts/hooks-spike/`, `.opencode/plugins/ankla_gate.ts`). T1–T7 verificados por ejecución; pendiente la confirmación viva en el runtime Bun de opencode.
+- **Candidatos:** H7-T4 verificación activa en sandbox (decreto propio), colector conversation-event, casos reales del resolver, `politica_datos_proveedor`, F4b (presupuesto).
 - **Detalle y desviaciones:** `bitacora_ciclos.md` (hogar canónico; este bloque es solo el resumen — mantener ≤ 5 líneas, no narrar historial aquí).
 
 ## Roles (ADRC)

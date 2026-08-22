@@ -16,8 +16,19 @@ SID=$(printf '%s' "$INPUT" | python3 -c 'import json,sys; print(json.load(sys.st
 TS=$(date -u +%Y-%m-%dT%H:%M:%SZ)
 
 PY="$RAIZ/.venv/bin/python"
-RESUME=$("$PY" -m an_kla --project-root "$RAIZ" resume --query "estado actual del proyecto: objetivo, próximos pasos, decisiones recientes" --budget 4096 2>/dev/null)
+# Presupuesto escalado (T7b): `resume` NO trunca — si el checkpoint no cabe
+# falla entero con budget_too_small_for_resume_snapshot, y eso se leía como
+# "AN-KLA caído" (rama degraded, cero inyección). Se reintenta con el techo.
+BUDGET_BASE=${ANKLA_BUDGET_BASE:-16384}
+BUDGET_MAX=${ANKLA_BUDGET_MAX:-65536}
+CONSULTA="estado actual del proyecto: objetivo, próximos pasos, decisiones recientes"
+RESUME=$("$PY" -m an_kla --project-root "$RAIZ" resume --query "$CONSULTA" --budget "$BUDGET_BASE" 2>/dev/null)
 RC=$?
+if [ $RC -ne 0 ]; then
+  RESUME=$("$PY" -m an_kla --project-root "$RAIZ" resume --query "$CONSULTA" --budget "$BUDGET_MAX" 2>/dev/null)
+  RC=$?
+  [ $RC -eq 0 ] && printf '%s\n' "{\"ts\":\"$TS\",\"tipo\":\"budget_escalado\",\"session_id\":\"$SID\",\"de\":$BUDGET_BASE,\"a\":$BUDGET_MAX}" >> "$LOG"
+fi
 
 if [ $RC -eq 0 ] && [ -n "$RESUME" ]; then
   USADO=$(printf '%s' "$RESUME" | python3 -c 'import json,sys
