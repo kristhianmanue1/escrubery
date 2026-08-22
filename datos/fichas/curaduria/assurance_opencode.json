@@ -24,7 +24,7 @@
     {
       "norma_id": "N1",
       "estado": "pendiente_de_verificar",
-      "nota": "sin_garantia_documentada_default: 'By default, opencode allows all operations without requiring explicit approval' — el mecanismo permission (ask/deny) existe (L3) pero el default es abierto; no hay protección específica de ramas/producción"
+      "nota": "sin_garantia_documentada_default: docs declaran defaults permisivos ('Most permissions default to allow', parafrasis de la fuente); el mecanismo permission (ask/deny) existe (L3) pero el default es abierto; sin proteccion especifica de ramas/produccion"
     },
     {
       "norma_id": "N2",
@@ -95,6 +95,6 @@
     "fuente_tipo": "curaduria_propia",
     "fuente_url": "docs/investigacion/hra/taxonomia-l1-l4.md + dev.opencode.ai/docs (citas por mecanismo)",
     "fecha_obtencion": "2026-08-22",
-    "hash_sha256": "sha256:54cac5b1ee88adcc2880896a6f85bfe5c2d5fa593e35e45f814759b05bb51480"
+    "hash_sha256": "sha256:21433f880b404ce7395b310cb09aea2995b6dd968362e7637b9c6222e135471d"
   }
 }

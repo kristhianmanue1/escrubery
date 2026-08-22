@@ -97,8 +97,8 @@
           "description": "Nombre concreto del mecanismo (p. ej. 'sandbox read-deny **/.env', 'hook PreToolUse con veto')."
         },
         "enforcement_verificado": {
-          "type": "boolean",
-          "description": "false en TODA L4 de fase 1 (decreto §11.3: verificacion activa diferida a H7-T4)."
+          "const": false,
+          "description": "Fase 1 (decreto §11.3): TODA L4 es documental — verificación activa diferida a H7-T4. El schema la fija en false."
         },
         "evidencia": { "$ref": "#/$defs/evidencia" }
       }

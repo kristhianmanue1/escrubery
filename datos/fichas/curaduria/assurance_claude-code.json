@@ -177,7 +177,7 @@
       "mecanismos": [
         {
           "peldano": "L3",
-          "donde": "Privacy safeguards: retención limitada, acceso restringido a sesiones, control de training opt-out, credenciales en Keychain; WebFetch con contexto aislado; OpenTelemetry opt-in",
+          "donde": "Network request approval: en Manual mode la mayoria de herramientas de red piden aprobacion por defecto (WebFetch con contexto aislado); ademas privacy safeguards declarados (retencion limitada, credenciales en Keychain, telemetria opt-in)",
           "evidencia": {
             "fuente_url": "https://docs.anthropic.com/en/docs/claude-code/security",
             "fecha_obtencion": "2026-08-22",
@@ -194,6 +194,6 @@
     "fuente_tipo": "curaduria_propia",
     "fuente_url": "docs/investigacion/hra/taxonomia-l1-l4.md + docs oficiales citadas por mecanismo",
     "fecha_obtencion": "2026-08-22",
-    "hash_sha256": "sha256:d51ec7620f84ac4943f51ec0484e035c320cd7620ee7db96187765f1c194234d"
+    "hash_sha256": "sha256:0c4455830b47f217a246d3253dc853fb496752b9cc10dc2a55822ebe927915f0"
   }
 }

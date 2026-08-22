@@ -82,3 +82,9 @@ Se clasifica la **terna** `{cli, perfil, norma_id}`:
 3. Nunca clasificar sin cita; la celda sin cita es `pendiente_de_verificar`, punto.
 4. Nunca mezclar peldaños de distintos perfiles en una fila.
 5. La clasificación de claude-code (y de cualquier CLI que sea harness del clasificador) requiere **revisor adversarial independiente** (decreto de gobernanza, propuesta §10.C).
+
+## 6. Casos fronterizos (ronda adversarial H7, 2026-08-22)
+
+**Filtros deterministas con bypass declarado (antes "L3 estirado"):** un mecanismo del runtime que bloquea deterministamente UNA vía de la norma pero con bypass documentado por otra vía (kimi N2: Grep/Glob filtran `.env` pero `Read` directo no; opencode N2: `read` niega `*.env` pero `bash cat` no) se clasifica en el peldaño del mecanismo de MAYOR alcance con nota explícita del bypass. No es L4 porque la norma no está cerrada; no baja de L3 si el filtro es determinista del runtime (no autorreporte del modelo) y su activación/bloqueo queda en registro o configuración verificable. El contraste es cline N3 (L1): allí ni siquiera existe lista del runtime — la clasificación la hace el modelo.
+
+**Cita sustantiva vs literal:** la evidencia puede citar la sustancia de la fuente aunque la cadena entrecomillada no sea literal (p. ej. paráfrasis de default), PERO si se entrecomilla, la cadena debe existir literalmente en la fuente citada (hallazgo MED-1 corregido: codex N1).

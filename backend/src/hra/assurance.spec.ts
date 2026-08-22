@@ -91,13 +91,15 @@ describe('schema escrubery/assurance/v0', () => {
     }
   });
 
-  it('norma L4 sin enforcement_verificado=false → inválida (decreto §11.3)', () => {
+  it('norma L4 con enforcement_verificado=true → inválida (decreto §11.3, const del schema)', () => {
     const f = fichaBase();
     (
       f.normas[0].mecanismos![0] as { enforcement_verificado?: boolean }
     ).enforcement_verificado = true;
-    // el schema no exige false literal, pero la regla de fase 1 se aplica en curaduría;
-    // aquí validamos el tipo: valor no-boolean rompe
+    const r = validarFichaAssurance(f);
+    expect(r.valido).toBe(false);
+    expect(r.errores?.some((x) => x.keyword === 'const')).toBe(true);
+    // y el tipo roto tampoco pasa
     const f2 = fichaBase();
     (
       f2.normas[0].mecanismos![0] as unknown as {

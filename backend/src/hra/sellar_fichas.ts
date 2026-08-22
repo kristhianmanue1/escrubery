@@ -3,6 +3,7 @@ import { join } from 'node:path';
 import {
   validarFichaAssurance,
   selfHashAssurance,
+  calcularDistribucion,
   type FichaAssurance,
 } from './assurance';
 
@@ -29,8 +30,11 @@ function main(): void {
 
     // En modo --fijar se re-sella primero (el hash placeholder no pasaría la
     // validación de pattern); en modo verificación, el hash debe ya estar bien.
+    // OJO: excluir procedencia de verdad (destructuring), no solo el tipo —
+    // incluir el hash previo en el cálculo haría el hash inestable.
     if (fijar) {
-      const contenido: Omit<FichaAssurance, 'procedencia'> = ficha;
+      const { procedencia: _ignorada, ...contenido } = ficha;
+      void _ignorada;
       ficha.procedencia.hash_sha256 = selfHashAssurance(contenido);
       writeFileSync(ruta, JSON.stringify(ficha, null, 2) + '\n');
     }
@@ -52,19 +56,27 @@ function main(): void {
       fallos++;
       continue;
     }
-    // La distribución debe cuadrar con las normas (con capa N9 si el gate está abierto)
+    // La distribución debe cuadrar con las normas RE-CALCULADA (MED-2 adversarial:
+    // la suma sola no detecta distribución mentirosa re-sellada). Se recalcula con
+    // la misma regla del módulo, incluida la capa N9 si el gate está abierto.
     const gateAbierto = ficha.n9_gate.estado === 'gate_abierto_verificado';
     const d = ficha.distribucion_garantia;
-    const suma = d.L1 + d.L2 + d.L3 + d.L4 + d.pendiente;
-    if (suma !== ficha.normas.length) {
+    const dReal = calcularDistribucion(ficha.normas, gateAbierto);
+    const misma =
+      d.L1 === dReal.L1 &&
+      d.L2 === dReal.L2 &&
+      d.L3 === dReal.L3 &&
+      d.L4 === dReal.L4 &&
+      d.pendiente === dReal.pendiente;
+    if (!misma) {
       console.error(
-        `✗ ${nombre}: distribución suma ${suma} ≠ ${ficha.normas.length} normas`,
+        `✗ ${nombre}: distribución declarada {L1:${d.L1},L2:${d.L2},L3:${d.L3},L4:${d.L4},pend:${d.pendiente}} ≠ recalculada {L1:${dReal.L1},L2:${dReal.L2},L3:${dReal.L3},L4:${dReal.L4},pend:${dReal.pendiente}}`,
       );
       fallos++;
       continue;
     }
     console.log(
-      `✓ ${nombre}: válido · n9=${ficha.n9_gate.estado} · L1:${d.L1} L2:${d.L2} L3:${d.L3} L4:${d.L4} pend:${d.pendiente}${gateAbierto ? ' (gate N9 abierto: L4 quedarían capadas)' : ''}`,
+      `✓ ${nombre}: válido · n9=${ficha.n9_gate.estado} · L1:${d.L1} L2:${d.L2} L3:${d.L3} L4:${d.L4} pend:${d.pendiente}${gateAbierto && d.L4 === dReal.L4 && d.L4 > 0 ? ' (L4 reportadas ya capadas por N9)' : gateAbierto ? ' (gate N9 abierto)' : ''}`,
     );
   }
   process.exit(fallos > 0 ? 1 : 0);

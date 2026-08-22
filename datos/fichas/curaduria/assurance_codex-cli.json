@@ -29,7 +29,7 @@
       "mecanismos": [
         {
           "peldano": "L4",
-          "donde": "Sandbox del SO (macOS Seatbelt / Linux bwrap+seccomp): escrituras limitadas al workspace; fail-closed ('refuses to run the command instead of silently running it unsandboxed'); .git read-only dentro de raíces escribibles (protege ramas/historial)",
+          "donde": "Sandbox del SO (macOS Seatbelt / Linux bwrap+seccomp): 'OS-level mechanisms enforce sandbox policies. Defaults include no network access and write permissions limited to the active workspace'; escrituras limitadas al workspace; .git read-only dentro de raíces escribibles (protege ramas/historial)",
           "enforcement_verificado": false,
           "evidencia": {
             "fuente_url": "https://developers.openai.com/codex/agent-approvals-security",
@@ -140,6 +140,6 @@
     "fuente_tipo": "curaduria_propia",
     "fuente_url": "docs/investigacion/hra/taxonomia-l1-l4.md + developers.openai.com/codex (citas por mecanismo)",
     "fecha_obtencion": "2026-08-22",
-    "hash_sha256": "sha256:19da64a1579b20a5e6b8b8e0c0090c7d09d06d11c189749d8ce8bace4989db05"
+    "hash_sha256": "sha256:6a69f64534ce35a2bb7106d6a58a76ff661077731550fe87a015c3a58cf61053"
   }
 }
