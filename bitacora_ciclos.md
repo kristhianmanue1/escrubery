@@ -499,4 +499,4 @@ Propuesta: `docs/investigacion/Propuesta_Harness_Runtime_Assurance.md` v0.2 (dec
 
 **Residuales (tarjeta):** R1 artefacto hermano con número mayor · R2 ventana copada por el otro artefacto · R3 reset legítimo hacia abajo — mitigación común si ocurren: denylist de prefijos por CLI o filtro por asset/nombre.
 
-**Estado:** ticket EJECUTADO, pendiente de decreto de cierre del Mediador; commits por ruta explícita; sin push.
+**Estado: CERRADO por decreto del Mediador (2026-08-28, "adelante con pendientes")**; commits por ruta explícita pusheados a `origin/main` el mismo día.

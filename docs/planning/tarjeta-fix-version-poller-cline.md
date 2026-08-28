@@ -1,8 +1,8 @@
-# Tarea: fix-version-poller-cline (EJECUTADA 2026-08-28; adversarial `proceed`; pendiente de decreto de cierre)
+# Tarea: fix-version-poller-cline (CERRADA 2026-08-28 por decreto del Mediador "adelante con pendientes")
 
-**Estado:** EJECUTADA — DoD 1–5 por ejecución; ronda adversarial independiente
-`proceed` (2026-08-28, verificaciones A–J con evidencia ejecutada; hallazgos
-MED-1/LOW-1/2/3 aplicados en esta revisión). **Fecha:** 2026-08-28.
+**Estado:** CERRADA — decreto del Mediador 2026-08-28. DoD 1–5 por ejecución;
+ronda adversarial independiente `proceed` (verificaciones A–J con evidencia
+ejecutada; hallazgos MED-1/LOW-1/2/3 aplicados). **Fecha:** 2026-08-28.
 **Origen:** incidente detectado al triar las capturas sandbox pendientes — la
 introspección semanal de cline falla desde el 2026-08-25 (exit 2 ese día) y
 `cli_productos.version_actual` de cline está contaminada en BD.
