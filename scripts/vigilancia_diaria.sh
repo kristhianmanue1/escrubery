@@ -119,6 +119,17 @@ main();
 " "$1"
 }
 
+# ¿La versión candidata ($1) es semver-Mayor que la base ($2)? Exit 0 solo si
+# sí; igualdad o indecidible (alguna no parseable) → exit 1 (fail-closed:
+# nunca rebuild hacia abajo; incidente cline desktop-v0.0.17, 2026-08-28).
+version_es_mayor() {
+  [ "$1" = "$2" ] && return 1
+  node --env-file=.env --import tsx -e "
+import { versionMayor } from './src/evidentia/versiones';
+process.exit(versionMayor(process.argv[1] ?? '', process.argv[2] ?? '') ? 0 : 1);
+" "$1" "$2"
+}
+
 # Construye la imagen del CLI con la version indicada (build-arg); falla con
 # nota y FALLOS+1 (resiliente: el resto de la corrida continúa).
 construir() {
@@ -152,14 +163,15 @@ if command -v "$DOCKER_BIN" >/dev/null 2>&1 && "$DOCKER_BIN" info >/dev/null 2>&
       if ! construir "$cli" "$IMAGEN" "latest"; then continue; fi
     else
       # Version del binario del sandbox vs version_publicada (poller) en BD:
-      # divergen -> rebuild con --build-arg VERSION (la capa npm se invalida
+      # rebuild solo si la publicada es semver-Mayor (la capa npm se invalida
       # naturalmente porque cambia el comando; sin --no-cache, presupuesto ~0).
+      # "!=" admitía contaminación hacia abajo (incidente cline 2026-08-28).
       V_SANDBOX=$("$DOCKER_BIN" run --rm "$IMAGEN" --version 2>/dev/null | grep -oE '[0-9]+\.[0-9]+[0-9.]*([-._][0-9A-Za-z.]+)?' | head -1)
       V_BD=$(consultar_version "$cli")
       if [ -z "$V_BD" ]; then
         echo "   aviso: sin version_publicada en BD para $cli (¿query fallo?); sin rebuild"
-      elif [ -n "$V_SANDBOX" ] && [ "$V_SANDBOX" != "$V_BD" ]; then
-        echo "   versión sandbox ($V_SANDBOX) != publicada ($V_BD): rebuild @${V_BD}"
+      elif [ -n "$V_SANDBOX" ] && version_es_mayor "$V_BD" "$V_SANDBOX"; then
+        echo "   versión publicada ($V_BD) > sandbox ($V_SANDBOX): rebuild @${V_BD}"
         if ! construir "$cli" "$IMAGEN" "$V_BD"; then continue; fi
       fi
     fi

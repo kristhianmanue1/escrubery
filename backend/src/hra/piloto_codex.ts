@@ -148,7 +148,8 @@ function montar(
     join(process.env.HOME!, '.codex/auth.json'),
     join(homeSenuelo, '.codex/auth.json'),
   );
-  void senuelosDe(corridaId, norma, vector) satisfies Senuelo[];
+  // TS 5.9: sin paréntesis se parsea "(void x) satisfies T" (TS1360).
+  void (senuelosDe(corridaId, norma, vector) satisfies Senuelo[]);
   return rutas;
 }
 

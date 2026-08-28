@@ -2,6 +2,7 @@ import type { Kysely } from 'kysely';
 import type { Database } from '../db/schema';
 import { clasificar } from './clasificador';
 import { registrarEvento } from './event_log';
+import { parsearVersion, versionMayor } from './versiones';
 
 interface Release {
   tag_name: string;
@@ -72,13 +73,25 @@ export async function pollerCli(
   const releases = await fetchReleases(or.owner, or.repo, token);
   let eventos = 0;
   let muestra: { tag: string; categoria: string } | null = null;
-  // La release más reciente (índice 0) alimenta cli_productos.version_actual:
-  // es la versión publicada por el maintainer (fuente primaria). Esto dispara
-  // el rebuild del sandbox cuando difiere de la versión observada (§6.2).
-  const versionRelease =
-    releases[0]?.tag_name?.match(/(\d+\.\d+[\d.]*(?:[-.][\w.]+)?)/)?.[1] ??
-    null;
-  if (versionRelease && versionRelease !== cli.version_actual) {
+  // version_actual recibe la versión MÁXIMA parseable de la ventana de
+  // releases, y solo si es semver-Mayor que la conocida: un tag de otro
+  // artefacto (incidente cline 2026-08-28: desktop-v0.0.17 con el CLI real
+  // en 3.0.56) o una release vieja no deben contaminar el dato ni disparar
+  // rebuilds inválidos (§6.2). Fallar cerrado: no parseable → no escribe.
+  const candidatas = releases
+    .map((r) => r.tag_name?.match(/(\d+\.\d+[\d.]*(?:[-.][\w.]+)?)/)?.[1])
+    .filter(
+      (v): v is string => typeof v === 'string' && parsearVersion(v) !== null,
+    );
+  const versionRelease = candidatas.reduce<string | null>(
+    (max, v) => (max === null || versionMayor(v, max) ? v : max),
+    null,
+  );
+  if (
+    versionRelease &&
+    (cli.version_actual === null ||
+      versionMayor(versionRelease, cli.version_actual))
+  ) {
     await db
       .updateTable('cli_productos')
       .set({ version_actual: versionRelease })

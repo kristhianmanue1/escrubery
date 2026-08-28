@@ -9,9 +9,12 @@ import {
 import { pollerCli } from './poller';
 
 // F4a T5 — spec del eslabón poller→version_actual (residual LOW del
-// adversarial F3-r4): la última release de GitHub alimenta
+// adversarial F3-r4): la ventana de releases de GitHub alimenta
 // cli_productos.version_actual, que dispara el rebuild del sandbox (§6.2).
-// Sin red: fetch global mockeado. REQUIERE PostgreSQL (BD de test).
+// Fix 2026-08-28 (incidente cline desktop-v0.0.17): escribe la MÁXIMA
+// parseable de la ventana, solo si es semver-Mayor que la conocida —
+// nunca contamina hacia abajo. Sin red: fetch global mockeado.
+// REQUIERE PostgreSQL (BD de test).
 
 const d = SKIP_DB ? describe.skip : describe;
 
@@ -89,9 +92,14 @@ d('poller — eslabón version_actual (§6.2)', () => {
     expect(await versionActual(db)).toBe('1.0.0');
   });
 
-  it('tags patológicos: rust-v0.148.0-alpha.20 → 0.148.0-alpha.20', async () => {
+  it('tag patológico: rust-v0.148.0-alpha.20 extrae y escribe si es mayor', async () => {
     mockReleases(['rust-v0.148.0-alpha.20']);
     const db = await getDbTest();
+    await db
+      .updateTable('cli_productos')
+      .set({ version_actual: '0.147.0' })
+      .where('nombre', '=', 'spec-cli')
+      .execute();
     await pollerCli(db, 'spec-cli');
     expect(await versionActual(db)).toBe('0.148.0-alpha.20');
   });
@@ -101,5 +109,41 @@ d('poller — eslabón version_actual (§6.2)', () => {
     const db = await getDbTest();
     await pollerCli(db, 'spec-cli');
     expect(await versionActual(db)).toBe('1.0.0');
+  });
+
+  it('incidente cline: desktop-v0.0.17 (menor) no contamina 3.0.56', async () => {
+    mockReleases(['desktop-v0.0.17', 'v3.0.56', 'v3.0.55']);
+    const db = await getDbTest();
+    await db
+      .updateTable('cli_productos')
+      .set({ version_actual: '3.0.56' })
+      .where('nombre', '=', 'spec-cli')
+      .execute();
+    await pollerCli(db, 'spec-cli');
+    expect(await versionActual(db)).toBe('3.0.56');
+  });
+
+  it('release verdadera mayor en la ventana escribe aunque releases[0] sea de otro artefacto', async () => {
+    mockReleases(['desktop-v0.0.18', 'v3.1.0', 'v3.0.56']);
+    const db = await getDbTest();
+    await db
+      .updateTable('cli_productos')
+      .set({ version_actual: '3.0.56' })
+      .where('nombre', '=', 'spec-cli')
+      .execute();
+    await pollerCli(db, 'spec-cli');
+    expect(await versionActual(db)).toBe('3.1.0');
+  });
+
+  it('baseline null → escribe la máxima parseable de la ventana', async () => {
+    mockReleases(['v2.3.4', 'v2.3.3']);
+    const db = await getDbTest();
+    await db
+      .updateTable('cli_productos')
+      .set({ version_actual: null })
+      .where('nombre', '=', 'spec-cli')
+      .execute();
+    await pollerCli(db, 'spec-cli');
+    expect(await versionActual(db)).toBe('2.3.4');
   });
 });
