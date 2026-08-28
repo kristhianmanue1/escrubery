@@ -479,3 +479,24 @@ Propuesta: `docs/investigacion/Propuesta_Harness_Runtime_Assurance.md` v0.2 (dec
 **Decreto del Mediador (2026-08-22): FE DE ERRATAS AUTORIZADA** sobre `docs/investigacion/probes/DECISION_ADAPTADORES.md` — nota al pie fechada, sin reescribir el histórico ni la release v0.5.0. Cifra válida: **20/5/10**. Mecanismo verificado por ejecución del Ejecutor: CE-T5 cerró en 16/4/8 sobre 28 celdas y la columna claude-code de CE-T6 aporta 4 ok / 1 parcial / 2 nd → 20/5/10; el resumen se actualizó como si aportara 5 ok y 1 nd. **Consumidor externo afectado:** skopos recibió el documento el 2026-08-22 — la cifra corregida debería acompañar la próxima notificación cruzada.
 
 **Balance del hito H9:** 0.75 ciclos gastados (plan r1+r2 y dos rondas adversariales), 0 ciclos de implementación, ciclo no abierto. **Valor obtenido pese a no ejecutarse:** un error aritmético heredado de H6 corregido y notificable a un consumidor externo, cuatro lecciones metodológicas durables, y la confirmación empírica de que la ronda independiente encuentra una clase de defecto que la autorrevisión no alcanza — a coste de un subagente frente a los 3.5 ciclos que habría costado descubrirlo implementando.
+
+---
+
+## Post-v0.5.0 — Operación (2026-08-28): capturas pendientes + ticket fix-version-poller-cline
+
+| Fecha | Trabajo | est. | reales | desv. | Evidencia |
+|---|---|---|---|---|---|
+| 2026-08-28 | Commit de capturas sandbox pendientes (08-24→27) | 0.25 | 0.25 | 0 | `107dd64`: 14 capturas (diarios ×4 días + semanales del lunes 25: kimi, qwen); allow-list `datos/fuentes/` del gate. El triaje detectó la ausencia de capturas de cline → origen del ticket siguiente |
+| 2026-08-28 | Ticket `fix-version-poller-cline` (decreto "sí, ticket ya"; tarjeta `docs/planning/tarjeta-fix-version-poller-cline.md`) | 0.75 | 1 | +0.25 | Ver notas; adversarial independiente `proceed` (A–J por ejecución); CI verde 239/239 |
+
+**Incidente (cadena verificada en log 2026-08-25 y código):** cline/cline publicó `desktop-v0.0.17` (release de OTRO artefacto, Cline Desktop; el CLI real iba por 3.0.56). El poller extrajo `0.0.17` del tag y lo escribió en `version_actual` (condición: *difiere*); vigilancia detectó divergencia (sandbox 3.0.56 ≠ BD 0.0.17) y lanzó rebuild con `cline@0.0.17` — inexistente en npm → fallo, corrida del 25/08 exit 2, cline sin introspección desde el 22/08 (vigencias congeladas) y fallo recurrente cada lunes. Caso patológico fuera de la validación de F3-T3 (9 tags).
+
+**Fix (elimina la clase, no el caso):** comparador semver mínimo casero en `backend/src/evidentia/versiones.ts` (fail-closed: indecidible → no decide) + gate unidireccional en los DOS eslabones: el poller escribe la versión MÁXIMA parseable de la ventana de releases **solo si es semver-Mayor** que la conocida (baseline null → escribe), y vigilancia reconstruye **solo si publicada > sandbox**. La BD se reparó por la fuente primaria (no UPDATE manual): re-introspección de cline → `version_actual = 3.0.60` (el `@latest` de npm avanzó dos versiones durante el congelamiento — la imagen sandbox-cline además había desaparecido de Docker y se reconstruyó con la receta de vigilancia), 15/15 comandos con vigencias al 2026-09-04, help idéntico (hash estable `b025dc419257…`), 0 eventos nuevos en la cadena.
+
+**Hallazgo colateral (fuera de alcance, declarado en el commit):** `npm run build` estaba ROTO en HEAD desde `58855cd` (VA-T1): TS 5.9 parsea `void x satisfies T` como `(void x) satisfies T` → TS1360 en `piloto_codex.ts:151`. Ninguna corrida de build completa pasó después de ese commit — el gate r1/r2 de H7-T4 no la incluía en su checklist (lección de gate). Fix mínimo: paréntesis.
+
+**Adversarial de cierre (subagente independiente): `proceed`** con 1 MED aplicado (R3: reset legítimo de numeración hacia abajo queda como residual declarado) y 3 LOW aplicados (enmienda DoD-4 3.0.56→3.0.60; `01.0.0` se normaliza — inofensivo; bitácora). Verificó por ejecución: incidente reproducido, specs no tautológicas (fallarían contra el código viejo), CI 239/239, 25 casos límite del comparador sin falsos positivos, intento de inyección en el helper shell neutro, BD y hash de captura byte a byte, fix de piloto_codex mínimo y preexistente.
+
+**Residuales (tarjeta):** R1 artefacto hermano con número mayor · R2 ventana copada por el otro artefacto · R3 reset legítimo hacia abajo — mitigación común si ocurren: denylist de prefijos por CLI o filtro por asset/nombre.
+
+**Estado:** ticket EJECUTADO, pendiente de decreto de cierre del Mediador; commits por ruta explícita; sin push.
