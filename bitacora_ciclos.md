@@ -502,3 +502,53 @@ Propuesta: `docs/investigacion/Propuesta_Harness_Runtime_Assurance.md` v0.2 (dec
 **Residuales (tarjeta):** R1 artefacto hermano con número mayor · R2 ventana copada por el otro artefacto · R3 reset legítimo hacia abajo — mitigación común si ocurren: denylist de prefijos por CLI o filtro por asset/nombre.
 
 **Estado: CERRADO por decreto del Mediador (2026-08-28, "adelante con pendientes")**; commits por ruta explícita pusheados a `origin/main` el mismo día.
+
+---
+
+## Post-v0.5.0 — Operación (2026-09-02): incidente watcher codex-turn + vigencia Docker
+
+| Fecha | Trabajo | est. | reales | desv. | Evidencia |
+|---|---|---|---|---|---|
+| 2026-09-02 | Incidente: watcher `codex_turn_watcher.py` sonando indefinidamente — diagnóstico, mitigación e issue #4 | 0.25 | 0.5 | +0.25 | Ver notas; issue https://github.com/kristhianmanue1/escrubery/issues/4 |
+
+**Incidente (cadena verificada en log y código):** el watcher externo (`~/.local/share/escrubery/codex_turn_watcher.py`, servicio launchd `com.escrubery.codex-turn-watcher`, instalado 2026-08-12 — suena `Glass.aiff` ante cada `task_complete` en `~/.codex/sessions`) acumuló decenas de `afplay` en bucle. Causa raíz: los rollouts nuevos de codex se **reescriben en sitio** (líneas parciales que se completan, no append-only); el watcher rastrea por `st_size` y al detectar truncado reinicia el offset a 0, **re-reproduciendo el mismo evento** (log: mismo `event_time=16:12:38.7xx` detectado decenas de veces). Es la **misma clase de defecto C3 de H9** (ancla inestable ante reescritura en sitio), esta vez en producción doméstica. Hallazgo colateral: `notify = […SkyComputerUseClient, "turn-ended"]` nativo en `~/.codex/config.toml` (pieza separada, no era el bucle).
+
+**Mitigación aplicada (conservadora, no destructiva):** `notify` comentado en el config (preservado en comentario); `launchctl unload` del servicio (script y plist conservados, no rearranca sin fix + re-carga); `pkill` de los `afplay` — verificado silencio y servicio descargado. Corrección propuesta en issue #4 con DoD ejecutable y criterio falsable (fixture de rollout reescrito N veces → exactamente 1 sonido por evento único). **Pendiente de decreto del Mediador:** reactivar el watcher tras fix, o dejarlo descargado.
+
+**Vigilancia del día:** Docker caído a las 15:00Z → F3 omitida (ALERTA `introspeccion_omitida`, exit 10, semántica de T5 operando según diseño); alertas: `qwen-code v0.22.2 fix_seguridad` (prioridad de actualización, pendiente de triaje), `claude-code v2.1.257 breaking_change`, `cline desktop-v0.0.20 breaking_change` (patrón artefacto-hermano, ya cubierto por el gate semver — sin write ni rebuild, verificado en log 08-31). Docker relanzado por el Mediador al cierre de la sesión; **pendiente:** commitear 15 capturas sandbox 08-28→09-01 (sin trackear, por ruta explícita) y confirmar introspección F3 en la corrida siguiente.
+
+---
+
+## Post-v0.5.0 — Operación (2026-09-03): reaparición del sonido y deshabilitación persistente
+
+| Fecha | Trabajo | est. | reales | desv. | Evidencia |
+|---|---|---|---|---|---|
+| 2026-09-03 | Recurrencia del sonido: diagnóstico de las dos fuentes (watcher re-cargado + `notify` re-agregado) y mitigación persistente | 0 | 0.25 | +0.25 | Ver notas; verificación por ejecución en la sesión |
+
+**Cadena de la reaparición (verificada por ejecución):** la mitigación del 09-02 tenía dos huecos. (1) El `launchctl unload` **no sobrevive al reinicio**: el plist en `~/Library/LaunchAgents/` se re-carga en cada login — el servicio aparecía de nuevo en `launchctl list` con PID 1107. (2) La línea `notify = […SkyComputerUseClient, "turn-ended"]` en `~/.codex/config.toml` **volvió a estar activa** (re-agregada tras el comentario del 09-02 — sospechoso: el propio codex reescribe su config). Con el watcher sonando por el hueco (1) y la notificación nativa por el (2), el sonido regresó.
+
+**Mitigación persistente (conservadora, no destructiva):** `launchctl bootout` + `launchctl disable gui/$UID/com.escrubery.codex-turn-watcher` — el disable queda en la base de overrides de launchd y **sobrevive reinicios**; script y plist intactos. `notify` re-comentado con fecha 2026-09-03 (original preservado en comentario). Verificado al cierre: sin procesos `afplay`/watcher, sin línea `notify` activa en el config, servicio en `print-disabled` como disabled.
+
+**Residual declarado:** la línea `notify` podría volver si codex reescribe su config (el disable del servicio sí es persistente). Si vuelve a sonar con el watcher deshabilitado, el sospechoso único es esa línea. Fix durable: issue #4 (dedup por hash de evento, no por tamaño).
+
+**Vigilancia del día:** Docker caído de nuevo → F3 omitida (2º día consecutivo; introspección congelada desde 09-01, el relanzado por el Mediador el 09-02 volvió a caer). Cadena OK: 222 eventos, checkpoint #18 + TSR + custodia pusheada (anclaje `12d42e4`); 0 alertas alta severidad. El pendiente del 09-02 "confirmar introspección F3 en la corrida siguiente" queda **NO confirmado**.
+
+---
+
+## Post-v0.5.0 — Operación (2026-09-03b): ticket gate-fuente-primaria-versiones + recuperación F3 + reparación cline
+
+| Fecha | Trabajo | est. | reales | desv. | Evidencia |
+|---|---|---|---|---|---|
+| 2026-09-03 | Ticket `gate-fuente-primaria-versiones` (autorización "adelante"): gate de existencia en npm antes de escribir `version_actual` | 0.75 | 0.5 | -0.25 | Tarjeta `docs/planning/tarjeta-gate-fuente-primaria-versiones.md`; ver notas |
+| 2026-09-03 | Corrida de recuperación de vigilancia (Docker arriba): F3 del trío diario al día + checkpoint #19 | 0 | 0.1 | +0.1 | Log `vigilancia-2026-09-03T212*.log`: exit 0; ver notas |
+| 2026-09-03 | Reparación de cline por fuente primaria (sin UPDATE manual) | 0 | 0.1 | +0.1 | `version_actual` 4.1.17 → **3.0.61**; ver notas |
+
+**Hallazgo que origina el ticket (verificado por ejecución):** `cline.version_actual = 4.1.17` en BD era falsa — el paquete npm `cline` real va por 3.0.61; el `4.1.17` proviene del tag `v4.1.17` de `cline/cline` (línea extensión/desktop, clasificada `cambio_precio` por el propio poller). Es la **manifestación del residual R1** de fix-version-poller-cline: el gate semver del 08-28 bloquea hacia abajo, pero un artefacto hermano con número *mayor* lo atraviesa. Segundo caso de la clase el mismo día: grok-cli-community BD=1.1.7 vs npm `grok-cli`=1.0.5. Riesgo inminente: el rebuild del lunes vería `publicada (4.1.17) > sandbox (3.0.60)` → `npm install cline@4.1.17` (404) → recaída del incidente del 08-25, más flip-flop semanal poller↔introspección.
+
+**Fix (elimina la clase):** gate de fuente primaria en `backend/src/evidentia/poller.ts` — antes de escribir `version_actual`, si el CLI tiene paquete npm mapeado (`PAQUETE_NPM`, extraído de los `Dockerfile.*` que es cómo el sandbox instala de verdad, verificado con `npm view` el mismo día), se exige que la versión exista: `GET registry.npmjs.org/<pkg>/<ver>` → 200 escribe; 404 no escribe con `nota_version {razon: ausente_en_npm}` en el resultado (decisión visible, no silenciosa); otro status/red caída → fail-closed no escribe (`npm_indisponible`, timeout 10s). El changelog/Evidentia NO se toca (los tags siguen alimentando eventos). Mapeo inyectable para specs; grok-build (instalador curl, sin npm) conserva semver-only. **Verificación:** suite 252/252 (14 del spec de poller), build OK, eslint OK, check_sizes OK; **no-tautología probada**: contra el poller viejo los 5 specs nuevos del gate fallan. No se rompen los prereleases de codex (0.154.0-alpha.1 SÍ existe en npm → el gate lo deja pasar; verificado). **Adversarial independiente: `proceed`** (DoD 1–7 verificados por ejecución; 15 versiones npm reales cruzadas por el pipeline sin falsos rechazos; changelog intacto en el diff) — hallazgos aplicados: H1 aplazamiento de grok-cli-community declarado en tarjeta (su BD sigue en 1.1.7/npm-404 hasta resolver D1/ToS: sin sandbox ni introspección pautada no hay fuente primaria; el valor no dispara rebuilds y el gate evita re-contaminación), H2 residual de regex con sufijos de plataforma declarado (dirección segura: no-escribe; 0 tags con sufijo en openai/codex a hoy), H3 cifra de suite corregida. **Pendiente:** commit autorizado ("adelante con comit") por ruta explícita.
+
+**Recuperación F3 (misma sesión, con el gate nuevo activo vía tsx):** corrida manual de `vigilancia_diaria.sh` → **exit 0**: rebuilds legítimos opencode @1.18.27, claude-code @2.1.259, codex-cli @0.154.0-alpha.1 (las tres existen en sus paquetes npm — DoD-7), introspección al día (help hash opencode `95a31820dc2a`, codex `50647aa27059`), 0 alertas, checkpoint #19 + sello + custodia pusheada. La F3 semanal (kimi/qwen/grok/cline pasivos) toca ≥ 2026-09-09 (ultima_semanal 09-02).
+
+**Reparación cline:** rebuild del sandbox con `VERSION=3.0.61` explícita (con `latest` Docker sirvió la capa cacheada de 3.0.60 — lección: `latest` no invalida cache) → re-introspección: `version_actual = 3.0.61` (HTTP 200 en npm), 15 comandos con vigencias al 09-10, help hash estable `b025dc419257` (idéntico al 08-28: cero cambio de superficie). Captura `datos/fuentes/sandbox/cline/2026-09-03T21:34:42.169Z.txt`. Con BD en 3.0.61 y el gate nuevo, el lunes: poller rechaza v4.1.17 con nota y el rebuild-gate ve igualdad — clase cerrada.
+
+**Pendientes de la sesión (todos requieren decreto/autorización):** commit por ruta explícita (tarjeta + poller + spec + bitácora + 19 capturas sandbox 08-28→09-03); triaje `qwen-code v0.22.2 fix_seguridad` (del 09-02, sigue abierto); reparación de grok-cli-community aplazada a D1/ToS (ver ticket gate-fuente-primaria-versiones).
