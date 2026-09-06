@@ -56,8 +56,8 @@ Toda respuesta incluye su bloque de `procedencia` (fuente, fecha, hash). Las fic
 El proyecto pertenece a un ecosistema de herramientas de gobernanza de IA y es desarrollado y consumido por agentes:
 
 - **ADRC** (marco Arquitecto/Controlador LLM + Desarrollador/Ejecutor LLM + Mediador humano): metodología de desarrollo del propio proyecto y primer consumidor del servicio.
-- **[CAGF](../constitutional-ai-governance)** (Constitutional AI Governance Framework): fuente de los patrones de firma y cadena de custodia que el servicio adopta corregidos (clave por servicio, canonicalización JCS/RFC 8785, checkpoint firmado del tip).
-- **[expertoGobernanza](../expertoGobernanza)**: consumidor externo confirmado (resolución de identidad de modelos, metadatos ToS por proveedor, disponibilidad de CLIs).
+- **[CAGF](https://github.com/kristhianmanue1/constitutional-ai-governance)** (Constitutional AI Governance Framework): fuente de los patrones de firma y cadena de custodia que el servicio adopta corregidos (clave por servicio, canonicalización JCS/RFC 8785, checkpoint firmado del tip).
+- **[expertoGobernanza](https://github.com/kristhianmanue1/expertoGobernanza)**: consumidor externo confirmado (resolución de identidad de modelos, metadatos ToS por proveedor, disponibilidad de CLIs).
 
 ## Stack previsto
 
