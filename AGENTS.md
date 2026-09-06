@@ -79,6 +79,7 @@ python3 scripts/check_sizes.py                # gate duro de tamaños (política
 - JSON con `indent=2`, `ensure_ascii=False`, claves ordenadas — igual que la salida de los scripts existentes.
 - Cada ticket deja evidencia verificable: comando ejecutado y salida, o test que pasa.
 - Bitácora de ciclos en `bitacora_ciclos.md` (fase, ticket, ciclos estimados/reales, desviación) — el Ejecutor la actualiza al cerrar cada ticket.
+- **Cuerpo normativo de proceso: [skevi](https://github.com/kristhianmanue1/skevi) v1** (adopción limitada, ADR-0001): las tarjetas nuevas declaran `Clase` (Spike/Bounded/Architectural) por disparadores observables, con ratchet ascendente; en planes multi-tarea el plan es dueño del DoD y las tarjetas lo referencian. Ver `docs/architecture/0001-adopcion-limitada-skevi.md`.
 
 ## Git
 

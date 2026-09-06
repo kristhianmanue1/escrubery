@@ -597,3 +597,15 @@ Propuesta: `docs/investigacion/Propuesta_Harness_Runtime_Assurance.md` v0.2 (dec
 **Re-verificación 2026-09-06 (DoD 1–7, todo por ejecución):** gate exit 0 ("consistente: 6 comandos curados"); no-tautología con ficha temporal `auth login` → exit 1 con divergencia detectada; `check_sizes` OK; `json.tool` OK; 0 enlaces/rutas rotos en la guía (verificación por script); `bash scripts/ci_local.sh` VERDE 54 s (254 tests; Docker arriba); diff sin secretos, `datos/` intocado salvo la ficha curada (permitido por tarjeta).
 
 **Cierre:** commit por rutas explícitas (guía, gate, tarjeta, AGENTS.md, README.md, ficha, ci_local.sh, bitácora); issue #3 cerrado con comentario de evidencia. Pendiente no bloqueante: el gate hoy es opencode-only; extensión a otros CLIs vía `--cli` queda como candidato natural (sin decreto).
+
+---
+
+## Post-v0.5.0 — Operación (2026-09-06c): adopción limitada de skevi (ADR-0001)
+
+| Fecha | Trabajo | est. | reales | desv. | Evidencia |
+|---|---|---|---|---|---|
+| 2026-09-06 | Análisis de skevi (v1.0.0 estable, sincronizado) y adopción limitada por decreto del Mediador («adopta lo que creas conveniente») | 0.25 | 0.2 | -0.05 | ADR `docs/architecture/0001-adopcion-limitada-skevi.md`; AGENTS.md §Convenciones; ver notas |
+
+**Qué se adoptó (limitado, a la epistates ADR-0002):** (1) **clasificación de tarea por disparadores observables** (Spike/Bounded/Architectural, orden Spike→Architectural→Bounded, ratchet ascendente, ante duda la clase superior) — toda tarjeta nueva declara `Clase`; (2) **fuente única de DoD en planes multi-tarea** (el plan posee los criterios, las tarjetas los referencian); (3) fronteras de confianza explícitas (ya practicadas). **No adoptado con causa:** gate E1–E5 de planes (aplazado: rompería CI o exigiría reescribir evidencia histórica; se reevalúa con el primer plan multi-tarea real — candidata: migración Docker→servidor), contrato de tarea paralelo (las tarjetas de escrubery siguen canónicas), reescritura de historia.
+
+**Contexto de la decisión:** skevi v1.0.0 (2026-09-01, piloto infosalud) es el cuerpo normativo destilado del propio ecosistema — su history registra casos de escrubery/skopos y su manifest nombra a escrubery como plano hermano. Los hermanos ya habían formalizado: epistates (ADR-0002) y an-kla-memory (ADR-0045). Escrubery tenía 0 referencias; brechas identificadas: sin clasificación de rigor, sin regla de fuente única de DoD, sin gate de planes.
