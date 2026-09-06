@@ -555,6 +555,20 @@ Propuesta: `docs/investigacion/Propuesta_Harness_Runtime_Assurance.md` v0.2 (dec
 
 ---
 
+## Post-v0.5.0 — Operación (2026-09-06b): triaje de alertas + rumbo Docker
+
+| Fecha | Trabajo | est. | reales | desv. | Evidencia |
+|---|---|---|---|---|---|
+| 2026-09-06 | Triaje de 2 alertas (`qwen-code v0.22.2 fix_seguridad` del 09-02 + `claude-code v2.1.261 breaking_change` del día) | 0.25 | 0.25 | 0 | `var/vigilancia/triaje-2026-09-05.md`: qwen — categorización `fix_seguridad` NO corroborada por la ventana del resumen (muestra refactor breaking node-repl; detalle del fix no visible) → `pendiente_de_verificar`, rebuild ligado a la próxima F3; claude-code — sobre-clasificación evidente (adición informativa en `/status`, patrón 2.1.236), sin acción. **Acción de actualización bloqueada sin Docker local** (ver fila siguiente) |
+| 2026-09-06 | Rumbo Docker (decisión del Mediador): **migrar la F3 a servidor externo**; Docker local se apaga por consumo y SIN autostart (prueba `AutoStart=true` aplicada y revertida en la misma sesión) | 0.25 | 0.25 | 0 | La vigilancia (pollers, alertas, checkpoint) sigue local; solo la introspección F3 queda suspendida → `introspeccion_omitida` esperada mientras dure la migración. Gancho natural declarado: seam `ESCRUBERY_DOCKER_BIN` (H2/T5) apuntando a un envoltorio remoto. **Pendiente nuevo:** tarjeta de migración (procedencia de capturas desde host externo, arch/red de los hallazgos HRA, acceso ssh). Deuda heredada: rebuild qwen-code 0.22.2 + refresco de vigencias corren en la primera F3 del servidor |
+
+**Notas:**
+- El triaje registra honestamente que la categoría `fix_seguridad` de qwen no quedó corroborada: la ventana del resumen muestra el refactor breaking, no el fix — no se infiere (regla dura #4).
+- `AutoStart` de Docker Desktop: se probó `true` y se revirtió a `false` al llegar la decisión del servidor externo; la máquina queda como estaba.
+- El cierre del ticket `guia-canonica-opencode` y el decreto del watcher quedaron registrados en las secciones anteriores (sus sesiones respectivas); esta sección no los duplica.
+
+---
+
 ## Post-v0.5.0 — Operación (2026-09-05): ticket fix-watcher-codex-c3 (issue #4)
 
 | Fecha | Trabajo | est. | reales | desv. | Evidencia |
