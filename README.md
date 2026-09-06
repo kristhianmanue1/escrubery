@@ -5,13 +5,13 @@
 Responde, con datos normalizados y fuente citada:
 
 - **Modelos** (Anthropic, xAI, Google, Moonshot, Zhipu): capacidades, ventana de contexto, precios, funciones soportadas.
-- **CLIs de agente** (Claude Code, Kimi Code, Codex CLI, Grok CLI/Grok Build, Antigravity CLI, Cline): comandos, *flags*, configuración, cambios por versión.
+- **CLIs de agente** (Claude Code, Codex CLI, OpenCode, Qwen Code, Kimi Code, Cline, Grok CLI, Grok Build, Antigravity CLI): comandos, *flags*, configuración, cambios por versión.
 - **Cambios**: *changelogs* clasificados por severidad, alertas de seguridad, divergencias entre lo documentado y lo observado.
 - **Procedencia**: cada hecho registrado lleva fuente, fecha, hash y —por fases— firma Ed25519, agregación Merkle y sellado de tiempo.
 
 ## Estado del proyecto
 
-**Fase 0 en curso: la Ficha v0 ya es funcional** (ver *Uso rápido*). La documentación de diseño está en [`docs/investigacion/`](docs/investigacion/):
+**Operación continua** — Ficha v0 funcional; releases **v0.3.0 · v0.4.0 · v0.5.0** publicadas; backend **Evidentia** (NestJS + PostgreSQL) con API de consulta, pollers de changelog, alertas clasificadas y checkpoint firmado diario; **vigilancia diaria** con introspección sandbox de CLIs. El registro canónico del trabajo día a día es [`bitacora_ciclos.md`](bitacora_ciclos.md). La documentación de diseño está en [`docs/investigacion/`](docs/investigacion/):
 
 | Documento | Contenido |
 |---|---|
@@ -36,9 +36,12 @@ Sin base de datos ni dependencias (solo Python 3 stdlib):
 ./scripts/consultar comando claude-code mcp      # comandos con filtro
 ./scripts/consultar oficialidad                  # oficial vs. comunitario
 python3 scripts/generar_fichas_modelos.py        # regenerar fichas desde LiteLLM
+bash scripts/ci_local.sh                         # CI local: build + lint + 254 tests + gates (docs/CI.md)
+bash scripts/vigilancia_diaria.sh                # pollers + alertas + checkpoint firmado (docs/VIGILANCIA.md)
+python3 scripts/verificar_divergencia_opencode.py  # gate ficha↔captura sandbox (issue #3)
 ```
 
-Toda respuesta incluye su bloque de `procedencia` (fuente, fecha, hash). Las fichas de proveedores (139 modelos de 5 proveedores) se generan desde el JSON de LiteLLM; las de CLIs están curadurizadas desde la investigación.
+Toda respuesta incluye su bloque de `procedencia` (fuente, fecha, hash). Las fichas de proveedores (**188 modelos de 6 proveedores**) se generan desde el JSON de LiteLLM; las de CLIs (9 productos) están curadurizadas desde la investigación y la introspección sandbox.
 
 ## Principios de diseño
 
@@ -77,14 +80,14 @@ Este proyecto se desarrolla con agentes de IA como fuerza de trabajo, bajo estas
 
 | Fase | Entrega | Estado |
 |---|---|---|
-| 0 | Cimientos + **Ficha v0** consultable (JSON por CLI/proveedor, sin base de datos) | **En curso — Ficha v0 entregada** |
-| 1 | MVP de consulta: CLI propio + API JSON sobre PostgreSQL, consumido por agentes ADRC y expertoGobernanza | Pendiente |
-| 2 | Changelog clasificado, alertas, firma Ed25519 por evento con checkpoint | Pendiente |
-| 3 | Introspección activa automatizada (`--help` diffing por versión) | Pendiente |
-| 4 | Pruebas activas en sandbox, seguridad de red, CAGF completo (Merkle + RFC 3161) | Pendiente |
+| 0 | Cimientos + **Ficha v0** consultable (JSON por CLI/proveedor, sin base de datos) | **Entregada** |
+| 1 | MVP de consulta: CLI propio + API JSON sobre PostgreSQL, consumido por agentes ADRC y expertoGobernanza | **Operativa** — backend Evidentia (API + PostgreSQL) |
+| 2 | Changelog clasificado, alertas, firma Ed25519 por evento con checkpoint | **Operativa** — pollers + alertas + checkpoint firmado diario |
+| 3 | Introspección activa automatizada (`--help` diffing por versión) | **Operativa** — F3 en sandbox (migración a servidor externo en curso) |
+| 4 | Pruebas activas en sandbox, seguridad de red, CAGF completo (Merkle + RFC 3161) | **Parcial** — censo HRA L1–L4 y contrastes de verificación activa; Merkle/RFC 3161 pendientes |
 | 5 | Servidor MCP, Agent Card firmado, niveles de acceso | Condicional a decisión de alcance |
 
-Las duraciones se estiman en ciclos agente-nativos (lo que un Ejecutor completa y deja verificable en una sesión), no en semanas. Ver el [plan](docs/investigacion/Plan_Iterativo_Incremental_Servicio_CLI_Modelos.md) y su [análisis crítico](docs/investigacion/Analisis_Critico_Plan_y_Propuesta_de_Cambios.md).
+Las duraciones se estiman en ciclos agente-nativos (lo que un Ejecutor completa y deja verificable en una sesión), no en semanas. Ver el [plan](docs/investigacion/Plan_Iterativo_Incremental_Servicio_CLI_Modelos_v2.md) (vigente), su [análisis crítico](docs/investigacion/Analisis_Critico_Plan_y_Propuesta_de_Cambios.md), la [vigilancia](docs/VIGILANCIA.md) y la [CI local](docs/CI.md); el detalle por ticket, en la [bitácora](bitacora_ciclos.md).
 
 ## Licencia
 
