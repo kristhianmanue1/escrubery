@@ -568,3 +568,18 @@ Propuesta: `docs/investigacion/Propuesta_Harness_Runtime_Assurance.md` v0.2 (dec
 **Lecciones de la verificación:** (1) la primera simulación con prefijos CRECIENTES (0.25→1.00) NO reprodujo el bucle — el reset de offset del código viejo sólo se dispara ante ENCOGIMIENTO; la reproducción fiel de C3 exige secuencia no monótona (lección para cualquier fixture futuro de reescritura in situ). (2) `check_sizes` se cayó transitoriamente con `FileNotFoundError` en `backend/node_modules/.bin` durante una carrera con npm reescribiendo el árbol (reintento OK); defecto latente del gate (rglob no tolera el árbol mutándose), preexistente y fuera de alcance de este ticket — candidato a issue.
 
 **Decreto del Mediador (2026-09-05, cierre del ticket):** (1) **reactivar** el servicio — ejecutado: `launchctl enable` + `bootstrap`; verificado en marcha: pid activo, log `started … dedup=identity(max=4096)`, 672 rollouts anclados a EOF (sin repetición histórica); el residual R2 (`notify` en config.toml) sigue vigente e independiente. (2) **commitear** los artefactos por ruta explícita. Hallazgo de higiene durante la verificación final: el arnés escribía en el log de producción vía el `log()` global del módulo — corregido aislando `watcher.LOG_FILE` a tmp en el arnés (8/8 verde de nuevo; log de producción intacto). Commit por ruta explícita: `scripts/codex_turn_watcher.py`, `scripts/tests/test_codex_turn_watcher.py`, `docs/planning/tarjeta-fix-watcher-codex-c3.md`, `bitacora_ciclos.md`.
+
+---
+
+## Post-v0.5.0 — Operación (2026-09-06): cierre ticket guia-canonica-opencode (issue #3)
+
+| Fecha | Trabajo | est. | reales | desv. | Evidencia |
+|---|---|---|---|---|---|
+| 2026-09-05 | Ticket `guia-canonica-opencode` (sesión paralela al ticket #4): guía canónica + corrección de ficha + gate de divergencia; adversarial independiente `proceed` (0 BLOCKER/HIGH/MED, 2 LOW aplicados) | 0.75 | 0.5 | -0.25 | Tarjeta `docs/planning/tarjeta-guia-canonica-opencode.md`; `docs/GUIA_OPENCODE.md`; ver notas |
+| 2026-09-06 | Re-verificación completa del DoD 1–7 por el Ejecutor de la sesión + cierre (decreto "retoma y termina"): bitácora, commit por rutas explícitas, cierre del issue #3 | 0.1 | 0.15 | +0.05 | CI LOCAL VERDE 54 s (254 tests, paso 6/6 nuevo); ver notas |
+
+**Qué entrega:** (1) `docs/GUIA_OPENCODE.md` — punto de entrada canónico con capas de estabilidad (soportada/interna/experimental/histórica), restricciones de seguridad verificadas (V7b: deny de `read` no cubre la capacidad `bash`; V7a: auto-reject en headless), señales que no prueban respuesta terminal, y mapa de fuentes; ningún comando que la captura no muestre. (2) Ficha corregida con procedencia: `opencode auth login` → `opencode providers` (alias `auth`), citando captura 1.18.23 + verificación 1.18.29. (3) Gate `scripts/verificar_divergencia_opencode.py` (stdlib, determinista, exit 0/1/2) integrado a `ci_local.sh` como paso 6/6 — la clase "ficha que documenta un comando que la captura ya no muestra" queda cazada en cada CI local.
+
+**Re-verificación 2026-09-06 (DoD 1–7, todo por ejecución):** gate exit 0 ("consistente: 6 comandos curados"); no-tautología con ficha temporal `auth login` → exit 1 con divergencia detectada; `check_sizes` OK; `json.tool` OK; 0 enlaces/rutas rotos en la guía (verificación por script); `bash scripts/ci_local.sh` VERDE 54 s (254 tests; Docker arriba); diff sin secretos, `datos/` intocado salvo la ficha curada (permitido por tarjeta).
+
+**Cierre:** commit por rutas explícitas (guía, gate, tarjeta, AGENTS.md, README.md, ficha, ci_local.sh, bitácora); issue #3 cerrado con comentario de evidencia. Pendiente no bloqueante: el gate hoy es opencode-only; extensión a otros CLIs vía `--cli` queda como candidato natural (sin decreto).

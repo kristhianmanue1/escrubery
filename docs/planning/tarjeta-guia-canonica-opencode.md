@@ -1,18 +1,16 @@
-# Tarea: guia-canonica-opencode (ABIERTA 2026-09-05)
+# Tarea: guia-canonica-opencode (CERRADA 2026-09-06 por decreto del Mediador "retoma y termina")
 
-**Estado:** IMPLEMENTADA — adversarial independiente `proceed` (2026-09-05;
-DoD 1–7 por ejecución; 0 BLOCKER/HIGH/MED, 2 LOW: placeholder `<archivo>`→`<file>`
-aplicado, y nota de proceso sobre sesión paralela — separar por rutas explícitas
-al commitear). Sin commit (pendiente de decreto). Fila de bitácora pendiente al
-decreto, para no chocar con la sesión paralela del ticket #4.
-**Origen:** issue #3 — "Consolidar una guía canónica y vigente de uso de
-OpenCode". La documentación de opencode está fragmentada (ficha, capturas
+**Estado:** CERRADA — re-verificación completa del DoD 1–7 por ejecución en
+sesión del 2026-09-06 (gate exit 0; no-tautología exit 1; check_sizes OK;
+ficha JSON válida; 0 rutas rotas en la guía; CI LOCAL VERDE 254 tests con el
+paso 6/6 nuevo; diff sin secretos). Commit por rutas explícitas y cierre del
+issue #3 con evidencia. **Origen:** issue #3 — "Consolidar una guía canónica y
+vigente de uso de OpenCode". La documentación de opencode está fragmentada (ficha, capturas
 sandbox, reportes HRA, probes, plugin experimental, handoff histórico) y existe
 una divergencia concreta: la ficha curada documenta `opencode auth login`, pero
 la captura versionada de OpenCode 1.18.23 (y 1.18.27) muestra
 `opencode providers` con alias `auth`.
 **Tamaño estimado:** 0.5–0.75 ciclos.
-
 ## Objetivo (único)
 
 Un único punto de entrada canónico para saber cómo usar OpenCode dentro de
