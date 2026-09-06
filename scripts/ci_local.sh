@@ -12,21 +12,24 @@ t0=$SECONDS
 
 paso() { printf '\n=== %s ===\n' "$1"; }
 
-paso "1/5 dependencias (npm ci)"
+paso "1/6 dependencias (npm ci)"
 cd "$BACKEND"
 npm ci
 
-paso "2/5 build"
+paso "2/6 build"
 npm run build
 
-paso "3/5 lint (sin --fix)"
+paso "3/6 lint (sin --fix)"
 npx eslint "{src,apps,libs,test}/**/*.ts"
 
-paso "4/5 tests (PostgreSQL activo; specs de BD incluidas)"
+paso "4/6 tests (PostgreSQL activo; specs de BD incluidas)"
 npm test
 
-paso "5/5 gate de tamaños (politica-agentes §3)"
+paso "5/6 gate de tamaños (politica-agentes §3)"
 cd "$RAIZ"
 python3 scripts/check_sizes.py
+
+paso "6/6 consistencia ficha↔captura sandbox (issue #3)"
+python3 scripts/verificar_divergencia_opencode.py
 
 printf '\nCI LOCAL: VERDE (%s s)\n' "$((SECONDS - t0))"

@@ -23,6 +23,7 @@ Responde, con datos normalizados y fuente citada:
 | [Analisis_Critico_Plan_y_Propuesta_de_Cambios.md](docs/investigacion/Analisis_Critico_Plan_y_Propuesta_de_Cambios.md) | Análisis crítico del plan y 10 cambios propuestos (incluye análisis del esquema de firma de CAGF y consumidores reales) |
 | [Plan_Iterativo_Incremental_Servicio_CLI_Modelos_v2.md](docs/investigacion/Plan_Iterativo_Incremental_Servicio_CLI_Modelos_v2.md) | **Plan vigente (v2)**: incorpora los 10 cambios — Ficha v0 en Fase 0, consumidores reales, firma corregida |
 | [CONTRATO_API_v0.md](docs/CONTRATO_API_v0.md) | Contrato JSON v0 de la API de consulta (ruptura permitida hasta el cierre de la Fase 2) |
+| [GUIA_OPENCODE.md](docs/GUIA_OPENCODE.md) | Guía canónica de uso de OpenCode: superficie vigente, capas de estabilidad, límites de seguridad y gate de divergencia ficha↔captura (issue #3) |
 
 ## Uso rápido (Ficha v0)
 

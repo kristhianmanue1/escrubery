@@ -33,9 +33,11 @@ docs/investigacion/        Investigación, plan v1/v2 y análisis crítico
 docs/politica-agentes.md   Política de trabajo con agentes (v1.0)
 docs/plantillas-agente.md  Plantillas plan/contrato/checkpoint/adversarial/reporte
 docs/CONTRATO_API_v0.md    Contrato JSON de la API de consulta
+docs/GUIA_OPENCODE.md      Guía canónica de uso de OpenCode (issue #3)
 scripts/consultar          Comando de consulta de la Ficha v0
 scripts/generar_fichas_modelos.py  Regenera las fichas de proveedores desde LiteLLM
 scripts/check_sizes.py     Gate duro de tamaño de archivos (política §3)
+scripts/verificar_divergencia_opencode.py  Gate ficha↔captura sandbox (issue #3)
 scripts/ci_local.sh        CI local (GitHub Actions sin presupuesto; ver docs/CI.md)
 scripts/vigilancia_diaria.sh  Vigilancia diaria: pollers + alertas (exit 0/10/2; docs/VIGILANCIA.md)
 scripts/refrescar_litellm.sh  Refresco idempotente LiteLLM: descarga → fichas → ingesta

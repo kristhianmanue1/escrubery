@@ -14,7 +14,7 @@
   "comandos": [
     { "comando": "opencode run", "descripcion": "Modo no interactivo: pasa un prompt directo (scripting/automatización)", "fuente": "docs oficiales opencode.ai/docs/cli" },
     { "comando": "opencode serve", "descripcion": "Servidor headless para acceso API por HTTP", "fuente": "docs oficiales opencode.ai/docs/cli" },
-    { "comando": "opencode auth login", "descripcion": "Configura API keys de providers (en ~/.local/share/opencode/auth.json)", "fuente": "docs oficiales opencode.ai/docs/cli" },
+    { "comando": "opencode providers", "descripcion": "Gestiona providers y credenciales de modelos (alias: auth). Subcomandos: list, login [url], logout [provider]. Credenciales en ~/.local/share/opencode/auth.json", "fuente": "captura sandbox 1.18.23 2026-08-27 (datos/fuentes/sandbox/opencode/2026-08-27T15:00:15.319Z.txt); subcomandos verificados con providers --help 1.18.29 2026-09-05" },
     { "comando": "opencode mcp", "descripcion": "Gestiona servidores MCP (add, list, auth)", "fuente": "docs oficiales opencode.ai/docs/cli" },
     { "comando": "opencode models", "descripcion": "Lista modelos disponibles de los providers configurados", "fuente": "docs oficiales opencode.ai/docs/cli" },
     { "comando": "opencode agent", "descripcion": "Gestiona agentes (create, list)", "fuente": "docs oficiales opencode.ai/docs/cli" }
