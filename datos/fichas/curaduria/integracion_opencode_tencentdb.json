@@ -1,0 +1,39 @@
+{
+  "schema": "escrubery/curaduria/observacion-integracion/v0",
+  "cli_id": "opencode",
+  "titulo": "opencode como cliente de TencentDB Agent Memory (MemoryProxy del ecosistema Aria)",
+  "fecha_observacion": "2026-09-08",
+  "version_opencode": "1.18.29 (instalada en host del Mediador; no ejecutada en sandbox — observación de integración de campo, no de superficie CLI)",
+  "contraparte": {
+    "sistema": "TencentDB Agent Memory (MemoryProxy + MemoryCore, stack Docker local del ecosistema Aria)",
+    "repo_upstream": "https://github.com/TencentCloud/TencentDB-Agent-Memory",
+    "version_proxy": "imagen agentmemory/memory-proxy:fix-4017f2c (línea upstream feat/server_team 220af62)"
+  },
+  "que_se_verifico": [
+    "Ruta /opencode/{spaceId}/v1/messages (protocolo anthropic) aceptada por el proxy; el endpoint OpenAI puro /v1/chat/completions devuelve 404 contra upstream Z.AI (solo expone API anthropic) — opencode debe configurarse con provider anthropic.",
+    "Session-init completo: el proxy intercepta el primer turno con la tool nativa `question` de opencode (tool_call id call_oc_session_init_*) y completa 4 stages (asset_confirm → team → agent → task), terminando en estado 'initialized' con team/agent/task ligados.",
+    "Inyección de contexto: 4 hooks inyectados para la sesión opencode (skill-tools, skill, tdai-memory-tools, tdai-profile-memory).",
+    "Registro L0: 7 filas en conversations/2026-09-08.jsonl del core para la sesión smoke-oc-e2e-002.",
+    "Auth: Bearer con user-key del servicio; las user-keys son POR-SERVICIO (una key válida para spaceId 'default' es inválida para otro spaceId)."
+  ],
+  "fallos_y_limitaciones_observados": [
+    "Sin header x-conversation-id NO hay session-init ni registro L0 (la request pasa pero queda sin sesión).",
+    "Bug upstream detectado: un timeout del auth/verify (5s) a mitad del formulario de session-init resetea la state machine y consume maxRetries (3), dejando la sesión en bypass silencioso (sin inyección ni registro, sin señal visible al usuario). Reportado a maintainers en PR #1291.",
+    "AGENT_PREFIX_RE del proxy no incluía 'opencode' (markers cost-guard/analyse no reconocidos en rutas /opencode/) — fix propuesto en PR upstream #1291.",
+    "Canario de inyección NO verificado de punta a punta: la memoria inyectada corresponde al agent ligado en el registro (agt-k51xdkuywq) y no existía memoria previa que citar; la inyección se verificó por logs de hooks, no por citación del modelo."
+  ],
+  "hallazgo_clave_para_el_catalogo": "El proxy upstream ya trae adaptador opencode first-class desde v2.0.1 (agent-adapters/opencode.ts + session/opencode/form.ts con mapeo a la tool `question`, schema extraído del fuente de sst/opencode) — la integración es producto upstream soportado, no un hack del ecosistema; faltaba evidencia de ejecución real, que esta observación aporta.",
+  "evidencia": {
+    "fuente_tipo": "verificacion_activa_campo",
+    "fecha_obtencion": "2026-09-08",
+    "anclajes": [
+      "PR upstream TencentCloud/TencentDB-Agent-Memory#1291 (fix + tests 7/7 + reporte del bug de bypass)",
+      "PR upstream #1197 (reparación de mergeability, merge de upstream a la head del PR, mismo día)",
+      "audit.log del repo krathos: SMOKE-E2E-OPENCODE-TDAI (criterio pre-registrado 2/3 verificado, 1 fallo documentado con causa)",
+      "logs del proxy vivo: call_oc_session_init_*, 'initialized agent=agt-k51xdkuywq team=team-k5znrcxh7t'"
+    ],
+    "hash_sha256": null,
+    "estado_verificacion": "confirmado_por_ejecucion_campo",
+    "nota_sandbox": "La ejecución fue contra el stack vivo del ecosistema con credenciales del propio ecosistema (excepción documentada al criterio de sandbox; sin cargas externas, sin servicios de pago)"
+  }
+}

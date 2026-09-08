@@ -609,3 +609,17 @@ Propuesta: `docs/investigacion/Propuesta_Harness_Runtime_Assurance.md` v0.2 (dec
 **Qué se adoptó (limitado, a la epistates ADR-0002):** (1) **clasificación de tarea por disparadores observables** (Spike/Bounded/Architectural, orden Spike→Architectural→Bounded, ratchet ascendente, ante duda la clase superior) — toda tarjeta nueva declara `Clase`; (2) **fuente única de DoD en planes multi-tarea** (el plan posee los criterios, las tarjetas los referencian); (3) fronteras de confianza explícitas (ya practicadas). **No adoptado con causa:** gate E1–E5 de planes (aplazado: rompería CI o exigiría reescribir evidencia histórica; se reevalúa con el primer plan multi-tarea real — candidata: migración Docker→servidor), contrato de tarea paralelo (las tarjetas de escrubery siguen canónicas), reescritura de historia.
 
 **Contexto de la decisión:** skevi v1.0.0 (2026-09-01, piloto infosalud) es el cuerpo normativo destilado del propio ecosistema — su history registra casos de escrubery/skopos y su manifest nombra a escrubery como plano hermano. Los hermanos ya habían formalizado: epistates (ADR-0002) y an-kla-memory (ADR-0045). Escrubery tenía 0 referencias; brechas identificadas: sin clasificación de rigor, sin regla de fuente única de DoD, sin gate de planes.
+
+---
+
+## Post-v0.5.0 — Observación externa (2026-09-08): opencode como cliente de TencentDB Agent Memory
+
+| Fecha | Trabajo | Clase | Evidencia |
+|---|---|---|---|
+| 2026-09-08 | Sesión de Krathos (orquestador Aria, repo hermano) — análisis factibilidad + smoke E2E + PR upstream; curaduría de la observación en este repo por Krathos como visitante (sin tocar código ni gates) | Bounded | Ficha `datos/fichas/clis/opencode.json` (nota gobernanza + comando integración); observación `datos/fichas/curaduria/integracion_opencode_tencentdb.json`; PR upstream TencentCloud/TencentDB-Agent-Memory#1291 |
+
+**Qué se observó:** opencode 1.18.29 funciona de punta a punta como cliente del MemoryProxy (stack TencentDB del ecosistema Aria): provider anthropic → `/opencode/{spaceId}/v1/messages`, session-init con la tool nativa `question` (4 stages), inyección de contexto (4 hooks) y registro L0 verificados contra el stack vivo. La integración es **producto upstream soportado** (adaptador first-class desde v2.0.1), no un hack del ecosistema — la ficha y la curaduría quedan ancladas a esa evidencia.
+
+**Fallos observados (registrados, no ocultados):** (1) endpoint OpenAI puro 404 contra upstream Z.AI (solo anthropic) — opencode debe ir con provider anthropic; (2) sin `x-conversation-id` no hay sesión (coherente con la lección basanos 30-08); (3) bug upstream: auth-timeout a mitad de form → bypass silencioso de la sesión (reportado en #1291); (4) canario de citación no verificado de punta a punta (la inyección se confirmó por hooks, no por citación del modelo).
+
+**Nota de gobernanza:** trabajo ejecutado fuera de este repo (sesión Krathos, directorio krathos + tencentMemoryAgent); aquí solo entra la **curaduría** de la observación con anclajes. Sin ToS/sandbox nuevos: la verificación fue contra infraestructura propia del ecosistema, no fuentes públicas del catálogo. Rama `docs/opencode-integracion-tdai`, sin push (propone el Mediador aplica).
