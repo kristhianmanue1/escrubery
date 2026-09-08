@@ -10,14 +10,38 @@
   "mecanismo_changelog": "Releases en el repo GitHub (github.com/anomalyco/opencode/releases); default branch 'dev', cadencia muy rápida (commits diarios)",
   "cadencia_monitoreo": "diaria",
   "prioridad_seguridad": "alta — controlador principal del ecosistema (corre GLM-5.2 y otros modelos); maneja credenciales de providers y acceso al worktree",
-  "notas_gobernanza": "CLI comunitario open source (MIT) de Anomaly (anomalyco/opencode); 'The open source coding agent'. Agnóstico de proveedor (corre modelos vía providers configurados, p. ej. GLM-5.2/zhipu). Es la herramienta con la que se desarrolla el propio escrubery (dogfooding).",
+  "notas_gobernanza": "CLI comunitario open source (MIT) de Anomaly (anomalyco/opencode); 'The open source coding agent'. Agnóstico de proveedor (corre modelos vía providers configurados, p. ej. GLM-5.2/zhipu). Es la herramienta con la que se desarrolla el propio escrubery (dogfooding). Integración TencentDB Agent Memory verificada en vivo (2026-09-08): opencode funciona como cliente del MemoryProxy (proxy de memoria del ecosistema Aria) vía provider anthropic apuntando a /opencode/{spaceId}/v1/messages — session-init completo con tool nativa `question`, inyección de contexto y registro L0 verificados; Observación de curaduría: datos/fichas/curaduria/integracion_opencode_tencentdb.json (no es superficie CLI; el gate de divergencia aplica solo a `comandos`).",
   "comandos": [
-    { "comando": "opencode run", "descripcion": "Modo no interactivo: pasa un prompt directo (scripting/automatización)", "fuente": "docs oficiales opencode.ai/docs/cli" },
-    { "comando": "opencode serve", "descripcion": "Servidor headless para acceso API por HTTP", "fuente": "docs oficiales opencode.ai/docs/cli" },
-    { "comando": "opencode providers", "descripcion": "Gestiona providers y credenciales de modelos (alias: auth). Subcomandos: list, login [url], logout [provider]. Credenciales en ~/.local/share/opencode/auth.json", "fuente": "captura sandbox 1.18.23 2026-08-27 (datos/fuentes/sandbox/opencode/2026-08-27T15:00:15.319Z.txt); subcomandos verificados con providers --help 1.18.29 2026-09-05" },
-    { "comando": "opencode mcp", "descripcion": "Gestiona servidores MCP (add, list, auth)", "fuente": "docs oficiales opencode.ai/docs/cli" },
-    { "comando": "opencode models", "descripcion": "Lista modelos disponibles de los providers configurados", "fuente": "docs oficiales opencode.ai/docs/cli" },
-    { "comando": "opencode agent", "descripcion": "Gestiona agentes (create, list)", "fuente": "docs oficiales opencode.ai/docs/cli" }
+    {
+      "comando": "opencode run",
+      "descripcion": "Modo no interactivo: pasa un prompt directo (scripting/automatización)",
+      "fuente": "docs oficiales opencode.ai/docs/cli"
+    },
+    {
+      "comando": "opencode serve",
+      "descripcion": "Servidor headless para acceso API por HTTP",
+      "fuente": "docs oficiales opencode.ai/docs/cli"
+    },
+    {
+      "comando": "opencode providers",
+      "descripcion": "Gestiona providers y credenciales de modelos (alias: auth). Subcomandos: list, login [url], logout [provider]. Credenciales en ~/.local/share/opencode/auth.json",
+      "fuente": "captura sandbox 1.18.23 2026-08-27 (datos/fuentes/sandbox/opencode/2026-08-27T15:00:15.319Z.txt); subcomandos verificados con providers --help 1.18.29 2026-09-05"
+    },
+    {
+      "comando": "opencode mcp",
+      "descripcion": "Gestiona servidores MCP (add, list, auth)",
+      "fuente": "docs oficiales opencode.ai/docs/cli"
+    },
+    {
+      "comando": "opencode models",
+      "descripcion": "Lista modelos disponibles de los providers configurados",
+      "fuente": "docs oficiales opencode.ai/docs/cli"
+    },
+    {
+      "comando": "opencode agent",
+      "descripcion": "Gestiona agentes (create, list)",
+      "fuente": "docs oficiales opencode.ai/docs/cli"
+    }
   ],
   "procedencia": {
     "fuente_url": "https://raw.githubusercontent.com/anomalyco/opencode/master/LICENSE",
