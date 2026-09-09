@@ -256,6 +256,26 @@ if git -C "$RAIZ" status --porcelain -- datos/checkpoints 2>/dev/null | grep -q 
   fi
 fi
 
+# --- Custodia git de capturas sandbox (AUTORIZADO por el Mediador 2026-09-09):
+# las capturas de superficie diaria sostienen el gate de divergencia
+# (scripts/verificar_divergencia_opencode.py) pero quedaban sin trackear;
+# un re-clone perdía el histórico. Se custodian aparte para no mezclar
+# contenido con el anclaje TSA de checkpoints.
+if git -C "$RAIZ" status --porcelain -- datos/fuentes/sandbox 2>/dev/null | grep -q .; then
+  if git -C "$RAIZ" add datos/fuentes/sandbox && \
+     git -C "$RAIZ" commit -m "chore(sandbox): capturas de superficie diarias $(date -u +%Y-%m-%dT%H:%M:%SZ)" >/dev/null; then
+    if git -C "$RAIZ" push origin main >/dev/null 2>&1; then
+      echo "custodia: capturas sandbox commiteadas y pusheadas"
+    else
+      echo "FALLO push de capturas sandbox (custodia degradada a local; revisar credencial gh)"
+      FALLOS=$((FALLOS + 1))
+    fi
+  else
+    echo "FALLO commit de capturas sandbox"
+    FALLOS=$((FALLOS + 1))
+  fi
+fi
+
 if [ "$FALLOS" -gt 0 ]; then
   echo "== fin — exit 2 ($FALLOS fallo(s) de poller/introspección durante la corrida) =="
   exit 2
