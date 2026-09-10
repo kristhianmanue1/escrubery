@@ -1,0 +1,11 @@
+{
+  "payload": {
+    "tip_hash": "2721a67bfee9659c6c2eb66112e69432f7b65aa05d792a6a1c7d49909ec8dbea",
+    "merkle_root": "621c1353122432c42a8b19c6ad4bded6858cab80288743805971beaa328debdf",
+    "eventos_hasta": 1215,
+    "creado_en": "2026-09-10T15:00:16.137Z"
+  },
+  "sig": "ed25519:22PPwdqZ4dLAEdS2YHusFcrJgXtRcMcu9GAjQid0jZlT2bSMYkm3dVk3yCR1JO3uSsGC8cekCG4ufvZB/UT1DQ==",
+  "key_id": "escrubery-evidentia-001",
+  "alg": "ed25519"
+}
