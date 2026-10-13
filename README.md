@@ -5,7 +5,7 @@
 Responde, con datos normalizados y fuente citada:
 
 - **Modelos** (Anthropic, xAI, Google, Moonshot, Zhipu): capacidades, ventana de contexto, precios, funciones soportadas.
-- **CLIs de agente** (Claude Code, Codex CLI, OpenCode, Qwen Code, Kimi Code, Cline, Grok CLI, Grok Build, Antigravity CLI): comandos, *flags*, configuración, cambios por versión.
+- **CLIs de agente** (Claude Code, Codex CLI, OpenCode, Qwen Code, Kimi Code, Cline, Grok CLI, Grok Build, Antigravity CLI, Muse Code): comandos, *flags*, configuración, cambios por versión.
 - **Cambios**: *changelogs* clasificados por severidad, alertas de seguridad, divergencias entre lo documentado y lo observado.
 - **Procedencia**: cada hecho registrado lleva fuente, fecha, hash y —por fases— firma Ed25519, agregación Merkle y sellado de tiempo.
 
@@ -41,7 +41,7 @@ bash scripts/vigilancia_diaria.sh                # pollers + alertas + checkpoin
 python3 scripts/verificar_divergencia_opencode.py  # gate ficha↔captura sandbox (issue #3)
 ```
 
-Toda respuesta incluye su bloque de `procedencia` (fuente, fecha, hash). Las fichas de proveedores (**188 modelos de 6 proveedores**) se generan desde el JSON de LiteLLM; las de CLIs (9 productos) están curadurizadas desde la investigación y la introspección sandbox.
+Toda respuesta incluye su bloque de `procedencia` (fuente, fecha, hash). Las fichas de proveedores (**180 modelos de 7 proveedores**) se generan desde el JSON de LiteLLM; las de CLIs (10 productos) están curadurizadas desde la investigación y la introspección sandbox.
 
 ## Principios de diseño
 

@@ -31,6 +31,7 @@ PROVEEDORES = {
     "moonshot": "moonshot",
     "zhipu": "zai",
     "qwen": "dashscope",
+    "meta": "meta",
 }
 
 RAIZ = Path(__file__).resolve().parent.parent

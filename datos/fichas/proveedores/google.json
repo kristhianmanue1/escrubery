@@ -4,79 +4,60 @@
   "fuente_litellm_provider": "gemini",
   "id": "google",
   "modelos": {
-    "gemini-2.0-flash": {
+    "deep-research-max-preview-04-2026": {
       "capacidades": {
         "soporta_batch": null,
-        "soporta_caching": true,
+        "soporta_caching": false,
         "soporta_computer_use": null,
-        "soporta_tool_use": true,
+        "soporta_tool_use": false,
         "soporta_vision": true
       },
-      "fecha_deprecacion": "2026-06-01",
-      "fuente_precio": "https://ai.google.dev/pricing#2_0flash",
-      "max_output_tokens": 8192,
-      "modelo_id": "gemini-2.0-flash",
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
+      "max_output_tokens": 65536,
+      "modelo_id": "deep-research-max-preview-04-2026",
       "precios": {
-        "cache_lectura_por_millon": 0.025,
-        "input_por_millon": 0.1,
-        "output_por_millon": 0.4
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 2.0,
+        "output_por_millon": 12.0
       },
       "ventana_contexto_max": 1048576
     },
-    "gemini-2.0-flash-001": {
+    "deep-research-preview-04-2026": {
       "capacidades": {
         "soporta_batch": null,
-        "soporta_caching": true,
+        "soporta_caching": false,
         "soporta_computer_use": null,
-        "soporta_tool_use": true,
+        "soporta_tool_use": false,
         "soporta_vision": true
       },
-      "fecha_deprecacion": "2026-06-01",
-      "fuente_precio": "https://ai.google.dev/pricing#2_0flash",
-      "max_output_tokens": 8192,
-      "modelo_id": "gemini-2.0-flash-001",
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
+      "max_output_tokens": 65536,
+      "modelo_id": "deep-research-preview-04-2026",
       "precios": {
-        "cache_lectura_por_millon": 0.025,
-        "input_por_millon": 0.1,
-        "output_por_millon": 0.4
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 2.0,
+        "output_por_millon": 12.0
       },
       "ventana_contexto_max": 1048576
     },
-    "gemini-2.0-flash-lite": {
+    "deep-research-pro-preview-12-2025": {
       "capacidades": {
         "soporta_batch": null,
-        "soporta_caching": true,
+        "soporta_caching": false,
         "soporta_computer_use": null,
-        "soporta_tool_use": true,
+        "soporta_tool_use": false,
         "soporta_vision": true
       },
-      "fecha_deprecacion": "2026-06-01",
-      "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing#gemini-2.0-flash-lite",
-      "max_output_tokens": 8192,
-      "modelo_id": "gemini-2.0-flash-lite",
+      "fecha_deprecacion": "2026-10-23",
+      "fuente_precio": "https://ai.google.dev/gemini-api/docs/models/deep-research-pro-preview-12-2025",
+      "max_output_tokens": 65536,
+      "modelo_id": "deep-research-pro-preview-12-2025",
       "precios": {
-        "cache_lectura_por_millon": 0.01875,
-        "input_por_millon": 0.075,
-        "output_por_millon": 0.3
-      },
-      "ventana_contexto_max": 1048576
-    },
-    "gemini-2.0-flash-lite-001": {
-      "capacidades": {
-        "soporta_batch": null,
-        "soporta_caching": true,
-        "soporta_computer_use": null,
-        "soporta_tool_use": true,
-        "soporta_vision": true
-      },
-      "fecha_deprecacion": "2026-06-01",
-      "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing#gemini-2.0-flash-lite",
-      "max_output_tokens": 8192,
-      "modelo_id": "gemini-2.0-flash-lite-001",
-      "precios": {
-        "cache_lectura_por_millon": 0.01875,
-        "input_por_millon": 0.075,
-        "output_por_millon": 0.3
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 2.0,
+        "output_por_millon": 12.0
       },
       "ventana_contexto_max": 1048576
     },
@@ -88,8 +69,8 @@
         "soporta_tool_use": true,
         "soporta_vision": true
       },
-      "fecha_deprecacion": null,
-      "fuente_precio": "https://ai.google.dev/gemini-api/docs/computer-use",
+      "fecha_deprecacion": "2026-07-28",
+      "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
       "max_output_tokens": 64000,
       "modelo_id": "gemini-2.5-computer-use-preview-10-2025",
       "precios": {
@@ -108,8 +89,8 @@
         "soporta_vision": true
       },
       "fecha_deprecacion": null,
-      "fuente_precio": "https://ai.google.dev/gemini-api/docs/models#gemini-2.5-flash-preview",
-      "max_output_tokens": 65535,
+      "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
+      "max_output_tokens": 65536,
       "modelo_id": "gemini-2.5-flash",
       "precios": {
         "cache_lectura_por_millon": 0.03,
@@ -127,127 +108,13 @@
         "soporta_vision": true
       },
       "fecha_deprecacion": null,
-      "fuente_precio": "https://ai.google.dev/gemini-api/docs/models#gemini-2.5-flash-lite",
-      "max_output_tokens": 65535,
+      "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
+      "max_output_tokens": 65536,
       "modelo_id": "gemini-2.5-flash-lite",
       "precios": {
         "cache_lectura_por_millon": 0.01,
         "input_por_millon": 0.1,
         "output_por_millon": 0.4
-      },
-      "ventana_contexto_max": 1048576
-    },
-    "gemini-2.5-flash-lite-preview-06-17": {
-      "capacidades": {
-        "soporta_batch": null,
-        "soporta_caching": true,
-        "soporta_computer_use": null,
-        "soporta_tool_use": true,
-        "soporta_vision": true
-      },
-      "fecha_deprecacion": "2025-11-18",
-      "fuente_precio": "https://ai.google.dev/gemini-api/docs/models#gemini-2.5-flash-lite",
-      "max_output_tokens": 65535,
-      "modelo_id": "gemini-2.5-flash-lite-preview-06-17",
-      "precios": {
-        "cache_lectura_por_millon": 0.025,
-        "input_por_millon": 0.1,
-        "output_por_millon": 0.4
-      },
-      "ventana_contexto_max": 1048576
-    },
-    "gemini-2.5-flash-lite-preview-09-2025": {
-      "capacidades": {
-        "soporta_batch": null,
-        "soporta_caching": true,
-        "soporta_computer_use": null,
-        "soporta_tool_use": true,
-        "soporta_vision": true
-      },
-      "fecha_deprecacion": "2026-03-31",
-      "fuente_precio": "https://developers.googleblog.com/en/continuing-to-bring-you-our-latest-models-with-an-improved-gemini-2-5-flash-and-flash-lite-release/",
-      "max_output_tokens": 65535,
-      "modelo_id": "gemini-2.5-flash-lite-preview-09-2025",
-      "precios": {
-        "cache_lectura_por_millon": 0.01,
-        "input_por_millon": 0.1,
-        "output_por_millon": 0.4
-      },
-      "ventana_contexto_max": 1048576
-    },
-    "gemini-2.5-flash-native-audio-latest": {
-      "capacidades": {
-        "soporta_batch": null,
-        "soporta_caching": false,
-        "soporta_computer_use": null,
-        "soporta_tool_use": null,
-        "soporta_vision": null
-      },
-      "fecha_deprecacion": null,
-      "fuente_precio": "https://ai.google.dev/pricing",
-      "max_output_tokens": 8192,
-      "modelo_id": "gemini-2.5-flash-native-audio-latest",
-      "precios": {
-        "cache_lectura_por_millon": null,
-        "input_por_millon": 0.3,
-        "output_por_millon": 2.5
-      },
-      "ventana_contexto_max": 1048576
-    },
-    "gemini-2.5-flash-native-audio-preview-09-2025": {
-      "capacidades": {
-        "soporta_batch": null,
-        "soporta_caching": false,
-        "soporta_computer_use": null,
-        "soporta_tool_use": null,
-        "soporta_vision": null
-      },
-      "fecha_deprecacion": null,
-      "fuente_precio": "https://ai.google.dev/pricing",
-      "max_output_tokens": 8192,
-      "modelo_id": "gemini-2.5-flash-native-audio-preview-09-2025",
-      "precios": {
-        "cache_lectura_por_millon": null,
-        "input_por_millon": 0.3,
-        "output_por_millon": 2.5
-      },
-      "ventana_contexto_max": 1048576
-    },
-    "gemini-2.5-flash-native-audio-preview-12-2025": {
-      "capacidades": {
-        "soporta_batch": null,
-        "soporta_caching": false,
-        "soporta_computer_use": null,
-        "soporta_tool_use": null,
-        "soporta_vision": null
-      },
-      "fecha_deprecacion": null,
-      "fuente_precio": "https://ai.google.dev/pricing",
-      "max_output_tokens": 8192,
-      "modelo_id": "gemini-2.5-flash-native-audio-preview-12-2025",
-      "precios": {
-        "cache_lectura_por_millon": null,
-        "input_por_millon": 0.3,
-        "output_por_millon": 2.5
-      },
-      "ventana_contexto_max": 1048576
-    },
-    "gemini-2.5-flash-preview-09-2025": {
-      "capacidades": {
-        "soporta_batch": null,
-        "soporta_caching": true,
-        "soporta_computer_use": null,
-        "soporta_tool_use": true,
-        "soporta_vision": true
-      },
-      "fecha_deprecacion": "2026-02-17",
-      "fuente_precio": "https://developers.googleblog.com/en/continuing-to-bring-you-our-latest-models-with-an-improved-gemini-2-5-flash-and-flash-lite-release/",
-      "max_output_tokens": 65535,
-      "modelo_id": "gemini-2.5-flash-preview-09-2025",
-      "precios": {
-        "cache_lectura_por_millon": 0.075,
-        "input_por_millon": 0.3,
-        "output_por_millon": 2.5
       },
       "ventana_contexto_max": 1048576
     },
@@ -260,8 +127,8 @@
         "soporta_vision": true
       },
       "fecha_deprecacion": null,
-      "fuente_precio": "https://cloud.google.com/vertex-ai/generative-ai/pricing",
-      "max_output_tokens": 65535,
+      "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
+      "max_output_tokens": 65536,
       "modelo_id": "gemini-2.5-pro",
       "precios": {
         "cache_lectura_por_millon": 0.125,
@@ -275,19 +142,19 @@
         "soporta_batch": null,
         "soporta_caching": true,
         "soporta_computer_use": null,
-        "soporta_tool_use": true,
-        "soporta_vision": true
+        "soporta_tool_use": false,
+        "soporta_vision": false
       },
-      "fecha_deprecacion": null,
-      "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing#gemini-2.5-pro-preview",
-      "max_output_tokens": 65535,
+      "fecha_deprecacion": "2026-11-17",
+      "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
+      "max_output_tokens": 16384,
       "modelo_id": "gemini-2.5-pro-preview-tts",
       "precios": {
         "cache_lectura_por_millon": 0.125,
-        "input_por_millon": 1.25,
-        "output_por_millon": 10.0
+        "input_por_millon": 1.0,
+        "output_por_millon": 20.0
       },
-      "ventana_contexto_max": 1048576
+      "ventana_contexto_max": 8192
     },
     "gemini-3-flash-preview": {
       "capacidades": {
@@ -298,32 +165,13 @@
         "soporta_vision": true
       },
       "fecha_deprecacion": null,
-      "fuente_precio": "https://ai.google.dev/pricing/gemini-3",
-      "max_output_tokens": 65535,
+      "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
+      "max_output_tokens": 65536,
       "modelo_id": "gemini-3-flash-preview",
       "precios": {
         "cache_lectura_por_millon": 0.05,
         "input_por_millon": 0.5,
         "output_por_millon": 3.0
-      },
-      "ventana_contexto_max": 1048576
-    },
-    "gemini-3-pro-preview": {
-      "capacidades": {
-        "soporta_batch": null,
-        "soporta_caching": true,
-        "soporta_computer_use": null,
-        "soporta_tool_use": true,
-        "soporta_vision": true
-      },
-      "fecha_deprecacion": "2026-03-09",
-      "fuente_precio": "https://cloud.google.com/vertex-ai/generative-ai/pricing",
-      "max_output_tokens": 65535,
-      "modelo_id": "gemini-3-pro-preview",
-      "precios": {
-        "cache_lectura_por_millon": 0.2,
-        "input_por_millon": 2.0,
-        "output_por_millon": 12.0
       },
       "ventana_contexto_max": 1048576
     },
@@ -336,7 +184,7 @@
         "soporta_vision": true
       },
       "fecha_deprecacion": "2027-05-07",
-      "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing#gemini-3.1-flash-lite",
+      "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
       "max_output_tokens": 65536,
       "modelo_id": "gemini-3.1-flash-lite",
       "precios": {
@@ -355,7 +203,7 @@
         "soporta_vision": true
       },
       "fecha_deprecacion": "2026-05-25",
-      "fuente_precio": "https://ai.google.dev/gemini-api/docs/models",
+      "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
       "max_output_tokens": 65536,
       "modelo_id": "gemini-3.1-flash-lite-preview",
       "precios": {
@@ -364,25 +212,6 @@
         "output_por_millon": 1.5
       },
       "ventana_contexto_max": 1048576
-    },
-    "gemini-3.1-flash-live-preview": {
-      "capacidades": {
-        "soporta_batch": null,
-        "soporta_caching": false,
-        "soporta_computer_use": null,
-        "soporta_tool_use": true,
-        "soporta_vision": true
-      },
-      "fecha_deprecacion": null,
-      "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
-      "max_output_tokens": 65536,
-      "modelo_id": "gemini-3.1-flash-live-preview",
-      "precios": {
-        "cache_lectura_por_millon": null,
-        "input_por_millon": 0.75,
-        "output_por_millon": 4.5
-      },
-      "ventana_contexto_max": 131072
     },
     "gemini-3.1-pro-preview": {
       "capacidades": {
@@ -393,7 +222,7 @@
         "soporta_vision": true
       },
       "fecha_deprecacion": null,
-      "fuente_precio": "https://ai.google.dev/gemini-api/docs/models#gemini-3.1-pro-preview",
+      "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
       "max_output_tokens": 65536,
       "modelo_id": "gemini-3.1-pro-preview",
       "precios": {
@@ -412,7 +241,7 @@
         "soporta_vision": true
       },
       "fecha_deprecacion": null,
-      "fuente_precio": "https://ai.google.dev/gemini-api/docs/models#gemini-3.1-pro-preview",
+      "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
       "max_output_tokens": 65536,
       "modelo_id": "gemini-3.1-pro-preview-customtools",
       "precios": {
@@ -431,8 +260,8 @@
         "soporta_vision": true
       },
       "fecha_deprecacion": null,
-      "fuente_precio": "https://ai.google.dev/pricing/gemini-3",
-      "max_output_tokens": 65535,
+      "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
+      "max_output_tokens": 65536,
       "modelo_id": "gemini-3.5-flash",
       "precios": {
         "cache_lectura_por_millon": 0.15,
@@ -469,13 +298,13 @@
         "soporta_vision": true
       },
       "fecha_deprecacion": null,
-      "fuente_precio": "https://ai.google.dev/pricing/gemini-3",
+      "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
       "max_output_tokens": 65536,
       "modelo_id": "gemini-3.6-flash",
       "precios": {
-        "cache_lectura_por_millon": 0.15,
-        "input_por_millon": 1.5,
-        "output_por_millon": 7.5
+        "cache_lectura_por_millon": 0.075,
+        "input_por_millon": 0.75,
+        "output_por_millon": 3.75
       },
       "ventana_contexto_max": 1048576
     },
@@ -488,9 +317,28 @@
         "soporta_vision": true
       },
       "fecha_deprecacion": null,
-      "fuente_precio": "https://ai.google.dev/pricing/gemini-3",
+      "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
       "max_output_tokens": 65536,
       "modelo_id": "gemini-3.7-flash",
+      "precios": {
+        "cache_lectura_por_millon": 0.075,
+        "input_por_millon": 0.75,
+        "output_por_millon": 3.75
+      },
+      "ventana_contexto_max": 1048576
+    },
+    "gemini-3.8-flash": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
+      "max_output_tokens": 65536,
+      "modelo_id": "gemini-3.8-flash",
       "precios": {
         "cache_lectura_por_millon": 0.075,
         "input_por_millon": 0.75,
@@ -545,13 +393,13 @@
         "soporta_vision": true
       },
       "fecha_deprecacion": null,
-      "fuente_precio": "https://ai.google.dev/gemini-api/docs/models#gemini-2.5-flash-preview",
-      "max_output_tokens": 65535,
+      "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
+      "max_output_tokens": 65536,
       "modelo_id": "gemini-flash-latest",
       "precios": {
-        "cache_lectura_por_millon": 0.03,
-        "input_por_millon": 0.3,
-        "output_por_millon": 2.5
+        "cache_lectura_por_millon": 0.075,
+        "input_por_millon": 0.75,
+        "output_por_millon": 3.75
       },
       "ventana_contexto_max": 1048576
     },
@@ -564,13 +412,13 @@
         "soporta_vision": true
       },
       "fecha_deprecacion": null,
-      "fuente_precio": "https://ai.google.dev/gemini-api/docs/models#gemini-2.5-flash-lite",
-      "max_output_tokens": 65535,
+      "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
+      "max_output_tokens": 65536,
       "modelo_id": "gemini-flash-lite-latest",
       "precios": {
-        "cache_lectura_por_millon": 0.01,
-        "input_por_millon": 0.1,
-        "output_por_millon": 0.4
+        "cache_lectura_por_millon": 0.03,
+        "input_por_millon": 0.3,
+        "output_por_millon": 2.5
       },
       "ventana_contexto_max": 1048576
     },
@@ -612,7 +460,7 @@
       },
       "ventana_contexto_max": null
     },
-    "gemini-omni-flash-preview": {
+    "gemini-omni-1.1-flash": {
       "capacidades": {
         "soporta_batch": null,
         "soporta_caching": false,
@@ -622,14 +470,33 @@
       },
       "fecha_deprecacion": null,
       "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
-      "max_output_tokens": 65535,
-      "modelo_id": "gemini-omni-flash-preview",
+      "max_output_tokens": 65536,
+      "modelo_id": "gemini-omni-1.1-flash",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 1.5,
         "output_por_millon": 9.0
       },
       "ventana_contexto_max": 1048576
+    },
+    "gemini-omni-flash-preview": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": null,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-10-22",
+      "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
+      "max_output_tokens": 65536,
+      "modelo_id": "gemini-omni-flash-preview",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 1.5,
+        "output_por_millon": 9.0
+      },
+      "ventana_contexto_max": 131072
     },
     "gemini-pro-latest": {
       "capacidades": {
@@ -640,53 +507,15 @@
         "soporta_vision": true
       },
       "fecha_deprecacion": null,
-      "fuente_precio": "https://cloud.google.com/vertex-ai/generative-ai/pricing",
-      "max_output_tokens": 65535,
+      "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
+      "max_output_tokens": 65536,
       "modelo_id": "gemini-pro-latest",
       "precios": {
-        "cache_lectura_por_millon": 0.125,
-        "input_por_millon": 1.25,
-        "output_por_millon": 10.0
+        "cache_lectura_por_millon": 0.2,
+        "input_por_millon": 2.0,
+        "output_por_millon": 12.0
       },
       "ventana_contexto_max": 1048576
-    },
-    "gemini-robotics-er-1.5-preview": {
-      "capacidades": {
-        "soporta_batch": null,
-        "soporta_caching": true,
-        "soporta_computer_use": null,
-        "soporta_tool_use": true,
-        "soporta_vision": true
-      },
-      "fecha_deprecacion": "2026-04-30",
-      "fuente_precio": "https://ai.google.dev/gemini-api/docs/models#gemini-robotics-er-1-5-preview",
-      "max_output_tokens": 65535,
-      "modelo_id": "gemini-robotics-er-1.5-preview",
-      "precios": {
-        "cache_lectura_por_millon": 0,
-        "input_por_millon": 0.3,
-        "output_por_millon": 2.5
-      },
-      "ventana_contexto_max": 1048576
-    },
-    "gemini-robotics-er-1.6-preview": {
-      "capacidades": {
-        "soporta_batch": null,
-        "soporta_caching": false,
-        "soporta_computer_use": null,
-        "soporta_tool_use": true,
-        "soporta_vision": true
-      },
-      "fecha_deprecacion": null,
-      "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing#gemini-robotics-er",
-      "max_output_tokens": 65536,
-      "modelo_id": "gemini-robotics-er-1.6-preview",
-      "precios": {
-        "cache_lectura_por_millon": null,
-        "input_por_millon": 1.0,
-        "output_por_millon": 5.0
-      },
-      "ventana_contexto_max": 131072
     },
     "gemini-robotics-er-2-preview": {
       "capacidades": {
@@ -697,13 +526,13 @@
         "soporta_vision": true
       },
       "fecha_deprecacion": null,
-      "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing#gemini-robotics-er-2",
+      "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
       "max_output_tokens": 65536,
       "modelo_id": "gemini-robotics-er-2-preview",
       "precios": {
-        "cache_lectura_por_millon": 0.2,
-        "input_por_millon": 2.0,
-        "output_por_millon": 10.0
+        "cache_lectura_por_millon": 0.1,
+        "input_por_millon": 1.0,
+        "output_por_millon": 5.0
       },
       "ventana_contexto_max": 131072
     },
@@ -717,14 +546,14 @@
       },
       "fecha_deprecacion": null,
       "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
-      "max_output_tokens": null,
+      "max_output_tokens": 65536,
       "modelo_id": "gemini-robotics-er-2-streaming-preview",
       "precios": {
         "cache_lectura_por_millon": null,
-        "input_por_millon": 2.0,
-        "output_por_millon": 10.0
+        "input_por_millon": 1.0,
+        "output_por_millon": 5.0
       },
-      "ventana_contexto_max": null
+      "ventana_contexto_max": 131072
     },
     "gemma-3-27b-it": {
       "capacidades": {
@@ -744,6 +573,44 @@
         "output_por_millon": 0
       },
       "ventana_contexto_max": 131072
+    },
+    "gemma-4-26b-a4b-it": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
+      "max_output_tokens": 32768,
+      "modelo_id": "gemma-4-26b-a4b-it",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 0.0,
+        "output_por_millon": 0.0
+      },
+      "ventana_contexto_max": 262144
+    },
+    "gemma-4-31b-it": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
+      "max_output_tokens": 32768,
+      "modelo_id": "gemma-4-31b-it",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 0.0,
+        "output_por_millon": 0.0
+      },
+      "ventana_contexto_max": 262144
     },
     "learnlm-1.5-pro-experimental": {
       "capacidades": {
@@ -801,15 +668,91 @@
         "output_por_millon": 0
       },
       "ventana_contexto_max": 131072
+    },
+    "lyria-3.5": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": false,
+        "soporta_vision": false
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
+      "max_output_tokens": 65536,
+      "modelo_id": "lyria-3.5",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 0,
+        "output_por_millon": 0
+      },
+      "ventana_contexto_max": 131072
+    },
+    "lyria-3.5-clip-preview": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": false,
+        "soporta_vision": false
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
+      "max_output_tokens": 8192,
+      "modelo_id": "lyria-3.5-clip-preview",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 0,
+        "output_por_millon": 0
+      },
+      "ventana_contexto_max": 131072
+    },
+    "lyria-3.5-pro-preview": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": false,
+        "soporta_vision": false
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
+      "max_output_tokens": 8192,
+      "modelo_id": "lyria-3.5-pro-preview",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 0,
+        "output_por_millon": 0
+      },
+      "ventana_contexto_max": 131072
+    },
+    "lyria-realtime-exp": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": false,
+        "soporta_vision": false
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://ai.google.dev/gemini-api/docs/models/lyria-realtime-exp",
+      "max_output_tokens": 65536,
+      "modelo_id": "lyria-realtime-exp",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 0,
+        "output_por_millon": 0
+      },
+      "ventana_contexto_max": 1048576
     }
   },
   "procedencia": {
     "estado_verificacion": "confirmado_por_docs_oficial",
-    "fecha_obtencion": "2026-08-17T17:54:33Z",
+    "fecha_obtencion": "2026-10-13T15:05:57Z",
     "firma_ed25519": null,
     "fuente_tipo": "litellm_json",
     "fuente_url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json",
-    "hash_sha256_contenido_original": "b5595d7e8e039a131d6bb160e90c26678c05a0b437f72a4fe57f18a77c5f52ed"
+    "hash_sha256_contenido_original": "d1172bab5733b6c3f0e090a04fd2b4b077e6c9460a540f7ca3aeb6b939045f28"
   },
-  "total_modelos": 42
+  "total_modelos": 39
 }

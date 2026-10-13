@@ -53,7 +53,7 @@ Todo dato servido lleva su procedencia. Ninguna respuesta de dato omite este blo
 - Fechas: ISO 8601 UTC.
 - Precios: USD por millón de tokens, número.
 - Ventanas de contexto: tokens, entero.
-- Identificadores: `snake_case`; el enum `proveedor ∈ {anthropic, xai, google, moonshot, zhipu, qwen, otro}` aplica a `modelos.proveedor` (`qwen` añadido aditivamente el 2026-08-17, 9º CLI/API DashScope). `cli_producto.proveedor` identifica al **maintainer** del CLI (p. ej. `superagent-ai`, `openai`, `qwenlm`) y está fuera del enum (así lo estableció la migración 004).
+- Identificadores: `snake_case`; el enum `proveedor ∈ {anthropic, xai, google, moonshot, zhipu, qwen, meta, otro}` aplica a `modelos.proveedor` (`qwen` añadido aditivamente el 2026-08-17, 9º CLI/API DashScope; `meta` añadido aditivamente el 2026-10-13, familia Muse de Meta Model API). `cli_producto.proveedor` identifica al **maintainer** del CLI (p. ej. `superagent-ai`, `openai`, `qwenlm`) y está fuera del enum (así lo estableció la migración 004).
 
 ### 2.3 Canonicalización
 

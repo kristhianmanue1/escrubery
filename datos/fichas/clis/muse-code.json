@@ -1,0 +1,34 @@
+{
+  "esquema": "escrubery/ficha-cli/0.1",
+  "entidad": "cli",
+  "id": "muse-code",
+  "nombre": "Muse Code",
+  "proveedor": "meta",
+  "tipo": "oficial",
+  "repo_url": null,
+  "licencia": "propietario (binario nativo vía instalador curl; sin código fuente público del CLI); SDK oficial de sesión @muse-code/sdk bajo MIT (github.com/meta-models/muse-code-sdk; captura del registro npm con hash: datos/fuentes/muse-code/sdk-npm.json, 8a854808…366796fa)",
+  "mecanismo_changelog": "página de docs versionada (dev.meta.ai/docs/muse-code/changelog; v1.4.6 a la obtención). Binario cerrado, sin releases de GitHub del CLI: el poller GitHub-releases no aplica — limitación declarada de vigilancia (señal proxy posible: releases npm de @muse-code/sdk, 1.4.7 a la obtención)",
+  "cadencia_monitoreo": "semanal",
+  "prioridad_seguridad": "media-alta (agente de terminal con sandbox OS de serie y aprobaciones; changelog documenta fixes de seguridad activos: find -exec, wrappers, resolución de IPs en reglas de red; sin historial de exfiltración conocido a la fecha)",
+  "notas_gobernanza": "CLI oficial de Meta para la familia Muse, binario `muse` (instalador curl https://dev.meta.ai/install.sh). ADVERTENCIA de identidad: el paquete npm `muse` (RDFroeber, 2011) NO es este producto — es una herramienta de scaffolding sin relación. Adaptadores comunitarios existentes en npm (opencode-muse-code, @bex-co/muse-code-acp, muse-spark-code-acp, @brokkai/muse-acp) son productos de terceros: no mezclar con el oficial (regla oficial/comunitario). Dato sensible de gobernanza: las suscripciones de Muse Code activan por defecto el modo Contributor (el contenido —prompts, código, archivos— entrena a Meta salvo que se desactive en /settings); pendiente de curaduría ToS (D1) antes de cualquier ejecución activa F3. Superficie documentada: modos interactivo / exec (headless) / serve (protocolo de sesión versionado, muse schema imprime el JSON Schema); permisos con perfiles (Ask me, Auto-review) y sandbox por defecto desde la primera ejecución. Ningún comando verificado aún por introspección sandbox: solo documentación oficial.",
+  "comandos": [
+    { "comando": "muse", "descripcion": "Abre sesión interactiva (TUI) en el directorio del proyecto; en la primera ejecución pide confiar en el workspace y autenticarse (navegador o META_API_KEY); modelo por defecto muse-spark-1.2", "fuente": "docs oficiales (dev.meta.ai/docs/muse-code)" },
+    { "comando": "muse exec \"<prompt>\"", "descripcion": "Ejecuta un prompt a completitud de forma no interactiva para scripts y CI", "fuente": "docs oficiales (dev.meta.ai/docs/muse-code)" },
+    { "comando": "muse serve", "descripcion": "Sirve sesiones sobre el protocolo de sesión estable (MSP) para apps cliente; host de sesiones múltiples", "fuente": "docs oficiales (dev.meta.ai/docs/muse-code)" },
+    { "comando": "muse schema", "descripcion": "Imprime el JSON Schema del protocolo de sesión (MSP)", "fuente": "docs oficiales (dev.meta.ai/docs/muse-code)" },
+    { "comando": "muse resume <id-o-nombre>", "descripcion": "Reabre una sesión previa por id o nombre", "fuente": "docs oficiales (dev.meta.ai/docs/muse-code/changelog)" },
+    { "comando": "muse --version", "descripcion": "Versión instalada del binario", "fuente": "docs oficiales (dev.meta.ai/docs/muse-code)" },
+    { "comando": "/login", "descripcion": "Reabre las opciones de autenticación dentro de una sesión interactiva", "fuente": "docs oficiales (dev.meta.ai/docs/muse-code)" },
+    { "comando": "/permissions", "descripcion": "Gestiona perfiles de aprobación y permisos de la sesión (Ask me, Auto-review, sandbox)", "fuente": "docs oficiales (dev.meta.ai/docs/muse-code/changelog)" },
+    { "comando": "/model <model-id>", "descripcion": "Cambia el modelo de la sesión directamente, sin selector", "fuente": "docs oficiales (dev.meta.ai/docs/muse-code/changelog)" },
+    { "comando": "/settings", "descripcion": "Ajustes de sesión; incluye apagar el modo Contributor de la suscripción", "fuente": "docs oficiales (dev.meta.ai/docs/muse-code/changelog)" }
+  ],
+  "procedencia": {
+    "fuente_url": "https://dev.meta.ai/docs/muse-code",
+    "fuente_tipo": "docs_oficial",
+    "fecha_obtencion": "2026-10-13T15:57:51Z",
+    "hash_sha256_contenido_original": "04ba9273d7b1cf00cc866be49a37fd86c07b46b79f41d0ca01d44147eb4f11d8",
+    "estado_verificacion": "confirmado_por_docs_oficial",
+    "firma_ed25519": null
+  }
+}
