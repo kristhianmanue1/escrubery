@@ -57,6 +57,8 @@ async function main(): Promise<void> {
   try {
     switch (op) {
       case 'listar': {
+        // 0 posicionales (contrato §1): cualquier extra → uso inválido (exit 2), sin descartarlo en silencio
+        if (rest.length !== 0) usage();
         out(await listar(db));
         break;
       }
@@ -115,6 +117,8 @@ async function main(): Promise<void> {
         break;
       }
       case 'oficialidad': {
+        // 0 posicionales (contrato §1): cualquier extra → uso inválido (exit 2), sin descartarlo en silencio
+        if (rest.length !== 0) usage();
         out(await oficialidad(db));
         break;
       }
@@ -141,6 +145,8 @@ async function main(): Promise<void> {
         break;
       }
       case 'feedback': {
+        // exactamente 1 posicional (contrato §1: params JSON): 0 o 2+ → uso inválido (exit 2)
+        if (rest.length !== 1) usage();
         const [json] = rest;
         if (!json) usage();
         let input: FeedbackInput;
