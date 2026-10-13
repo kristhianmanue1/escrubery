@@ -1,6 +1,6 @@
 # Revisión de Términos de Servicio de los CLIs — escrubery (D1)
 
-**Estado:** 7/9 curados (kimi-code añadido como 7º, 2026-08-22 — MIT); diarios redefinidos = **opencode + claude-code + codex-cli** (controladores reales del Mediador); pendientes: grok-build (xAI inaccesible), antigravity. **Bloquea:** Fase 3 (criterio de entrada plan v2 §6.1). **Decisión:** D1. **Responsable:** Ejecutor (curaduría) · Mediador (veredicto). **Actualizado:** 2026-08-22.
+**Estado:** 10 CLIs — 7 curados + 1 parcial (muse-code, 2026-10-13: automatización permitida por docs de producto; ToS legal completo pendiente) + 2 pendientes (grok-build xAI inaccesible, antigravity). Diarios = **opencode + claude-code + codex-cli**. **Bloquea:** Fase 3 (criterio de entrada plan v2 §6.1). **Decisión:** D1. **Responsable:** Ejecutor (curaduría) · Mediador (veredicto). **Actualizado:** 2026-08-22.
 
 ## Objetivo
 Determinar, por CLI, qué permite su ToS respecto a la **Fase 3** (introspección activa: ejecutar el CLI en contenedor efímero, capturar `--help`/`--version`) y usos futuros (benchmarking). Sin esto, F3 no inicia (riesgo operativo/legal).
@@ -25,6 +25,7 @@ Determinar, por CLI, qué permite su ToS respecto a la **Fase 3** (introspecció
 | kimi-code | moonshot | ✅ permitido | ✅ permitido | no_declara (licencia) | **curado** (MIT, 2026-08-22) |
 | opencode | comunidad/Anomaly (MIT) | ✅ permitido | ✅ permitido | no_declara (licencia) | **curado** (controlador principal) |
 | qwen-code | qwenlm/Alibaba (Apache-2.0) | ✅ permitido | ✅ permitido | no_declara (licencia) | **curado** (9º CLI, 2026-08-17) |
+| muse-code | meta | ⚠️ permitido (docs: `muse exec` headless/CI) | no_declara | no_declara | **parcial** (10º CLI, 2026-10-13) |
 
 ---
 
@@ -95,3 +96,11 @@ Determinar, por CLI, qué permite su ToS respecto a la **Fase 3** (introspecció
 - **Fuente:** `https://raw.githubusercontent.com/QwenLM/qwen-code/main/LICENSE` · **fecha:** 2026-08-17 · **hash_sha256:** `55367b61ccd2a016a0159ad886bd66a3ee6cb5e873d0c75c803c897dd245b075`
 - **Cita:** "Subject to the terms and conditions of this License, each Contributor hereby grants… a perpetual, worldwide, non-exclusive, no-charge, royalty-free… license… to use, reproduce, prepare Derivative Works… and to **run** the Work and Derivative Works." (Apache 2.0 §2; texto canónico idéntico al de cline).
 - **Veredicto:** automatización **permitido** (licencia OSS autoriza ejecución; fork oficial de gemini-cli por el equipo Qwen); benchmarking **permitido**. Extracción: la licencia del CLI no restringe retener salidas; los modelos Qwen subyacentes (DashScope) se rigen por su propio ToS de servicio.
+
+### muse-code — Meta ⚠️ parcial (10º CLI, 2026-10-13)
+- **Fuentes (capturas con hash en `datos/fuentes/muse-code/`):** overview `04ba9273…` · changelog `30ee3fcf…` · permissions `31374088…` · fecha 2026-10-13.
+- **Cita (docs de producto):** "Run it in a project and it plans, edits, and runs commands to do a task, **with approvals and an OS sandbox on from the first run**." · "Headless: `muse exec "<prompt>"` runs one prompt to completion **for scripts and CI**."
+- **Automatización:** ✅ permitida por docs de producto — headless/CI es superficie de primera clase (`muse exec`, `muse serve`/`muse schema`); permisos con perfiles (Ask me / Auto-review) y sandbox OS por defecto.
+- **Benchmarking / Extracción:** no_declara en lo revisado — requiere lectura del ToS legal completo (dev.meta.ai/legal: Terms of Service + AUP; solo se leyó Data Commitments).
+- **Dato de datos (lo sensible):** suscripciones de Muse Code activan **Contributor ON por defecto** (el contenido entrena a Meta salvo opt-out en /settings). Detalle y modalidades por tier en `datos/fichas/curaduria/politica_datos_proveedores.json` (meta: Standard no entrena / Discounted entrena con desasociación).
+- **Veredicto:** **parcial** — F3 sobre muse-code sigue BLOQUEADA hasta lectura del ToS legal completo y decreto del Mediador. La ficha del CLI declara que ningún comando está verificado aún por introspección.
