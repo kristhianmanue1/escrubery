@@ -1,0 +1,113 @@
+{
+  "esquema": "escrubery/curaduria-politica-datos/0.1",
+  "entidad": "curaduria",
+  "id": "politica-datos-proveedores",
+  "descripcion": "Politica de uso de datos por proveedor (capa de curaduria, se edita a mano con criterio y lleva su propia procedencia por entrada). Pregunta que responde: ¿el proveedor usa el contenido del cliente (inputs/outputs) para entrenar sus modelos, en cada modalidad? Caso motor del ticket: el modo Contributor de Meta (descuento a cambio de entrenar con tu contenido). null = no declarado o fuente no accesible: nunca se infiere. Esta capa NO la consume la ingesta (capa documental como assurance_*/integracion_*); la referencia viva vive en este archivo y en docs/investigacion/tos-clis.md.",
+  "glosario": {
+    "entrena_con_contenido": "bool|null — ¿usa Inputs/Outputs del cliente para entrenar modelos, por defecto, en la modalidad indicada?",
+    "modalidades": "objeto|null — cuando la politica depende del tier/producto, la regla por modalidad",
+    "escape": "como evita el cliente el entrenamiento, si aplica",
+    "fuente_hash": "sha256 de la captura cruda en datos/fuentes/politicas-proveedores/ (o la carpeta que corresponda)"
+  },
+  "proveedores": {
+    "anthropic": {
+      "entrena_con_contenido": false,
+      "modalidades": null,
+      "cita": "\"Anthropic may not train models on Customer Content from Services.\" — Commercial Terms of Service §B (Customer Content), vigente 2025-06-17",
+      "escape": "n/a — no entrena por diseño (Commercial Terms); Consumer Terms son otro producto, fuera del alcance de API",
+      "fuente_url": "https://www.anthropic.com/legal/commercial-terms",
+      "fuente_tipo": "docs_oficial",
+      "fecha_obtencion": "2026-10-13T00:00:00Z",
+      "fuente_hash": "611a118248473effccfe6368519e6c06b7eeaf3ae66ba0a7c7fa224b77ca7909",
+      "estado_verificacion": "confirmado_por_docs_oficial"
+    },
+    "google": {
+      "entrena_con_contenido": null,
+      "modalidades": {
+        "unpaid": {
+          "entrena_con_contenido": true,
+          "notas": "Unpaid Services (AI Studio / cuota gratuita Gemini API): Google usa el contenido para 'provide, improve, and develop Google products... machine learning technologies'; revisores humanos leen/procesan inputs y outputs tras desasociarlos de cuenta/key/proyecto; pide no enviar información sensible"
+        },
+        "paid": {
+          "entrena_con_contenido": false,
+          "notas": "\"Google doesn't use your prompts (including associated system instructions, cached content, and files...) or responses to improve our products\"; procesa bajo DPA; logs solo anti-abuso por tiempo limitado"
+        }
+      },
+      "cita": "Gemini API Additional Terms of Service — sección 'Data Collection and How Google Uses Your Data'",
+      "escape": "tier paid (Gemini API de pago)",
+      "fuente_url": "https://ai.google.dev/gemini-api/terms",
+      "fuente_tipo": "docs_oficial",
+      "fecha_obtencion": "2026-10-13T00:00:00Z",
+      "fuente_hash": "37254fb2e77f6e11bcad072eb7ec69f10259d3ab1584a91d16ff99ec90b5f076",
+      "estado_verificacion": "confirmado_por_docs_oficial"
+    },
+    "meta": {
+      "entrena_con_contenido": false,
+      "modalidades": {
+        "standard": {
+          "entrena_con_contenido": false,
+          "notas": "\"Meta does not use your Content from Standard Services to train Meta Models\" (Data Commitments)"
+        },
+        "discounted_contributor": {
+          "entrena_con_contenido": true,
+          "notas": "Discounted Services (Contributor): puede usar Content para entrenar; pasos de desasociación de cuenta/API key ANTES de entrenar (evaluación/seguridad puede usar sin desasociar); escape documentado: 'upgrade to Standard Services'"
+        }
+      },
+      "cita": "Meta Model API Data Commitments (Standard vs Discounted Services) + Pricing (Contributor mode); 'In all cases, Meta does not use Customer Data to train'",
+      "notas_producto_muse_code": "En suscripciones de Muse Code el modo Contributor está ON por defecto (opt-out en /settings); por pay-as-you-go el modo se elige por model id (-contributor). Pricing: muse-wonder sin Contributor en Model API",
+      "escape": "no usar ids -contributor (pay-as-you-go) / apagar Contributor en /settings (suscripción Muse Code)",
+      "fuente_url": "https://dev.meta.ai/legal/commitments",
+      "fuente_tipo": "docs_oficial",
+      "fecha_obtencion": "2026-10-13T00:00:00Z",
+      "fuente_hash": "afc614ab43232bb9a695d6f28d550ce8eab7448758d212759cb0ee4687895219",
+      "estado_verificacion": "confirmado_por_docs_oficial"
+    },
+    "qwen": {
+      "entrena_con_contenido": null,
+      "modalidades": null,
+      "notas": "La página de data-policy de Model Studio (alibabacloud) responde 200 pero entrega un shell JS de ~3KB sin texto legal legible en la captura; no se infiere",
+      "fuente_url": "https://www.alibabacloud.com/help/en/model-studio/data-policy",
+      "fuente_tipo": "docs_oficial",
+      "fecha_obtencion": "2026-10-13T00:00:00Z",
+      "fuente_hash": null,
+      "estado_verificacion": "pendiente_de_verificar"
+    },
+    "xai": {
+      "entrena_con_contenido": null,
+      "modalidades": null,
+      "notas": "ToS legal inaccesible desde este entorno (403 en x.ai/legal/terms-of-service-enterprise) — mismo bloqueo documentado de grok-build en D1 desde 2026-08-22; no se infiere",
+      "fuente_url": "https://x.ai/legal/terms-of-service-enterprise",
+      "fuente_tipo": "docs_oficial",
+      "fecha_obtencion": "2026-10-13T00:00:00Z",
+      "fuente_hash": null,
+      "estado_verificacion": "pendiente_de_verificar"
+    },
+    "zhipu": {
+      "entrena_con_contenido": null,
+      "modalidades": null,
+      "notas": "La página de protocolo de open.bigmodel.cn entrega un shell JS (~5KB) sin texto legal legible en la captura; no se infiere",
+      "fuente_url": "https://open.bigmodel.cn/protocol",
+      "fuente_tipo": "docs_oficial",
+      "fecha_obtencion": "2026-10-13T00:00:00Z",
+      "fuente_hash": null,
+      "estado_verificacion": "pendiente_de_verificar"
+    },
+    "moonshot": {
+      "entrena_con_contenido": null,
+      "modalidades": null,
+      "notas": "Página de terms accesible (~451KB, bundle JS) sin declaración localizable sobre entrenamiento en la extracción automática; requiere lectura manual del documento legal; no se infiere",
+      "fuente_url": "https://platform.moonshot.ai/docs/terms",
+      "fuente_tipo": "docs_oficial",
+      "fecha_obtencion": "2026-10-13T00:00:00Z",
+      "fuente_hash": null,
+      "estado_verificacion": "pendiente_de_verificar"
+    }
+  },
+  "procedencia": {
+    "estado_verificacion": "pendiente_de_verificar",
+    "fecha_obtencion": "2026-10-13T00:00:00Z",
+    "fuente_tipo": "curaduria_propia",
+    "fuente_url": null,
+    "hash_sha256_contenido_original": null
+  }
+}

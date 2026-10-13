@@ -130,10 +130,11 @@ async function aplicarCuraduriaIdentidad(
     const d = JSON.parse(texto) as CuraduriaIdentidad;
     if (d.esquema !== 'escrubery/curaduria-identidad/0.1') {
       // Desde H7 (2026-08-22) conviven capas de curaduría no-identidad en el
-      // mismo dir; se reconocen por prefijo de archivo. Cualquier otro JSON
+      // mismo dir; se reconocen por prefijo de archivo (assurance_*/integracion_*
+      // desde H7, politica_datos_* desde 2026-10-13). Cualquier otro JSON
       // (esquema nuevo, typo o versión no soportada) falla cerrado: la capa
       // de identidad nunca se aplica en silencio.
-      if (/^(assurance|integracion)_/.test(archivo)) {
+      if (/^(assurance|integracion|politica_datos)_/.test(archivo)) {
         continue;
       }
       throw new Error(
