@@ -129,7 +129,16 @@ async function aplicarCuraduriaIdentidad(
     const texto = await readFile(join(dir, archivo), 'utf8');
     const d = JSON.parse(texto) as CuraduriaIdentidad;
     if (d.esquema !== 'escrubery/curaduria-identidad/0.1') {
-      throw new Error(`curaduría ${archivo}: esquema desconocido ${d.esquema}`);
+      // Desde H7 (2026-08-22) conviven capas de curaduría no-identidad en el
+      // mismo dir; se reconocen por prefijo de archivo. Cualquier otro JSON
+      // (esquema nuevo, typo o versión no soportada) falla cerrado: la capa
+      // de identidad nunca se aplica en silencio.
+      if (/^(assurance|integracion)_/.test(archivo)) {
+        continue;
+      }
+      throw new Error(
+        `curaduría ${archivo}: esquema desconocido ${JSON.stringify(d.esquema ?? null)}`,
+      );
     }
     const calculado = selfHashCuraduria(d);
     const declarado = d.procedencia?.hash_sha256_contenido_original ?? '';
