@@ -97,6 +97,19 @@ else
   echo "-- poller vulnerable-mcp: OMITIDO (sin fuente local ni VULNERABLE_MCP_URL; feed real pendiente de insumo)"
 fi
 
+# --- Poller muse-code (binario cerrado sin releases GitHub — limitación
+# --- declarada en la ficha): hash del changelog de docs + release npm del
+# --- SDK oficial. Exit propio 0/10/2 (contrato igual que el global).
+MUSE_RC=0
+echo "-- poller muse-code (changelog docs + sdk npm)"
+python3 "$RAIZ/scripts/vigilar_muse_code.py" --estado-dir "$VDIR" || MUSE_RC=$?
+case "$MUSE_RC" in
+  0) : ;;
+  10) echo "muse-code: CAMBIO detectado — revisar changelog antes del próximo ciclo" ;;
+  *) echo "FALLO poller muse-code (rc=$MUSE_RC): tratado como infra"
+     FALLOS=$((FALLOS + 1)) ;;
+esac
+
 # --- Introspección activa F3 (presupuesto ~0: solo --help/--version en
 # --- contenedor efímero; decreto Mediador 2026-08-17). Diarios siempre;
 # --- semanales con ToS curado (qwen-code) cuando toca la ventana semanal.
@@ -196,12 +209,12 @@ fi
 cat "$ALERTAS_OUT"
 
 # Marca nuevas vs conocidas, actualiza estado y decide exit (0/10).
-python3 - "$ESTADO" "$ALERTAS_OUT" "$HACER_SEMANAL" "$F3_ESTADO" <<'PY'
+python3 - "$ESTADO" "$ALERTAS_OUT" "$HACER_SEMANAL" "$F3_ESTADO" "$MUSE_RC" <<'PY'
 import json, sys
 from pathlib import Path
 from datetime import datetime, timezone
 estado_path, alertas_path = Path(sys.argv[1]), Path(sys.argv[2])
-hacer_semanal, f3_estado = sys.argv[3], sys.argv[4]
+hacer_semanal, f3_estado, muse_rc = sys.argv[3], sys.argv[4], sys.argv[5]
 raw = json.loads(alertas_path.read_text())
 alertas = raw["alertas_alta_severidad_ultimas_24h"]
 ids = [a["record_id"] for a in raw.get("alertas", [])]
@@ -222,10 +235,11 @@ estado = {
     "ultima_corrida": ahora,
     "alertas_conocidas": sorted(set(ids) | previos),
     "f3_introspeccion": f3_estado,
+    "muse_code": muse_rc,
 }
 estado["ultima_semanal"] = ahora if hacer_semanal == "1" else (ultima_semanal or ahora)
 estado_path.write_text(json.dumps(estado, indent=2) + "\n")
-sys.exit(10 if alertas > 0 else 0)
+sys.exit(10 if (alertas > 0 or muse_rc == "10") else 0)
 PY
 RC=$?
 if [ "$RC" != "0" ] && [ "$RC" != "10" ]; then
