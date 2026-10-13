@@ -1,6 +1,6 @@
 # Tarjeta: integración familia Meta/Muse (proveedor `meta` + CLI `muse-code`)
 
-**Fecha:** 2026-10-13 · **Clase:** Bounded (cambios aditivos alineados al precedente `010_qwen_proveedor.sql`) · **Estado:** ejecutado, pendiente adversarial + decreto de cierre
+**Fecha:** 2026-10-13 · **Clase:** Bounded (cambios aditivos alineados al precedente `010_qwen_proveedor.sql`) · **Estado:** CERRADO (2026-10-13) — re-ronda adversarial de confirmación `proceed` (5/5 fixes VERIFICADOS, sin hallazgos nuevos) + decreto del Mediador («adelante»); publicado en `origin/main` (`139f9cb` fix, `60169e7` feat)
 
 **Disparador/autorización:** decreto del Mediador («toda la familia, adelante con toda la integración») tras investigación verificada (docs oficiales Meta + LiteLLM vivo + npm registry).
 
