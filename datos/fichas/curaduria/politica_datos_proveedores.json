@@ -63,14 +63,16 @@
       "estado_verificacion": "confirmado_por_docs_oficial"
     },
     "qwen": {
-      "entrena_con_contenido": null,
+      "entrena_con_contenido": false,
       "modalidades": null,
-      "notas": "La página de data-policy de Model Studio (alibabacloud) responde 200 pero entrega un shell JS de ~3KB sin texto legal legible en la captura; no se infiere",
-      "fuente_url": "https://www.alibabacloud.com/help/en/model-studio/data-policy",
+      "cita": "Alibaba Cloud Model Studio Privacy Notice: \"Alibaba Cloud strictly protects your data privacy and will never use your data for model training.\"",
+      "notas": "La misma nota declara que Model Studio almacena datos generados por llamadas de modelo y aplicación; la ausencia de entrenamiento no equivale a ausencia de retención.",
+      "escape": "n/a — la Privacy Notice declara que no usa los datos para entrenamiento",
+      "fuente_url": "https://www.alibabacloud.com/help/en/model-studio/privacy-notice",
       "fuente_tipo": "docs_oficial",
-      "fecha_obtencion": "2026-10-13T00:00:00Z",
-      "fuente_hash": null,
-      "estado_verificacion": "pendiente_de_verificar"
+      "fecha_obtencion": "2026-10-13T20:47:38Z",
+      "fuente_hash": "627a4da8424e0043b3925c2541c5262b1bf35d5c752414699df05231fcaa45bb",
+      "estado_verificacion": "confirmado_por_docs_oficial"
     },
     "xai": {
       "entrena_con_contenido": null,
@@ -84,28 +86,49 @@
     },
     "zhipu": {
       "entrena_con_contenido": null,
-      "modalidades": null,
-      "notas": "La página de protocolo de open.bigmodel.cn entrega un shell JS (~5KB) sin texto legal legible en la captura; no se infiere",
-      "fuente_url": "https://open.bigmodel.cn/protocol",
+      "modalidades": {
+        "global_zai_api": {
+          "entrena_con_contenido": false,
+          "notas": "Z.ai Global API: los términos para empresas y desarrolladores declaran que no usa User Content para desarrollar o mejorar servicios salvo consentimiento explícito; el contenido sólo se usa para prestar la API, cumplimiento legal, enforcement y prevención de abuso.",
+          "fuente_url": "https://chat.z.ai/legal-agreement/terms-of-service",
+          "fecha_obtencion": "2026-10-13T20:52:47Z",
+          "fuente_hash": "10f8f6c4ea84ebd7051ac3a1c78f8286ecfc3c04984917ac9957b4a1da45b2db",
+          "estado_verificacion": "confirmado_por_docs_oficial"
+        },
+        "mainland_china_open_platform": {
+          "entrena_con_contenido": null,
+          "notas": "La plataforma china open.bigmodel.cn entrega un shell JS sin texto legal legible en la captura; no se extrapola la política global.",
+          "fuente_url": "https://open.bigmodel.cn/protocol",
+          "fecha_obtencion": "2026-10-13T20:47:38Z",
+          "fuente_hash": "7a171a8fbde7c221f784942fd872851e06c726afbd7900b32eeca2456de320d8",
+          "estado_verificacion": "pendiente_de_verificar"
+        }
+      },
+      "cita": "Z.ai Terms of Use, §IV.7 y Additional Terms for API Services §3: para empresas y desarrolladores de API, no usa User Content para desarrollar o mejorar servicios salvo consentimiento explícito.",
+      "notas": "La respuesta global del proveedor es modal: Z.ai API global está confirmada como no-entrenamiento por defecto; la política de la plataforma china permanece no verificable. Por ello el valor raíz se conserva null.",
+      "escape": "Z.ai Global API: no otorgar consentimiento explícito para uso de User Content para desarrollo o mejora; plataforma china: desconocido",
+      "fuente_url": "https://chat.z.ai/legal-agreement/terms-of-service",
       "fuente_tipo": "docs_oficial",
-      "fecha_obtencion": "2026-10-13T00:00:00Z",
-      "fuente_hash": null,
+      "fecha_obtencion": "2026-10-13T20:52:47Z",
+      "fuente_hash": "10f8f6c4ea84ebd7051ac3a1c78f8286ecfc3c04984917ac9957b4a1da45b2db",
       "estado_verificacion": "pendiente_de_verificar"
     },
     "moonshot": {
-      "entrena_con_contenido": null,
+      "entrena_con_contenido": true,
       "modalidades": null,
-      "notas": "Página de terms accesible (~451KB, bundle JS) sin declaración localizable sobre entrenamiento en la extracción automática; requiere lectura manual del documento legal; no se infiere",
-      "fuente_url": "https://platform.moonshot.ai/docs/terms",
+      "cita": "Kimi OpenPlatform Privacy Policy: el contenido que se ingresa y genera ayuda a optimizar sus modelos; para mejorar y desarrollar el servicio, la política incluye entrenar y refinar tecnología subyacente, como modelos y algoritmos de aprendizaje automático.",
+      "notas": "Aplica a Kimi OpenPlatform: la política define User content como prompts, audio, imágenes, video, archivos y contenido generado durante el uso de productos y servicios.",
+      "escape": "no declara un opt-out de entrenamiento para OpenPlatform en la política capturada",
+      "fuente_url": "https://moonshot-ai.gitbook.io/moonshot-ai/terms-and-agreement/kimi-openplatform-privacy-policy",
       "fuente_tipo": "docs_oficial",
-      "fecha_obtencion": "2026-10-13T00:00:00Z",
-      "fuente_hash": null,
-      "estado_verificacion": "pendiente_de_verificar"
+      "fecha_obtencion": "2026-10-13T20:47:38Z",
+      "fuente_hash": "0a4caeef8038ffa387c6611c7361aee6bcf89708ea1c462800fe8952c3d25c03",
+      "estado_verificacion": "confirmado_por_docs_oficial"
     }
   },
   "procedencia": {
     "estado_verificacion": "pendiente_de_verificar",
-    "fecha_obtencion": "2026-10-13T00:00:00Z",
+    "fecha_obtencion": "2026-10-13T20:47:38Z",
     "fuente_tipo": "curaduria_propia",
     "fuente_url": null,
     "hash_sha256_contenido_original": null
