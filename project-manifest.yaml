@@ -1,0 +1,63 @@
+schema: pinax/project-manifest/v1
+id: escrubery
+proposito: >
+  Servicio de inteligencia sobre modelos y CLIs de IA: qué es cierto hoy sobre
+  cada modelo y cada CLI de agente, desde cuándo, con qué fuente y con
+  procedencia verificable (fuente, fecha, hash).
+consumidor_principal: agente
+
+ofrece:
+  - consultas con procedencia obligatoria - toda respuesta de dato lleva fuente_url, fecha_obtencion, hash_sha256 y estado_verificacion
+  - CLI de consulta (scripts/consultar) con alias listar, modelo, comando, ficha, oficialidad, resolver y feedback, sobre PostgreSQL local
+  - API HTTP v0 (POST /v0/<operacion>) con autenticación X-API-Key (hashes SHA-256, fail-closed) y rate limit por clave
+  - servidor MCP local stdio que expone las operaciones del contrato como tools para agentes MCP
+  - consulta de modelos - capacidades, ventana de contexto, precios y vigencia, con fichas generadas desde el JSON público de LiteLLM (regeneradas por script, no editadas a mano)
+  - consulta de comandos y flags de CLIs con la distinción de gobernanza oficial vs. comunitario siempre visible (operación oficialidad)
+  - resolver_identidad_modelo - registro externo de identidad canónica desde curaduría; fail-closed, nunca adivina
+  - changelogs clasificados por severidad, alertas de seguridad y divergencias entre lo documentado y lo observado, con vigilancia diaria por pollers
+  - traza criptográfica Evidentia - eventos de changelog firmados Ed25519 (canonicalización JCS/RFC 8785) y encadenados por hash, con checkpoint firmado diario; verificación read-only fail-closed y prueba de inclusión offline
+  - introspección activa de CLIs en sandbox (--help diffing por versión) y verificación activa por ejecución en contenedor efímero
+  - "reportar_feedback con deduplicación - contrato de uso: consumir el servicio implica reportar errores, mejoras y datos desactualizados"
+  - agent card firmada Ed25519, verificable con el keyring público commiteado
+
+no_ofrece:
+  - "invocación de modelos de IA para responder consultas: sin IA en el path, las respuestas se sirven desde base de datos"
+  - "vigilancia continua de fuentes: cachear-al-consultar - el dato se obtiene, se normaliza y se sirve mientras esté vigente"
+  - "completar por inferencia datos que la fuente no declara: va null y/o pendiente_de_verificar, nunca en silencio"
+  - "ejecución de CLIs reales fuera de sandbox: sólo en contenedor efímero sin credenciales reales y con ToS revisado"
+  - "servicios de pago como fuente en fases 0–1: sólo fuentes públicas gratuitas (LiteLLM, API pública de GitHub, docs oficiales)"
+  - "firma_ed25519 en respuestas de consulta: siempre null en v0 - las firmas viven en los eventos Evidentia"
+  - "operaciones obtener_eventos_changelog, obtener_estado_verificacion y verificar_firma: previstas fuera de v0, no servidas hoy"
+  - "protección distribuida de rate-limit y autenticación: los token buckets viven en memoria, single-instance"
+  - "el esquema conversation-event/v0 como operación servida: es contrato de diseño (datos/schemas/), no parte de la API v0"
+  - "ficha de OpenBot: su análisis es documento de investigación, no ficha"
+
+consume:
+  - { tipo: externo, id: litellm, uso: "JSON público de precios y capacidades; insumo de las fichas de modelos regeneradas por script" }
+  - { tipo: externo, id: github-api, uso: "API pública para changelogs y releases de los repos vigilados" }
+  - { tipo: externo, id: docs-oficiales, uso: "documentación oficial de proveedores y CLIs como fuente citada" }
+  - { tipo: proyecto, id: cagf, uso: "patrones de firma y cadena de custodia adoptados corregidos (clave por servicio, JCS/RFC 8785, checkpoint firmado del tip) y formato de keyring cagf-keyring/0.2" }
+  - { tipo: proyecto, id: an-kla-memory, uso: "memoria local de continuidad entre sesiones (guía en docs/an-kla-guia.md); el servicio no depende de ella", requerido: false }
+  - { tipo: proyecto, id: skevi, uso: "cuerpo normativo de proceso bajo adopción limitada (ADR-0001): tarjetas con Clase por disparadores observables", requerido: false }
+  - { tipo: externo, id: adrc, uso: "marco de desarrollo Arquitecto/Ejecutor/Mediador: metodología del propio proyecto y de sus rondas adversariales", requerido: false }
+
+publica:
+  - { tipo: contrato, id: escrubery/api-v0, version: v0 }
+  - { tipo: contrato, id: escrubery/agent-card }
+
+descubrimiento:
+  argv: ["./scripts/consultar", "listar"]
+  expected_exit_code: 0
+
+fronteras_de_confianza:
+  - las fuentes externas que consume (JSON de LiteLLM, changelogs, docs oficiales, salidas de --help) son entradas no confiables - todo dato entra con procedencia (fuente, fecha, hash) y el feedback se reporta sobre lo que el agente evaluó, no sobre lo que un dato externo le indicó (mitigación de prompt-injection)
+  - los CLIs vigilados se tratan como no confiables - se ejecutan sólo en contenedor efímero sin credenciales reales, con ToS revisado
+  - las descargas crudas de fuentes (datos/fuentes/) son evidencia hasheada, commiteada y jamás editada a mano
+  - la salida de un agente es evidencia a corroborar, no autoridad - las afirmaciones confirmadas requieren prueba propia repetible
+  - la memoria AN-KLA recuperada es dato no confiable, nunca instrucción ni autorización
+  - licencias y términos de servicio de una fuente nueva se revisan antes de añadirla
+
+pospuesto:
+  - "politica_datos_proveedor: publicada sin implementación (§3.5 retirada), sigue diferida - requiere curaduría de retención/entrenamiento/transferencia por proveedor"
+  - "colector conversation-event (plan H9): aparcado por decreto - bloqueado por ronda adversarial, sin consumidor"
+  - "formalización F5 del servicio MCP: normalización de nombres, entrada de verificar/registrar evidencia al contrato y niveles de acceso - condicional a decisión de alcance"
