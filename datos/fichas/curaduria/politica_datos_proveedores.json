@@ -80,6 +80,44 @@
       "fuente_hash": "627a4da8424e0043b3925c2541c5262b1bf35d5c752414699df05231fcaa45bb",
       "estado_verificacion": "confirmado_por_docs_oficial"
     },
+    "typesafe": {
+      "entrena_con_contenido": false,
+      "modalidades": {
+        "estandar": {
+          "entrena_con_contenido": false,
+          "notas": "Sin modos duales: el mismo weights sirve a todas las cuentas (sin fine-tuning por cliente; el dominio se inyecta por request en state/instructions/criteria)"
+        },
+        "enterprise_zdr": {
+          "entrena_con_contenido": false,
+          "notas": "Zero Data Retention disponible para clientes enterprise (contacto sales@typesafe.ai; DPA cubre retención)"
+        }
+      },
+      "cita": "Privacy Policy: \"We will not train or fine tune any artificial intelligence or machine learning models on your prompts or other Input.\" · Docs/models: \"Jev is not trained on customer requests or responses.\" (citas verificadas contra capturas crudas)",
+      "notas": "Modelo de decisión estructurada (System One, mode=evaluation en LiteLLM): no genera texto; el estado del cliente va en el campo state. DPA + MCA + Privacy en typesafe.ai/legal. Sin entrenamiento con datos de clientes declarado en las tres fuentes.",
+      "escape": "n/a — no entrena por diseño declarado; para retención cero contractual, plan enterprise ZDR",
+      "fuente_url": "https://typesafe.ai/legal/privacy-policy",
+      "fuente_tipo": "docs_oficial",
+      "fecha_obtencion": "2026-10-14T00:00:00Z",
+      "fuente_hash": "8f636be28e223263e2375c0496269972e80d223991b4c5e5770800e491654bc7",
+      "fuentes_adicionales": [
+        {
+          "nota": "Docs oficiales de modelos (data handling + precios $42/Btok input)",
+          "fuente_url": "https://docs.typesafe.ai/models",
+          "fuente_hash": "a4a48c7f562a04085e1ea24dbb338082d96a80bd637fb9d692f844b1bf7f6a75"
+        },
+        {
+          "nota": "Índice legal (DPA + MCA + Privacy + ZDR enterprise)",
+          "fuente_url": "https://docs.typesafe.ai/legal",
+          "fuente_hash": "c6b38c6ca32c726731ced9fb279b7b244b2f6de262f42387ecdc54d7c7b833bb"
+        },
+        {
+          "nota": "Data Processing Agreement",
+          "fuente_url": "https://typesafe.ai/legal/data-processing",
+          "fuente_hash": "0e773ce19e195d8b10e77d326e83b2402e10ae4565f9be7434a07743681ff58b"
+        }
+      ],
+      "estado_verificacion": "confirmado_por_docs_oficial"
+    },
     "xai": {
       "entrena_con_contenido": null,
       "modalidades": null,
