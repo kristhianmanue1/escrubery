@@ -16,6 +16,7 @@
       "fuente_precio": "https://docs.z.ai/guides/overview/pricing",
       "max_output_tokens": 32000,
       "modelo_id": "glm-4-32b-0414-128k",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 0.1,
@@ -35,6 +36,7 @@
       "fuente_precio": "https://docs.z.ai/guides/overview/pricing",
       "max_output_tokens": 32000,
       "modelo_id": "glm-4.5",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 0.6,
@@ -54,6 +56,7 @@
       "fuente_precio": "https://docs.z.ai/guides/overview/pricing",
       "max_output_tokens": 32000,
       "modelo_id": "glm-4.5-air",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 0.2,
@@ -73,6 +76,7 @@
       "fuente_precio": "https://docs.z.ai/guides/overview/pricing",
       "max_output_tokens": 32000,
       "modelo_id": "glm-4.5-airx",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 1.1,
@@ -92,6 +96,7 @@
       "fuente_precio": "https://docs.z.ai/guides/overview/pricing",
       "max_output_tokens": 32000,
       "modelo_id": "glm-4.5-flash",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 0,
@@ -111,6 +116,7 @@
       "fuente_precio": "https://docs.z.ai/guides/overview/pricing",
       "max_output_tokens": 32000,
       "modelo_id": "glm-4.5-x",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 2.2,
@@ -130,6 +136,7 @@
       "fuente_precio": "https://docs.z.ai/guides/overview/pricing",
       "max_output_tokens": 32000,
       "modelo_id": "glm-4.5v",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 0.6,
@@ -149,6 +156,7 @@
       "fuente_precio": "https://docs.z.ai/guides/overview/pricing",
       "max_output_tokens": 128000,
       "modelo_id": "glm-4.6",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.11,
         "input_por_millon": 0.6,
@@ -168,6 +176,7 @@
       "fuente_precio": "https://docs.z.ai/guides/overview/pricing",
       "max_output_tokens": 128000,
       "modelo_id": "glm-4.7",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.11,
         "input_por_millon": 0.6,
@@ -187,6 +196,7 @@
       "fuente_precio": "https://docs.z.ai/guides/overview/pricing",
       "max_output_tokens": 128000,
       "modelo_id": "glm-4.7-flash",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0,
         "input_por_millon": 0,
@@ -206,6 +216,7 @@
       "fuente_precio": "https://docs.z.ai/guides/overview/pricing",
       "max_output_tokens": 128000,
       "modelo_id": "glm-5",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 1.0,
@@ -225,6 +236,7 @@
       "fuente_precio": "https://docs.z.ai/guides/overview/pricing",
       "max_output_tokens": 128000,
       "modelo_id": "glm-5-code",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.3,
         "input_por_millon": 1.2,
@@ -244,6 +256,7 @@
       "fuente_precio": "https://docs.z.ai/guides/overview/pricing",
       "max_output_tokens": 128000,
       "modelo_id": "glm-5.1",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.26,
         "input_por_millon": 1.4,
@@ -263,6 +276,7 @@
       "fuente_precio": "https://docs.z.ai/guides/overview/pricing",
       "max_output_tokens": 128000,
       "modelo_id": "glm-5.2",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.26,
         "input_por_millon": 1.4,
@@ -282,6 +296,7 @@
       "fuente_precio": "https://docs.z.ai/guides/overview/pricing",
       "max_output_tokens": 128000,
       "modelo_id": "glm-5.3",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.26,
         "input_por_millon": 1.4,
@@ -301,6 +316,7 @@
       "fuente_precio": "https://docs.z.ai/guides/overview/pricing",
       "max_output_tokens": 128000,
       "modelo_id": "glm-5.3-flash",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.03,
         "input_por_millon": 0.15,
@@ -311,11 +327,11 @@
   },
   "procedencia": {
     "estado_verificacion": "confirmado_por_docs_oficial",
-    "fecha_obtencion": "2026-10-13T15:05:57Z",
+    "fecha_obtencion": "2026-10-14T19:05:38Z",
     "firma_ed25519": null,
     "fuente_tipo": "litellm_json",
     "fuente_url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json",
-    "hash_sha256_contenido_original": "d1172bab5733b6c3f0e090a04fd2b4b077e6c9460a540f7ca3aeb6b939045f28"
+    "hash_sha256_contenido_original": "c718a7b2f7a8d1009cb3bcf65c3c060cd453845f21dc0b96e822aa3e949c4d54"
   },
   "total_modelos": 16
 }

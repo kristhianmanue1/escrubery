@@ -31,6 +31,7 @@ interface FichaCli {
 
 interface ModeloFicha {
   modelo_id: string;
+  modo?: string | null;
   ventana_contexto_max: number | null;
   capacidades: {
     soporta_vision: boolean | null;
@@ -348,6 +349,7 @@ async function main(): Promise<void> {
           modelo_id: m.modelo_id ?? clave,
           nombre_display: null,
           ventana_contexto_max: m.ventana_contexto_max ?? null,
+          modo: m.modo ?? null,
           soporta_vision: caps?.soporta_vision ?? null,
           soporta_tool_use: caps?.soporta_tool_use ?? null,
           soporta_caching: caps?.soporta_caching ?? null,
@@ -372,6 +374,7 @@ async function main(): Promise<void> {
         .onConflict((oc) =>
           oc.columns(['proveedor', 'modelo_id']).doUpdateSet({
             ventana_contexto_max: m.ventana_contexto_max ?? null,
+            modo: m.modo ?? null,
             soporta_vision: caps?.soporta_vision ?? null,
             soporta_tool_use: caps?.soporta_tool_use ?? null,
             soporta_caching: caps?.soporta_caching ?? null,

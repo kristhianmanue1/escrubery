@@ -16,6 +16,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 1000000,
       "modelo_id": "grok-4.20",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 1.25,
@@ -35,6 +36,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 1000000,
       "modelo_id": "grok-4.20-0309",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 1.25,
@@ -54,6 +56,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 1000000,
       "modelo_id": "grok-4.20-0309-non-reasoning",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 1.25,
@@ -73,6 +76,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 1000000,
       "modelo_id": "grok-4.20-0309-reasoning",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 1.25,
@@ -92,6 +96,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 1000000,
       "modelo_id": "grok-4.20-beta",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 1.25,
@@ -111,6 +116,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 1000000,
       "modelo_id": "grok-4.20-beta-0309",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 1.25,
@@ -130,6 +136,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 1000000,
       "modelo_id": "grok-4.20-beta-0309-non-reasoning",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 1.25,
@@ -149,6 +156,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 1000000,
       "modelo_id": "grok-4.20-beta-0309-reasoning",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 1.25,
@@ -168,6 +176,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 1000000,
       "modelo_id": "grok-4.20-beta-latest",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 1.25,
@@ -187,6 +196,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 1000000,
       "modelo_id": "grok-4.20-beta-latest-non-reasoning",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 1.25,
@@ -206,6 +216,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 1000000,
       "modelo_id": "grok-4.20-beta-latest-reasoning",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 1.25,
@@ -225,6 +236,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 1000000,
       "modelo_id": "grok-4.20-beta-non-reasoning",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 1.25,
@@ -244,6 +256,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 1000000,
       "modelo_id": "grok-4.20-beta-reasoning",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 1.25,
@@ -263,6 +276,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 1000000,
       "modelo_id": "grok-4.20-experimental-beta-0304",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 1.25,
@@ -282,6 +296,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 1000000,
       "modelo_id": "grok-4.20-experimental-beta-0304-non-reasoning",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 1.25,
@@ -301,6 +316,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 1000000,
       "modelo_id": "grok-4.20-experimental-beta-0304-reasoning",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 1.25,
@@ -320,6 +336,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 1000000,
       "modelo_id": "grok-4.20-experimental-beta-latest",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 1.25,
@@ -339,6 +356,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 1000000,
       "modelo_id": "grok-4.20-experimental-beta-non-reasoning-latest",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 1.25,
@@ -358,6 +376,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 1000000,
       "modelo_id": "grok-4.20-experimental-beta-reasoning-latest",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 1.25,
@@ -377,6 +396,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 1000000,
       "modelo_id": "grok-4.20-multi-agent",
+      "modo": "responses",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 1.25,
@@ -396,6 +416,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 1000000,
       "modelo_id": "grok-4.20-multi-agent-0309",
+      "modo": "responses",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 1.25,
@@ -415,6 +436,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 1000000,
       "modelo_id": "grok-4.20-multi-agent-beta-0309",
+      "modo": "responses",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 1.25,
@@ -434,6 +456,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 1000000,
       "modelo_id": "grok-4.20-multi-agent-beta-latest",
+      "modo": "responses",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 1.25,
@@ -453,6 +476,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 1000000,
       "modelo_id": "grok-4.20-multi-agent-experimental-beta-0304",
+      "modo": "responses",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 1.25,
@@ -472,6 +496,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 1000000,
       "modelo_id": "grok-4.20-multi-agent-experimental-beta-latest",
+      "modo": "responses",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 1.25,
@@ -491,6 +516,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 1000000,
       "modelo_id": "grok-4.20-multi-agent-latest",
+      "modo": "responses",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 1.25,
@@ -510,6 +536,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 1000000,
       "modelo_id": "grok-4.20-non-reasoning",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 1.25,
@@ -529,6 +556,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 1000000,
       "modelo_id": "grok-4.20-non-reasoning-gv2",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 1.25,
@@ -548,6 +576,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 1000000,
       "modelo_id": "grok-4.20-non-reasoning-latest",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 1.25,
@@ -567,6 +596,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 1000000,
       "modelo_id": "grok-4.20-reasoning",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 1.25,
@@ -586,6 +616,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 1000000,
       "modelo_id": "grok-4.20-reasoning-gv2",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 1.25,
@@ -605,6 +636,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 1000000,
       "modelo_id": "grok-4.20-reasoning-latest",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 1.25,
@@ -624,6 +656,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 1000000,
       "modelo_id": "grok-4.3",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 1.25,
@@ -643,6 +676,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 1000000,
       "modelo_id": "grok-4.3-latest",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 1.25,
@@ -662,6 +696,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 500000,
       "modelo_id": "grok-4.5",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.3,
         "input_por_millon": 2.0,
@@ -681,6 +716,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 500000,
       "modelo_id": "grok-4.5-latest",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.3,
         "input_por_millon": 2.0,
@@ -700,6 +736,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 500000,
       "modelo_id": "grok-4.6",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.5,
         "input_por_millon": 2.0,
@@ -719,6 +756,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 500000,
       "modelo_id": "grok-4.7",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.5,
         "input_por_millon": 2.0,
@@ -738,6 +776,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 256000,
       "modelo_id": "grok-build-0.1",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 1.0,
@@ -757,6 +796,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 500000,
       "modelo_id": "grok-build-latest",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.3,
         "input_por_millon": 2.0,
@@ -776,6 +816,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 256000,
       "modelo_id": "grok-code-fast",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 1.0,
@@ -795,6 +836,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 256000,
       "modelo_id": "grok-code-fast-1",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 1.0,
@@ -814,6 +856,7 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 256000,
       "modelo_id": "grok-code-fast-1-0825",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 1.0,
@@ -824,11 +867,11 @@
   },
   "procedencia": {
     "estado_verificacion": "confirmado_por_docs_oficial",
-    "fecha_obtencion": "2026-10-13T15:05:57Z",
+    "fecha_obtencion": "2026-10-14T19:05:38Z",
     "firma_ed25519": null,
     "fuente_tipo": "litellm_json",
     "fuente_url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json",
-    "hash_sha256_contenido_original": "d1172bab5733b6c3f0e090a04fd2b4b077e6c9460a540f7ca3aeb6b939045f28"
+    "hash_sha256_contenido_original": "c718a7b2f7a8d1009cb3bcf65c3c060cd453845f21dc0b96e822aa3e949c4d54"
   },
   "total_modelos": 43
 }

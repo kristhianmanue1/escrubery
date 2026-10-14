@@ -32,6 +32,7 @@ PROVEEDORES = {
     "zhipu": "zai",
     "qwen": "dashscope",
     "meta": "meta",
+    "typesafe": "typesafe",
 }
 
 RAIZ = Path(__file__).resolve().parent.parent
@@ -46,6 +47,11 @@ def por_millon(costo_por_token):
 def normalizar_modelo(modelo_id, entrada):
     return {
         "modelo_id": modelo_id,
+        # Aditivo 2026-10-14 (ticket typesafe): modo de la fuente LiteLLM
+        # ("chat" | "responses" | "evaluation" | None). "evaluation" =
+        # modelos de decisión estructurada (System One: Choice/Score/Noul)
+        # que no generan texto y facturan solo input.
+        "modo": entrada.get("mode"),
         "ventana_contexto_max": entrada.get("max_input_tokens"),
         "max_output_tokens": entrada.get("max_output_tokens"),
         "capacidades": {
@@ -94,7 +100,11 @@ def main():
         for clave, entrada in datos.items():
             if entrada.get("litellm_provider") != litellm_prov:
                 continue
-            if entrada.get("mode") not in ("chat", "responses", None):
+            # "evaluation" admitido aditivamente (2026-10-14, ticket typesafe):
+            # modelos de decisión estructurada de API propia. El resto de
+            # modos (embedding/rerank/etc. de proveedores mapeados) sigue
+            # fuera de alcance.
+            if entrada.get("mode") not in ("chat", "responses", "evaluation", None):
                 continue
             # quitar el prefijo "proveedor/" del identificador
             modelo_id = clave.split("/", 1)[-1]

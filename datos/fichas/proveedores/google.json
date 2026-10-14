@@ -16,6 +16,7 @@
       "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
       "max_output_tokens": 65536,
       "modelo_id": "deep-research-max-preview-04-2026",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 2.0,
@@ -35,6 +36,7 @@
       "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
       "max_output_tokens": 65536,
       "modelo_id": "deep-research-preview-04-2026",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 2.0,
@@ -54,6 +56,7 @@
       "fuente_precio": "https://ai.google.dev/gemini-api/docs/models/deep-research-pro-preview-12-2025",
       "max_output_tokens": 65536,
       "modelo_id": "deep-research-pro-preview-12-2025",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 2.0,
@@ -73,6 +76,7 @@
       "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
       "max_output_tokens": 64000,
       "modelo_id": "gemini-2.5-computer-use-preview-10-2025",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 1.25,
@@ -92,6 +96,7 @@
       "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
       "max_output_tokens": 65536,
       "modelo_id": "gemini-2.5-flash",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.03,
         "input_por_millon": 0.3,
@@ -111,6 +116,7 @@
       "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
       "max_output_tokens": 65536,
       "modelo_id": "gemini-2.5-flash-lite",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.01,
         "input_por_millon": 0.1,
@@ -130,6 +136,7 @@
       "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
       "max_output_tokens": 65536,
       "modelo_id": "gemini-2.5-pro",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.125,
         "input_por_millon": 1.25,
@@ -149,6 +156,7 @@
       "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
       "max_output_tokens": 16384,
       "modelo_id": "gemini-2.5-pro-preview-tts",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.125,
         "input_por_millon": 1.0,
@@ -168,6 +176,7 @@
       "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
       "max_output_tokens": 65536,
       "modelo_id": "gemini-3-flash-preview",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.05,
         "input_por_millon": 0.5,
@@ -187,6 +196,7 @@
       "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
       "max_output_tokens": 65536,
       "modelo_id": "gemini-3.1-flash-lite",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.025,
         "input_por_millon": 0.25,
@@ -206,6 +216,7 @@
       "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
       "max_output_tokens": 65536,
       "modelo_id": "gemini-3.1-flash-lite-preview",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.025,
         "input_por_millon": 0.25,
@@ -225,6 +236,7 @@
       "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
       "max_output_tokens": 65536,
       "modelo_id": "gemini-3.1-pro-preview",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 2.0,
@@ -244,6 +256,7 @@
       "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
       "max_output_tokens": 65536,
       "modelo_id": "gemini-3.1-pro-preview-customtools",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 2.0,
@@ -263,6 +276,7 @@
       "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
       "max_output_tokens": 65536,
       "modelo_id": "gemini-3.5-flash",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.15,
         "input_por_millon": 1.5,
@@ -282,6 +296,7 @@
       "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
       "max_output_tokens": 65536,
       "modelo_id": "gemini-3.5-flash-lite",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.03,
         "input_por_millon": 0.3,
@@ -301,6 +316,7 @@
       "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
       "max_output_tokens": 65536,
       "modelo_id": "gemini-3.6-flash",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.075,
         "input_por_millon": 0.75,
@@ -320,6 +336,7 @@
       "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
       "max_output_tokens": 65536,
       "modelo_id": "gemini-3.7-flash",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.075,
         "input_por_millon": 0.75,
@@ -339,10 +356,31 @@
       "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
       "max_output_tokens": 65536,
       "modelo_id": "gemini-3.8-flash",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.075,
         "input_por_millon": 0.75,
         "output_por_millon": 3.75
+      },
+      "ventana_contexto_max": 1048576
+    },
+    "gemini-4-argon": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
+      "max_output_tokens": 65536,
+      "modelo_id": "gemini-4-argon",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.1,
+        "input_por_millon": 2.0,
+        "output_por_millon": 10.0
       },
       "ventana_contexto_max": 1048576
     },
@@ -358,6 +396,7 @@
       "fuente_precio": "https://ai.google.dev/pricing",
       "max_output_tokens": 8192,
       "modelo_id": "gemini-exp-1114",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 0,
@@ -377,6 +416,7 @@
       "fuente_precio": "https://ai.google.dev/gemini-api/docs/models#gemini-2.5-flash-preview",
       "max_output_tokens": 65535,
       "modelo_id": "gemini-exp-1206",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.03,
         "input_por_millon": 0.3,
@@ -396,6 +436,7 @@
       "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
       "max_output_tokens": 65536,
       "modelo_id": "gemini-flash-latest",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.075,
         "input_por_millon": 0.75,
@@ -415,6 +456,7 @@
       "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
       "max_output_tokens": 65536,
       "modelo_id": "gemini-flash-lite-latest",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.03,
         "input_por_millon": 0.3,
@@ -434,6 +476,7 @@
       "fuente_precio": "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models#foundation_models",
       "max_output_tokens": 8192,
       "modelo_id": "gemini-gemma-2-27b-it",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 0.35,
@@ -453,6 +496,7 @@
       "fuente_precio": "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models#foundation_models",
       "max_output_tokens": 8192,
       "modelo_id": "gemini-gemma-2-9b-it",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 0.35,
@@ -472,6 +516,7 @@
       "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
       "max_output_tokens": 65536,
       "modelo_id": "gemini-omni-1.1-flash",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 1.5,
@@ -491,6 +536,7 @@
       "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
       "max_output_tokens": 65536,
       "modelo_id": "gemini-omni-flash-preview",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 1.5,
@@ -510,6 +556,7 @@
       "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
       "max_output_tokens": 65536,
       "modelo_id": "gemini-pro-latest",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 2.0,
@@ -529,6 +576,7 @@
       "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
       "max_output_tokens": 65536,
       "modelo_id": "gemini-robotics-er-2-preview",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.1,
         "input_por_millon": 1.0,
@@ -548,6 +596,7 @@
       "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
       "max_output_tokens": 65536,
       "modelo_id": "gemini-robotics-er-2-streaming-preview",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 1.0,
@@ -567,6 +616,7 @@
       "fuente_precio": "https://aistudio.google.com",
       "max_output_tokens": 8192,
       "modelo_id": "gemma-3-27b-it",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 0,
@@ -586,6 +636,7 @@
       "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
       "max_output_tokens": 32768,
       "modelo_id": "gemma-4-26b-a4b-it",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 0.0,
@@ -605,6 +656,7 @@
       "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
       "max_output_tokens": 32768,
       "modelo_id": "gemma-4-31b-it",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 0.0,
@@ -624,6 +676,7 @@
       "fuente_precio": "https://aistudio.google.com",
       "max_output_tokens": 8192,
       "modelo_id": "learnlm-1.5-pro-experimental",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 0,
@@ -643,6 +696,7 @@
       "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
       "max_output_tokens": 8192,
       "modelo_id": "lyria-3-clip-preview",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 0,
@@ -662,6 +716,7 @@
       "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
       "max_output_tokens": 8192,
       "modelo_id": "lyria-3-pro-preview",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 0,
@@ -681,6 +736,7 @@
       "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
       "max_output_tokens": 65536,
       "modelo_id": "lyria-3.5",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 0,
@@ -700,6 +756,7 @@
       "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
       "max_output_tokens": 8192,
       "modelo_id": "lyria-3.5-clip-preview",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 0,
@@ -719,6 +776,7 @@
       "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
       "max_output_tokens": 8192,
       "modelo_id": "lyria-3.5-pro-preview",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 0,
@@ -738,6 +796,7 @@
       "fuente_precio": "https://ai.google.dev/gemini-api/docs/models/lyria-realtime-exp",
       "max_output_tokens": 65536,
       "modelo_id": "lyria-realtime-exp",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 0,
@@ -748,11 +807,11 @@
   },
   "procedencia": {
     "estado_verificacion": "confirmado_por_docs_oficial",
-    "fecha_obtencion": "2026-10-13T15:05:57Z",
+    "fecha_obtencion": "2026-10-14T19:05:38Z",
     "firma_ed25519": null,
     "fuente_tipo": "litellm_json",
     "fuente_url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json",
-    "hash_sha256_contenido_original": "d1172bab5733b6c3f0e090a04fd2b4b077e6c9460a540f7ca3aeb6b939045f28"
+    "hash_sha256_contenido_original": "c718a7b2f7a8d1009cb3bcf65c3c060cd453845f21dc0b96e822aa3e949c4d54"
   },
-  "total_modelos": 39
+  "total_modelos": 40
 }

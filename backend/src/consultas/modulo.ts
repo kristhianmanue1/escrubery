@@ -134,6 +134,10 @@ export async function consultarModelo(
     // bloque procedencia de la respuesta — que es la de LiteLLM).
     pesos_abiertos: m.pesos_abiertos,
     familia_arquitectura: m.familia_arquitectura,
+    // Aditivo 2026-10-14 (ticket typesafe): modo de la fuente LiteLLM
+    // ("chat" | "responses" | "evaluation" | null). "evaluation" = decisión
+    // estructurada (System One) — sin generación de texto.
+    modo: m.modo,
     vigente_hasta: iso(m.vigente_hasta),
     advertencia_caducidad: advertencia(m.vigente_hasta),
     procedencia: procDegradado(m, m.vigente_hasta),

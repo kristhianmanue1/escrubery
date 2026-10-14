@@ -53,7 +53,8 @@ Todo dato servido lleva su procedencia. Ninguna respuesta de dato omite este blo
 - Fechas: ISO 8601 UTC.
 - Precios: USD por millón de tokens, número.
 - Ventanas de contexto: tokens, entero.
-- Identificadores: `snake_case`; el enum `proveedor ∈ {anthropic, xai, google, moonshot, zhipu, qwen, meta, otro}` aplica a `modelos.proveedor` (`qwen` añadido aditivamente el 2026-08-17, 9º CLI/API DashScope; `meta` añadido aditivamente el 2026-10-13, familia Muse de Meta Model API). `cli_producto.proveedor` identifica al **maintainer** del CLI (p. ej. `superagent-ai`, `openai`, `qwenlm`) y está fuera del enum (así lo estableció la migración 004).
+- Identificadores: `snake_case`; el enum `proveedor ∈ {anthropic, xai, google, moonshot, zhipu, qwen, meta, typesafe, otro}` aplica a `modelos.proveedor` (`qwen` añadido aditivamente el 2026-08-17, 9º CLI/API DashScope; `meta` añadido aditivamente el 2026-10-13, familia Muse de Meta Model API; `typesafe` añadido aditivamente el 2026-10-14, modelo de decisión estructurada Jev / System One). `cli_producto.proveedor` identifica al **maintainer** del CLI (p. ej. `superagent-ai`, `openai`, `qwenlm`) y está fuera del enum (así lo estableció la migración 004).
+- *(Errata 10, aditiva 2026-10-14):* `consultar_modelo` añade el campo `modo` (`"chat" | "responses" | "evaluation" | null`) — el modo de la fuente LiteLLM. `"evaluation"` declara modelos de decisión estructurada (System One: Choice/Score/Noul) que **no generan texto** y facturan solo tokens de entrada: en ellos `precios.output_por_millon: 0` es semántica de la fuente, no gratuidad limitada. `null` = la fuente no declara modo (registros previos a la migración `016`). Las respuestas anteriores no lo incluían; consumidores que ignoren campos desconocidos no se ven afectados.
 
 ### 2.3 Canonicalización
 

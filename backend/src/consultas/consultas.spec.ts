@@ -127,6 +127,33 @@ async function sembrar(db: Kysely<Database>): Promise<void> {
       vigente_hasta: VIGENTE,
     })
     .execute();
+
+  // Errata 10 (aditivo 2026-10-14): caso evaluation — decisión estructurada
+  // (System One) con salida 0 real (facturación solo por input).
+  await db
+    .insertInto('modelos')
+    .values({
+      proveedor: 'typesafe',
+      modelo_id: 'jev-1.13.0',
+      nombre_display: null,
+      modo: 'evaluation',
+      ventana_contexto_max: null,
+      soporta_vision: null,
+      soporta_tool_use: null,
+      soporta_caching: false,
+      soporta_batch: null,
+      soporta_computer_use: null,
+      precio_input_por_millon: '0.042',
+      precio_output_por_millon: '0',
+      precio_cache_lectura_por_millon: null,
+      fuente_url: 'https://docs.typesafe.ai/models',
+      fuente_tipo: 'litellm_json',
+      fecha_obtencion: FECHA,
+      hash_sha256_contenido_original: HASH_B,
+      estado_verificacion: 'confirmado_por_docs_oficial',
+      vigente_hasta: VIGENTE,
+    })
+    .execute();
 }
 
 d('goldens del shape v0 (post-errata T4a)', () => {
@@ -143,7 +170,7 @@ d('goldens del shape v0 (post-errata T4a)', () => {
     const db = await getDbTest();
     expect(await listar(db)).toEqual({
       clis: ['grok-build', 'grok-cli-community'],
-      proveedores: ['zhipu'],
+      proveedores: ['typesafe', 'zhipu'],
     });
   });
 
@@ -169,6 +196,9 @@ d('goldens del shape v0 (post-errata T4a)', () => {
       // T4b (aditivo): null aquí porque la semilla del spec no lleva curaduría
       pesos_abiertos: null,
       familia_arquitectura: null,
+      // Errata 10 (aditivo 2026-10-14): modo de la fuente LiteLLM; la semilla
+      // del spec no declara modo → null (registros previos a la mig 016).
+      modo: null,
       vigente_hasta: '2970-01-01T00:00:00.000Z',
       advertencia_caducidad: undefined,
       procedencia: {
@@ -180,6 +210,17 @@ d('goldens del shape v0 (post-errata T4a)', () => {
         estado_verificacion: 'confirmado_por_docs_oficial',
         firma_ed25519: null,
       },
+    });
+  });
+
+  it('consultar_modelo — modo evaluation (errata 10): salida 0 real, sin texto', async () => {
+    const db = await getDbTest();
+    const m = await consultarModelo(db, 'typesafe', 'jev-1.13.0');
+    expect(m).toMatchObject({
+      proveedor: 'typesafe',
+      modelo_id: 'jev-1.13.0',
+      modo: 'evaluation',
+      precios: { input_por_millon: 0.042, output_por_millon: 0 },
     });
   });
 

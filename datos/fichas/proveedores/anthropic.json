@@ -16,6 +16,7 @@
       "fuente_precio": "https://platform.claude.com/docs/en/about-claude/pricing",
       "max_output_tokens": 128000,
       "modelo_id": "claude-fable-5",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 1.0,
         "input_por_millon": 10.0,
@@ -35,6 +36,7 @@
       "fuente_precio": "https://platform.claude.com/docs/en/about-claude/pricing",
       "max_output_tokens": 128000,
       "modelo_id": "claude-fable-5-1",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.25,
         "input_por_millon": 10.0,
@@ -54,6 +56,7 @@
       "fuente_precio": "https://platform.claude.com/docs/en/about-claude/pricing",
       "max_output_tokens": 64000,
       "modelo_id": "claude-haiku-4-5",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.1,
         "input_por_millon": 1.0,
@@ -73,6 +76,7 @@
       "fuente_precio": null,
       "max_output_tokens": 64000,
       "modelo_id": "claude-haiku-4-5-20251001",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.1,
         "input_por_millon": 1.0,
@@ -92,6 +96,7 @@
       "fuente_precio": "https://platform.claude.com/docs/en/models/haiku-5-5/overview",
       "max_output_tokens": 128000,
       "modelo_id": "claude-haiku-5-5",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.01,
         "input_por_millon": 0.1,
@@ -111,6 +116,7 @@
       "fuente_precio": "https://platform.claude.com/docs/en/about-claude/pricing",
       "max_output_tokens": 128000,
       "modelo_id": "claude-mythos-5",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 1.0,
         "input_por_millon": 10.0,
@@ -130,6 +136,7 @@
       "fuente_precio": "https://platform.claude.com/docs/en/about-claude/pricing",
       "max_output_tokens": 128000,
       "modelo_id": "claude-mythos-5-1",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.25,
         "input_por_millon": 10.0,
@@ -149,6 +156,7 @@
       "fuente_precio": "https://platform.claude.com/docs/en/about-claude/models/overview",
       "max_output_tokens": 128000,
       "modelo_id": "claude-mythos-preview",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 1.0,
         "input_por_millon": 10.0,
@@ -168,6 +176,7 @@
       "fuente_precio": "https://platform.claude.com/docs/en/about-claude/pricing",
       "max_output_tokens": 64000,
       "modelo_id": "claude-opus-4-5",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.5,
         "input_por_millon": 5.0,
@@ -187,6 +196,7 @@
       "fuente_precio": null,
       "max_output_tokens": 64000,
       "modelo_id": "claude-opus-4-5-20251101",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.5,
         "input_por_millon": 5.0,
@@ -206,6 +216,7 @@
       "fuente_precio": "https://platform.claude.com/docs/en/about-claude/pricing",
       "max_output_tokens": 128000,
       "modelo_id": "claude-opus-4-6",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.5,
         "input_por_millon": 5.0,
@@ -225,6 +236,7 @@
       "fuente_precio": null,
       "max_output_tokens": 128000,
       "modelo_id": "claude-opus-4-6-20260205",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.5,
         "input_por_millon": 5.0,
@@ -244,6 +256,7 @@
       "fuente_precio": "https://platform.claude.com/docs/en/about-claude/pricing",
       "max_output_tokens": 128000,
       "modelo_id": "claude-opus-4-7",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.5,
         "input_por_millon": 5.0,
@@ -263,6 +276,7 @@
       "fuente_precio": null,
       "max_output_tokens": 128000,
       "modelo_id": "claude-opus-4-7-20260416",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.5,
         "input_por_millon": 5.0,
@@ -282,6 +296,7 @@
       "fuente_precio": "https://platform.claude.com/docs/en/about-claude/pricing",
       "max_output_tokens": 128000,
       "modelo_id": "claude-opus-4-8",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.5,
         "input_por_millon": 5.0,
@@ -301,6 +316,7 @@
       "fuente_precio": "https://platform.claude.com/docs/en/about-claude/pricing",
       "max_output_tokens": 128000,
       "modelo_id": "claude-opus-5",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.5,
         "input_por_millon": 5.0,
@@ -320,6 +336,7 @@
       "fuente_precio": "https://platform.claude.com/docs/en/about-claude/pricing",
       "max_output_tokens": 128000,
       "modelo_id": "claude-opus-5-5",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 4.0,
@@ -339,6 +356,7 @@
       "fuente_precio": "https://platform.claude.com/docs/en/about-claude/pricing",
       "max_output_tokens": 64000,
       "modelo_id": "claude-sonnet-4-5",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.3,
         "input_por_millon": 3.0,
@@ -358,6 +376,7 @@
       "fuente_precio": "https://docs.anthropic.com/en/docs/about-claude/pricing",
       "max_output_tokens": 64000,
       "modelo_id": "claude-sonnet-4-5-20250929",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.3,
         "input_por_millon": 3.0,
@@ -377,6 +396,7 @@
       "fuente_precio": "https://platform.claude.com/docs/en/about-claude/pricing",
       "max_output_tokens": 128000,
       "modelo_id": "claude-sonnet-4-6",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.3,
         "input_por_millon": 3.0,
@@ -396,6 +416,7 @@
       "fuente_precio": "https://platform.claude.com/docs/en/about-claude/pricing",
       "max_output_tokens": 128000,
       "modelo_id": "claude-sonnet-5",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 2.0,
@@ -415,6 +436,7 @@
       "fuente_precio": "https://platform.claude.com/docs/en/about-claude/pricing",
       "max_output_tokens": 128000,
       "modelo_id": "claude-sonnet-5-5",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.1,
         "input_por_millon": 2.0,
@@ -425,11 +447,11 @@
   },
   "procedencia": {
     "estado_verificacion": "confirmado_por_docs_oficial",
-    "fecha_obtencion": "2026-10-13T15:05:57Z",
+    "fecha_obtencion": "2026-10-14T19:05:38Z",
     "firma_ed25519": null,
     "fuente_tipo": "litellm_json",
     "fuente_url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json",
-    "hash_sha256_contenido_original": "d1172bab5733b6c3f0e090a04fd2b4b077e6c9460a540f7ca3aeb6b939045f28"
+    "hash_sha256_contenido_original": "c718a7b2f7a8d1009cb3bcf65c3c060cd453845f21dc0b96e822aa3e949c4d54"
   },
   "total_modelos": 22
 }

@@ -16,6 +16,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/models",
       "max_output_tokens": 393216,
       "modelo_id": "deepseek-v4-flash",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.04,
         "input_por_millon": 0.2,
@@ -35,6 +36,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/models",
       "max_output_tokens": 393216,
       "modelo_id": "deepseek-v4-flash-0731",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.04,
         "input_por_millon": 0.2,
@@ -54,6 +56,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/models",
       "max_output_tokens": 393216,
       "modelo_id": "deepseek-v4-pro",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.2,
         "input_por_millon": 2.4,
@@ -73,6 +76,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/models",
       "max_output_tokens": 131072,
       "modelo_id": "glm-5.1",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.26,
         "input_por_millon": 1.4,
@@ -92,6 +96,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/models",
       "max_output_tokens": 131072,
       "modelo_id": "glm-5.2",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.28,
         "input_por_millon": 1.4,
@@ -111,6 +116,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/models",
       "max_output_tokens": 16384,
       "modelo_id": "kimi-k2.7-code",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.19,
         "input_por_millon": 0.95,
@@ -130,6 +136,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/models",
       "max_output_tokens": 16384,
       "modelo_id": "qwen-coder",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 0.3,
@@ -149,6 +156,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/models",
       "max_output_tokens": 32768,
       "modelo_id": "qwen-flash",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": null,
@@ -168,6 +176,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/models",
       "max_output_tokens": 32768,
       "modelo_id": "qwen-flash-2025-07-28",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": null,
@@ -187,6 +196,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/models",
       "max_output_tokens": 8192,
       "modelo_id": "qwen-max",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 1.6,
@@ -206,6 +216,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/models",
       "max_output_tokens": 16384,
       "modelo_id": "qwen-plus",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 0.4,
@@ -225,6 +236,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/models",
       "max_output_tokens": 8192,
       "modelo_id": "qwen-plus-2025-01-25",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 0.4,
@@ -244,6 +256,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/models",
       "max_output_tokens": 16384,
       "modelo_id": "qwen-plus-2025-04-28",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 0.4,
@@ -263,6 +276,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/models",
       "max_output_tokens": 16384,
       "modelo_id": "qwen-plus-2025-07-14",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 0.4,
@@ -282,6 +296,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/models",
       "max_output_tokens": 32768,
       "modelo_id": "qwen-plus-2025-07-28",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": null,
@@ -301,6 +316,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/models",
       "max_output_tokens": 32768,
       "modelo_id": "qwen-plus-2025-09-11",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": null,
@@ -320,6 +336,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/models",
       "max_output_tokens": 32768,
       "modelo_id": "qwen-plus-latest",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": null,
@@ -339,6 +356,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/models",
       "max_output_tokens": 16384,
       "modelo_id": "qwen-turbo",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 0.05,
@@ -358,6 +376,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/models",
       "max_output_tokens": 8192,
       "modelo_id": "qwen-turbo-2024-11-01",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 0.05,
@@ -377,6 +396,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/models",
       "max_output_tokens": 16384,
       "modelo_id": "qwen-turbo-2025-04-28",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 0.05,
@@ -396,6 +416,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/models",
       "max_output_tokens": 16384,
       "modelo_id": "qwen-turbo-latest",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 0.05,
@@ -415,6 +436,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/models",
       "max_output_tokens": 16384,
       "modelo_id": "qwen3-30b-a3b",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": null,
@@ -434,6 +456,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/models",
       "max_output_tokens": 65536,
       "modelo_id": "qwen3-coder-flash",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": null,
@@ -453,6 +476,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/models",
       "max_output_tokens": 65536,
       "modelo_id": "qwen3-coder-flash-2025-07-28",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": null,
@@ -472,6 +496,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/models",
       "max_output_tokens": 65536,
       "modelo_id": "qwen3-coder-plus",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": null,
@@ -491,6 +516,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/models",
       "max_output_tokens": 65536,
       "modelo_id": "qwen3-coder-plus-2025-07-22",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": null,
@@ -510,6 +536,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/models",
       "max_output_tokens": 65536,
       "modelo_id": "qwen3-max",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": null,
@@ -529,6 +556,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/models",
       "max_output_tokens": 65536,
       "modelo_id": "qwen3-max-2026-01-23",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": null,
@@ -548,6 +576,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/models",
       "max_output_tokens": 65536,
       "modelo_id": "qwen3-max-preview",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": null,
@@ -567,6 +596,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/model-pricing",
       "max_output_tokens": 65536,
       "modelo_id": "qwen3-next-80b-a3b-instruct",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 0.15,
@@ -586,6 +616,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/model-pricing",
       "max_output_tokens": 65536,
       "modelo_id": "qwen3-next-80b-a3b-thinking",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 0.15,
@@ -605,6 +636,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/model-pricing",
       "max_output_tokens": 32768,
       "modelo_id": "qwen3-vl-235b-a22b-instruct",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 0.4,
@@ -624,6 +656,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/model-pricing",
       "max_output_tokens": 32768,
       "modelo_id": "qwen3-vl-235b-a22b-thinking",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 0.4,
@@ -643,6 +676,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/model-pricing",
       "max_output_tokens": 32768,
       "modelo_id": "qwen3-vl-32b-instruct",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 0.16,
@@ -662,6 +696,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/model-pricing",
       "max_output_tokens": 32768,
       "modelo_id": "qwen3-vl-32b-thinking",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 0.16,
@@ -681,6 +716,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/models",
       "max_output_tokens": 32768,
       "modelo_id": "qwen3-vl-plus",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": null,
@@ -700,6 +736,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/models",
       "max_output_tokens": 65536,
       "modelo_id": "qwen3.5-plus",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": null,
@@ -719,6 +756,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/models",
       "max_output_tokens": 65536,
       "modelo_id": "qwen3.7-max",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.5,
         "input_por_millon": 2.5,
@@ -738,6 +776,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/models",
       "max_output_tokens": 65536,
       "modelo_id": "qwen3.7-plus",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": null,
@@ -757,6 +796,7 @@
       "fuente_precio": "https://docs.modelstudio.console.alibabacloud.com/en/model-studio/model-pricing",
       "max_output_tokens": 131072,
       "modelo_id": "qwen3.8-flash",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.016,
         "input_por_millon": 0.15,
@@ -776,6 +816,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/models",
       "max_output_tokens": 131072,
       "modelo_id": "qwen3.8-max",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.25,
         "input_por_millon": 2.0,
@@ -795,6 +836,7 @@
       "fuente_precio": "https://docs.modelstudio.console.alibabacloud.com/en/model-studio/model-pricing",
       "max_output_tokens": 131072,
       "modelo_id": "qwen3.8-omni-flash",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.016,
         "input_por_millon": 0.15,
@@ -814,6 +856,7 @@
       "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/models",
       "max_output_tokens": 8192,
       "modelo_id": "qwq-plus",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 0.8,
@@ -824,11 +867,11 @@
   },
   "procedencia": {
     "estado_verificacion": "confirmado_por_docs_oficial",
-    "fecha_obtencion": "2026-10-13T15:05:57Z",
+    "fecha_obtencion": "2026-10-14T19:05:38Z",
     "firma_ed25519": null,
     "fuente_tipo": "litellm_json",
     "fuente_url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json",
-    "hash_sha256_contenido_original": "d1172bab5733b6c3f0e090a04fd2b4b077e6c9460a540f7ca3aeb6b939045f28"
+    "hash_sha256_contenido_original": "c718a7b2f7a8d1009cb3bcf65c3c060cd453845f21dc0b96e822aa3e949c4d54"
   },
   "total_modelos": 43
 }

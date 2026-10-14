@@ -1,0 +1,77 @@
+{
+  "entidad": "proveedor",
+  "esquema": "escrubery/ficha-proveedor/0.1",
+  "fuente_litellm_provider": "typesafe",
+  "id": "typesafe",
+  "modelos": {
+    "jev-1.13.0": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": null,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://docs.typesafe.ai/models",
+      "max_output_tokens": null,
+      "modelo_id": "jev-1.13.0",
+      "modo": "evaluation",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 0.042,
+        "output_por_millon": 0.0
+      },
+      "ventana_contexto_max": null
+    },
+    "jev-latest": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": null,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://docs.typesafe.ai/models",
+      "max_output_tokens": null,
+      "modelo_id": "jev-latest",
+      "modo": "evaluation",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 0.042,
+        "output_por_millon": 0.0
+      },
+      "ventana_contexto_max": null
+    },
+    "jev-preview": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": null,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://docs.typesafe.ai/models",
+      "max_output_tokens": null,
+      "modelo_id": "jev-preview",
+      "modo": "evaluation",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 0.042,
+        "output_por_millon": 0.0
+      },
+      "ventana_contexto_max": null
+    }
+  },
+  "procedencia": {
+    "estado_verificacion": "confirmado_por_docs_oficial",
+    "fecha_obtencion": "2026-10-14T19:05:38Z",
+    "firma_ed25519": null,
+    "fuente_tipo": "litellm_json",
+    "fuente_url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json",
+    "hash_sha256_contenido_original": "c718a7b2f7a8d1009cb3bcf65c3c060cd453845f21dc0b96e822aa3e949c4d54"
+  },
+  "total_modelos": 3
+}

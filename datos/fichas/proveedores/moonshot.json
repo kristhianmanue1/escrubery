@@ -16,6 +16,7 @@
       "fuente_precio": "https://platform.moonshot.ai/docs/guide/kimi-k2-5-quickstart",
       "max_output_tokens": 262144,
       "modelo_id": "kimi-k2.5",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.1,
         "input_por_millon": 0.6,
@@ -35,6 +36,7 @@
       "fuente_precio": "https://platform.kimi.ai/docs/pricing/chat-k26",
       "max_output_tokens": 262144,
       "modelo_id": "kimi-k2.6",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.16,
         "input_por_millon": 0.95,
@@ -54,6 +56,7 @@
       "fuente_precio": "https://platform.kimi.ai/docs/pricing/chat-k27-code",
       "max_output_tokens": 262144,
       "modelo_id": "kimi-k2.7-code",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.19,
         "input_por_millon": 0.95,
@@ -73,6 +76,7 @@
       "fuente_precio": "https://platform.kimi.ai/docs/pricing/chat-k3",
       "max_output_tokens": 1048576,
       "modelo_id": "kimi-k3",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.3,
         "input_por_millon": 3.0,
@@ -92,6 +96,7 @@
       "fuente_precio": "https://platform.moonshot.ai/docs/pricing",
       "max_output_tokens": 131072,
       "modelo_id": "moonshot-v1-128k",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 2.0,
@@ -111,6 +116,7 @@
       "fuente_precio": "https://platform.moonshot.ai/docs/pricing",
       "max_output_tokens": 131072,
       "modelo_id": "moonshot-v1-128k-vision-preview",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 2.0,
@@ -130,6 +136,7 @@
       "fuente_precio": "https://platform.moonshot.ai/docs/pricing",
       "max_output_tokens": 32768,
       "modelo_id": "moonshot-v1-32k",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 1.0,
@@ -149,6 +156,7 @@
       "fuente_precio": "https://platform.moonshot.ai/docs/pricing",
       "max_output_tokens": 32768,
       "modelo_id": "moonshot-v1-32k-vision-preview",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 1.0,
@@ -168,6 +176,7 @@
       "fuente_precio": "https://platform.moonshot.ai/docs/pricing",
       "max_output_tokens": 8192,
       "modelo_id": "moonshot-v1-8k",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 0.2,
@@ -187,6 +196,7 @@
       "fuente_precio": "https://platform.moonshot.ai/docs/pricing",
       "max_output_tokens": 8192,
       "modelo_id": "moonshot-v1-8k-vision-preview",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 0.2,
@@ -206,6 +216,7 @@
       "fuente_precio": "https://platform.moonshot.ai/docs/pricing",
       "max_output_tokens": 131072,
       "modelo_id": "moonshot-v1-auto",
+      "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": null,
         "input_por_millon": 2.0,
@@ -216,11 +227,11 @@
   },
   "procedencia": {
     "estado_verificacion": "confirmado_por_docs_oficial",
-    "fecha_obtencion": "2026-10-13T15:05:57Z",
+    "fecha_obtencion": "2026-10-14T19:05:38Z",
     "firma_ed25519": null,
     "fuente_tipo": "litellm_json",
     "fuente_url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json",
-    "hash_sha256_contenido_original": "d1172bab5733b6c3f0e090a04fd2b4b077e6c9460a540f7ca3aeb6b939045f28"
+    "hash_sha256_contenido_original": "c718a7b2f7a8d1009cb3bcf65c3c060cd453845f21dc0b96e822aa3e949c4d54"
   },
   "total_modelos": 11
 }

@@ -3,7 +3,12 @@
 `scripts/vigilancia_diaria.sh` corre los pollers de GitHub (diario:
 opencode/claude-code/codex-cli; semanal: grok-build/kimi-code/cline/
 grok-cli-community — antigravity-cli queda fuera hasta tener `repo_url`),
-el poller pasivo de Vulnerable MCP y `evidentia:alertas`.
+el poller pasivo de Vulnerable MCP, `evidentia:alertas` y los pollers de
+producto: `vigilar_muse_code.py` (changelog docs + SDK npm; muse-code es
+binario cerrado sin releases GitHub) y `vigilar_atria.py` (disparadores de
+incorporación del proveedor candidato Atria: páginas legales 404→200,
+presencia en LiteLLM, hash del landing — ver
+`datos/fichas/curaduria/integracion_atria.json`).
 
 **Exit codes:** `0` OK sin alertas · `10` alerta `fix_seguridad`/`breaking_change`
 en 24 h (cualquiera, no solo nuevas — no se silencian las no atendidas) ·

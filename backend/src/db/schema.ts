@@ -8,6 +8,10 @@ export interface ModelosTable {
   modelo_id: string;
   nombre_display: string | null;
   ventana_contexto_max: number | null;
+  // Aditivo 2026-10-14 (ticket typesafe): modo de la fuente LiteLLM
+  // ("chat" | "responses" | "evaluation" | null). "evaluation" = decisión
+  // estructurada (System One) — sin generación de texto, facturación por input.
+  modo: string | null;
   soporta_vision: boolean | null;
   soporta_tool_use: boolean | null;
   soporta_caching: boolean | null;
