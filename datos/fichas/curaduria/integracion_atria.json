@@ -1,0 +1,48 @@
+{
+  "schema": "escrubery/curaduria/observacion-integracion/v0",
+  "cli_id": null,
+  "titulo": "Atria (atria-asi.ai): proveedor candidato de modelos — observación previa a incorporación",
+  "fecha_observacion": "2026-10-14",
+  "contraparte": {
+    "sistema": "Atria Model Service (api.atria-asi.ai), operador first-party no identificado públicamente",
+    "modelo_unico": "Atria-Dawn (contexto 512K, entrada solo texto, salida hasta 65,536 tokens por límite de request)",
+    "superficies": [
+      "POST /v1/chat/completions (compatible OpenAI, Bearer)",
+      "POST /v1/messages (compatible Anthropic Messages, x-api-key + anthropic-version: 2023-06-01)",
+      "POST /v1/responses (compatible OpenAI Responses, Bearer)"
+    ],
+    "integraciones_documentadas": [
+      "claude-code (ANTHROPIC_BASE_URL sin /v1 + ANTHROPIC_AUTH_TOKEN)",
+      "codex-cli >= 0.154.0 (model_catalog_json con input_modalities [\"text\"], wire_api responses)",
+      "herramientas de terceros: WorkBuddy, Qoder, OpenClaw, Hermes"
+    ],
+    "limites_observados_docs": "rate limit por cuenta compartido entre las 3 APIs (ejemplo docs: x-rpm-limit 60, headers Retry-After / x-rpm-remaining)"
+  },
+  "que_se_verifico": [
+    "Docs server-side legibles en api.atria-asi.ai (landing + /docs); citas de superficies y límites verificadas contra el HTML crudo.",
+    "AUSENCIA de precios verificada activamente: no hay mención en landing ni docs; https://www.atria-asi.ai/{legal,terms,privacy,pricing} devuelven 404; sin llms.txt.",
+    "Sitio principal atria-asi.ai es una SPA estática de ~1.6 KB servida desde Aliyun OSS ap-southeast-1 (header server: AliyunOSS) — sin identidad del operador, sin legales.",
+    "Atria NO aparece en el registro de LiteLLM (0 coincidencias en 4,070 entradas, descarga 2026-10-13) — no hay ficha posible por el camino canónico del generador."
+  ],
+  "declaracion_mediador": {
+    "nota": "Dato declarado por el Mediador en sesión (canal confirmado, 2026-10-14); NO sustituye una fuente publicada: el catálogo no puede servirlo como precio confirmado.",
+    "contenido": "Atria hoy no publica precios porque el uso actual es gratuito con un límite de tokens para uso y prueba (sin costo); el ecosistema lo estará usando en ese régimen."
+  },
+  "nulls_con_causa": {
+    "precios": "null — sin página de precios (404) ni mención en docs; estado gratuito declarado por el Mediador (ver declaracion_mediador)",
+    "politica_datos": "null — sin ToS/privacy/legales accesibles (404): quién entrena con el contenido enviado es DESCONOCIDO (lección meta/Contributor: tratar todo lo enviado a Atria como no-confidencial)",
+    "identidad_operador": "null — sin página about/legal; infraestructura en Aliyun OSS (Singapur)"
+  },
+  "hallazgo_clave_para_el_catalogo": "El bloqueo de incorporación NO es el modelo (calza 1:1 con el contrato chat) ni la gratuidad (los nulls son legítimos por regla), sino la ausencia de LiteLLM + de fuentes legales: una ficha nacería sin procedencia de precios ni política de datos. Los disparadores de incorporación plena son objetivos: (a) LiteLLM lo agregue al registro (el refresco semanal lo detecta gratis), o (b) publiquen pricing/legal citables.",
+  "evidencia": {
+    "fuente_tipo": "docs_oficial_proveedor",
+    "fecha_obtencion": "2026-10-14",
+    "anclajes": [
+      "datos/fuentes/atria/api-landing.html sha256:c238fc1e61538f9fed3a8c536c870a320f61d12655adb33cc469638378b7913a",
+      "datos/fuentes/atria/api-docs.html sha256:68cc13ceb94de4236c300f608e36afb8173775593c32da8a482089619bb58832",
+      "datos/fuentes/atria/sitio-principal.html sha256:20c5311dab513237304508d515015ae1dc3717faf5979415a3ca4d3749fdc39e",
+      "datos/fuentes/litellm/model_prices_and_context_window.json (2026-10-13): 0 entradas atria/dawn",
+      "Análisis completo: docs/investigacion/Analisis_Incorporacion_Atria_Typesafe.md"
+    ]
+  }
+}
