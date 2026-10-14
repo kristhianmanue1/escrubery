@@ -110,6 +110,19 @@ case "$MUSE_RC" in
      FALLOS=$((FALLOS + 1)) ;;
 esac
 
+# --- Poller atria (proveedor candidato NO incorporado — observación
+# --- integracion_atria.json): disparadores de incorporación (legales 404→200,
+# --- presencia en LiteLLM, cambio de landing). Exit propio 0/10/2.
+ATRIA_RC=0
+echo "-- poller atria (disparadores de incorporación)"
+python3 "$RAIZ/scripts/vigilar_atria.py" --estado-dir "$VDIR" || ATRIA_RC=$?
+case "$ATRIA_RC" in
+  0) : ;;
+  10) echo "atria: DISPARADOR detectado — evaluar incorporación (ver observación en curaduría)" ;;
+  *) echo "FALLO poller atria (rc=$ATRIA_RC): tratado como infra"
+     FALLOS=$((FALLOS + 1)) ;;
+esac
+
 # --- Introspección activa F3 (presupuesto ~0: solo --help/--version en
 # --- contenedor efímero; decreto Mediador 2026-08-17). Diarios siempre;
 # --- semanales con ToS curado (qwen-code) cuando toca la ventana semanal.
@@ -209,12 +222,12 @@ fi
 cat "$ALERTAS_OUT"
 
 # Marca nuevas vs conocidas, actualiza estado y decide exit (0/10).
-python3 - "$ESTADO" "$ALERTAS_OUT" "$HACER_SEMANAL" "$F3_ESTADO" "$MUSE_RC" <<'PY'
+python3 - "$ESTADO" "$ALERTAS_OUT" "$HACER_SEMANAL" "$F3_ESTADO" "$MUSE_RC" "$ATRIA_RC" <<'PY'
 import json, sys
 from pathlib import Path
 from datetime import datetime, timezone
 estado_path, alertas_path = Path(sys.argv[1]), Path(sys.argv[2])
-hacer_semanal, f3_estado, muse_rc = sys.argv[3], sys.argv[4], sys.argv[5]
+hacer_semanal, f3_estado, muse_rc, atria_rc = sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6]
 raw = json.loads(alertas_path.read_text())
 alertas = raw["alertas_alta_severidad_ultimas_24h"]
 ids = [a["record_id"] for a in raw.get("alertas", [])]
@@ -236,10 +249,11 @@ estado = {
     "alertas_conocidas": sorted(set(ids) | previos),
     "f3_introspeccion": f3_estado,
     "muse_code": muse_rc,
+    "atria": atria_rc,
 }
 estado["ultima_semanal"] = ahora if hacer_semanal == "1" else (ultima_semanal or ahora)
 estado_path.write_text(json.dumps(estado, indent=2) + "\n")
-sys.exit(10 if (alertas > 0 or muse_rc == "10") else 0)
+sys.exit(10 if (alertas > 0 or muse_rc == "10" or atria_rc == "10") else 0)
 PY
 RC=$?
 if [ "$RC" != "0" ] && [ "$RC" != "10" ]; then
