@@ -54,8 +54,14 @@
         }
       },
       "cita": "Meta Model API Data Commitments (Standard vs Discounted Services) + Pricing (Contributor mode); 'In all cases, Meta does not use Customer Data to train'",
-      "notas_producto_muse_code": "En suscripciones de Muse Code el modo Contributor está ON por defecto (opt-out en /settings); por pay-as-you-go el modo se elige por model id (-contributor). Pricing: muse-wonder sin Contributor en Model API",
+      "notas_producto_muse_code": "En suscripciones de Muse Code el modo Contributor está ON por defecto (opt-out en /settings; ToS §3.3: el cambio de setting es prospectivo, el Content previo queda bajo derechos §6); por pay-as-you-go el modo se elige por model id (-contributor). Pricing: muse-wonder sin Contributor en Model API",
       "escape": "no usar ids -contributor (pay-as-you-go) / apagar Contributor en /settings (suscripción Muse Code)",
+      "confirmacion_tos_2026-10-14": {
+        "nota": "El ToS legal completo confirma la dualidad: §5.1 Standard 'will not use Content submitted in a request to the Standard Services to train Meta Models'; §6.1 Contributor 'may use your Content to train, develop, evaluate, and improve' con desasociación previa; §6.2 'You must not submit sensitive, confidential, or personal information to the Contributor Services' y sin mecanismo de exclusión por tráfico",
+        "fuente_url": "https://dev.meta.ai/legal/terms-of-service",
+        "fuente_hash": "c3674f86016f79f038d74e2c4924978565450dcbf7e3f5333ff2805bd7ee05da",
+        "fecha_obtencion": "2026-10-14T00:00:00Z"
+      },
       "fuente_url": "https://dev.meta.ai/legal/commitments",
       "fuente_tipo": "docs_oficial",
       "fecha_obtencion": "2026-10-13T00:00:00Z",
