@@ -1,7 +1,7 @@
 # Tarjeta: migración Docker→servidor (F3 remota)
 
 **Fecha:** 2026-10-27 · **Clase:** Architectural (multi-tarea; el DoD canónico vivirá en su plan — ver §Proceso)
-**Estado:** EN REVISIÓN — premisa refutada el mismo día de su redacción (ver §Hallazgo 2026-10-27 tarde); ejecución suspendida hasta decreto del Mediador (aparcar vs migrar de todos modos). Envoltorio T2 escrito y verificado (patrimonio de la tarjeta).
+**Estado:** **APARCADA** por decreto del Mediador (2026-10-27 tarde, opción «a»): la decisión del 09-06 queda revocada en los hechos — Docker local volvió por terceros y la F3 local corre diariamente; no hay consumo marginal ni cola que migrar. La tarjeta y su envoltorio T2 verificado quedan como patrimonio listo para reactivar si el consumo vuelve a molestar. Reactivación = decreto nuevo.
 **Origen:** decisión del Mediador 2026-09-06 (Docker local se apaga por consumo; F3 migra a servidor externo, sin autostart). Retomada el 2026-10-27 con la recomendación vigente: 78 alertas acumuladas sin introspección y cola de 2 CLIs.
 
 ## Hallazgo 2026-10-27 (tarde) — la premisa es caduca
