@@ -1,8 +1,19 @@
 # Tarjeta: migración Docker→servidor (F3 remota)
 
 **Fecha:** 2026-10-27 · **Clase:** Architectural (multi-tarea; el DoD canónico vivirá en su plan — ver §Proceso)
-**Estado:** PROPUESTO. Redactada por decreto «adelante con recomendaciones»; la ejecución arranca en sesión propia.
+**Estado:** EN REVISIÓN — premisa refutada el mismo día de su redacción (ver §Hallazgo 2026-10-27 tarde); ejecución suspendida hasta decreto del Mediador (aparcar vs migrar de todos modos). Envoltorio T2 escrito y verificado (patrimonio de la tarjeta).
 **Origen:** decisión del Mediador 2026-09-06 (Docker local se apaga por consumo; F3 migra a servidor externo, sin autostart). Retomada el 2026-10-27 con la recomendación vigente: 78 alertas acumuladas sin introspección y cola de 2 CLIs.
+
+## Hallazgo 2026-10-27 (tarde) — la premisa es caduca
+
+Investigación por decreto («investiga para qué tenía su propia caja en docker»):
+
+1. **La caja:** la VM Linux dedicada de Docker Desktop en esta Mac (~4.3 GB configurados, AutoStart off) — hogar de las imágenes `escrubery-sandbox-<cli>` (10 Dockerfiles en `docker/sandbox/`), la F3: introspección aislada de CLIs de terceros a versión fijada, con sondas diarias de superficie (`--version`) y procedencia commiteada.
+2. **Docker volvió por terceros:** el daemon responde (28.5.1); otros proyectos del ecosistema lo requieren (paca-runner, actions-runner del CI de pacayeliztlahtolli, agentmemory). El consumo que motivó el apagado del 09-06 ya se está pagando de nuevo.
+3. **La F3 local nunca dejó de correr:** commits diarios de «capturas de superficie» sin hueco desde el 2026-10-13; esta misma mañana (09:01–09:03) reconstruyó las 4 imágenes diarias. La deuda qwen 0.22.2 se resolvió sola (sandbox en 0.26.2-preview.0 por rebuild semver-mayor; nota: upstream etiquetó latest como `-preview` — comportamiento del poller, no defecto).
+4. **Consecuencia:** no hay «78 alertas sin introspección» ni cola pendiente que una migración resuelva. El consumo marginal de escrubery en la caja ya encendida es bajo (sondas de segundos; rebuilds solo en semver-mayor).
+
+Opciones ante el Mediador: **(a) aparcar** esta tarjeta revocando en los hechos la decisión 09-06 (recomendada: cero costo nuevo, cero servidor nuevo); **(b) migrar de todos modos** para descargar el Mac (emd-moodle: podman 4.9.4, 2 cores, producción eduEMD — no recomendado; VPS nuevo dedicado: limpio, a presupuesto del Operador).
 
 ## Disparadores observables (por qué ahora)
 
