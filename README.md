@@ -41,7 +41,7 @@ bash scripts/vigilancia_diaria.sh                # pollers + alertas + checkpoin
 python3 scripts/verificar_divergencia_opencode.py  # gate ficha↔captura sandbox (issue #3)
 ```
 
-Toda respuesta incluye su bloque de `procedencia` (fuente, fecha, hash). Las fichas de proveedores (**184 modelos de 8 proveedores**) se generan desde el JSON de LiteLLM; las de CLIs (10 productos) están curadurizadas desde la investigación y la introspección sandbox.
+Toda respuesta incluye su bloque de `procedencia` (fuente, fecha, hash). Las fichas de proveedores (**309 modelos de 9 proveedores**) se generan desde el JSON de LiteLLM; las de CLIs (10 productos) están curadurizadas desde la investigación y la introspección sandbox.
 
 ## Principios de diseño
 

@@ -374,7 +374,7 @@
       },
       "fecha_deprecacion": null,
       "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
-      "max_output_tokens": 65536,
+      "max_output_tokens": 1048576,
       "modelo_id": "gemini-4-argon",
       "modo": "chat",
       "precios": {
@@ -482,7 +482,7 @@
         "input_por_millon": 0.35,
         "output_por_millon": 1.05
       },
-      "ventana_contexto_max": null
+      "ventana_contexto_max": 8192
     },
     "gemini-gemma-2-9b-it": {
       "capacidades": {
@@ -502,7 +502,7 @@
         "input_por_millon": 0.35,
         "output_por_millon": 1.05
       },
-      "ventana_contexto_max": null
+      "ventana_contexto_max": 8192
     },
     "gemini-omni-1.1-flash": {
       "capacidades": {
@@ -807,11 +807,11 @@
   },
   "procedencia": {
     "estado_verificacion": "confirmado_por_docs_oficial",
-    "fecha_obtencion": "2026-10-14T19:05:38Z",
+    "fecha_obtencion": "2026-10-27T18:31:12Z",
     "firma_ed25519": null,
     "fuente_tipo": "litellm_json",
     "fuente_url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json",
-    "hash_sha256_contenido_original": "c718a7b2f7a8d1009cb3bcf65c3c060cd453845f21dc0b96e822aa3e949c4d54"
+    "hash_sha256_contenido_original": "1faeeb3b9f7c974445a1377db267551c90b3b2748918f106e6fe2d54b8938d07"
   },
   "total_modelos": 40
 }

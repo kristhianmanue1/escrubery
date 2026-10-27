@@ -33,6 +33,10 @@ PROVEEDORES = {
     "qwen": "dashscope",
     "meta": "meta",
     "typesafe": "typesafe",
+    # 9º proveedor (2026-10-27, ticket feedback adrc-mini, fb_11): API propia
+    # de OpenAI. Los modos no-chat (embedding/image_generation/realtime/etc.)
+    # quedan fuera por el filtro de modos de abajo.
+    "openai": "openai",
 }
 
 RAIZ = Path(__file__).resolve().parent.parent

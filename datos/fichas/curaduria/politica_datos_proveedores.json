@@ -1,180 +1,190 @@
 {
-  "esquema": "escrubery/curaduria-politica-datos/0.1",
-  "entidad": "curaduria",
-  "id": "politica-datos-proveedores",
   "descripcion": "Politica de uso de datos por proveedor (capa de curaduria, se edita a mano con criterio y lleva su propia procedencia por entrada). Pregunta que responde: ¿el proveedor usa el contenido del cliente (inputs/outputs) para entrenar sus modelos, en cada modalidad? Caso motor del ticket: el modo Contributor de Meta (descuento a cambio de entrenar con tu contenido). null = no declarado o fuente no accesible: nunca se infiere. Esta capa NO la consume la ingesta (capa documental como assurance_*/integracion_*); la referencia viva vive en este archivo y en docs/investigacion/tos-clis.md.",
+  "entidad": "curaduria",
+  "esquema": "escrubery/curaduria-politica-datos/0.1",
   "glosario": {
     "entrena_con_contenido": "bool|null — ¿usa Inputs/Outputs del cliente para entrenar modelos, por defecto, en la modalidad indicada?",
-    "modalidades": "objeto|null — cuando la politica depende del tier/producto, la regla por modalidad",
     "escape": "como evita el cliente el entrenamiento, si aplica",
-    "fuente_hash": "sha256 de la captura cruda en datos/fuentes/politicas-proveedores/ (o la carpeta que corresponda)"
+    "fuente_hash": "sha256 de la captura cruda en datos/fuentes/politicas-proveedores/ (o la carpeta que corresponda)",
+    "modalidades": "objeto|null — cuando la politica depende del tier/producto, la regla por modalidad"
   },
-  "proveedores": {
-    "anthropic": {
-      "entrena_con_contenido": false,
-      "modalidades": null,
-      "cita": "\"Anthropic may not train models on Customer Content from Services.\" — Commercial Terms of Service §B (Customer Content), vigente 2025-06-17",
-      "escape": "n/a — no entrena por diseño (Commercial Terms); Consumer Terms son otro producto, fuera del alcance de API",
-      "fuente_url": "https://www.anthropic.com/legal/commercial-terms",
-      "fuente_tipo": "docs_oficial",
-      "fecha_obtencion": "2026-10-13T00:00:00Z",
-      "fuente_hash": "611a118248473effccfe6368519e6c06b7eeaf3ae66ba0a7c7fa224b77ca7909",
-      "estado_verificacion": "confirmado_por_docs_oficial"
-    },
-    "google": {
-      "entrena_con_contenido": null,
-      "modalidades": {
-        "unpaid": {
-          "entrena_con_contenido": true,
-          "notas": "Unpaid Services (AI Studio / cuota gratuita Gemini API): Google usa el contenido para 'provide, improve, and develop Google products... machine learning technologies'; revisores humanos leen/procesan inputs y outputs tras desasociarlos de cuenta/key/proyecto; pide no enviar información sensible"
-        },
-        "paid": {
-          "entrena_con_contenido": false,
-          "notas": "\"Google doesn't use your prompts (including associated system instructions, cached content, and files...) or responses to improve our products\"; procesa bajo DPA; logs solo anti-abuso por tiempo limitado"
-        }
-      },
-      "cita": "Gemini API Additional Terms of Service — sección 'Data Collection and How Google Uses Your Data'",
-      "escape": "tier paid (Gemini API de pago)",
-      "fuente_url": "https://ai.google.dev/gemini-api/terms",
-      "fuente_tipo": "docs_oficial",
-      "fecha_obtencion": "2026-10-13T00:00:00Z",
-      "fuente_hash": "37254fb2e77f6e11bcad072eb7ec69f10259d3ab1584a91d16ff99ec90b5f076",
-      "estado_verificacion": "confirmado_por_docs_oficial"
-    },
-    "meta": {
-      "entrena_con_contenido": false,
-      "modalidades": {
-        "standard": {
-          "entrena_con_contenido": false,
-          "notas": "\"Meta does not use your Content from Standard Services to train Meta Models\" (Data Commitments)"
-        },
-        "discounted_contributor": {
-          "entrena_con_contenido": true,
-          "notas": "Discounted Services (Contributor): puede usar Content para entrenar; pasos de desasociación de cuenta/API key ANTES de entrenar (evaluación/seguridad puede usar sin desasociar); escape documentado: 'upgrade to Standard Services'"
-        }
-      },
-      "cita": "Meta Model API Data Commitments (Standard vs Discounted Services) + Pricing (Contributor mode); 'In all cases, Meta does not use Customer Data to train'",
-      "notas_producto_muse_code": "En suscripciones de Muse Code el modo Contributor está ON por defecto (opt-out en /settings; ToS §3.3: el cambio de setting es prospectivo, el Content previo queda bajo derechos §6); por pay-as-you-go el modo se elige por model id (-contributor). Pricing: muse-wonder sin Contributor en Model API",
-      "escape": "no usar ids -contributor (pay-as-you-go) / apagar Contributor en /settings (suscripción Muse Code)",
-      "confirmacion_tos_2026-10-14": {
-        "nota": "El ToS legal completo confirma la dualidad: §5.1 Standard 'will not use Content submitted in a request to the Standard Services to train Meta Models'; §6.1 Contributor 'may use your Content to train, develop, evaluate, and improve' con desasociación previa; §6.2 'You must not submit sensitive, confidential, or personal information to the Contributor Services' y sin mecanismo de exclusión por tráfico",
-        "fuente_url": "https://dev.meta.ai/legal/terms-of-service",
-        "fuente_hash": "c3674f86016f79f038d74e2c4924978565450dcbf7e3f5333ff2805bd7ee05da",
-        "fecha_obtencion": "2026-10-14T00:00:00Z"
-      },
-      "fuente_url": "https://dev.meta.ai/legal/commitments",
-      "fuente_tipo": "docs_oficial",
-      "fecha_obtencion": "2026-10-13T00:00:00Z",
-      "fuente_hash": "afc614ab43232bb9a695d6f28d550ce8eab7448758d212759cb0ee4687895219",
-      "estado_verificacion": "confirmado_por_docs_oficial"
-    },
-    "qwen": {
-      "entrena_con_contenido": false,
-      "modalidades": null,
-      "cita": "Alibaba Cloud Model Studio Privacy Notice: \"Alibaba Cloud strictly protects your data privacy and will never use your data for model training.\"",
-      "notas": "La misma nota declara que Model Studio almacena datos generados por llamadas de modelo y aplicación; la ausencia de entrenamiento no equivale a ausencia de retención.",
-      "escape": "n/a — la Privacy Notice declara que no usa los datos para entrenamiento",
-      "fuente_url": "https://www.alibabacloud.com/help/en/model-studio/privacy-notice",
-      "fuente_tipo": "docs_oficial",
-      "fecha_obtencion": "2026-10-13T20:47:38Z",
-      "fuente_hash": "627a4da8424e0043b3925c2541c5262b1bf35d5c752414699df05231fcaa45bb",
-      "estado_verificacion": "confirmado_por_docs_oficial"
-    },
-    "typesafe": {
-      "entrena_con_contenido": false,
-      "modalidades": {
-        "estandar": {
-          "entrena_con_contenido": false,
-          "notas": "Sin modos duales: el mismo weights sirve a todas las cuentas (sin fine-tuning por cliente; el dominio se inyecta por request en state/instructions/criteria)"
-        },
-        "enterprise_zdr": {
-          "entrena_con_contenido": false,
-          "notas": "Zero Data Retention disponible para clientes enterprise (contacto sales@typesafe.ai; DPA cubre retención)"
-        }
-      },
-      "cita": "Privacy Policy: \"We will not train or fine tune any artificial intelligence or machine learning models on your prompts or other Input.\" · Docs/models: \"Jev is not trained on customer requests or responses.\" (citas verificadas contra capturas crudas)",
-      "notas": "Modelo de decisión estructurada (System One, mode=evaluation en LiteLLM): no genera texto; el estado del cliente va en el campo state. DPA + MCA + Privacy en typesafe.ai/legal. Sin entrenamiento con datos de clientes declarado en las tres fuentes.",
-      "escape": "n/a — no entrena por diseño declarado; para retención cero contractual, plan enterprise ZDR",
-      "fuente_url": "https://typesafe.ai/legal/privacy-policy",
-      "fuente_tipo": "docs_oficial",
-      "fecha_obtencion": "2026-10-14T00:00:00Z",
-      "fuente_hash": "8f636be28e223263e2375c0496269972e80d223991b4c5e5770800e491654bc7",
-      "fuentes_adicionales": [
-        {
-          "nota": "Docs oficiales de modelos (data handling + precios $42/Btok input)",
-          "fuente_url": "https://docs.typesafe.ai/models",
-          "fuente_hash": "a4a48c7f562a04085e1ea24dbb338082d96a80bd637fb9d692f844b1bf7f6a75"
-        },
-        {
-          "nota": "Índice legal (DPA + MCA + Privacy + ZDR enterprise)",
-          "fuente_url": "https://docs.typesafe.ai/legal",
-          "fuente_hash": "c6b38c6ca32c726731ced9fb279b7b244b2f6de262f42387ecdc54d7c7b833bb"
-        },
-        {
-          "nota": "Data Processing Agreement",
-          "fuente_url": "https://typesafe.ai/legal/data-processing",
-          "fuente_hash": "0e773ce19e195d8b10e77d326e83b2402e10ae4565f9be7434a07743681ff58b"
-        }
-      ],
-      "estado_verificacion": "confirmado_por_docs_oficial"
-    },
-    "xai": {
-      "entrena_con_contenido": null,
-      "modalidades": null,
-      "notas": "ToS legal inaccesible desde este entorno (403 en x.ai/legal/terms-of-service-enterprise) — mismo bloqueo documentado de grok-build en D1 desde 2026-08-22; no se infiere",
-      "fuente_url": "https://x.ai/legal/terms-of-service-enterprise",
-      "fuente_tipo": "docs_oficial",
-      "fecha_obtencion": "2026-10-13T00:00:00Z",
-      "fuente_hash": null,
-      "estado_verificacion": "pendiente_de_verificar"
-    },
-    "zhipu": {
-      "entrena_con_contenido": null,
-      "modalidades": {
-        "global_zai_api": {
-          "entrena_con_contenido": false,
-          "notas": "Z.ai Global API: los términos para empresas y desarrolladores declaran que no usa User Content para desarrollar o mejorar servicios salvo consentimiento explícito; el contenido sólo se usa para prestar la API, cumplimiento legal, enforcement y prevención de abuso.",
-          "fuente_url": "https://chat.z.ai/legal-agreement/terms-of-service",
-          "fecha_obtencion": "2026-10-13T20:52:47Z",
-          "fuente_hash": "10f8f6c4ea84ebd7051ac3a1c78f8286ecfc3c04984917ac9957b4a1da45b2db",
-          "estado_verificacion": "confirmado_por_docs_oficial"
-        },
-        "mainland_china_open_platform": {
-          "entrena_con_contenido": null,
-          "notas": "La plataforma china open.bigmodel.cn entrega un shell JS sin texto legal legible en la captura; no se extrapola la política global.",
-          "fuente_url": "https://open.bigmodel.cn/protocol",
-          "fecha_obtencion": "2026-10-13T20:47:38Z",
-          "fuente_hash": "7a171a8fbde7c221f784942fd872851e06c726afbd7900b32eeca2456de320d8",
-          "estado_verificacion": "pendiente_de_verificar"
-        }
-      },
-      "cita": "Z.ai Terms of Use, §IV.7 y Additional Terms for API Services §3: para empresas y desarrolladores de API, no usa User Content para desarrollar o mejorar servicios salvo consentimiento explícito.",
-      "notas": "La respuesta global del proveedor es modal: Z.ai API global está confirmada como no-entrenamiento por defecto; la política de la plataforma china permanece no verificable. Por ello el valor raíz se conserva null.",
-      "escape": "Z.ai Global API: no otorgar consentimiento explícito para uso de User Content para desarrollo o mejora; plataforma china: desconocido",
-      "fuente_url": "https://chat.z.ai/legal-agreement/terms-of-service",
-      "fuente_tipo": "docs_oficial",
-      "fecha_obtencion": "2026-10-13T20:52:47Z",
-      "fuente_hash": "10f8f6c4ea84ebd7051ac3a1c78f8286ecfc3c04984917ac9957b4a1da45b2db",
-      "estado_verificacion": "pendiente_de_verificar"
-    },
-    "moonshot": {
-      "entrena_con_contenido": true,
-      "modalidades": null,
-      "cita": "Kimi OpenPlatform Privacy Policy: el contenido que se ingresa y genera ayuda a optimizar sus modelos; para mejorar y desarrollar el servicio, la política incluye entrenar y refinar tecnología subyacente, como modelos y algoritmos de aprendizaje automático.",
-      "notas": "Aplica a Kimi OpenPlatform: la política define User content como prompts, audio, imágenes, video, archivos y contenido generado durante el uso de productos y servicios.",
-      "escape": "no declara un opt-out de entrenamiento para OpenPlatform en la política capturada",
-      "fuente_url": "https://moonshot-ai.gitbook.io/moonshot-ai/terms-and-agreement/kimi-openplatform-privacy-policy",
-      "fuente_tipo": "docs_oficial",
-      "fecha_obtencion": "2026-10-13T20:47:38Z",
-      "fuente_hash": "0a4caeef8038ffa387c6611c7361aee6bcf89708ea1c462800fe8952c3d25c03",
-      "estado_verificacion": "confirmado_por_docs_oficial"
-    }
-  },
+  "id": "politica-datos-proveedores",
   "procedencia": {
     "estado_verificacion": "pendiente_de_verificar",
-    "fecha_obtencion": "2026-10-13T20:47:38Z",
+    "fecha_obtencion": "2026-10-27T00:00:00Z",
     "fuente_tipo": "curaduria_propia",
     "fuente_url": null,
     "hash_sha256_contenido_original": null
+  },
+  "proveedores": {
+    "anthropic": {
+      "cita": "\"Anthropic may not train models on Customer Content from Services.\" — Commercial Terms of Service §B (Customer Content), vigente 2025-06-17",
+      "entrena_con_contenido": false,
+      "escape": "n/a — no entrena por diseño (Commercial Terms); Consumer Terms son otro producto, fuera del alcance de API",
+      "estado_verificacion": "confirmado_por_docs_oficial",
+      "fecha_obtencion": "2026-10-13T00:00:00Z",
+      "fuente_hash": "611a118248473effccfe6368519e6c06b7eeaf3ae66ba0a7c7fa224b77ca7909",
+      "fuente_tipo": "docs_oficial",
+      "fuente_url": "https://www.anthropic.com/legal/commercial-terms",
+      "modalidades": null
+    },
+    "google": {
+      "cita": "Gemini API Additional Terms of Service — sección 'Data Collection and How Google Uses Your Data'",
+      "entrena_con_contenido": null,
+      "escape": "tier paid (Gemini API de pago)",
+      "estado_verificacion": "confirmado_por_docs_oficial",
+      "fecha_obtencion": "2026-10-13T00:00:00Z",
+      "fuente_hash": "37254fb2e77f6e11bcad072eb7ec69f10259d3ab1584a91d16ff99ec90b5f076",
+      "fuente_tipo": "docs_oficial",
+      "fuente_url": "https://ai.google.dev/gemini-api/terms",
+      "modalidades": {
+        "paid": {
+          "entrena_con_contenido": false,
+          "notas": "\"Google doesn't use your prompts (including associated system instructions, cached content, and files...) or responses to improve our products\"; procesa bajo DPA; logs solo anti-abuso por tiempo limitado"
+        },
+        "unpaid": {
+          "entrena_con_contenido": true,
+          "notas": "Unpaid Services (AI Studio / cuota gratuita Gemini API): Google usa el contenido para 'provide, improve, and develop Google products... machine learning technologies'; revisores humanos leen/procesan inputs y outputs tras desasociarlos de cuenta/key/proyecto; pide no enviar información sensible"
+        }
+      }
+    },
+    "meta": {
+      "cita": "Meta Model API Data Commitments (Standard vs Discounted Services) + Pricing (Contributor mode); 'In all cases, Meta does not use Customer Data to train'",
+      "confirmacion_tos_2026-10-14": {
+        "fecha_obtencion": "2026-10-14T00:00:00Z",
+        "fuente_hash": "c3674f86016f79f038d74e2c4924978565450dcbf7e3f5333ff2805bd7ee05da",
+        "fuente_url": "https://dev.meta.ai/legal/terms-of-service",
+        "nota": "El ToS legal completo confirma la dualidad: §5.1 Standard 'will not use Content submitted in a request to the Standard Services to train Meta Models'; §6.1 Contributor 'may use your Content to train, develop, evaluate, and improve' con desasociación previa; §6.2 'You must not submit sensitive, confidential, or personal information to the Contributor Services' y sin mecanismo de exclusión por tráfico"
+      },
+      "entrena_con_contenido": false,
+      "escape": "no usar ids -contributor (pay-as-you-go) / apagar Contributor en /settings (suscripción Muse Code)",
+      "estado_verificacion": "confirmado_por_docs_oficial",
+      "fecha_obtencion": "2026-10-13T00:00:00Z",
+      "fuente_hash": "afc614ab43232bb9a695d6f28d550ce8eab7448758d212759cb0ee4687895219",
+      "fuente_tipo": "docs_oficial",
+      "fuente_url": "https://dev.meta.ai/legal/commitments",
+      "modalidades": {
+        "discounted_contributor": {
+          "entrena_con_contenido": true,
+          "notas": "Discounted Services (Contributor): puede usar Content para entrenar; pasos de desasociación de cuenta/API key ANTES de entrenar (evaluación/seguridad puede usar sin desasociar); escape documentado: 'upgrade to Standard Services'"
+        },
+        "standard": {
+          "entrena_con_contenido": false,
+          "notas": "\"Meta does not use your Content from Standard Services to train Meta Models\" (Data Commitments)"
+        }
+      },
+      "notas_producto_muse_code": "En suscripciones de Muse Code el modo Contributor está ON por defecto (opt-out en /settings; ToS §3.3: el cambio de setting es prospectivo, el Content previo queda bajo derechos §6); por pay-as-you-go el modo se elige por model id (-contributor). Pricing: muse-wonder sin Contributor en Model API"
+    },
+    "moonshot": {
+      "cita": "Kimi OpenPlatform Privacy Policy: el contenido que se ingresa y genera ayuda a optimizar sus modelos; para mejorar y desarrollar el servicio, la política incluye entrenar y refinar tecnología subyacente, como modelos y algoritmos de aprendizaje automático.",
+      "entrena_con_contenido": true,
+      "escape": "no declara un opt-out de entrenamiento para OpenPlatform en la política capturada",
+      "estado_verificacion": "confirmado_por_docs_oficial",
+      "fecha_obtencion": "2026-10-13T20:47:38Z",
+      "fuente_hash": "0a4caeef8038ffa387c6611c7361aee6bcf89708ea1c462800fe8952c3d25c03",
+      "fuente_tipo": "docs_oficial",
+      "fuente_url": "https://moonshot-ai.gitbook.io/moonshot-ai/terms-and-agreement/kimi-openplatform-privacy-policy",
+      "modalidades": null,
+      "notas": "Aplica a Kimi OpenPlatform: la política define User content como prompts, audio, imágenes, video, archivos y contenido generado durante el uso de productos y servicios."
+    },
+    "openai": {
+      "entrena_con_contenido": null,
+      "estado_verificacion": "pendiente_de_verificar",
+      "fecha_obtencion": "2026-10-27T00:00:00Z",
+      "fuente_hash": null,
+      "fuente_tipo": "docs_oficial",
+      "fuente_url": "https://openai.com/policies/business-terms/",
+      "modalidades": null,
+      "notas": "Legal inaccesible desde este entorno (403 en openai.com/policies y help.openai.com al capturador, 2026-10-27) — mismo bloqueo documentado de xai; no se infiere. Catálogo de modelos sí capturado: platform.openai.com/docs/models (hash 793a8d7f2ce0ac3f…, datos/fuentes/politicas-proveedores/)."
+    },
+    "qwen": {
+      "cita": "Alibaba Cloud Model Studio Privacy Notice: \"Alibaba Cloud strictly protects your data privacy and will never use your data for model training.\"",
+      "entrena_con_contenido": false,
+      "escape": "n/a — la Privacy Notice declara que no usa los datos para entrenamiento",
+      "estado_verificacion": "confirmado_por_docs_oficial",
+      "fecha_obtencion": "2026-10-13T20:47:38Z",
+      "fuente_hash": "627a4da8424e0043b3925c2541c5262b1bf35d5c752414699df05231fcaa45bb",
+      "fuente_tipo": "docs_oficial",
+      "fuente_url": "https://www.alibabacloud.com/help/en/model-studio/privacy-notice",
+      "modalidades": null,
+      "notas": "La misma nota declara que Model Studio almacena datos generados por llamadas de modelo y aplicación; la ausencia de entrenamiento no equivale a ausencia de retención."
+    },
+    "typesafe": {
+      "cita": "Privacy Policy: \"We will not train or fine tune any artificial intelligence or machine learning models on your prompts or other Input.\" · Docs/models: \"Jev is not trained on customer requests or responses.\" (citas verificadas contra capturas crudas)",
+      "entrena_con_contenido": false,
+      "escape": "n/a — no entrena por diseño declarado; para retención cero contractual, plan enterprise ZDR",
+      "estado_verificacion": "confirmado_por_docs_oficial",
+      "fecha_obtencion": "2026-10-14T00:00:00Z",
+      "fuente_hash": "8f636be28e223263e2375c0496269972e80d223991b4c5e5770800e491654bc7",
+      "fuente_tipo": "docs_oficial",
+      "fuente_url": "https://typesafe.ai/legal/privacy-policy",
+      "fuentes_adicionales": [
+        {
+          "fuente_hash": "a4a48c7f562a04085e1ea24dbb338082d96a80bd637fb9d692f844b1bf7f6a75",
+          "fuente_url": "https://docs.typesafe.ai/models",
+          "nota": "Docs oficiales de modelos (data handling + precios $42/Btok input)"
+        },
+        {
+          "fuente_hash": "c6b38c6ca32c726731ced9fb279b7b244b2f6de262f42387ecdc54d7c7b833bb",
+          "fuente_url": "https://docs.typesafe.ai/legal",
+          "nota": "Índice legal (DPA + MCA + Privacy + ZDR enterprise)"
+        },
+        {
+          "fuente_hash": "0e773ce19e195d8b10e77d326e83b2402e10ae4565f9be7434a07743681ff58b",
+          "fuente_url": "https://typesafe.ai/legal/data-processing",
+          "nota": "Data Processing Agreement"
+        }
+      ],
+      "modalidades": {
+        "enterprise_zdr": {
+          "entrena_con_contenido": false,
+          "notas": "Zero Data Retention disponible para clientes enterprise (contacto sales@typesafe.ai; DPA cubre retención)"
+        },
+        "estandar": {
+          "entrena_con_contenido": false,
+          "notas": "Sin modos duales: el mismo weights sirve a todas las cuentas (sin fine-tuning por cliente; el dominio se inyecta por request en state/instructions/criteria)"
+        }
+      },
+      "notas": "Modelo de decisión estructurada (System One, mode=evaluation en LiteLLM): no genera texto; el estado del cliente va en el campo state. DPA + MCA + Privacy en typesafe.ai/legal. Sin entrenamiento con datos de clientes declarado en las tres fuentes."
+    },
+    "xai": {
+      "entrena_con_contenido": null,
+      "estado_verificacion": "pendiente_de_verificar",
+      "fecha_obtencion": "2026-10-13T00:00:00Z",
+      "fuente_hash": null,
+      "fuente_tipo": "docs_oficial",
+      "fuente_url": "https://x.ai/legal/terms-of-service-enterprise",
+      "modalidades": null,
+      "notas": "ToS legal inaccesible desde este entorno (403 en x.ai/legal/terms-of-service-enterprise) — mismo bloqueo documentado de grok-build en D1 desde 2026-08-22; no se infiere"
+    },
+    "zhipu": {
+      "cita": "Z.ai Terms of Use, §IV.7 y Additional Terms for API Services §3: para empresas y desarrolladores de API, no usa User Content para desarrollar o mejorar servicios salvo consentimiento explícito.",
+      "entrena_con_contenido": null,
+      "escape": "Z.ai Global API: no otorgar consentimiento explícito para uso de User Content para desarrollo o mejora; plataforma china: desconocido",
+      "estado_verificacion": "pendiente_de_verificar",
+      "fecha_obtencion": "2026-10-13T20:52:47Z",
+      "fuente_hash": "10f8f6c4ea84ebd7051ac3a1c78f8286ecfc3c04984917ac9957b4a1da45b2db",
+      "fuente_tipo": "docs_oficial",
+      "fuente_url": "https://chat.z.ai/legal-agreement/terms-of-service",
+      "modalidades": {
+        "global_zai_api": {
+          "entrena_con_contenido": false,
+          "estado_verificacion": "confirmado_por_docs_oficial",
+          "fecha_obtencion": "2026-10-13T20:52:47Z",
+          "fuente_hash": "10f8f6c4ea84ebd7051ac3a1c78f8286ecfc3c04984917ac9957b4a1da45b2db",
+          "fuente_url": "https://chat.z.ai/legal-agreement/terms-of-service",
+          "notas": "Z.ai Global API: los términos para empresas y desarrolladores declaran que no usa User Content para desarrollar o mejorar servicios salvo consentimiento explícito; el contenido sólo se usa para prestar la API, cumplimiento legal, enforcement y prevención de abuso."
+        },
+        "mainland_china_open_platform": {
+          "entrena_con_contenido": null,
+          "estado_verificacion": "pendiente_de_verificar",
+          "fecha_obtencion": "2026-10-13T20:47:38Z",
+          "fuente_hash": "7a171a8fbde7c221f784942fd872851e06c726afbd7900b32eeca2456de320d8",
+          "fuente_url": "https://open.bigmodel.cn/protocol",
+          "notas": "La plataforma china open.bigmodel.cn entrega un shell JS sin texto legal legible en la captura; no se extrapola la política global."
+        }
+      },
+      "notas": "La respuesta global del proveedor es modal: Z.ai API global está confirmada como no-entrenamiento por defecto; la política de la plataforma china permanece no verificable. Por ello el valor raíz se conserva null."
+    }
   }
 }

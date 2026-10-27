@@ -41,6 +41,96 @@
       "modelo_id": "jev-1.13.0",
       "notas": "Alias oficial de TypeSafe (docs/models §aliases): \"the most recent release, whether or not it is an official one\". Hoy apunta al mismo modelo que jev-latest (sin preview build publicado); el alias puede adelantarse sin aviso.",
       "proveedor": "typesafe"
+    },
+    {
+      "issuer_id": "zai-coding-plan/glm-5.3",
+      "modelo_id": "glm-5.3",
+      "notas": "Prefijo de harness del Coding Plan de Z.AI; identidad canónica = modelo del catálogo. Solicitud del consumidor adrc-mini (fb_10/fb_11, 2026-10-27).",
+      "proveedor": "zhipu"
+    },
+    {
+      "issuer_id": "zai-coding-plan/glm-5.3-flash",
+      "modelo_id": "glm-5.3-flash",
+      "notas": "Mismo patrón de harness Z.AI Coding Plan (simetría con el issuer reportado). Solicitud del consumidor adrc-mini (fb_10/fb_11, 2026-10-27).",
+      "proveedor": "zhipu"
+    },
+    {
+      "issuer_id": "opencode/glm-5.3",
+      "modelo_id": "glm-5.3",
+      "notas": "Prefijo de harness opencode, patrón '<harness>/<modelo>'. Solicitud del consumidor adrc-mini (fb_10/fb_11, 2026-10-27).",
+      "proveedor": "zhipu"
+    },
+    {
+      "issuer_id": "glm-5.3",
+      "modelo_id": "glm-5.3",
+      "notas": "Issuer_id idéntico al modelo_id canónico del catálogo. Solicitud del consumidor adrc-mini (fb_10/fb_11, 2026-10-27).",
+      "proveedor": "zhipu"
+    },
+    {
+      "issuer_id": "glm-5.3-flash",
+      "modelo_id": "glm-5.3-flash",
+      "notas": "Issuer_id idéntico al modelo_id canónico del catálogo. Solicitud del consumidor adrc-mini (fb_10/fb_11, 2026-10-27).",
+      "proveedor": "zhipu"
+    },
+    {
+      "issuer_id": "claude-opus-5-5",
+      "modelo_id": "claude-opus-5-5",
+      "notas": "Issuer_id idéntico al modelo_id canónico del catálogo. Solicitud del consumidor adrc-mini (fb_10/fb_11, 2026-10-27).",
+      "proveedor": "anthropic"
+    },
+    {
+      "issuer_id": "claude-sonnet-5-5",
+      "modelo_id": "claude-sonnet-5-5",
+      "notas": "Issuer_id idéntico al modelo_id canónico del catálogo. Solicitud del consumidor adrc-mini (fb_10/fb_11, 2026-10-27).",
+      "proveedor": "anthropic"
+    },
+    {
+      "issuer_id": "gpt-6.1-sol",
+      "modelo_id": "gpt-6.1-sol",
+      "notas": "Issuer_id idéntico al modelo_id canónico del catálogo (9º proveedor openai). Solicitud del consumidor adrc-mini (fb_10/fb_11, 2026-10-27).",
+      "proveedor": "openai"
+    },
+    {
+      "issuer_id": "gpt-6-astra",
+      "modelo_id": "gpt-6-astra",
+      "notas": "Issuer_id idéntico al modelo_id canónico del catálogo (9º proveedor openai). Solicitud del consumidor adrc-mini (fb_10/fb_11, 2026-10-27).",
+      "proveedor": "openai"
+    },
+    {
+      "issuer_id": "gpt-6-sol",
+      "modelo_id": "gpt-6-sol",
+      "notas": "Issuer_id idéntico al modelo_id canónico del catálogo (9º proveedor openai). Solicitud del consumidor adrc-mini (fb_10/fb_11, 2026-10-27).",
+      "proveedor": "openai"
+    },
+    {
+      "issuer_id": "gpt-6-luna",
+      "modelo_id": "gpt-6-luna",
+      "notas": "Issuer_id idéntico al modelo_id canónico del catálogo (9º proveedor openai). Solicitud del consumidor adrc-mini (fb_10/fb_11, 2026-10-27).",
+      "proveedor": "openai"
+    },
+    {
+      "issuer_id": "gpt-5.6",
+      "modelo_id": "gpt-5.6",
+      "notas": "Issuer_id idéntico al modelo_id canónico del catálogo (9º proveedor openai). Solicitud del consumidor adrc-mini (fb_10/fb_11, 2026-10-27).",
+      "proveedor": "openai"
+    },
+    {
+      "issuer_id": "gpt-5.6-sol",
+      "modelo_id": "gpt-5.6-sol",
+      "notas": "Issuer_id idéntico al modelo_id canónico del catálogo (9º proveedor openai). Solicitud del consumidor adrc-mini (fb_10/fb_11, 2026-10-27).",
+      "proveedor": "openai"
+    },
+    {
+      "issuer_id": "gpt-5.6-terra",
+      "modelo_id": "gpt-5.6-terra",
+      "notas": "Issuer_id idéntico al modelo_id canónico del catálogo (9º proveedor openai). Solicitud del consumidor adrc-mini (fb_10/fb_11, 2026-10-27).",
+      "proveedor": "openai"
+    },
+    {
+      "issuer_id": "gpt-5.6-luna",
+      "modelo_id": "gpt-5.6-luna",
+      "notas": "Issuer_id idéntico al modelo_id canónico del catálogo (9º proveedor openai). Solicitud del consumidor adrc-mini (fb_10/fb_11, 2026-10-27).",
+      "proveedor": "openai"
     }
   ],
   "descripcion": "Curaduría propia de identidad (T4b, errata 1 del contrato v0). Capa SEPARADA de los generados: se edita a mano con criterio y lleva su propia procedencia (no pisa la procedencia LiteLLM de las filas de modelos). Secciones: 'modelos' (familia_arquitectura/pesos_abiertos por modelo — la base de decorrelación de ADR-0002), 'aliases' (issuer_id declarado por agente/harness a identidad canónica) y 'endpoints' (endpoint público a proveedor). Los casos semilla son sintéticos salvo donde la fuente pública lo documenta; los casos reales de consumidores entran vía reportar_feedback y amplían este archivo. null = no documentado; nunca se infiere.",
@@ -76,7 +166,17 @@
   ],
   "esquema": "escrubery/curaduria-identidad/0.1",
   "modelos": {
+    "anthropic/claude-opus-5-5": {
+      "familia_arquitectura": "claude",
+      "fuente_url": "https://docs.anthropic.com/en/docs/about-claude/models",
+      "pesos_abiertos": false
+    },
     "anthropic/claude-sonnet-5": {
+      "familia_arquitectura": "claude",
+      "fuente_url": "https://docs.anthropic.com/en/docs/about-claude/models",
+      "pesos_abiertos": false
+    },
+    "anthropic/claude-sonnet-5-5": {
       "familia_arquitectura": "claude",
       "fuente_url": "https://docs.anthropic.com/en/docs/about-claude/models",
       "pesos_abiertos": false
@@ -131,24 +231,49 @@
       "fuente_url": "https://dev.meta.ai/docs/models",
       "pesos_abiertos": false
     },
-    "typesafe/jev-1.13.0": {
-      "familia_arquitectura": "system-one",
-      "fuente_url": "https://docs.typesafe.ai/concepts/system-one",
-      "pesos_abiertos": false
-    },
-    "typesafe/jev-latest": {
-      "familia_arquitectura": "system-one",
-      "fuente_url": "https://docs.typesafe.ai/models",
-      "pesos_abiertos": false
-    },
-    "typesafe/jev-preview": {
-      "familia_arquitectura": "system-one",
-      "fuente_url": "https://docs.typesafe.ai/models",
-      "pesos_abiertos": false
-    },
     "moonshot/kimi-k2-0905-preview": {
       "familia_arquitectura": "kimi",
       "fuente_url": "https://platform.moonshot.cn/docs/intro",
+      "pesos_abiertos": false
+    },
+    "openai/gpt-5.6": {
+      "familia_arquitectura": "gpt",
+      "fuente_url": "https://platform.openai.com/docs/models",
+      "pesos_abiertos": false
+    },
+    "openai/gpt-5.6-luna": {
+      "familia_arquitectura": "gpt",
+      "fuente_url": "https://platform.openai.com/docs/models",
+      "pesos_abiertos": false
+    },
+    "openai/gpt-5.6-sol": {
+      "familia_arquitectura": "gpt",
+      "fuente_url": "https://platform.openai.com/docs/models",
+      "pesos_abiertos": false
+    },
+    "openai/gpt-5.6-terra": {
+      "familia_arquitectura": "gpt",
+      "fuente_url": "https://platform.openai.com/docs/models",
+      "pesos_abiertos": false
+    },
+    "openai/gpt-6-astra": {
+      "familia_arquitectura": "gpt",
+      "fuente_url": "https://platform.openai.com/docs/models",
+      "pesos_abiertos": false
+    },
+    "openai/gpt-6-luna": {
+      "familia_arquitectura": "gpt",
+      "fuente_url": "https://platform.openai.com/docs/models",
+      "pesos_abiertos": false
+    },
+    "openai/gpt-6-sol": {
+      "familia_arquitectura": "gpt",
+      "fuente_url": "https://platform.openai.com/docs/models",
+      "pesos_abiertos": false
+    },
+    "openai/gpt-6.1-sol": {
+      "familia_arquitectura": "gpt",
+      "fuente_url": "https://platform.openai.com/docs/models",
       "pesos_abiertos": false
     },
     "qwen/deepseek-v4-flash": {
@@ -181,6 +306,21 @@
       "fuente_url": "https://www.alibabacloud.com/help/en/model-studio/models",
       "pesos_abiertos": false
     },
+    "typesafe/jev-1.13.0": {
+      "familia_arquitectura": "system-one",
+      "fuente_url": "https://docs.typesafe.ai/concepts/system-one",
+      "pesos_abiertos": false
+    },
+    "typesafe/jev-latest": {
+      "familia_arquitectura": "system-one",
+      "fuente_url": "https://docs.typesafe.ai/models",
+      "pesos_abiertos": false
+    },
+    "typesafe/jev-preview": {
+      "familia_arquitectura": "system-one",
+      "fuente_url": "https://docs.typesafe.ai/models",
+      "pesos_abiertos": false
+    },
     "xai/grok-4": {
       "familia_arquitectura": "grok",
       "fuente_url": "https://docs.x.ai/docs/models",
@@ -195,6 +335,16 @@
       "familia_arquitectura": "glm",
       "fuente_url": "https://open.bigmodel.cn/dev/howuse/model",
       "pesos_abiertos": false
+    },
+    "zhipu/glm-5.3": {
+      "familia_arquitectura": "glm",
+      "fuente_url": "https://open.bigmodel.cn/dev/howuse/model",
+      "pesos_abiertos": false
+    },
+    "zhipu/glm-5.3-flash": {
+      "familia_arquitectura": "glm",
+      "fuente_url": "https://open.bigmodel.cn/dev/howuse/model",
+      "pesos_abiertos": false
     }
   },
   "procedencia": {
@@ -202,6 +352,6 @@
     "fecha_obtencion": "2026-10-14T19:07:44Z",
     "fuente_tipo": "curaduria_propia",
     "fuente_url": null,
-    "hash_sha256_contenido_original": "b3d71d3bf9e50390a0b3b909764aaa6d967360b2cefaaf4ec187d8140808ec89"
+    "hash_sha256_contenido_original": "fab621187c3acb2dc4156bba8b7e92465d900a08523f9fd49aa50f0919cd27fe"
   }
 }

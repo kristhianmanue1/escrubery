@@ -10,7 +10,11 @@ El CLI lee PostgreSQL directamente (no requiere servidor HTTP corriendo). Desde 
 ~/www/aria/escrubery/scripts/consultar <operacion> [args]
 ```
 
-**Requisitos (ya satisfechos en el host):** PostgreSQL local activo (peer auth), BD `escrubery` migrada y poblada (188 modelos, 9 CLIs).
+**Requisitos (ya satisfechos en el host):** PostgreSQL local activo (peer auth), BD `escrubery` migrada y poblada (309 modelos, 10 CLIs, 9 proveedores).
+
+## Consumidores registrados
+
+- **adrc-mini** (`~/www/adrc-mini`, alta 2026-10-27, fb_12): primer consumidor real del resolver. Consume `resolver_identidad_modelo` para verificar en su gate de orquestación que el revisor adversarial pertenezca a una `familia_arquitectura` distinta a la del autor (claude / glm / gpt), con familia de respaldo declarada en su propia política cuando la respuesta sea `sin_datos`. Demanda esperada: una consulta por modelo por plan de tarea.
 
 ### Operaciones (exit codes `0` ok / `1` sin_datos / `2` params)
 

@@ -123,15 +123,35 @@
         "output_por_millon": 20.0
       },
       "ventana_contexto_max": 1048576
+    },
+    "sam-3.1": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": null,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://dev.meta.ai/docs/pricing-rate-limits.md",
+      "max_output_tokens": null,
+      "modelo_id": "sam-3.1",
+      "modo": "responses",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": null,
+        "output_por_millon": null
+      },
+      "ventana_contexto_max": null
     }
   },
   "procedencia": {
     "estado_verificacion": "confirmado_por_docs_oficial",
-    "fecha_obtencion": "2026-10-14T19:05:38Z",
+    "fecha_obtencion": "2026-10-27T18:31:12Z",
     "firma_ed25519": null,
     "fuente_tipo": "litellm_json",
     "fuente_url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json",
-    "hash_sha256_contenido_original": "c718a7b2f7a8d1009cb3bcf65c3c060cd453845f21dc0b96e822aa3e949c4d54"
+    "hash_sha256_contenido_original": "1faeeb3b9f7c974445a1377db267551c90b3b2748918f106e6fe2d54b8938d07"
   },
-  "total_modelos": 6
+  "total_modelos": 7
 }

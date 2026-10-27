@@ -1,0 +1,2477 @@
+{
+  "entidad": "proveedor",
+  "esquema": "escrubery/ficha-proveedor/0.1",
+  "fuente_litellm_provider": "openai",
+  "id": "openai",
+  "modelos": {
+    "chat-latest": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "chat-latest",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.5,
+        "input_por_millon": 5.0,
+        "output_por_millon": 30.0
+      },
+      "ventana_contexto_max": 400000
+    },
+    "computer-use-preview": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-07-23",
+      "fuente_precio": "https://platform.openai.com/docs/models/computer-use-preview",
+      "max_output_tokens": 1024,
+      "modelo_id": "computer-use-preview",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 3.0,
+        "output_por_millon": 12.0
+      },
+      "ventana_contexto_max": 8192
+    },
+    "computer-use-preview-2025-03-11": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-07-23",
+      "fuente_precio": "https://developers.openai.com/api/docs/models/computer-use-preview",
+      "max_output_tokens": 1024,
+      "modelo_id": "computer-use-preview-2025-03-11",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 3.0,
+        "output_por_millon": 12.0
+      },
+      "ventana_contexto_max": 8192
+    },
+    "container": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": null,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": null,
+      "max_output_tokens": null,
+      "modelo_id": "container",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": null,
+        "output_por_millon": null
+      },
+      "ventana_contexto_max": null
+    },
+    "daybreak-blue-latest": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/models/gpt-daybreak-blue-latest",
+      "max_output_tokens": 128000,
+      "modelo_id": "daybreak-blue-latest",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.4,
+        "input_por_millon": 4.0,
+        "output_por_millon": 20.0
+      },
+      "ventana_contexto_max": 922000
+    },
+    "daybreak-red-latest": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/models/gpt-daybreak-red-latest",
+      "max_output_tokens": 128000,
+      "modelo_id": "daybreak-red-latest",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 1.25,
+        "input_por_millon": 12.5,
+        "output_por_millon": 75.0
+      },
+      "ventana_contexto_max": 400000
+    },
+    "ft:gpt-3.5-turbo": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": null,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": "2026-10-23",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 4096,
+      "modelo_id": "ft:gpt-3.5-turbo",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 3.0,
+        "output_por_millon": 6.0
+      },
+      "ventana_contexto_max": 16385
+    },
+    "ft:gpt-3.5-turbo-0125": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": null,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": "2026-10-23",
+      "fuente_precio": null,
+      "max_output_tokens": 4096,
+      "modelo_id": "ft:gpt-3.5-turbo-0125",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 3.0,
+        "output_por_millon": 6.0
+      },
+      "ventana_contexto_max": 16385
+    },
+    "ft:gpt-3.5-turbo-0613": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": null,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": "2026-10-23",
+      "fuente_precio": null,
+      "max_output_tokens": 4096,
+      "modelo_id": "ft:gpt-3.5-turbo-0613",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 3.0,
+        "output_por_millon": 6.0
+      },
+      "ventana_contexto_max": 4096
+    },
+    "ft:gpt-3.5-turbo-1106": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": null,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": "2026-10-23",
+      "fuente_precio": null,
+      "max_output_tokens": 4096,
+      "modelo_id": "ft:gpt-3.5-turbo-1106",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 3.0,
+        "output_por_millon": 6.0
+      },
+      "ventana_contexto_max": 16385
+    },
+    "ft:gpt-4-0613": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": "2026-10-23",
+      "fuente_precio": "OpenAI needs to add pricing for this ft model, will be updated when added by OpenAI. Defaulting to base model pricing",
+      "max_output_tokens": 4096,
+      "modelo_id": "ft:gpt-4-0613",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 30.0,
+        "output_por_millon": 60.0
+      },
+      "ventana_contexto_max": 8192
+    },
+    "ft:gpt-4.1-2025-04-14": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": "2027-01-14",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 32768,
+      "modelo_id": "ft:gpt-4.1-2025-04-14",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.75,
+        "input_por_millon": 3.0,
+        "output_por_millon": 12.0
+      },
+      "ventana_contexto_max": 1047576
+    },
+    "ft:gpt-4.1-mini-2025-04-14": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": "2027-01-14",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 32768,
+      "modelo_id": "ft:gpt-4.1-mini-2025-04-14",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.2,
+        "input_por_millon": 0.8,
+        "output_por_millon": 3.2
+      },
+      "ventana_contexto_max": 1047576
+    },
+    "ft:gpt-4.1-nano-2025-04-14": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": "2026-10-23",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 32768,
+      "modelo_id": "ft:gpt-4.1-nano-2025-04-14",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.05,
+        "input_por_millon": 0.2,
+        "output_por_millon": 0.8
+      },
+      "ventana_contexto_max": 1047576
+    },
+    "ft:gpt-4o-2024-08-06": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2027-01-14",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 16384,
+      "modelo_id": "ft:gpt-4o-2024-08-06",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 1.875,
+        "input_por_millon": 3.75,
+        "output_por_millon": 15.0
+      },
+      "ventana_contexto_max": 128000
+    },
+    "ft:gpt-4o-2024-11-20": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": "2027-01-14",
+      "fuente_precio": null,
+      "max_output_tokens": 16384,
+      "modelo_id": "ft:gpt-4o-2024-11-20",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 3.75,
+        "output_por_millon": 15.0
+      },
+      "ventana_contexto_max": 128000
+    },
+    "ft:gpt-4o-mini-2024-07-18": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": "2027-01-14",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 16384,
+      "modelo_id": "ft:gpt-4o-mini-2024-07-18",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.15,
+        "input_por_millon": 0.3,
+        "output_por_millon": 1.2
+      },
+      "ventana_contexto_max": 128000
+    },
+    "ft:o4-mini-2025-04-16": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": "2026-10-23",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 100000,
+      "modelo_id": "ft:o4-mini-2025-04-16",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 1.0,
+        "input_por_millon": 4.0,
+        "output_por_millon": 16.0
+      },
+      "ventana_contexto_max": 200000
+    },
+    "gpt-3.5-turbo": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": "2026-10-23",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 4096,
+      "modelo_id": "gpt-3.5-turbo",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 0.5,
+        "output_por_millon": 1.5
+      },
+      "ventana_contexto_max": 16385
+    },
+    "gpt-3.5-turbo-0125": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": "2026-10-23",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 4096,
+      "modelo_id": "gpt-3.5-turbo-0125",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 0.5,
+        "output_por_millon": 1.5
+      },
+      "ventana_contexto_max": 16385
+    },
+    "gpt-3.5-turbo-1106": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": "2026-09-28",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 4096,
+      "modelo_id": "gpt-3.5-turbo-1106",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 1.0,
+        "output_por_millon": 2.0
+      },
+      "ventana_contexto_max": 16385
+    },
+    "gpt-3.5-turbo-16k": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": null,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": "2026-10-23",
+      "fuente_precio": null,
+      "max_output_tokens": 4096,
+      "modelo_id": "gpt-3.5-turbo-16k",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 3.0,
+        "output_por_millon": 4.0
+      },
+      "ventana_contexto_max": 16385
+    },
+    "gpt-4": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": "2026-10-23",
+      "fuente_precio": null,
+      "max_output_tokens": 4096,
+      "modelo_id": "gpt-4",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 30.0,
+        "output_por_millon": 60.0
+      },
+      "ventana_contexto_max": 8192
+    },
+    "gpt-4-0613": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": "2026-10-23",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 4096,
+      "modelo_id": "gpt-4-0613",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 30.0,
+        "output_por_millon": 60.0
+      },
+      "ventana_contexto_max": 8192
+    },
+    "gpt-4-1106-preview": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": "2026-10-23",
+      "fuente_precio": null,
+      "max_output_tokens": 4096,
+      "modelo_id": "gpt-4-1106-preview",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 10.0,
+        "output_por_millon": 30.0
+      },
+      "ventana_contexto_max": 128000
+    },
+    "gpt-4-turbo": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-10-23",
+      "fuente_precio": null,
+      "max_output_tokens": 4096,
+      "modelo_id": "gpt-4-turbo",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 10.0,
+        "output_por_millon": 30.0
+      },
+      "ventana_contexto_max": 128000
+    },
+    "gpt-4-turbo-2024-04-09": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-10-23",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 4096,
+      "modelo_id": "gpt-4-turbo-2024-04-09",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 10.0,
+        "output_por_millon": 30.0
+      },
+      "ventana_contexto_max": 128000
+    },
+    "gpt-4.1": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 32768,
+      "modelo_id": "gpt-4.1",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.5,
+        "input_por_millon": 2.0,
+        "output_por_millon": 8.0
+      },
+      "ventana_contexto_max": 1047576
+    },
+    "gpt-4.1-2025-04-14": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2027-01-14",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 32768,
+      "modelo_id": "gpt-4.1-2025-04-14",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.5,
+        "input_por_millon": 2.0,
+        "output_por_millon": 8.0
+      },
+      "ventana_contexto_max": 1047576
+    },
+    "gpt-4.1-mini": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 32768,
+      "modelo_id": "gpt-4.1-mini",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.1,
+        "input_por_millon": 0.4,
+        "output_por_millon": 1.6
+      },
+      "ventana_contexto_max": 1047576
+    },
+    "gpt-4.1-mini-2025-04-14": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2027-01-14",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 32768,
+      "modelo_id": "gpt-4.1-mini-2025-04-14",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.1,
+        "input_por_millon": 0.4,
+        "output_por_millon": 1.6
+      },
+      "ventana_contexto_max": 1047576
+    },
+    "gpt-4.1-nano": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-10-23",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 32768,
+      "modelo_id": "gpt-4.1-nano",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.025,
+        "input_por_millon": 0.1,
+        "output_por_millon": 0.4
+      },
+      "ventana_contexto_max": 1047576
+    },
+    "gpt-4.1-nano-2025-04-14": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-10-23",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 32768,
+      "modelo_id": "gpt-4.1-nano-2025-04-14",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.025,
+        "input_por_millon": 0.1,
+        "output_por_millon": 0.4
+      },
+      "ventana_contexto_max": 1047576
+    },
+    "gpt-4o": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 16384,
+      "modelo_id": "gpt-4o",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 1.25,
+        "input_por_millon": 2.5,
+        "output_por_millon": 10.0
+      },
+      "ventana_contexto_max": 128000
+    },
+    "gpt-4o-2024-05-13": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-10-23",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 4096,
+      "modelo_id": "gpt-4o-2024-05-13",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 5.0,
+        "output_por_millon": 15.0
+      },
+      "ventana_contexto_max": 128000
+    },
+    "gpt-4o-2024-08-06": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2027-01-14",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 16384,
+      "modelo_id": "gpt-4o-2024-08-06",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 1.25,
+        "input_por_millon": 2.5,
+        "output_por_millon": 10.0
+      },
+      "ventana_contexto_max": 128000
+    },
+    "gpt-4o-2024-11-20": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2027-01-14",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 16384,
+      "modelo_id": "gpt-4o-2024-11-20",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 1.25,
+        "input_por_millon": 2.5,
+        "output_por_millon": 10.0
+      },
+      "ventana_contexto_max": 128000
+    },
+    "gpt-4o-audio-preview-2024-12-17": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": "2027-01-20",
+      "fuente_precio": null,
+      "max_output_tokens": 16384,
+      "modelo_id": "gpt-4o-audio-preview-2024-12-17",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 2.5,
+        "output_por_millon": 10.0
+      },
+      "ventana_contexto_max": 128000
+    },
+    "gpt-4o-audio-preview-2025-06-03": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": "2027-01-20",
+      "fuente_precio": null,
+      "max_output_tokens": 16384,
+      "modelo_id": "gpt-4o-audio-preview-2025-06-03",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 2.5,
+        "output_por_millon": 10.0
+      },
+      "ventana_contexto_max": 128000
+    },
+    "gpt-4o-mini": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 16384,
+      "modelo_id": "gpt-4o-mini",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.075,
+        "input_por_millon": 0.15,
+        "output_por_millon": 0.6
+      },
+      "ventana_contexto_max": 128000
+    },
+    "gpt-4o-mini-2024-07-18": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2027-01-14",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 16384,
+      "modelo_id": "gpt-4o-mini-2024-07-18",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.075,
+        "input_por_millon": 0.15,
+        "output_por_millon": 0.6
+      },
+      "ventana_contexto_max": 128000
+    },
+    "gpt-4o-mini-audio-preview-2024-12-17": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": "2027-01-20",
+      "fuente_precio": null,
+      "max_output_tokens": 16384,
+      "modelo_id": "gpt-4o-mini-audio-preview-2024-12-17",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 0.15,
+        "output_por_millon": 0.6
+      },
+      "ventana_contexto_max": 128000
+    },
+    "gpt-4o-mini-search-preview": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": null,
+      "max_output_tokens": 16384,
+      "modelo_id": "gpt-4o-mini-search-preview",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.075,
+        "input_por_millon": 0.15,
+        "output_por_millon": 0.6
+      },
+      "ventana_contexto_max": 128000
+    },
+    "gpt-4o-mini-search-preview-2025-03-11": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-07-23",
+      "fuente_precio": "https://developers.openai.com/api/docs/models/gpt-4o-mini-search-preview",
+      "max_output_tokens": 16384,
+      "modelo_id": "gpt-4o-mini-search-preview-2025-03-11",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.075,
+        "input_por_millon": 0.15,
+        "output_por_millon": 0.6
+      },
+      "ventana_contexto_max": 128000
+    },
+    "gpt-4o-search-preview": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": null,
+      "max_output_tokens": 16384,
+      "modelo_id": "gpt-4o-search-preview",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 1.25,
+        "input_por_millon": 2.5,
+        "output_por_millon": 10.0
+      },
+      "ventana_contexto_max": 128000
+    },
+    "gpt-4o-search-preview-2025-03-11": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-07-23",
+      "fuente_precio": "https://developers.openai.com/api/docs/models/gpt-4o-search-preview",
+      "max_output_tokens": 16384,
+      "modelo_id": "gpt-4o-search-preview-2025-03-11",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 1.25,
+        "input_por_millon": 2.5,
+        "output_por_millon": 10.0
+      },
+      "ventana_contexto_max": 128000
+    },
+    "gpt-5": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-5",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.125,
+        "input_por_millon": 1.25,
+        "output_por_millon": 10.0
+      },
+      "ventana_contexto_max": 272000
+    },
+    "gpt-5-2025-08-07": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-12-11",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-5-2025-08-07",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.125,
+        "input_por_millon": 1.25,
+        "output_por_millon": 10.0
+      },
+      "ventana_contexto_max": 272000
+    },
+    "gpt-5-chat": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": false,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-07-23",
+      "fuente_precio": null,
+      "max_output_tokens": 16384,
+      "modelo_id": "gpt-5-chat",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.125,
+        "input_por_millon": 1.25,
+        "output_por_millon": 10.0
+      },
+      "ventana_contexto_max": 128000
+    },
+    "gpt-5-chat-latest": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-07-23",
+      "fuente_precio": "https://developers.openai.com/api/docs/models/gpt-5-chat-latest",
+      "max_output_tokens": 16384,
+      "modelo_id": "gpt-5-chat-latest",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.125,
+        "input_por_millon": 1.25,
+        "output_por_millon": 10.0
+      },
+      "ventana_contexto_max": 128000
+    },
+    "gpt-5-codex": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-07-23",
+      "fuente_precio": "https://developers.openai.com/api/docs/models/gpt-5-codex",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-5-codex",
+      "modo": "responses",
+      "precios": {
+        "cache_lectura_por_millon": 0.125,
+        "input_por_millon": 1.25,
+        "output_por_millon": 10.0
+      },
+      "ventana_contexto_max": 272000
+    },
+    "gpt-5-mini": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-5-mini",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.025,
+        "input_por_millon": 0.25,
+        "output_por_millon": 2.0
+      },
+      "ventana_contexto_max": 272000
+    },
+    "gpt-5-mini-2025-08-07": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-12-11",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-5-mini-2025-08-07",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.025,
+        "input_por_millon": 0.25,
+        "output_por_millon": 2.0
+      },
+      "ventana_contexto_max": 272000
+    },
+    "gpt-5-nano": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-5-nano",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.005,
+        "input_por_millon": 0.05,
+        "output_por_millon": 0.4
+      },
+      "ventana_contexto_max": 272000
+    },
+    "gpt-5-nano-2025-08-07": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-12-11",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-5-nano-2025-08-07",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.005,
+        "input_por_millon": 0.05,
+        "output_por_millon": 0.4
+      },
+      "ventana_contexto_max": 272000
+    },
+    "gpt-5-pro": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 272000,
+      "modelo_id": "gpt-5-pro",
+      "modo": "responses",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 15.0,
+        "output_por_millon": 120.0
+      },
+      "ventana_contexto_max": 400000
+    },
+    "gpt-5-pro-2025-10-06": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-12-11",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 272000,
+      "modelo_id": "gpt-5-pro-2025-10-06",
+      "modo": "responses",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 15.0,
+        "output_por_millon": 120.0
+      },
+      "ventana_contexto_max": 400000
+    },
+    "gpt-5-search-api": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-5-search-api",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.125,
+        "input_por_millon": 1.25,
+        "output_por_millon": 10.0
+      },
+      "ventana_contexto_max": 272000
+    },
+    "gpt-5-search-api-2025-10-14": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-5-search-api-2025-10-14",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.125,
+        "input_por_millon": 1.25,
+        "output_por_millon": 10.0
+      },
+      "ventana_contexto_max": 272000
+    },
+    "gpt-5.1": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2027-04-01",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-5.1",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.125,
+        "input_por_millon": 1.25,
+        "output_por_millon": 10.0
+      },
+      "ventana_contexto_max": 272000
+    },
+    "gpt-5.1-2025-11-13": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-5.1-2025-11-13",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.125,
+        "input_por_millon": 1.25,
+        "output_por_millon": 10.0
+      },
+      "ventana_contexto_max": 272000
+    },
+    "gpt-5.1-chat-latest": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-07-23",
+      "fuente_precio": "https://developers.openai.com/api/docs/models/gpt-5.1-chat-latest",
+      "max_output_tokens": 16384,
+      "modelo_id": "gpt-5.1-chat-latest",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.125,
+        "input_por_millon": 1.25,
+        "output_por_millon": 10.0
+      },
+      "ventana_contexto_max": 128000
+    },
+    "gpt-5.1-codex": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-07-23",
+      "fuente_precio": "https://developers.openai.com/api/docs/models/gpt-5.1-codex",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-5.1-codex",
+      "modo": "responses",
+      "precios": {
+        "cache_lectura_por_millon": 0.125,
+        "input_por_millon": 1.25,
+        "output_por_millon": 10.0
+      },
+      "ventana_contexto_max": 400000
+    },
+    "gpt-5.1-codex-max": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-07-23",
+      "fuente_precio": "https://developers.openai.com/api/docs/models/gpt-5.1-codex-max",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-5.1-codex-max",
+      "modo": "responses",
+      "precios": {
+        "cache_lectura_por_millon": 0.125,
+        "input_por_millon": 1.25,
+        "output_por_millon": 10.0
+      },
+      "ventana_contexto_max": 400000
+    },
+    "gpt-5.1-codex-mini": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-07-23",
+      "fuente_precio": "https://developers.openai.com/api/docs/models/gpt-5.1-codex-mini",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-5.1-codex-mini",
+      "modo": "responses",
+      "precios": {
+        "cache_lectura_por_millon": 0.025,
+        "input_por_millon": 0.25,
+        "output_por_millon": 2.0
+      },
+      "ventana_contexto_max": 400000
+    },
+    "gpt-5.2": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-5.2",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.175,
+        "input_por_millon": 1.75,
+        "output_por_millon": 14.0
+      },
+      "ventana_contexto_max": 272000
+    },
+    "gpt-5.2-2025-12-11": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-5.2-2025-12-11",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.175,
+        "input_por_millon": 1.75,
+        "output_por_millon": 14.0
+      },
+      "ventana_contexto_max": 272000
+    },
+    "gpt-5.2-chat-latest": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-08-10",
+      "fuente_precio": "https://developers.openai.com/api/docs/models/gpt-5.2-chat-latest",
+      "max_output_tokens": 16384,
+      "modelo_id": "gpt-5.2-chat-latest",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.175,
+        "input_por_millon": 1.75,
+        "output_por_millon": 14.0
+      },
+      "ventana_contexto_max": 128000
+    },
+    "gpt-5.2-codex": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-07-23",
+      "fuente_precio": "https://developers.openai.com/api/docs/models/gpt-5.2-codex",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-5.2-codex",
+      "modo": "responses",
+      "precios": {
+        "cache_lectura_por_millon": 0.175,
+        "input_por_millon": 1.75,
+        "output_por_millon": 14.0
+      },
+      "ventana_contexto_max": 272000
+    },
+    "gpt-5.2-pro": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-5.2-pro",
+      "modo": "responses",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 21.0,
+        "output_por_millon": 168.0
+      },
+      "ventana_contexto_max": 272000
+    },
+    "gpt-5.2-pro-2025-12-11": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-5.2-pro-2025-12-11",
+      "modo": "responses",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 21.0,
+        "output_por_millon": 168.0
+      },
+      "ventana_contexto_max": 272000
+    },
+    "gpt-5.3-chat-latest": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-08-10",
+      "fuente_precio": "https://developers.openai.com/api/docs/models/gpt-5.3-chat-latest",
+      "max_output_tokens": 16384,
+      "modelo_id": "gpt-5.3-chat-latest",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.175,
+        "input_por_millon": 1.75,
+        "output_por_millon": 14.0
+      },
+      "ventana_contexto_max": 128000
+    },
+    "gpt-5.3-codex": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2027-04-01",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-5.3-codex",
+      "modo": "responses",
+      "precios": {
+        "cache_lectura_por_millon": 0.175,
+        "input_por_millon": 1.75,
+        "output_por_millon": 14.0
+      },
+      "ventana_contexto_max": 272000
+    },
+    "gpt-5.4": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-5.4",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.25,
+        "input_por_millon": 2.5,
+        "output_por_millon": 15.0
+      },
+      "ventana_contexto_max": 1050000
+    },
+    "gpt-5.4-2026-03-05": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-5.4-2026-03-05",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.25,
+        "input_por_millon": 2.5,
+        "output_por_millon": 15.0
+      },
+      "ventana_contexto_max": 1050000
+    },
+    "gpt-5.4-mini": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-5.4-mini",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.075,
+        "input_por_millon": 0.75,
+        "output_por_millon": 4.5
+      },
+      "ventana_contexto_max": 272000
+    },
+    "gpt-5.4-mini-2026-03-17": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-5.4-mini-2026-03-17",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.075,
+        "input_por_millon": 0.75,
+        "output_por_millon": 4.5
+      },
+      "ventana_contexto_max": 272000
+    },
+    "gpt-5.4-nano": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2027-04-01",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-5.4-nano",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.02,
+        "input_por_millon": 0.2,
+        "output_por_millon": 1.25
+      },
+      "ventana_contexto_max": 272000
+    },
+    "gpt-5.4-nano-2026-03-17": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-5.4-nano-2026-03-17",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.02,
+        "input_por_millon": 0.2,
+        "output_por_millon": 1.25
+      },
+      "ventana_contexto_max": 272000
+    },
+    "gpt-5.4-pro": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-5.4-pro",
+      "modo": "responses",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 30.0,
+        "output_por_millon": 180.0
+      },
+      "ventana_contexto_max": 1050000
+    },
+    "gpt-5.4-pro-2026-03-05": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-5.4-pro-2026-03-05",
+      "modo": "responses",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 30.0,
+        "output_por_millon": 180.0
+      },
+      "ventana_contexto_max": 1050000
+    },
+    "gpt-5.5": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-5.5",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.5,
+        "input_por_millon": 5.0,
+        "output_por_millon": 30.0
+      },
+      "ventana_contexto_max": 1050000
+    },
+    "gpt-5.5-2026-04-23": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-5.5-2026-04-23",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.5,
+        "input_por_millon": 5.0,
+        "output_por_millon": 30.0
+      },
+      "ventana_contexto_max": 1050000
+    },
+    "gpt-5.5-cyber": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": null,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": null,
+      "modelo_id": "gpt-5.5-cyber",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 1.25,
+        "input_por_millon": 12.5,
+        "output_por_millon": 75.0
+      },
+      "ventana_contexto_max": null
+    },
+    "gpt-5.5-cyber-preview": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": null,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": null,
+      "modelo_id": "gpt-5.5-cyber-preview",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 1.25,
+        "input_por_millon": 12.5,
+        "output_por_millon": 75.0
+      },
+      "ventana_contexto_max": null
+    },
+    "gpt-5.5-pro": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-5.5-pro",
+      "modo": "responses",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 30.0,
+        "output_por_millon": 180.0
+      },
+      "ventana_contexto_max": 1050000
+    },
+    "gpt-5.5-pro-2026-04-23": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-5.5-pro-2026-04-23",
+      "modo": "responses",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 30.0,
+        "output_por_millon": 180.0
+      },
+      "ventana_contexto_max": 1050000
+    },
+    "gpt-5.6": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": null,
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-5.6",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.4,
+        "input_por_millon": 4.0,
+        "output_por_millon": 20.0
+      },
+      "ventana_contexto_max": 922000
+    },
+    "gpt-5.6-cyber": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-5.6-cyber",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 1.25,
+        "input_por_millon": 12.5,
+        "output_por_millon": 75.0
+      },
+      "ventana_contexto_max": 400000
+    },
+    "gpt-5.6-luna": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-5.6-luna",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.02,
+        "input_por_millon": 0.2,
+        "output_por_millon": 1.2
+      },
+      "ventana_contexto_max": 922000
+    },
+    "gpt-5.6-sol": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-5.6-sol",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.4,
+        "input_por_millon": 4.0,
+        "output_por_millon": 20.0
+      },
+      "ventana_contexto_max": 922000
+    },
+    "gpt-5.6-terra": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-5.6-terra",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.2,
+        "input_por_millon": 2.0,
+        "output_por_millon": 12.0
+      },
+      "ventana_contexto_max": 922000
+    },
+    "gpt-6-astra": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-6-astra",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 1.0,
+        "input_por_millon": 10.0,
+        "output_por_millon": 50.0
+      },
+      "ventana_contexto_max": 922000
+    },
+    "gpt-6-luna": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-6-luna",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.01,
+        "input_por_millon": 0.1,
+        "output_por_millon": 0.5
+      },
+      "ventana_contexto_max": 922000
+    },
+    "gpt-6-sol": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-6-sol",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.2,
+        "input_por_millon": 2.0,
+        "output_por_millon": 10.0
+      },
+      "ventana_contexto_max": 922000
+    },
+    "gpt-6.1-sol": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-6.1-sol",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.1,
+        "input_por_millon": 2.0,
+        "output_por_millon": 10.0
+      },
+      "ventana_contexto_max": 922000
+    },
+    "gpt-6.1-terra": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-6.1-terra",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.05,
+        "input_por_millon": 1.0,
+        "output_por_millon": 5.0
+      },
+      "ventana_contexto_max": 922000
+    },
+    "gpt-audio": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": false
+      },
+      "fecha_deprecacion": "2027-01-20",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 16384,
+      "modelo_id": "gpt-audio",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 2.5,
+        "output_por_millon": 10.0
+      },
+      "ventana_contexto_max": 128000
+    },
+    "gpt-audio-1.5": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": false
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 16384,
+      "modelo_id": "gpt-audio-1.5",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 2.5,
+        "output_por_millon": 10.0
+      },
+      "ventana_contexto_max": 128000
+    },
+    "gpt-audio-2025-08-28": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": false
+      },
+      "fecha_deprecacion": "2027-01-20",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 16384,
+      "modelo_id": "gpt-audio-2025-08-28",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 2.5,
+        "output_por_millon": 10.0
+      },
+      "ventana_contexto_max": 128000
+    },
+    "gpt-audio-mini": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": false
+      },
+      "fecha_deprecacion": "2027-01-20",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 16384,
+      "modelo_id": "gpt-audio-mini",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 0.6,
+        "output_por_millon": 2.4
+      },
+      "ventana_contexto_max": 128000
+    },
+    "gpt-audio-mini-2025-10-06": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": false
+      },
+      "fecha_deprecacion": "2026-07-23",
+      "fuente_precio": "https://developers.openai.com/api/docs/models/gpt-audio-mini",
+      "max_output_tokens": 16384,
+      "modelo_id": "gpt-audio-mini-2025-10-06",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 0.6,
+        "output_por_millon": 2.4
+      },
+      "ventana_contexto_max": 128000
+    },
+    "gpt-audio-mini-2025-12-15": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": false
+      },
+      "fecha_deprecacion": "2027-01-20",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 16384,
+      "modelo_id": "gpt-audio-mini-2025-12-15",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 0.6,
+        "output_por_millon": 2.4
+      },
+      "ventana_contexto_max": 128000
+    },
+    "gpt-daybreak-blue-latest": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/models/gpt-daybreak-blue-latest",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-daybreak-blue-latest",
+      "modo": "responses",
+      "precios": {
+        "cache_lectura_por_millon": 0.4,
+        "input_por_millon": 4.0,
+        "output_por_millon": 20.0
+      },
+      "ventana_contexto_max": 922000
+    },
+    "gpt-daybreak-red-latest": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/models/gpt-daybreak-red-latest",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-daybreak-red-latest",
+      "modo": "responses",
+      "precios": {
+        "cache_lectura_por_millon": 1.25,
+        "input_por_millon": 12.5,
+        "output_por_millon": 75.0
+      },
+      "ventana_contexto_max": 400000
+    },
+    "gpt-rosalind-discovery": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": null,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": null,
+      "modelo_id": "gpt-rosalind-discovery",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.5,
+        "input_por_millon": 5.0,
+        "output_por_millon": 25.0
+      },
+      "ventana_contexto_max": null
+    },
+    "gpt-rosalind-research": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": null,
+        "soporta_vision": null
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": null,
+      "modelo_id": "gpt-rosalind-research",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.5,
+        "input_por_millon": 5.0,
+        "output_por_millon": 25.0
+      },
+      "ventana_contexto_max": null
+    },
+    "o1": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-10-23",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 100000,
+      "modelo_id": "o1",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 7.5,
+        "input_por_millon": 15.0,
+        "output_por_millon": 60.0
+      },
+      "ventana_contexto_max": 200000
+    },
+    "o1-2024-12-17": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-10-23",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 100000,
+      "modelo_id": "o1-2024-12-17",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 7.5,
+        "input_por_millon": 15.0,
+        "output_por_millon": 60.0
+      },
+      "ventana_contexto_max": 200000
+    },
+    "o1-pro": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-10-23",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 100000,
+      "modelo_id": "o1-pro",
+      "modo": "responses",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 150.0,
+        "output_por_millon": 600.0
+      },
+      "ventana_contexto_max": 200000
+    },
+    "o1-pro-2025-03-19": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-10-23",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 100000,
+      "modelo_id": "o1-pro-2025-03-19",
+      "modo": "responses",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 150.0,
+        "output_por_millon": 600.0
+      },
+      "ventana_contexto_max": 200000
+    },
+    "o3": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 100000,
+      "modelo_id": "o3",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.5,
+        "input_por_millon": 2.0,
+        "output_por_millon": 8.0
+      },
+      "ventana_contexto_max": 200000
+    },
+    "o3-2025-04-16": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-12-11",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 100000,
+      "modelo_id": "o3-2025-04-16",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.5,
+        "input_por_millon": 2.0,
+        "output_por_millon": 8.0
+      },
+      "ventana_contexto_max": 200000
+    },
+    "o3-deep-research": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": false,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-07-23",
+      "fuente_precio": "https://developers.openai.com/api/docs/models/o3-deep-research",
+      "max_output_tokens": 100000,
+      "modelo_id": "o3-deep-research",
+      "modo": "responses",
+      "precios": {
+        "cache_lectura_por_millon": 2.5,
+        "input_por_millon": 10.0,
+        "output_por_millon": 40.0
+      },
+      "ventana_contexto_max": 200000
+    },
+    "o3-deep-research-2025-06-26": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": false,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-07-23",
+      "fuente_precio": "https://developers.openai.com/api/docs/models/o3-deep-research",
+      "max_output_tokens": 100000,
+      "modelo_id": "o3-deep-research-2025-06-26",
+      "modo": "responses",
+      "precios": {
+        "cache_lectura_por_millon": 2.5,
+        "input_por_millon": 10.0,
+        "output_por_millon": 40.0
+      },
+      "ventana_contexto_max": 200000
+    },
+    "o3-mini": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": false
+      },
+      "fecha_deprecacion": "2026-10-23",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 100000,
+      "modelo_id": "o3-mini",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.55,
+        "input_por_millon": 1.1,
+        "output_por_millon": 4.4
+      },
+      "ventana_contexto_max": 200000
+    },
+    "o3-mini-2025-01-31": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": false
+      },
+      "fecha_deprecacion": "2026-10-23",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 100000,
+      "modelo_id": "o3-mini-2025-01-31",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.55,
+        "input_por_millon": 1.1,
+        "output_por_millon": 4.4
+      },
+      "ventana_contexto_max": 200000
+    },
+    "o3-pro": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 100000,
+      "modelo_id": "o3-pro",
+      "modo": "responses",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 20.0,
+        "output_por_millon": 80.0
+      },
+      "ventana_contexto_max": 200000
+    },
+    "o3-pro-2025-06-10": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-12-11",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 100000,
+      "modelo_id": "o3-pro-2025-06-10",
+      "modo": "responses",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 20.0,
+        "output_por_millon": 80.0
+      },
+      "ventana_contexto_max": 200000
+    },
+    "o4-mini": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-10-23",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 100000,
+      "modelo_id": "o4-mini",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.275,
+        "input_por_millon": 1.1,
+        "output_por_millon": 4.4
+      },
+      "ventana_contexto_max": 200000
+    },
+    "o4-mini-2025-04-16": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-10-23",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 100000,
+      "modelo_id": "o4-mini-2025-04-16",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.275,
+        "input_por_millon": 1.1,
+        "output_por_millon": 4.4
+      },
+      "ventana_contexto_max": 200000
+    },
+    "o4-mini-deep-research": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": false,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-07-23",
+      "fuente_precio": "https://developers.openai.com/api/docs/models/o4-mini-deep-research",
+      "max_output_tokens": 100000,
+      "modelo_id": "o4-mini-deep-research",
+      "modo": "responses",
+      "precios": {
+        "cache_lectura_por_millon": 0.5,
+        "input_por_millon": 2.0,
+        "output_por_millon": 8.0
+      },
+      "ventana_contexto_max": 200000
+    },
+    "o4-mini-deep-research-2025-06-26": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": false,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": "2026-07-23",
+      "fuente_precio": "https://developers.openai.com/api/docs/models/o4-mini-deep-research",
+      "max_output_tokens": 100000,
+      "modelo_id": "o4-mini-deep-research-2025-06-26",
+      "modo": "responses",
+      "precios": {
+        "cache_lectura_por_millon": 0.5,
+        "input_por_millon": 2.0,
+        "output_por_millon": 8.0
+      },
+      "ventana_contexto_max": 200000
+    }
+  },
+  "procedencia": {
+    "estado_verificacion": "confirmado_por_docs_oficial",
+    "fecha_obtencion": "2026-10-27T18:31:12Z",
+    "firma_ed25519": null,
+    "fuente_tipo": "litellm_json",
+    "fuente_url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json",
+    "hash_sha256_contenido_original": "1faeeb3b9f7c974445a1377db267551c90b3b2748918f106e6fe2d54b8938d07"
+  },
+  "total_modelos": 123
+}
