@@ -404,9 +404,21 @@ async function main(): Promise<void> {
 
   const nCur = await aplicarCuraduriaIdentidad(db);
 
+  // Purga de caducos (2026-10-27, higiene post-feedback-adrc-mini): las filas
+  // con vigente_hasta expirado son derivadas y regenerables (vienen de las
+  // fichas); el refresco añadía vigentes pero nunca limpiaba (deuda declarada
+  // 2026-10-13: el retention crecía con cada drift upstream — 65 filas al
+  // momento del fix). La capa de advertencia_caducidad de consultas sigue como
+  // defensa para las filas que caducan ENTRE ingestas.
+  const purga = await db
+    .deleteFrom('modelos')
+    .where('vigente_hasta', '<', new Date())
+    .executeTakeFirst();
+
   await db.destroy();
+  const nPurgados = purga?.numDeletedRows ? Number(purga.numDeletedRows) : 0;
   console.log(
-    `ingesta: ${nCli} cli_productos, ${nCmd} cli_comandos, ${nMod} modelos, ${nCur} filas con curaduría de identidad`,
+    `ingesta: ${nCli} cli_productos, ${nCmd} cli_comandos, ${nMod} modelos, ${nCur} filas con curaduría de identidad, ${nPurgados} caducos purgados`,
   );
 }
 
