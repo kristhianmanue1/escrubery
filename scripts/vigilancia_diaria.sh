@@ -132,6 +132,12 @@ if ! bash "$RAIZ/scripts/refrescar_litellm.sh" >/dev/null; then
   FALLOS=$((FALLOS + 1))
 fi
 
+# --- Ingesta benchmarks Arena (Plan_Benchmarks_v0): captura idempotente por
+# hash (misma publicación → sin duplicados). Fallo de red → exit 3 del
+# adaptador = infra; JAMÁS elimina observaciones previas (append-only).
+echo "-- benchmarks: captura Arena (datasets-server HF)"
+run_node src/benchmarks/adaptador_lmarena.ts || true
+
 # --- Introspección activa F3 (presupuesto ~0: solo --help/--version en
 # --- contenedor efímero; decreto Mediador 2026-08-17). Diarios siempre;
 # --- semanales con ToS curado (qwen-code) cuando toca la ventana semanal.

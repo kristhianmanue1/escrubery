@@ -22,6 +22,7 @@
     "db:verificar": "node --env-file=.env --import tsx src/db/verificar.ts",
     "db:ingestar": "node --env-file=.env --import tsx src/db/ingestar.ts",
     "db:ingestar-help": "node --env-file=.env --import tsx src/db/ingestar_help.ts",
+    "benchmarks:ingestar": "node --env-file=.env --import tsx src/benchmarks/adaptador_lmarena.ts",
     "evidentia:probar-cadena": "node --env-file=.env --import tsx src/evidentia/probar_cadena.ts",
     "poller:github": "node --env-file=.env --import tsx src/evidentia/poller_github.ts",
     "poller:vmcp": "node --env-file=.env --import tsx src/evidentia/poller_vulnerable_mcp.ts",

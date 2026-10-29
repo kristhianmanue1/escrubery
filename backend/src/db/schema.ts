@@ -151,6 +151,81 @@ export interface IdentidadEndpointsTable {
   estado_verificacion: string | null;
 }
 
+// --- Módulo benchmarks (mig 018, Plan_Benchmarks_v0 2026-10-29) -----------
+// Semántica append-only: las observaciones son hechos históricos que no se
+// purgan ni sobrescriben (idempotencia por observacion_hash UNIQUE).
+
+export interface BenchmarkFuentesTable {
+  id: Generated<number>;
+  slug: string;
+  nombre: string;
+  organizacion: string;
+  canal_url: string;
+  canal_tipo: string;
+  licencia: string | null;
+  metodologia_url: string | null;
+  ventana_dias: number;
+  notas: string | null;
+  activa: boolean;
+  fecha_ultima_captura: Ts;
+  hash_ultima_captura: string | null;
+  creado_en: Ts;
+  actualizado_en: Ts;
+}
+
+export interface BenchmarkDefinicionesTable {
+  id: Generated<number>;
+  fuente_id: number;
+  slug: string;
+  version_metodologia: string;
+  objetivo: string;
+  capacidad_evaluada: string;
+  metrica_principal: string;
+  unidad: string;
+  direccion: string;
+  metodologia_url: string | null;
+  incompatibilidades_json: unknown;
+}
+
+export interface BenchmarkSubjectsTable {
+  id: Generated<number>;
+  fuente_id: number;
+  designacion_original: string;
+  tipo: string;
+  organizacion_declarada: string | null;
+  agente_designado: string | null;
+  modelo_designado: string | null;
+  resuelto_proveedor: string | null;
+  resuelto_modelo_id: string | null;
+}
+
+export interface BenchmarkObservacionesTable {
+  id: Generated<number>;
+  fuente_id: number;
+  definicion_id: number;
+  subject_id: number;
+  run_ref: string | null;
+  metrica: string;
+  valor: number | null;
+  unidad: string;
+  direccion: string;
+  incertidumbre_json: unknown;
+  condiciones_json: unknown;
+  publicado_por: string;
+  fecha_ejecucion: Ts;
+  fecha_publicacion: Ts;
+  fuente_url: string;
+  fuente_tipo: string | null;
+  fecha_obtencion: Ts;
+  hash_sha256_contenido_original: string;
+  estado_verificacion: string | null;
+  adaptador: string;
+  adaptador_version: string;
+  observacion_hash: string;
+  capturado_en: Ts;
+  retirado_en: Ts;
+}
+
 export interface Database {
   modelos: ModelosTable;
   cli_productos: CliProductosTable;
@@ -161,4 +236,8 @@ export interface Database {
   checkpoints: CheckpointsTable;
   identidad_alias: IdentidadAliasTable;
   identidad_endpoints: IdentidadEndpointsTable;
+  benchmark_fuentes: BenchmarkFuentesTable;
+  benchmark_definiciones: BenchmarkDefinicionesTable;
+  benchmark_subjects: BenchmarkSubjectsTable;
+  benchmark_observaciones: BenchmarkObservacionesTable;
 }

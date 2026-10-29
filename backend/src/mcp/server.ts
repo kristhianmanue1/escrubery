@@ -22,6 +22,11 @@ import {
   paramsResolverValidos,
   resolverIdentidadModelo,
 } from '../consultas/resolver';
+import {
+  consultarBenchmark,
+  consultarResultados as consultarResultadosBenchmarks,
+  listarBenchmarks,
+} from '../benchmarks/consultas';
 import { TOOLS_CATALOGO } from './tools';
 
 let db: Kysely<Database> | null = null;
@@ -87,6 +92,19 @@ const INPUT_SCHEMAS: Record<string, object> = {
       issuer_id: { type: 'string' },
       modelo_id: { type: 'string' },
       endpoint: { type: 'string' },
+    },
+  },
+  consultar_benchmark: {
+    type: 'object',
+    properties: { benchmark: { type: 'string' } },
+    required: ['benchmark'],
+  },
+  consultar_resultados: {
+    type: 'object',
+    properties: {
+      benchmark: { type: 'string' },
+      modelo: { type: 'string' },
+      agente: { type: 'string' },
     },
   },
 };
@@ -246,6 +264,62 @@ server.setRequestHandler(CallToolRequestSchema, async (req) => {
           : sinDatos(
               'identidad no resoluble (sin dato curado; nunca se adivina)',
             );
+      }
+      case 'listar_benchmarks':
+        return texto(await listarBenchmarks(d));
+      case 'consultar_benchmark': {
+        const benchmark = typeof a.benchmark === 'string' ? a.benchmark : '';
+        if (!benchmark) {
+          return {
+            content: [
+              {
+                type: 'text' as const,
+                text: JSON.stringify({
+                  error: {
+                    codigo: 'parametros_invalidos',
+                    mensaje: 'benchmark requerido',
+                  },
+                }),
+              },
+            ],
+            isError: true,
+          };
+        }
+        const rb = await consultarBenchmark(d, benchmark);
+        return rb ? texto(rb) : sinDatos(`benchmark ${benchmark}`);
+      }
+      case 'consultar_resultados': {
+        const filtro: {
+          benchmark?: string;
+          modelo?: string;
+          agente?: string;
+        } = {};
+        for (const campo of ['benchmark', 'modelo', 'agente'] as const) {
+          if (typeof a[campo] === 'string' && a[campo]) {
+            filtro[campo] = String(a[campo]);
+          }
+        }
+        const nFiltros = Object.keys(filtro).length;
+        if (nFiltros !== 1) {
+          return {
+            content: [
+              {
+                type: 'text' as const,
+                text: JSON.stringify({
+                  error: {
+                    codigo: 'parametros_invalidos',
+                    mensaje: 'exactamente uno de benchmark | modelo | agente',
+                  },
+                }),
+              },
+            ],
+            isError: true,
+          };
+        }
+        const rr = await consultarResultadosBenchmarks(d, filtro);
+        return rr
+          ? texto(rr)
+          : sinDatos('sin resultados para el filtro (dominio benchmarks)');
       }
       default:
         return {

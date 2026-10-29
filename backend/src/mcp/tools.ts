@@ -50,4 +50,19 @@ export const TOOLS_CATALOGO: ToolDef[] = [
     descripcion:
       'Resuelve un identificador declarado por agente/harness a la identidad canónica verificada (registro externo, nunca adivina).',
   },
+  {
+    nombre: 'listar_benchmarks',
+    descripcion:
+      'Benchmarks ingeridos: qué evalúan, con qué metodología y bajo qué licencia.',
+  },
+  {
+    nombre: 'consultar_benchmark',
+    descripcion:
+      'Definición, metodología, versiones e incompatibilidades de un benchmark.',
+  },
+  {
+    nombre: 'consultar_resultados',
+    descripcion:
+      'Observaciones publicadas (con condiciones, IC y procedencia) filtradas por benchmark, modelo o agente; comparabilidad por grupo, nunca un ranking propio.',
+  },
 ];

@@ -20,6 +20,11 @@ import {
   reportarFeedback,
   type FeedbackInput,
 } from '../feedback/modulo';
+import {
+  consultarBenchmark,
+  listarBenchmarks,
+  consultarResultados,
+} from '../benchmarks/consultas';
 import { crearKysely } from '../db/kysely';
 import type { Database } from '../db/schema';
 import {
@@ -143,5 +148,52 @@ export class V0Controller {
       );
     }
     return reportarFeedback(getDb(), b);
+  }
+
+  // --- Módulo benchmarks (errata 13, aditivas 2026-10-29) ---
+
+  @HttpCode(200)
+  @Post('listar_benchmarks')
+  async listarBenchmarks() {
+    return listarBenchmarks(getDb());
+  }
+
+  @HttpCode(200)
+  @Post('consultar_benchmark')
+  async benchmark(@Body() b: { benchmark?: string }) {
+    if (!b?.benchmark) {
+      err('parametros_invalidos', 'benchmark requerido', 400);
+    }
+    const r = await consultarBenchmark(getDb(), b.benchmark);
+    if (!r) {
+      err('sin_datos', `benchmark ${b.benchmark} no encontrado`, 404);
+    }
+    return r;
+  }
+
+  @HttpCode(200)
+  @Post('consultar_resultados')
+  async resultados(
+    @Body() b: { benchmark?: string; modelo?: string; agente?: string },
+  ) {
+    const nFiltros = [b?.benchmark, b?.modelo, b?.agente].filter(
+      Boolean,
+    ).length;
+    if (nFiltros === 0 || nFiltros > 1) {
+      err(
+        'parametros_invalidos',
+        'exactamente uno de benchmark | modelo | agente',
+        400,
+      );
+    }
+    const r = await consultarResultados(getDb(), {
+      benchmark: b?.benchmark,
+      modelo: b?.modelo,
+      agente: b?.agente,
+    });
+    if (!r) {
+      err('sin_datos', 'sin resultados para el filtro', 404);
+    }
+    return r;
   }
 }

@@ -19,7 +19,7 @@ describe('catálogo de tools — single source (HF5-T2)', () => {
   it('nombres únicos y sin duplicados', () => {
     const nombres = TOOLS_CATALOGO.map((t) => t.nombre);
     expect(new Set(nombres).size).toBe(nombres.length);
-    expect(nombres.length).toBe(9); // 8 de F5 + resolver_identidad_modelo (T4b)
+    expect(nombres.length).toBe(12); // 8 de F5 + resolver (T4b) + 3 benchmarks (errata 13, 2026-10-29)
   });
 
   it('la card firmada expone exactamente el catálogo (nombres)', () => {

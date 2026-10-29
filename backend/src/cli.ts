@@ -15,6 +15,11 @@ import {
   feedbackInputValido,
   type FeedbackInput,
 } from './feedback/modulo';
+import {
+  listarBenchmarks,
+  consultarBenchmark,
+  consultarResultados,
+} from './benchmarks/consultas';
 
 function usage(): never {
   console.error(
@@ -22,7 +27,7 @@ function usage(): never {
       error: {
         codigo: 'parametros_invalidos',
         mensaje:
-          'uso:\n  consultar listar\n  consultar modelo <proveedor> <modelo_id>\n  consultar comando <cli_id> [filtro]\n  consultar ficha cli <id> | consultar ficha proveedor <id>\n  consultar oficialidad\n  consultar resolver <issuer_id> | consultar resolver <modelo_id> <endpoint>\n  consultar feedback <params_json>',
+          'uso:\n  consultar listar\n  consultar modelo <proveedor> <modelo_id>\n  consultar comando <cli_id> [filtro]\n  consultar ficha cli <id> | consultar ficha proveedor <id>\n  consultar oficialidad\n  consultar resolver <issuer_id> | consultar resolver <modelo_id> <endpoint>\n  consultar feedback <params_json>\n  consultar benchmarks\n  consultar benchmark <benchmark>\n  consultar resultados <benchmark|modelo|agente> <valor>',
       },
     }),
   );
@@ -157,6 +162,53 @@ async function main(): Promise<void> {
         }
         if (!feedbackInputValido(input)) usage();
         out(await reportarFeedback(db, input));
+        break;
+      }
+      case 'benchmarks': {
+        // 0 posicionales (errata 13): cualquier extra → uso inválido (exit 2)
+        if (rest.length !== 0) usage();
+        out(await listarBenchmarks(db));
+        break;
+      }
+      case 'benchmark': {
+        // exactamente 1 posicional (errata 13): slug del benchmark
+        if (rest.length !== 1) usage();
+        const [slug] = rest;
+        if (!slug) usage();
+        const r = await consultarBenchmark(db, slug);
+        if (!r) {
+          out({
+            error: {
+              codigo: 'sin_datos',
+              mensaje: `benchmark ${slug} no encontrado`,
+            },
+          });
+          process.exitCode = 1;
+        } else {
+          out(r);
+        }
+        break;
+      }
+      case 'resultados': {
+        // exactamente 2 posicionales (errata 13): campo de filtro + valor
+        if (rest.length !== 2) usage();
+        const [campo, valor] = rest;
+        if (!campo || !valor) usage();
+        if (campo !== 'benchmark' && campo !== 'modelo' && campo !== 'agente') {
+          usage();
+        }
+        const r = await consultarResultados(db, { [campo]: valor });
+        if (!r) {
+          out({
+            error: {
+              codigo: 'sin_datos',
+              mensaje: `sin resultados para ${campo}=${valor}`,
+            },
+          });
+          process.exitCode = 1;
+        } else {
+          out(r);
+        }
         break;
       }
       default:
