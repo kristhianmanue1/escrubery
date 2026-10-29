@@ -98,6 +98,7 @@ export async function consultarBenchmark(
       'f.canal_url',
       'f.ventana_dias',
       'f.fecha_ultima_captura',
+      'f.hash_ultima_captura',
       'f.metodologia_url as fuente_metodologia_url',
     ])
     .where('d.slug', '=', benchmark)
@@ -115,6 +116,7 @@ export async function consultarBenchmark(
     .selectFrom('benchmark_definiciones')
     .select(['version_metodologia', 'id'])
     .where('slug', '=', benchmark)
+    .where('fuente_id', '=', def.fuente_id)
     .orderBy('version_metodologia')
     .execute();
   const total = await db
@@ -147,6 +149,19 @@ export async function consultarBenchmark(
     incompatibilidades_documentadas: def.incompatibilidades_json,
     metodologia_url: def.metodologia_url ?? def.fuente_metodologia_url,
     total_observaciones: Number(total?.n ?? 0),
+    // Procedencia representativa de la fuente (errata 13 §3.11 — adversarial
+    // r1: el contrato la promete, se sirve): de la ÚLTIMA captura del ciclo
+    // de ingesta (la fuente registra una por corrida; ver plan §6).
+    procedencia: {
+      fuente_url: def.canal_url,
+      fuente_tipo: 'leaderboard_json',
+      fecha_obtencion: def.fecha_ultima_captura
+        ? def.fecha_ultima_captura.toISOString()
+        : null,
+      hash_sha256_contenido_original: def.hash_ultima_captura,
+      estado_verificacion: 'pendiente_de_verificar',
+      firma_ed25519: null,
+    },
     advertencia_caducidad: advertenciaFuente({
       ventana_dias: def.ventana_dias,
       fecha_ultima_captura: def.fecha_ultima_captura,
@@ -216,6 +231,30 @@ export async function consultarResultados(
   if (filtro.agente) {
     q = q.where('s.agente_designado', '=', filtro.agente);
   }
+  // Total REAL de coincidencias (adversarial r1 MED: sin esto, "total" era
+  // el nº servido y un consumidor de lm-arena-text veía 50 de 419 sin señal).
+  let qc = db
+    .selectFrom('benchmark_observaciones as o')
+    .innerJoin('benchmark_definiciones as d', 'd.id', 'o.definicion_id')
+    .innerJoin('benchmark_subjects as s', 's.id', 'o.subject_id')
+    .select((eb) => eb.fn.countAll<number>().as('n'));
+  if (filtro.benchmark) {
+    qc = qc.where('d.slug', '=', filtro.benchmark);
+  }
+  if (filtro.modelo) {
+    qc = qc.where((eb) =>
+      eb.or([
+        eb('s.resuelto_modelo_id', '=', filtro.modelo!),
+        eb('s.modelo_designado', '=', filtro.modelo!),
+        eb('s.resuelto_proveedor', '=', filtro.modelo!),
+      ]),
+    );
+  }
+  if (filtro.agente) {
+    qc = qc.where('s.agente_designado', '=', filtro.agente);
+  }
+  const conteo = await qc.executeTakeFirst();
+  const totalCoincidencias = Number(conteo?.n ?? 0);
   const rows = await q
     .orderBy('o.fecha_publicacion', 'desc')
     // nulls last explícito: Postgres ordena NULLS FIRST en DESC y una fila
@@ -298,6 +337,8 @@ export async function consultarResultados(
   });
   return {
     total: obs.length,
+    total_coincidencias: totalCoincidencias,
+    truncado: obs.length < totalCoincidencias,
     nota_comparabilidad:
       'observaciones con el mismo grupo_comparabilidad comparten fuente+definición+versión metodológica+métrica y son directamente comparables entre sí; grupos distintos: comparabilidad limitada o desconocida (ver incompatibilidades del benchmark). No se promedian métricas heterogéneas.',
     resultados: obs,

@@ -19,7 +19,7 @@ import {
   consultarResultados,
   listarBenchmarks,
 } from './consultas';
-import { grupoComparabilidad, hashObservacion } from './dominio';
+import { grupoComparabilidad, hashObservacion, normalizarFila } from './dominio';
 
 // Specs del módulo benchmarks (Plan_Benchmarks_v0, 2026-10-29) — criterios
 // verificables del encargo §13. BD de test aislada `escrubery_test`
@@ -125,6 +125,10 @@ skip('módulo benchmarks', () => {
   });
 
   it('criterio 4: una versión metodológica nueva es otra definición, no una variación de rendimiento', async () => {
+    // Nota (adversarial r1 LOW): proxy aceptable — hoy no existe camino de
+    // ingesta con versión distinta (constante bt-style-control-1); se prueba
+    // la propiedad de BD que la regla exige: coexistencia de versiones sin
+    // reasignar las observaciones ya ligadas a la versión original.
     await aplicarCapturaLmarena(db, META, [fila('GLM-5.3 (Max)')]);
     // simular nueva versión: cambiar la definición vigente exige otra fila de
     // definición (mig 018 UNIQUE fuente+slug+versión) — verificar que dos
@@ -202,12 +206,17 @@ skip('módulo benchmarks', () => {
       .execute();
   });
 
-  it('criterio 6: la ausencia de puntuación se persiste NULL, jamás cero', async () => {
+  it('criterio 6: la ausencia de puntuación se persiste NULL, jamás cero (y nunca encabeza)', async () => {
     await aplicarCapturaLmarena(db, META, [
       fila('Sin Rating Todavía', {
         rating: null,
         rating_lower: null,
         rating_upper: null,
+      }),
+      fila('Con Rating', {
+        rating: 1500,
+        rating_lower: 1495,
+        rating_upper: 1505,
       }),
     ]);
     const o = await db
@@ -221,6 +230,44 @@ skip('módulo benchmarks', () => {
         (x) => x.subject.designacion_original === 'Sin Rating Todavía',
       )?.valor,
     ).toBeNull();
+    // adversarial r1 MED (regresión del fix nulls last): misma publicación,
+    // la fila SIN rating no puede ir primera (Postgres NULLS FIRST en DESC)
+    expect(r?.resultados[0]?.subject.designacion_original).not.toBe(
+      'Sin Rating Todavía',
+    );
+  });
+
+  it('adversarial r1: total_coincidencias real y bandera truncado (nunca 50-de-419 silencioso)', async () => {
+    await aplicarCapturaLmarena(db, META, [
+      fila('Modelo A'),
+      fila('Modelo B'),
+      fila('Modelo C'),
+    ]);
+    const completo = await consultarResultados(db, {
+      benchmark: 'lm-arena-webdev',
+    });
+    expect(completo?.total_coincidencias).toBe(3);
+    expect(completo?.truncado).toBe(false);
+    const truncado = await consultarResultados(
+      db,
+      { benchmark: 'lm-arena-webdev' },
+      2,
+    );
+    expect(truncado?.total).toBe(2);
+    expect(truncado?.total_coincidencias).toBe(3);
+    expect(truncado?.truncado).toBe(true);
+  });
+
+  it('adversarial r1: consultar_benchmark sirve procedencia representativa de la fuente (errata 13 §3.11)', async () => {
+    await aplicarCapturaLmarena(db, META, [fila('GLM-5.3 (Max)')]);
+    const r = await consultarBenchmark(db, 'lm-arena-webdev');
+    expect(r?.procedencia).toMatchObject({
+      fuente_tipo: 'leaderboard_json',
+      estado_verificacion: 'pendiente_de_verificar',
+      firma_ed25519: null,
+    });
+    expect(r?.procedencia.fuente_url).toContain('huggingface.co');
+    expect(r?.procedencia.fecha_obtencion).not.toBeNull();
   });
 
   it('criterio 12: el contenido de la fuente es dato, nunca instrucción (persistido verbatim)', async () => {
@@ -280,6 +327,32 @@ skip('módulo benchmarks', () => {
         r?.incompatibilidades_documentadas.length > 0,
     ).toBe(true);
     expect(await consultarBenchmark(db, 'no-existe')).toBeNull();
+  });
+
+  it('adversarial r1/incidente real: la config agent mapea score→rating (card del dataset), sin inferir', async () => {
+    const canon = normalizarFila('agent', {
+      model_name: 'GLM-5.3 (Max)',
+      organization: 'zai',
+      license: 'MIT',
+      score: 1601.5,
+      score_ci_lower: 1595.2,
+      score_ci_upper: 1607.8,
+      observation_count: 900,
+      rank: 3,
+      category: 'overall',
+      leaderboard_publish_date: '2026-10-28',
+    });
+    expect(canon.rating).toBe(1601.5);
+    expect(canon.rating_lower).toBe(1595.2);
+    expect(canon.rating_upper).toBe(1607.8);
+    expect(canon.vote_count).toBe(900);
+    // y el rating clásico sigue igual para text/webdev
+    const clasico = normalizarFila('webdev', {
+      model_name: 'X', rating: 1500, rating_lower: 1490, rating_upper: 1510,
+      vote_count: 42, category: 'overall', leaderboard_publish_date: '2026-10-28',
+    });
+    expect(clasico.rating).toBe(1500);
+    expect(clasico.vote_count).toBe(42);
   });
 
   it('grupo de comparabilidad: misma definición+versión+métrica → mismo grupo', async () => {

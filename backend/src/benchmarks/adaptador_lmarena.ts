@@ -3,6 +3,10 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { crearKysely } from '../db/kysely';
 import type { FilaLmarena } from './dominio';
+import {
+  CAMPO_METRICA_POR_CONFIG,
+  normalizarFila,
+} from './dominio';
 import { aplicarCapturaLmarena } from './ingesta';
 
 // Adaptador Arena (ex LMArena) — canal: datasets-server de HuggingFace (JSON
@@ -23,7 +27,7 @@ const REINTENTOS = 2;
 const BACKOFF_MS = 1500;
 
 interface RespuestaFilas {
-  rows?: { row: FilaLmarena }[];
+  rows?: { row: Record<string, unknown> }[];
   num_rows_total?: number;
 }
 
@@ -61,43 +65,98 @@ async function filasDeConfig(
   const base = `https://datasets-server.huggingface.co`;
   const filtro = `${base}/filter?dataset=${encodeURIComponent(DATASET)}&config=${config}&split=latest&length=${PAGINA}&where=${encodeURIComponent(`"category"='overall'`)}`;
   const filas: FilaLmarena[] = [];
+  const crudas: Record<string, unknown>[] = [];
   let urlCanal = filtro;
+  let totalDeclarado: number | undefined;
   try {
     for (let pagina = 0; pagina < MAX_PAGINAS; pagina += 1) {
       const url = `${filtro}&offset=${pagina * PAGINA}`;
       urlCanal = url;
       const data = (await obtener(url)) as RespuestaFilas;
-      const filas2 = (data.rows ?? []).map((r) => r.row);
-      filas.push(...filas2);
+      const lote = (data.rows ?? []).map((r) => r.row);
+      crudas.push(...lote);
+      if (data.num_rows_total !== undefined) {
+        totalDeclarado = data.num_rows_total;
+      }
+      // undefined = la fuente no declaró total: solo cortar por página corta
       if (
-        filas.length >= (data.num_rows_total ?? 0) ||
-        filas2.length < PAGINA
+        (data.num_rows_total !== undefined &&
+          crudas.length >= data.num_rows_total) ||
+        lote.length < PAGINA
       ) {
         break;
       }
     }
-    if (filas.length > 0) {
-      if (filas.length >= MAX_PAGINAS * PAGINA) {
-        console.error(
-          `aviso: ${config} truncado a ${filas.length} filas (tope de presupuesto)`,
-        );
+  } catch (err) {
+    // adversarial r1 LOW: dejar rastro del motivo antes del respaldo /rows
+    console.error(
+      `filter ${config} falló (${err instanceof Error ? err.message : String(err)}); respaldo /rows`,
+    );
+    crudas.length = 0;
+    filas.length = 0;
+    totalDeclarado = undefined;
+    const rowsUrl = `${base}/rows?dataset=${encodeURIComponent(DATASET)}&config=${config}&split=latest&length=${PAGINA}`;
+    for (let pagina = 0; pagina < MAX_PAGINAS; pagina += 1) {
+      const url = `${rowsUrl}&offset=${pagina * PAGINA}`;
+      urlCanal = url;
+      const data = (await obtener(url)) as RespuestaFilas;
+      const lote = (data.rows ?? []).map((r) => r.row);
+      crudas.push(...lote);
+      if (data.num_rows_total !== undefined) {
+        totalDeclarado = data.num_rows_total;
       }
-      return { filas, urlCanal };
+      if (
+        (data.num_rows_total !== undefined &&
+          crudas.length >= data.num_rows_total) ||
+        lote.length < PAGINA
+      ) {
+        break;
+      }
     }
-  } catch {
-    // respaldo /rows (todas las categorías; filtrado local)
+    // El total del split cubre TODAS las categorías: la completitud se mide
+    // sobre lo DESCARGADO (no sobre el subconjunto overall filtrado abajo).
+    if (totalDeclarado !== undefined && totalDeclarado > crudas.length) {
+      throw new Error(
+        `config ${config}: respaldo /rows descargó ${crudas.length} de ${totalDeclarado} filas del split (tope ${MAX_PAGINAS * PAGINA}) — captura incompleta, NO se ingesta (fail-closed)`,
+      );
+    }
+    const overallCrudas = crudas.filter(
+      (r) => r.category === 'overall',
+    );
+    crudas.length = 0;
+    crudas.push(...overallCrudas);
+    // el check externo compara contra el subconjunto overall; re-anclar el
+    // total al ya-validado (descargado completo) para no disparar dos veces
+    totalDeclarado = overallCrudas.length;
   }
-  const rowsUrl = `${base}/rows?dataset=${encodeURIComponent(DATASET)}&config=${config}&split=latest&length=${PAGINA}`;
-  for (let pagina = 0; pagina < MAX_PAGINAS; pagina += 1) {
-    const url = `${rowsUrl}&offset=${pagina * PAGINA}`;
-    urlCanal = url;
-    const data = (await obtener(url)) as RespuestaFilas;
-    const lote = (data.rows ?? []).map((r) => r.row);
-    filas.push(...lote);
-    if (lote.length < PAGINA) break;
+  // adversarial r1 HIGH (rama /filter): presupuesto excedido o captura
+  // incompleta → NADA se ingesta (fail-closed; jamás parcial silencioso).
+  if (totalDeclarado !== undefined && totalDeclarado > crudas.length) {
+    throw new Error(
+      `config ${config}: ${crudas.length} filas overall servidas < ${totalDeclarado} declaradas (tope de presupuesto ${MAX_PAGINAS * PAGINA}) — captura incompleta, NO se ingesta (fail-closed; ampliar MAX_PAGINAS con decreto)`,
+    );
   }
-  const overall = filas.filter((f) => f.category === 'overall');
-  return { filas: overall, urlCanal: rowsUrl };
+  // adversarial r1 MED: guarda de deriva de esquema sobre las filas CRUDAS
+  // con el campo de métrica que la card del dataset declara por config —
+  // incidente real 2026-10-29: agent publica score (no rating) y 51 filas
+  // se ingeraron con valor null antes de esta guarda.
+  if (crudas.length > 0) {
+    const claveMetrica = CAMPO_METRICA_POR_CONFIG[config]?.valor ?? 'rating';
+    const sinNombre = crudas.filter((r) => !('model_name' in r)).length;
+    const sinMetrica = crudas.filter((r) => !(claveMetrica in r)).length;
+    if (sinNombre === crudas.length || sinMetrica === crudas.length) {
+      throw new Error(
+        `config ${config}: esquema de la fuente cambió (0/${crudas.length} filas con ${sinNombre === crudas.length ? 'model_name' : claveMetrica}) — NO se ingesta (fail-closed)`,
+      );
+    }
+  }
+  filas.push(...crudas.map((r) => normalizarFila(config, r)));
+  if (filas.length === 0) {
+    throw new Error(
+      `config ${config}: 0 filas overall (¿estructura de la fuente cambió? — fail-closed, no se ingesta nada)`,
+    );
+  }
+  return { filas, urlCanal };
 }
 
 async function main(): Promise<void> {
@@ -120,43 +179,53 @@ async function main(): Promise<void> {
   const ts = ahora.toISOString().replace(/[:.]/g, '-');
   let totalNuevas = 0;
   let totalDuplicadas = 0;
+  const fallos: string[] = [];
   try {
     for (const config of CONFIGS) {
-      const { filas, urlCanal } = await filasDeConfig(config);
-      if (filas.length === 0) {
-        throw new Error(
-          `config ${config}: 0 filas overall (¿estructura de la fuente cambió? — fail-closed, no se ingesta nada)`,
+      // Aislamiento por config (lección operativa 2026-10-29: /filter de
+      // datasets-server puede caer por minutos para UNA config y no debe
+      // bloquear el refresco de las demás). El fallo se reporta y el exit
+      // final es 3 — nada se traga en silencio.
+      try {
+        const { filas, urlCanal } = await filasDeConfig(config);
+        const capturaCruda = JSON.stringify(
+          { capturado_en: ahora.toISOString(), canal: urlCanal, filas },
+          null,
+          2,
+        );
+        const hash = createHash('sha256')
+          .update(capturaCruda, 'utf8')
+          .digest('hex');
+        const ruta = join(dirCapturas, `${config}-latest-${ts}.json`);
+        await writeFile(ruta, capturaCruda, 'utf8');
+        const r = await aplicarCapturaLmarena(
+          db,
+          {
+            config,
+            fuente_url: urlCanal,
+            hash_sha256: hash,
+            fecha_obtencion: ahora,
+          },
+          filas,
+        );
+        totalNuevas += r.nuevas;
+        totalDuplicadas += r.duplicadas;
+        console.log(
+          `arena/${config}: ${filas.length} filas → ${r.nuevas} nuevas, ${r.duplicadas} duplicadas (idempotentes), ${r.subjects} subjects; captura ${ruta} hash ${hash.slice(0, 12)}…`,
+        );
+      } catch (err) {
+        fallos.push(config);
+        console.error(
+          `FALLO config ${config}: ${err instanceof Error ? err.message : String(err)} (continuando con el resto)`,
         );
       }
-      const capturaCruda = JSON.stringify(
-        { capturado_en: ahora.toISOString(), canal: urlCanal, filas },
-        null,
-        2,
-      );
-      const hash = createHash('sha256')
-        .update(capturaCruda, 'utf8')
-        .digest('hex');
-      const ruta = join(dirCapturas, `${config}-latest-${ts}.json`);
-      await writeFile(ruta, capturaCruda, 'utf8');
-      const r = await aplicarCapturaLmarena(
-        db,
-        {
-          config,
-          fuente_url: urlCanal,
-          hash_sha256: hash,
-          fecha_obtencion: ahora,
-        },
-        filas,
-      );
-      totalNuevas += r.nuevas;
-      totalDuplicadas += r.duplicadas;
-      console.log(
-        `arena/${config}: ${filas.length} filas → ${r.nuevas} nuevas, ${r.duplicadas} duplicadas (idempotentes), ${r.subjects} subjects; captura ${ruta} hash ${hash.slice(0, 12)}…`,
-      );
     }
     console.log(
-      `ingesta benchmarks: ${totalNuevas} nuevas, ${totalDuplicadas} duplicadas`,
+      `ingesta benchmarks: ${totalNuevas} nuevas, ${totalDuplicadas} duplicadas${fallos.length > 0 ? `, ${fallos.length} config(s) con fallo: ${fallos.join(', ')}` : ''}`,
     );
+    if (fallos.length > 0) {
+      process.exitCode = 3; // infra parcial declarada, no silenciosa
+    }
   } finally {
     await db.destroy();
   }

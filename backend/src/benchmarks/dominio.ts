@@ -25,16 +25,56 @@ export interface FilaLmarena {
   leaderboard_publish_date: string;
 }
 
+/** Mapa de campos por config — DECLARADO por la card del dataset (features
+ * difieren: agent usa score/score_ci_*, el resto rating/rating_*). Normalizar
+ * no es inferir: es el mapeo documentado de la propia fuente. El campo
+ * original queda en condiciones (campo_original_metrica). */
+export const CAMPO_METRICA_POR_CONFIG: Record<string, { valor: string; inferior: string; superior: string; votos: string }> = {
+  agent: { valor: 'score', inferior: 'score_ci_lower', superior: 'score_ci_upper', votos: 'observation_count' },
+};
+const CAMPO_DEFAULT = { valor: 'rating', inferior: 'rating_lower', superior: 'rating_upper', votos: 'vote_count' };
+
+type FilaCruda = Record<string, unknown>;
+
+function num(v: unknown): number | null {
+  return typeof v === 'number' ? v : null;
+}
+function str(v: unknown): string | null {
+  return typeof v === 'string' ? v : null;
+}
+
+export function normalizarFila(config: string, row: FilaCruda): FilaLmarena {
+  const c = CAMPO_METRICA_POR_CONFIG[config] ?? CAMPO_DEFAULT;
+  return {
+    model_name: str(row.model_name) ?? '',
+    organization: str(row.organization),
+    license: str(row.license),
+    rating: num(row[c.valor]),
+    rating_lower: num(row[c.inferior]),
+    rating_upper: num(row[c.superior]),
+    variance: num(row.variance),
+    vote_count: num(row[c.votos]),
+    rank: num(row.rank),
+    category: str(row.category) ?? '',
+    leaderboard_publish_date: str(row.leaderboard_publish_date) ?? '',
+  };
+}
+
 export interface DefinicionLmarena {
   config: string;
   slug: string;
   objetivo: string;
   capacidad_evaluada: string;
+  metrica: string;
+  unidad: string;
 }
 
 // Definiciones ingeridas v0: las tres arenas alineadas con el consumidor
 // (epistates/el ecosistema eligen modelos para programar y agentes).
 // La arena "text" se toma en su variante canónica con style control.
+// OJO (incidente 2026-10-29 r2): agent publica `score` en escala 0–1 (IPS),
+// NO un rating BT (~1500) — métrica y unidad PROPIAS por config para no
+// inducir comparaciones engañosas entre escalas distintas.
 export const DEFINICIONES_LMARENA: DefinicionLmarena[] = [
   {
     config: 'text_style_control',
@@ -42,6 +82,8 @@ export const DEFINICIONES_LMARENA: DefinicionLmarena[] = [
     objetivo:
       'Preferencia humana por votos pareados en conversación (Bradley-Terry con style control)',
     capacidad_evaluada: 'conversacion_general',
+    metrica: 'rating_bt',
+    unidad: 'rating_bt',
   },
   {
     config: 'webdev',
@@ -49,13 +91,17 @@ export const DEFINICIONES_LMARENA: DefinicionLmarena[] = [
     objetivo:
       'Preferencia humana por votos pareados en construcción de aplicaciones web',
     capacidad_evaluada: 'programacion_web',
+    metrica: 'rating_bt',
+    unidad: 'rating_bt',
   },
   {
     config: 'agent',
     slug: 'lm-arena-agent',
     objetivo:
-      'Preferencia humana por votos pareados en tareas agénticas multi-turno',
+      'Preferencia humana por votos pareados en tareas agénticas multi-turno (score IPS de la fuente, escala 0–1)',
     capacidad_evaluada: 'agentes',
+    metrica: 'score_agente',
+    unidad: 'score_0_1',
   },
 ];
 

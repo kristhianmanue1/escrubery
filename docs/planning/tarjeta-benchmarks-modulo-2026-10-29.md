@@ -42,11 +42,48 @@ Claude Opus 5.5 (Max) · GPT-6 Astra (Max) · Gemini 4 Carbon (High) · Muse Won
 
 ## Adversarial
 
-Pendiente la ronda INDEPENDIENTE (política §6) al cierre del hito — con clases
-de defecto del catálogo skevi ADR-035 (entrada no confiable e inyección;
-contrato roto; test que no prueba el requisito). El análisis del encargo incluyó
-autorrevisión declarada H1–H7 (H1 refutada: el dominio actual no absorbe evals
-sin cambios — la purga lo impide; H3 débil por diseño, medida por el spike).
+**Ronda independiente EJECUTADA (2026-10-29, subagente contexto fresco, mismo
+proveedor que el autor — decorrelación parcial declarada):** verificación por
+ejecución de todas las cifras (311 tests, 622 obs, 622 hashes únicos, +40
+aliases, cadena hash↔captura) ✅ y hallazgos: 2 HIGH (procedencia §3.11
+prometida y no servida; truncamiento silencioso posible en respaldo /rows),
+4 MED, 8 LOW → decisión **fix-and-retry**. Fixes aplicados en el mismo
+ticket (lote 09): procedencia representativa servida en `consultar_benchmark`
+(+spec); fail-closed de presupuesto en AMBAS ramas del canal (abort en vez de
+aviso — captura incompleta → no se ingesta nada); `total_coincidencias`
+real + bandera `truncado` (+spec); guarda de deriva de esquema sobre filas
+crudas; custodia git diaria de capturas (patrón sandbox, crecimiento
+declarado ~240 KB/día); spec de regresión del `nulls last`; log del error
+tragado en el fallback; `|| true` eliminado; scope de fuente en
+`versiones_metodologia`.
+
+**El fix-and-retry cazó un defecto real en producción:** la guarda de esquema
+abortó la corrida del agente — la config `agent` publica `score` (no
+`rating`, mapeo declarado en la card del dataset) y las 51 observaciones
+originales de agent se habían ingerido con `valor NULL` (el MED 4 predicho,
+ya ocurrido). Corrección: normalizador con mapa por config
+(`campo_original_metrica` queda en condiciones), DELETE documentado de las 51
+filas defectuosas (bug del adaptador, no hecho de la fuente; las capturas
+crudas que las anclan permanecen intactas en git como evidencia del
+incidente) y re-ingesta con valores correctos. Las tablas del módulo NO
+están encadenadas en Evidentia (decisión D4) — la corrección no rompe
+ninguna evidencia sellada.
+
+**Segundo incidente cazado en verificación (r2):** la arena agent publica
+`score` en escala 0–1 (IPS) — NO un rating BT (~1500). Mezclar escalas bajo
+`rating_bt` habría inducido comparaciones engañosas (H7): separamos métrica y
+unidad por definición (`score_agente`/`score_0_1`), DELETE documentado de las
+51 filas con etiqueta errónea y re-ingesta. Estado final verificado: agent 51
+obs (todas con valor, max 0.21), text 419, webdev 152 — 622 totales.
+
+**Lección operativa del día:** datasets-server `/filter` sufre 500/502
+transitorios por config; el adaptador ahora aísla configs (un fallo no bloquea
+a los demás; exit 3 parcial declarado) y aborta sin ingerir cuando el respaldo
+`/rows` no puede cubrir el split completo (text: 11.132 filas > tope 1200).
+
+Seguimiento declarado (LOW, sin ticket propio): validación runtime de tipos
+del body HTTP (clase preexistente en todos los endpoints); retención de
+capturas a largo plazo (~88 MB/año, revisar en F).
 
 ## Límites de la sesión
 

@@ -136,7 +136,7 @@ fi
 # hash (misma publicación → sin duplicados). Fallo de red → exit 3 del
 # adaptador = infra; JAMÁS elimina observaciones previas (append-only).
 echo "-- benchmarks: captura Arena (datasets-server HF)"
-run_node src/benchmarks/adaptador_lmarena.ts || true
+run_node src/benchmarks/adaptador_lmarena.ts
 
 # --- Introspección activa F3 (presupuesto ~0: solo --help/--version en
 # --- contenedor efímero; decreto Mediador 2026-08-17). Diarios siempre;
@@ -315,6 +315,26 @@ if git -C "$RAIZ" status --porcelain -- datos/fuentes/sandbox 2>/dev/null | grep
     fi
   else
     echo "FALLO commit de capturas sandbox"
+    FALLOS=$((FALLOS + 1))
+  fi
+fi
+
+# --- Custodia git de capturas benchmarks (decreto de sesión 2026-10-29, mismo
+# --- patrón que sandbox): la evidencia de procedencia de cada observación es
+# --- su captura cruda hasheada — sin custodia remota, el hash no ancla nada.
+# --- Crecimiento declarado: ~240 KB/día (3 configs); retención = git (el
+# --- árbol es evidencia, no se poda; ver Plan_Benchmarks_v0 §6).
+if git -C "$RAIZ" status --porcelain -- datos/fuentes/benchmarks 2>/dev/null | grep -q .; then
+  if git -C "$RAIZ" add datos/fuentes/benchmarks && \
+     git -C "$RAIZ" commit -m "chore(benchmarks): capturas diarias de leaderboards $(date -u +%Y-%m-%dT%H:%M:%SZ)" >/dev/null; then
+    if git -C "$RAIZ" push origin main >/dev/null 2>&1; then
+      echo "custodia: capturas benchmarks commiteadas y pusheadas"
+    else
+      echo "FALLO push de capturas benchmarks (custodia degradada a local)"
+      FALLOS=$((FALLOS + 1))
+    fi
+  else
+    echo "FALLO commit de capturas benchmarks"
     FALLOS=$((FALLOS + 1))
   fi
 fi

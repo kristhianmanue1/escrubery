@@ -117,3 +117,10 @@ experiencia de su ejecución como insumo.
   (contenido de la fila), no en el hash de la captura. La reconstrucción de
   una observación ancla su captura por hash (los archivos se custodian en git).
 - Multimodalidad y fuentes T2+ fuera del alcance hasta decreto/disparador.
+- **Capturas: presupuesto fail-closed y custodia** (adversarial r1): si la
+  fuente declara más filas que el tope de descarga (1200/config), NO se
+  ingesta nada (exit 3) — jamás ingesta parcial silenciosa; guarda de deriva
+  de esquema (columnas ausentes en todas las filas → abort). Custodia diaria
+  por git (patrón sandbox): crecimiento declarado ~240 KB/día; el árbol es
+  evidencia y no se poda. `hash_ultima_captura` de la fuente corresponde a la
+  última captura del ciclo de ingesta (nota servida en §3.11).

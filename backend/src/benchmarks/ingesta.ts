@@ -3,6 +3,7 @@ import type { Database } from '../db/schema';
 import {
   ADAPTADOR,
   ADAPTADOR_VERSION,
+  CAMPO_METRICA_POR_CONFIG,
   DEFINICIONES_LMARENA,
   FUENTE_LMARENA,
   INCOMPATIBILIDADES_BT,
@@ -91,8 +92,8 @@ async function asegurarDefinicion(
       version_metodologia: VERSION_METODOLOGIA_BT,
       objetivo: def.objetivo,
       capacidad_evaluada: def.capacidad_evaluada,
-      metrica_principal: 'rating_bt',
-      unidad: 'rating_bt',
+      metrica_principal: def.metrica,
+      unidad: def.unidad,
       direccion: 'mayor_es_mejor',
       metodologia_url: FUENTE_LMARENA.metodologia_url,
       incompatibilidades_json: JSON.stringify(INCOMPATIBILIDADES_BT),
@@ -182,7 +183,7 @@ export async function aplicarCapturaLmarena(
       fuente: FUENTE_LMARENA.slug,
       definicion: def.slug,
       version_metodologia: VERSION_METODOLOGIA_BT,
-      metrica: 'rating_bt',
+      metrica: def.metrica,
       designacion: fila.model_name,
       fecha_publicacion: fechaPub ? fechaPub.toISOString().slice(0, 10) : null,
       valor: fila.rating,
@@ -197,9 +198,9 @@ export async function aplicarCapturaLmarena(
         definicion_id: definicionId,
         subject_id: subject.id,
         run_ref: null,
-        metrica: 'rating_bt',
+        metrica: def.metrica,
         valor: fila.rating ?? null,
-        unidad: 'rating_bt',
+        unidad: def.unidad,
         direccion: 'mayor_es_mejor',
         incertidumbre_json:
           fila.rating_lower !== null || fila.rating_upper !== null
@@ -217,6 +218,10 @@ export async function aplicarCapturaLmarena(
           rank_en_publicacion: fila.rank ?? null,
           licencia_modelo_declarada: fila.license ?? null,
           organizacion_declarada: fila.organization ?? null,
+          // campo de métrica original de la fuente (agent publica score, no
+          // rating — mapeo declarado en dominio.ts, no inferencia)
+          campo_original_metrica:
+            CAMPO_METRICA_POR_CONFIG[meta.config]?.valor ?? 'rating',
         }),
         publicado_por: 'plataforma',
         fecha_ejecucion: null,
