@@ -2,6 +2,8 @@
 
 **Servicio de inteligencia sobre modelos y CLIs de IA** — qué es cierto hoy sobre cada modelo y cada CLI de agente, desde cuándo, con qué fuente, y con procedencia verificable.
 
+> **El nombre:** *scrub* + *query* — el lugar donde los datos se depuran (*scrubbing*: fuente, fecha, hash) antes de servirse en consulta. Origen canonizado por el Mediador, 2026-10-29 (la única excepción no griega del ecosistema, por diseño propio).
+
 Responde, con datos normalizados y fuente citada:
 
 - **Modelos** (Anthropic, xAI, Google, Moonshot, Zhipu, Qwen, Meta, TypeSafe, OpenAI): capacidades, ventana de contexto, precios, funciones soportadas.
