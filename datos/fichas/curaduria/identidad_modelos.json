@@ -131,6 +131,246 @@
       "modelo_id": "gpt-5.6-luna",
       "notas": "Issuer_id idéntico al modelo_id canónico del catálogo (9º proveedor openai). Solicitud del consumidor adrc-mini (fb_10/fb_11, 2026-10-27).",
       "proveedor": "openai"
+    },
+    {
+      "issuer_id": "Claude Opus 5.5 (Max)",
+      "proveedor": "anthropic",
+      "modelo_id": "claude-opus-5-5",
+      "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard; el sufijo de paréntesis es esfuerzo/config de la arena, no otro modelo. Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
+    },
+    {
+      "issuer_id": "Claude Sonnet 5.5 (xHigh)",
+      "proveedor": "anthropic",
+      "modelo_id": "claude-sonnet-5-5",
+      "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard; el sufijo de paréntesis es esfuerzo/config de la arena, no otro modelo. Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
+    },
+    {
+      "issuer_id": "Claude Opus 5 (High)",
+      "proveedor": "anthropic",
+      "modelo_id": "claude-opus-5",
+      "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard; el sufijo de paréntesis es esfuerzo/config de la arena, no otro modelo. Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
+    },
+    {
+      "issuer_id": "Claude Haiku 5.5 (High)",
+      "proveedor": "anthropic",
+      "modelo_id": "claude-haiku-5-5",
+      "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard; el sufijo de paréntesis es esfuerzo/config de la arena, no otro modelo. Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
+    },
+    {
+      "issuer_id": "Claude Fable 5.1 (Max)",
+      "proveedor": "anthropic",
+      "modelo_id": "claude-fable-5-1",
+      "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard; el sufijo de paréntesis es esfuerzo/config de la arena, no otro modelo. Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
+    },
+    {
+      "issuer_id": "Claude Fable 5 (High)",
+      "proveedor": "anthropic",
+      "modelo_id": "claude-fable-5",
+      "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard; el sufijo de paréntesis es esfuerzo/config de la arena, no otro modelo. Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
+    },
+    {
+      "issuer_id": "Claude Opus 4.8 (High)",
+      "proveedor": "anthropic",
+      "modelo_id": "claude-opus-4-8",
+      "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard; el sufijo de paréntesis es esfuerzo/config de la arena, no otro modelo. Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
+    },
+    {
+      "issuer_id": "Claude Opus 4.7 (High)",
+      "proveedor": "anthropic",
+      "modelo_id": "claude-opus-4-7",
+      "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard; el sufijo de paréntesis es esfuerzo/config de la arena, no otro modelo. Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
+    },
+    {
+      "issuer_id": "Claude Opus 4.6 (High)",
+      "proveedor": "anthropic",
+      "modelo_id": "claude-opus-4-6",
+      "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard; el sufijo de paréntesis es esfuerzo/config de la arena, no otro modelo. Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
+    },
+    {
+      "issuer_id": "Claude Sonnet 4.6",
+      "proveedor": "anthropic",
+      "modelo_id": "claude-sonnet-4-6",
+      "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard. Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
+    },
+    {
+      "issuer_id": "GPT-6 Astra (Max)",
+      "proveedor": "openai",
+      "modelo_id": "gpt-6-astra",
+      "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard; el sufijo de paréntesis es esfuerzo/config de la arena, no otro modelo. Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
+    },
+    {
+      "issuer_id": "GPT-6.1 Sol (Max)",
+      "proveedor": "openai",
+      "modelo_id": "gpt-6.1-sol",
+      "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard; el sufijo de paréntesis es esfuerzo/config de la arena, no otro modelo. Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
+    },
+    {
+      "issuer_id": "GPT-6 Sol (Max)",
+      "proveedor": "openai",
+      "modelo_id": "gpt-6-sol",
+      "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard; el sufijo de paréntesis es esfuerzo/config de la arena, no otro modelo. Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
+    },
+    {
+      "issuer_id": "GPT-6 Luna (Max)",
+      "proveedor": "openai",
+      "modelo_id": "gpt-6-luna",
+      "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard; el sufijo de paréntesis es esfuerzo/config de la arena, no otro modelo. Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
+    },
+    {
+      "issuer_id": "GPT-5.6 Sol (xHigh, Codex Harness)",
+      "proveedor": "openai",
+      "modelo_id": "gpt-5.6-sol",
+      "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard; el sufijo de paréntesis es esfuerzo/config de la arena, no otro modelo; harness Codex declarado por la fuente. Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
+    },
+    {
+      "issuer_id": "GPT-5.6 Terra (xHigh, Codex Harness)",
+      "proveedor": "openai",
+      "modelo_id": "gpt-5.6-terra",
+      "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard; el sufijo de paréntesis es esfuerzo/config de la arena, no otro modelo; harness Codex declarado por la fuente. Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
+    },
+    {
+      "issuer_id": "GPT-5.6 Luna (xHigh, Codex Harness)",
+      "proveedor": "openai",
+      "modelo_id": "gpt-5.6-luna",
+      "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard; el sufijo de paréntesis es esfuerzo/config de la arena, no otro modelo; harness Codex declarado por la fuente. Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
+    },
+    {
+      "issuer_id": "GPT-5.5 (xHigh, Codex Harness)",
+      "proveedor": "openai",
+      "modelo_id": "gpt-5.5",
+      "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard; el sufijo de paréntesis es esfuerzo/config de la arena, no otro modelo; harness Codex declarado por la fuente. Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
+    },
+    {
+      "issuer_id": "GPT-5.5 (High, Codex Harness)",
+      "proveedor": "openai",
+      "modelo_id": "gpt-5.5",
+      "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard; el sufijo de paréntesis es esfuerzo/config de la arena, no otro modelo; harness Codex declarado por la fuente. Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
+    },
+    {
+      "issuer_id": "GPT-5.5 (Codex Harness)",
+      "proveedor": "openai",
+      "modelo_id": "gpt-5.5",
+      "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard; harness Codex declarado por la fuente. Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
+    },
+    {
+      "issuer_id": "Gemini 4 Argon (High)",
+      "proveedor": "google",
+      "modelo_id": "gemini-4-argon",
+      "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard; el sufijo de paréntesis es esfuerzo/config de la arena, no otro modelo. Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
+    },
+    {
+      "issuer_id": "Gemini 3.8 Flash (High)",
+      "proveedor": "google",
+      "modelo_id": "gemini-3.8-flash",
+      "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard; el sufijo de paréntesis es esfuerzo/config de la arena, no otro modelo. Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
+    },
+    {
+      "issuer_id": "Gemini 3.7 Flash (High)",
+      "proveedor": "google",
+      "modelo_id": "gemini-3.7-flash",
+      "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard; el sufijo de paréntesis es esfuerzo/config de la arena, no otro modelo. Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
+    },
+    {
+      "issuer_id": "Grok 4.7 (xHigh)",
+      "proveedor": "xai",
+      "modelo_id": "grok-4.7",
+      "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard; el sufijo de paréntesis es esfuerzo/config de la arena, no otro modelo. Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
+    },
+    {
+      "issuer_id": "Grok 4.6 (High)",
+      "proveedor": "xai",
+      "modelo_id": "grok-4.6",
+      "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard; el sufijo de paréntesis es esfuerzo/config de la arena, no otro modelo. Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
+    },
+    {
+      "issuer_id": "Kimi K3 (Max)",
+      "proveedor": "moonshot",
+      "modelo_id": "kimi-k3",
+      "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard; el sufijo de paréntesis es esfuerzo/config de la arena, no otro modelo. Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
+    },
+    {
+      "issuer_id": "Kimi K2.6",
+      "proveedor": "moonshot",
+      "modelo_id": "kimi-k2.6",
+      "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard. Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
+    },
+    {
+      "issuer_id": "Kimi K2.7 Code",
+      "proveedor": "moonshot",
+      "modelo_id": "kimi-k2.7-code",
+      "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard. Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
+    },
+    {
+      "issuer_id": "Kimi K2.5 (Thinking)",
+      "proveedor": "moonshot",
+      "modelo_id": "kimi-k2.5",
+      "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard; el sufijo de paréntesis es esfuerzo/config de la arena, no otro modelo; variante de razonamiento declarada por la fuente. Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
+    },
+    {
+      "issuer_id": "Kimi K2.5 (Instant)",
+      "proveedor": "moonshot",
+      "modelo_id": "kimi-k2.5",
+      "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard; el sufijo de paréntesis es esfuerzo/config de la arena, no otro modelo; variante de latencia declarada por la fuente. Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
+    },
+    {
+      "issuer_id": "Qwen3.8-Max",
+      "proveedor": "qwen",
+      "modelo_id": "qwen3.8-max",
+      "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard. Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
+    },
+    {
+      "issuer_id": "GLM-5.3 (Max)",
+      "proveedor": "zhipu",
+      "modelo_id": "glm-5.3",
+      "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard; el sufijo de paréntesis es esfuerzo/config de la arena, no otro modelo. Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
+    },
+    {
+      "issuer_id": "GLM-5.3-Flash",
+      "proveedor": "zhipu",
+      "modelo_id": "glm-5.3-flash",
+      "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard. Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
+    },
+    {
+      "issuer_id": "GLM-5.2 (Max)",
+      "proveedor": "zhipu",
+      "modelo_id": "glm-5.2",
+      "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard; el sufijo de paréntesis es esfuerzo/config de la arena, no otro modelo. Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
+    },
+    {
+      "issuer_id": "GLM-5.1",
+      "proveedor": "zhipu",
+      "modelo_id": "glm-5.1",
+      "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard; org declarada 'zai' = Z.AI global (zhipu). Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
+    },
+    {
+      "issuer_id": "GLM-5",
+      "proveedor": "zhipu",
+      "modelo_id": "glm-5",
+      "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard. Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
+    },
+    {
+      "issuer_id": "Muse Spark 1.3 (Max)",
+      "proveedor": "meta",
+      "modelo_id": "muse-spark-1.3",
+      "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard; el sufijo de paréntesis es esfuerzo/config de la arena, no otro modelo. Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
+    },
+    {
+      "issuer_id": "Muse Spark 1.3 (xHigh)",
+      "proveedor": "meta",
+      "modelo_id": "muse-spark-1.3",
+      "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard; el sufijo de paréntesis es esfuerzo/config de la arena, no otro modelo. Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
+    },
+    {
+      "issuer_id": "Muse Spark 1.2 (xHigh)",
+      "proveedor": "meta",
+      "modelo_id": "muse-spark-1.2",
+      "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard; el sufijo de paréntesis es esfuerzo/config de la arena, no otro modelo. Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
+    },
+    {
+      "issuer_id": "Muse Spark 1.1",
+      "proveedor": "meta",
+      "modelo_id": "muse-spark-1.1",
+      "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard. Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
     }
   ],
   "descripcion": "Curaduría propia de identidad (T4b, errata 1 del contrato v0). Capa SEPARADA de los generados: se edita a mano con criterio y lleva su propia procedencia (no pisa la procedencia LiteLLM de las filas de modelos). Secciones: 'modelos' (familia_arquitectura/pesos_abiertos por modelo — la base de decorrelación de ADR-0002), 'aliases' (issuer_id declarado por agente/harness a identidad canónica) y 'endpoints' (endpoint público a proveedor). Los casos semilla son sintéticos salvo donde la fuente pública lo documenta; los casos reales de consumidores entran vía reportar_feedback y amplían este archivo. null = no documentado; nunca se infiere.",
@@ -349,9 +589,9 @@
   },
   "procedencia": {
     "estado_verificacion": "pendiente_de_verificar",
-    "fecha_obtencion": "2026-10-14T19:07:44Z",
+    "fecha_obtencion": "2026-10-29T20:16:20Z",
     "fuente_tipo": "curaduria_propia",
     "fuente_url": null,
-    "hash_sha256_contenido_original": "fab621187c3acb2dc4156bba8b7e92465d900a08523f9fd49aa50f0919cd27fe"
+    "hash_sha256_contenido_original": "c5e596164d4c012fc82c72087693fc00ffac25d0b47bb13ed45ed607cb5532a1"
   }
 }
