@@ -123,6 +123,15 @@ case "$ATRIA_RC" in
      FALLOS=$((FALLOS + 1)) ;;
 esac
 
+# --- Refresco LiteLLM (2026-10-29, Plan_Benchmarks_v0 T-0 / decisión D3):
+# catálogo con ventana de 24 h — sin esto el catálogo vive caducado (0/309
+# vigentes el 2026-10-29). Idempotente; fallo → infra (exit 2), no aborta.
+echo "-- refresco LiteLLM (catálogo 24 h)"
+if ! bash "$RAIZ/scripts/refrescar_litellm.sh" >/dev/null; then
+  echo "FALLO refresco LiteLLM (tratado como infra)"
+  FALLOS=$((FALLOS + 1))
+fi
+
 # --- Introspección activa F3 (presupuesto ~0: solo --help/--version en
 # --- contenedor efímero; decreto Mediador 2026-08-17). Diarios siempre;
 # --- semanales con ToS curado (qwen-code) cuando toca la ventana semanal.

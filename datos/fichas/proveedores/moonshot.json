@@ -12,7 +12,7 @@
         "soporta_tool_use": true,
         "soporta_vision": true
       },
-      "fecha_deprecacion": null,
+      "fecha_deprecacion": "2026-08-31",
       "fuente_precio": "https://platform.moonshot.ai/docs/guide/kimi-k2-5-quickstart",
       "max_output_tokens": 262144,
       "modelo_id": "kimi-k2.5",
@@ -84,6 +84,26 @@
       },
       "ventana_contexto_max": 1048576
     },
+    "kimi-k3.1-pro": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://platform.kimi.ai/docs/pricing/chat",
+      "max_output_tokens": 1048576,
+      "modelo_id": "kimi-k3.1-pro",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.2,
+        "input_por_millon": 2.0,
+        "output_por_millon": 10.0
+      },
+      "ventana_contexto_max": 1048576
+    },
     "moonshot-v1-128k": {
       "capacidades": {
         "soporta_batch": null,
@@ -92,7 +112,7 @@
         "soporta_tool_use": true,
         "soporta_vision": null
       },
-      "fecha_deprecacion": null,
+      "fecha_deprecacion": "2026-08-31",
       "fuente_precio": "https://platform.moonshot.ai/docs/pricing",
       "max_output_tokens": 131072,
       "modelo_id": "moonshot-v1-128k",
@@ -112,7 +132,7 @@
         "soporta_tool_use": true,
         "soporta_vision": true
       },
-      "fecha_deprecacion": null,
+      "fecha_deprecacion": "2026-08-31",
       "fuente_precio": "https://platform.moonshot.ai/docs/pricing",
       "max_output_tokens": 131072,
       "modelo_id": "moonshot-v1-128k-vision-preview",
@@ -132,7 +152,7 @@
         "soporta_tool_use": true,
         "soporta_vision": null
       },
-      "fecha_deprecacion": null,
+      "fecha_deprecacion": "2026-08-31",
       "fuente_precio": "https://platform.moonshot.ai/docs/pricing",
       "max_output_tokens": 32768,
       "modelo_id": "moonshot-v1-32k",
@@ -152,7 +172,7 @@
         "soporta_tool_use": true,
         "soporta_vision": true
       },
-      "fecha_deprecacion": null,
+      "fecha_deprecacion": "2026-08-31",
       "fuente_precio": "https://platform.moonshot.ai/docs/pricing",
       "max_output_tokens": 32768,
       "modelo_id": "moonshot-v1-32k-vision-preview",
@@ -172,7 +192,7 @@
         "soporta_tool_use": true,
         "soporta_vision": null
       },
-      "fecha_deprecacion": null,
+      "fecha_deprecacion": "2026-08-31",
       "fuente_precio": "https://platform.moonshot.ai/docs/pricing",
       "max_output_tokens": 8192,
       "modelo_id": "moonshot-v1-8k",
@@ -192,7 +212,7 @@
         "soporta_tool_use": true,
         "soporta_vision": true
       },
-      "fecha_deprecacion": null,
+      "fecha_deprecacion": "2026-08-31",
       "fuente_precio": "https://platform.moonshot.ai/docs/pricing",
       "max_output_tokens": 8192,
       "modelo_id": "moonshot-v1-8k-vision-preview",
@@ -212,7 +232,7 @@
         "soporta_tool_use": true,
         "soporta_vision": null
       },
-      "fecha_deprecacion": null,
+      "fecha_deprecacion": "2026-08-31",
       "fuente_precio": "https://platform.moonshot.ai/docs/pricing",
       "max_output_tokens": 131072,
       "modelo_id": "moonshot-v1-auto",
@@ -227,11 +247,11 @@
   },
   "procedencia": {
     "estado_verificacion": "confirmado_por_docs_oficial",
-    "fecha_obtencion": "2026-10-27T18:31:12Z",
+    "fecha_obtencion": "2026-10-29T20:15:14Z",
     "firma_ed25519": null,
     "fuente_tipo": "litellm_json",
     "fuente_url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json",
-    "hash_sha256_contenido_original": "1faeeb3b9f7c974445a1377db267551c90b3b2748918f106e6fe2d54b8938d07"
+    "hash_sha256_contenido_original": "52814e142c5b1b1f147730c80b6bf08d3ca97f7fbe6b2fa8e2e1dd41693e3810"
   },
-  "total_modelos": 11
+  "total_modelos": 12
 }
