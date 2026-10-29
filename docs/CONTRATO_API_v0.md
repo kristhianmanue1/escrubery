@@ -24,7 +24,7 @@ La implementación (F1/F2) divergía del texto congelado. Esta errata es **aclar
 
 El mismo contrato se expone por dos transportes:
 
-- **CLI:** `scripts/consultar <alias> [args posicionales]` → imprime la respuesta JSON por stdout, exit code `0` si hay respuesta, `1` si no hay datos, `2` error de uso, `3` error de infraestructura (p. ej. BD inalcanzable; error JSON con `codigo: "fuente_no_disponible"` por stderr — desde T4c). (Compatible con el patrón de los scripts de expertoGobernanza.) Alias: `listar`, `modelo <proveedor> <modelo_id>`, `comando <cli> [filtro]`, `ficha <cli|proveedor> <id>`, `oficialidad`, `resolver <issuer_id> | resolver <modelo_id> <endpoint>` (aditivo T4b), `feedback '<params_json>'`. *(Errata 5: invocación posicional, no JSON por operación.)*
+- **CLI:** `scripts/consultar <alias> [args posicionales]` → imprime la respuesta JSON por stdout, exit code `0` si hay respuesta, `1` si no hay datos, `2` error de uso, `3` error de infraestructura (p. ej. BD inalcanzable; error JSON con `codigo: "fuente_no_disponible"` por stderr — desde T4c). (Compatible con el patrón de los scripts de expertoGobernanza.) Alias: `listar`, `modelo <proveedor> <modelo_id>`, `comando <cli> [filtro]`, `ficha <cli|proveedor> <id>`, `oficialidad`, `resolver <issuer_id> | resolver <modelo_id> <endpoint>` (aditivo T4b), `feedback '<params_json>'`, `benchmarks`, `benchmark <slug>`, `resultados <benchmark|modelo|agente> <valor>` (aditivos errata 13). *(Errata 5: invocación posicional, no JSON por operación.)*
 - **HTTP:** `POST /v0/<operacion>` con body JSON de parámetros → respuesta JSON (200). **Autenticación (F5, 2026-08-17):** header `X-API-Key` obligatorio (fail-closed: sin claves configuradas todo `/v0` responde 401); las claves se configuran como SHA-256 hex en `ESCRUBERY_API_KEYS` (separadas por coma) — la clave en claro nunca vive en el repo. **Rate limit (F5):** token bucket por clave, default 60 req/min (`ESCRUBERY_RATE_LIMIT_RPM`); exceso → `429` con `codigo: limite_de_tasa` y header `Retry-After`. Errores con el formato de la Sección 4 y código HTTP coherente (`404` sin datos, `400` parámetros inválidos, `401` no autorizado, `429` límite).
 
 ## 2. Convenciones comunes
@@ -47,6 +47,8 @@ Todo dato servido lleva su procedencia. Ninguna respuesta de dato omite este blo
 ```
 
 *(Errata 6: `firma_ed25519` es `null` en toda respuesta de consulta en v0 — las firmas aplican a eventos Evidentia, §2.3.)*
+
+*(Errata 13, aditiva 2026-10-29 — módulo benchmarks):* el enum `fuente_tipo` crece con `leaderboard_json` **solo en las tablas del módulo benchmarks** (mig 018: `benchmark_observaciones`); los enums de las tablas existentes no cambian. Las observaciones añaden dos campos de procedencia extendida: `adaptador` (id) y `adaptador_version` — identifican el normalizador que produjo la fila. La semántica de la firma no cambia: una observación de benchmark es un **resultado publicado por un tercero** (`estado_verificacion: pendiente_de_verificar`); la procedencia (URL + hash de la captura cruda custodiada en `datos/fuentes/benchmarks/`) permite reconstruir qué decía la fuente, no valida la medición.
 
 ### 2.2 Unidades y formatos
 
@@ -301,6 +303,54 @@ Registro externo, **no autodeclarado**: resuelve un identificador declarado por 
 - `familia_arquitectura` es la base de decorrelación de un quórum multi-proveedor: dos CLIs sobre el mismo modelo no decorrelacionan; la familia identifica el linaje aunque el modelo se sirva por varios catálogos (p. ej. `glm-5.1` en zhipu y en qwen/DashScope). `null` si la curaduría no lo declara.
 - `pesos_abiertos`: solo donde la fuente pública lo documenta; `null` en otro caso.
 - La semilla curada actual es sintética (decisión del Mediador 2026-08-18); los casos reales de consumidores entran vía `reportar_feedback` y amplían la curaduría.
+
+### 3.10 `listar_benchmarks` (aditiva — errata 13, 2026-10-29, Plan_Benchmarks_v0)
+
+"¿Qué benchmarks existen y qué evalúan?" Índice derivado: **sin** bloque `procedencia` (como `listar`, errata 6).
+
+**Parámetros:** `{}` · **Respuesta:** `{ "benchmarks": [{ benchmark, fuente, organizacion, capacidad_evaluada, objetivo, metrica_principal, version_metodologia, licencia }], "nota": "observaciones publicadas por terceros con procedencia; escrubery no ejecuta evaluaciones ni crea rankings propios" }`
+
+### 3.11 `consultar_benchmark` (aditiva — errata 13)
+
+Metodología e incompatibilidades de una evaluación.
+
+**Parámetros:** `{ "benchmark": "lm-arena-webdev" }` · **Respuesta:** definición (`objetivo`, `capacidad_evaluada`, `metrica_principal`, `unidad`, `direccion`), `version_metodologia` + `versiones_metodologia` (una revisión metodológica es una versión NUEVA, nunca una variación de rendimiento), `incompatibilidades_documentadas[]`, `metodologia_url`, fuente (organización, licencia, canal), `total_observaciones`, `advertencia_caducidad` (si la última captura supera la ventana de la fuente) y `procedencia` representativa de la fuente.
+
+### 3.12 `consultar_resultados` (aditiva — errata 13)
+
+Observaciones publicadas. **Parámetros:** exactamente uno de `{ benchmark } | { modelo } | { agente }` (mezclar o vacío → `parametros_invalidos`). El filtro `modelo` casa por identidad canónica resuelta, designación original o proveedor.
+
+**Respuesta (forma, valores ilustrativos):**
+
+```json
+{
+  "total": 1,
+  "nota_comparabilidad": "…mismo grupo_comparabilidad = comparables entre sí; no se promedian métricas heterogéneas…",
+  "resultados": [
+    {
+      "benchmark": "lm-arena-webdev", "fuente": "lmarena",
+      "version_metodologia": "bt-style-control-1",
+      "metrica": "rating_bt", "valor": 1622.8, "unidad": "rating_bt",
+      "direccion": "mayor_es_mejor",
+      "incertidumbre": { "tipo": "ic_95", "inferior": 1615.5, "superior": 1630.0 },
+      "condiciones": { "arena_config": "webdev", "votos": 11150, "rank_en_publicacion": 27 },
+      "publicado_por": "plataforma", "fecha_publicacion": "2026-10-28…",
+      "subject": {
+        "designacion_original": "GLM-5.3 (Max)", "tipo": "modelo",
+        "vinculacion_canonica": { "resuelto": true, "proveedor": "zhipu", "modelo_id": "glm-5.3" }
+      },
+      "grupo_comparabilidad": "e9bb7852a186",
+      "advertencia_caducidad": null,
+      "procedencia": { "fuente_url": "…datasets-server…", "fuente_tipo": "leaderboard_json",
+        "fecha_obtencion": "…", "hash_sha256_contenido_original": "…",
+        "estado_verificacion": "pendiente_de_verificar", "firma_ed25519": null },
+      "adaptador": { "id": "escrubery-benchmarks-lmarena", "version": "0.1.0" }
+    }
+  ]
+}
+```
+
+Reglas semánticas (errata 13): `subject.vinculacion_canonica.resuelto: false` con `motivo: "sin_datos"` es respuesta de primera clase — la designación original se conserva verbatim y **nunca se vincula en silencio** (fail-closed, misma regla que `resolver_identidad_modelo`). `valor: null` = la fuente no publicó rating (jamás cero). Un resultado condicional (arena/config/harness) no es una propiedad intrínseca del modelo. La respuesta es evidencia estructurada, no una decisión sobre qué modelo usar.
 
 ## 4. Errores
 

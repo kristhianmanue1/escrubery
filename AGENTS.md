@@ -10,9 +10,9 @@ Servicio de inteligencia sobre modelos y CLIs de IA (ver `README.md`). Fase actu
 
 ## Estado actual
 
-- **Hecho:** plan v2 COMPLETO (F0–F5) + releases **v0.3.0/v0.4.0/v0.5.0** publicadas. Hitos previos con detalle en bitácora y tarjetas: Meta/Muse + politica_datos v0 (2026-10-13, `tarjeta-integracion-meta-muse.md`); adrc-mini primer consumidor + 9º proveedor `openai` + errata 11 (2026-10-27, `tarjeta-feedback-adrc-mini-2026-10-27.md`); tarjetas migración Docker→servidor APARCADA y skevi v1.6.0/ADR-0002 (2026-10-27/29).
-- **Hecho (2026-10-29):** casos reales del resolver: goldens de tráfico real (5 its), higiene de feedback (cola 0 `nuevo`), errata 12 (ejemplos del contrato alineados al catálogo vivo); spike politica openai NEGATIVO documentado (`platform.openai.com/legal/*` 403; `developers.openai.com` SPA 404). Tarjetas `docs/planning/tarjeta-casos-reales-resolver-2026-10-29.md` y `tarjeta-politica-openai-spike-2026-10-29.md`.
-- **Candidatos:** F4b (presupuesto, sin consumidor ni presupuesto — aparcado con disparador), refresco LiteLLM en vigilancia diaria vs. manual (nota operacional 2026-10-29: catálogo caduca a las 24 h) · **aparcados por decreto:** colector conversation-event (sin consumidor), análisis OpenBot (investigación; disparador = F4b), migración Docker→servidor (premisa revocada). Detalle en bitácora §H9 y §Candidatos.
+- **Hecho:** plan v2 COMPLETO (F0–F5) + releases **v0.3.0/v0.4.0/v0.5.0** publicadas. Hitos previos con detalle en bitácora y tarjetas: Meta/Muse + politica_datos v0 (2026-10-13); adrc-mini + 9º proveedor `openai` + errata 11 (2026-10-27); skevi v1.6.0/ADR-0002 (2026-10-29).
+- **Hecho (2026-10-29):** **módulo benchmarks** (Plan_Benchmarks_v0, Architectural): observaciones append-only de Arena/ex LMArena con errata 13 (3 operaciones en CLI/HTTP/MCP), 622 observaciones reales, curaduría +40 aliases de leaderboard (spike 0/30→19/30), refresco LiteLLM diario integrado. Tarjeta `tarjeta-benchmarks-modulo-2026-10-29.md`.
+- **Candidatos:** fuentes benchmarks T2 (Artificial Analysis exige decreto D2; SWE-bench sin canal archivo estable), detección de retirados · **aparcados por decreto:** F4b (presupuesto), colector conversation-event, análisis OpenBot, migración Docker→servidor. Detalle en bitácora §H9 y §Candidatos.
 - **Detalle y desviaciones:** `bitacora_ciclos.md` (hogar canónico; este bloque es solo el resumen — mantener ≤ 5 líneas, no narrar historial aquí).
 
 ## Roles (ADRC)
@@ -35,6 +35,7 @@ docs/CONTRATO_API_v0.md    Contrato JSON de la API de consulta
 docs/GUIA_OPENCODE.md      Guía canónica de uso de OpenCode (issue #3)
 scripts/consultar          Comando de consulta de la Ficha v0
 scripts/generar_fichas_modelos.py  Regenera las fichas de proveedores desde LiteLLM
+backend/src/benchmarks/    Módulo benchmarks (Plan_Benchmarks_v0): observaciones append-only de evaluaciones
 scripts/check_sizes.py     Gate duro de tamaño de archivos (política §3)
 scripts/verificar_divergencia_opencode.py  Gate ficha↔captura sandbox (issue #3)
 scripts/ci_local.sh        CI local (GitHub Actions sin presupuesto; ver docs/CI.md)

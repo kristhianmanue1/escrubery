@@ -4,8 +4,9 @@
 
 Responde, con datos normalizados y fuente citada:
 
-- **Modelos** (Anthropic, xAI, Google, Moonshot, Zhipu): capacidades, ventana de contexto, precios, funciones soportadas.
+- **Modelos** (Anthropic, xAI, Google, Moonshot, Zhipu, Qwen, Meta, TypeSafe, OpenAI): capacidades, ventana de contexto, precios, funciones soportadas.
 - **CLIs de agente** (Claude Code, Codex CLI, OpenCode, Qwen Code, Kimi Code, Cline, Grok CLI, Grok Build, Antigravity CLI, Muse Code): comandos, *flags*, configuración, cambios por versión.
+- **Benchmarks** (Arena/ex LMArena vía dataset HF CC-BY-4.0): observaciones publicadas de evaluaciones con condiciones, incertidumbre, comparabilidad derivada y procedencia — evidencia estructurada, no rankings propios ni ejecución de evaluaciones (`docs/investigacion/Plan_Benchmarks_v0.md`).
 - **Cambios**: *changelogs* clasificados por severidad, alertas de seguridad, divergencias entre lo documentado y lo observado.
 - **Procedencia**: cada hecho registrado lleva fuente, fecha, hash y —por fases— firma Ed25519, agregación Merkle y sellado de tiempo.
 
@@ -35,13 +36,15 @@ Sin base de datos ni dependencias (solo Python 3 stdlib):
 ./scripts/consultar modelo moonshot kimi-k2-0905-preview
 ./scripts/consultar comando claude-code mcp      # comandos con filtro
 ./scripts/consultar oficialidad                  # oficial vs. comunitario
+./scripts/consultar benchmarks                   # benchmarks ingeridos (errata 13)
+./scripts/consultar resultados modelo glm-5.3    # observaciones de un modelo
 python3 scripts/generar_fichas_modelos.py        # regenerar fichas desde LiteLLM
-bash scripts/ci_local.sh                         # CI local: build + lint + 254 tests + gates (docs/CI.md)
+bash scripts/ci_local.sh                         # CI local: build + lint + 311 tests + gates (docs/CI.md)
 bash scripts/vigilancia_diaria.sh                # pollers + alertas + checkpoint firmado (docs/VIGILANCIA.md)
 python3 scripts/verificar_divergencia_opencode.py  # gate ficha↔captura sandbox (issue #3)
 ```
 
-Toda respuesta incluye su bloque de `procedencia` (fuente, fecha, hash). Las fichas de proveedores (**309 modelos de 9 proveedores**) se generan desde el JSON de LiteLLM; las de CLIs (10 productos) están curadurizadas desde la investigación y la introspección sandbox.
+Toda respuesta incluye su bloque de `procedencia` (fuente, fecha, hash). Las fichas de proveedores (**310 modelos de 9 proveedores**) se generan desde el JSON de LiteLLM; las de CLIs (10 productos) están curadurizadas desde la investigación y la introspección sandbox. El módulo de benchmarks (622 observaciones de Arena) es append-only con idempotencia por hash.
 
 ## Principios de diseño
 

@@ -19,6 +19,7 @@ ofrece:
   - introspección activa de CLIs en sandbox (--help diffing por versión) y verificación activa por ejecución en contenedor efímero
   - "reportar_feedback con deduplicación - contrato de uso: consumir el servicio implica reportar errores, mejoras y datos desactualizados"
   - agent card firmada Ed25519, verificable con el keyring público commiteado
+  - consulta de benchmarks - observaciones publicadas por terceros (Arena/ex LMArena, dataset HF CC-BY-4.0) con condiciones, incertidumbre, comparabilidad derivada y procedencia por fila; operaciones aditivas listar_benchmarks, consultar_benchmark y consultar_resultados (errata 13; Plan_Benchmarks_v0) - el servicio NO ejecuta evaluaciones (eso es F4b, aparcado) ni crea rankings propios
 
 no_ofrece:
   - "invocación de modelos de IA para responder consultas: sin IA en el path, las respuestas se sirven desde base de datos"
@@ -34,6 +35,7 @@ no_ofrece:
 
 consume:
   - { tipo: externo, id: litellm, uso: "JSON público de precios y capacidades; insumo de las fichas de modelos regeneradas por script" }
+  - { tipo: externo, id: lmarena-dataset, uso: "dataset HF lmarena-ai/leaderboard-dataset (CC-BY-4.0, sin auth, vía datasets-server); insumo de las observaciones de benchmarks; capturas crudas custodiadas en datos/fuentes/benchmarks/" }
   - { tipo: externo, id: github-api, uso: "API pública para changelogs y releases de los repos vigilados" }
   - { tipo: externo, id: docs-oficiales, uso: "documentación oficial de proveedores y CLIs como fuente citada" }
   - { tipo: proyecto, id: cagf, uso: "patrones de firma y cadena de custodia adoptados corregidos (clave por servicio, JCS/RFC 8785, checkpoint firmado del tip) y formato de keyring cagf-keyring/0.2" }
