@@ -38,7 +38,7 @@ consume:
   - { tipo: externo, id: docs-oficiales, uso: "documentación oficial de proveedores y CLIs como fuente citada" }
   - { tipo: proyecto, id: cagf, uso: "patrones de firma y cadena de custodia adoptados corregidos (clave por servicio, JCS/RFC 8785, checkpoint firmado del tip) y formato de keyring cagf-keyring/0.2" }
   - { tipo: proyecto, id: an-kla-memory, uso: "memoria local de continuidad entre sesiones (guía en docs/an-kla-guia.md); el servicio no depende de ella", requerido: false }
-  - { tipo: proyecto, id: skevi, uso: "cuerpo normativo de proceso bajo adopción limitada (ADR-0001): tarjetas con Clase por disparadores observables", requerido: false }
+  - { tipo: proyecto, id: skevi, uso: "cuerpo normativo de proceso bajo adopción limitada (ADR-0001 + ADR-0002, v1.6.0/corpus v8): tarjetas con Clase por disparadores observables, árboles congelados, catálogo de defectos para rondas adversariales y ciclo autónomo acotado con push/merge propuestos por dossier", requerido: false }
   - { tipo: externo, id: adrc, uso: "marco de desarrollo Arquitecto/Ejecutor/Mediador: metodología del propio proyecto y de sus rondas adversariales", requerido: false }
 
 publica:
