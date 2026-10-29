@@ -339,6 +339,25 @@ if git -C "$RAIZ" status --porcelain -- datos/fuentes/benchmarks 2>/dev/null | g
   fi
 fi
 
+# --- Custodia git del refresco LiteLLM (decreto de sesión 2026-10-29, mismo
+# --- patrón): el refresco diario renueva fecha_obtencion/vigencia y regenera
+# --- el crudo + las 9 fichas — sin custodia, el árbol amanece sucio a diario
+# --- con evidencia sin anclar. Commit solo si hubo cambios.
+if git -C "$RAIZ" status --porcelain -- datos/fuentes/litellm datos/fichas/proveedores 2>/dev/null | grep -q .; then
+  if git -C "$RAIZ" add datos/fuentes/litellm datos/fichas/proveedores && \
+     git -C "$RAIZ" commit -m "chore(refresco): catálogo LiteLLM diario $(date -u +%Y-%m-%dT%H:%M:%SZ)" >/dev/null; then
+    if git -C "$RAIZ" push origin main >/dev/null 2>&1; then
+      echo "custodia: refresco LiteLLM commiteado y pusheado"
+    else
+      echo "FALLO push del refresco (custodia degradada a local)"
+      FALLOS=$((FALLOS + 1))
+    fi
+  else
+    echo "FALLO commit del refresco"
+    FALLOS=$((FALLOS + 1))
+  fi
+fi
+
 if [ "$FALLOS" -gt 0 ]; then
   echo "== fin — exit 2 ($FALLOS fallo(s) de poller/introspección durante la corrida) =="
   exit 2

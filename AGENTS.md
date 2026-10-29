@@ -12,7 +12,7 @@ Servicio de inteligencia sobre modelos y CLIs de IA (ver `README.md`). Fase actu
 
 - **Hecho:** plan v2 COMPLETO (F0–F5) + releases **v0.3.0/v0.4.0/v0.5.0** publicadas. Hitos previos con detalle en bitácora y tarjetas: Meta/Muse + politica_datos v0 (2026-10-13); adrc-mini + 9º proveedor `openai` + errata 11 (2026-10-27); skevi v1.6.0/ADR-0002 (2026-10-29).
 - **Hecho (2026-10-29):** **módulo benchmarks** (Plan_Benchmarks_v0, Architectural): observaciones append-only de Arena/ex LMArena con errata 13 (3 operaciones en CLI/HTTP/MCP), 622 observaciones reales, curaduría +40 aliases de leaderboard (spike 0/30→19/30), refresco LiteLLM diario integrado. Tarjeta `tarjeta-benchmarks-modulo-2026-10-29.md`.
-- **Candidatos:** fuentes benchmarks T2 (Artificial Analysis exige decreto D2; SWE-bench sin canal archivo estable), detección de retirados · **aparcados por decreto:** F4b (presupuesto), colector conversation-event, análisis OpenBot, migración Docker→servidor. Detalle en bitácora §H9 y §Candidatos.
+- **Candidatos:** adaptador SWE-bench Verified (canal verificado por spike 2026-10-29: JSON embebido en swebench.com, 323 resultados run-level — espera decreto), Artificial Analysis (exige decreto D2: API key + términos de redistribución), detección de retirados · **aparcados por decreto:** F4b (presupuesto), colector conversation-event, análisis OpenBot, migración Docker→servidor. Detalle en bitácora §H9 y §Candidatos.
 - **Detalle y desviaciones:** `bitacora_ciclos.md` (hogar canónico; este bloque es solo el resumen — mantener ≤ 5 líneas, no narrar historial aquí).
 
 ## Roles (ADRC)
@@ -86,7 +86,7 @@ python3 scripts/check_sizes.py                # gate duro de tamaños (política
 - No hacer `commit`, `push` ni otras mutaciones de git sin autorización explícita del Mediador.
 - **Push/merge por dossier (skevi ADR-044, ADR-0002):** al llegar a un hito verificable, el Ejecutor **propone** el dossier — folio, destino, commit, evidencia, riesgos, recomendación — y la ejecución solo procede con aceptación explícita del Mediador registrada contra el folio. El Mediador es el gate; el Ejecutor no puede auto-otorgarse autoridad (vía (b) de skevi: no instalada). Acciones destructivas (force-push, rebase de historia compartida, reset, borrado remoto, tags, releases, despliegue) exigen autorización por operación. En planes, toda TAREA cuyo `Permitido:` nombre `push`/`merge` declara `Lote:` con su folio (skevi ADR-045/046: el folio nombra, no acredita).
 - `datos/fuentes/` contiene descargas crudas de fuentes públicas: se commitean (son la evidencia del hash).
-- **Staging por ruta explícita** (higiene-staging, 2026-08-22): prohibido `git add -A` / `git add .` / `git commit -a` para trabajo de agente. Todo path nuevo que entra en un commit debe corresponder al alcance declarado en su mensaje (gate local: `scripts/hooks/pre-commit`; ver `docs/planning/tarjeta-higiene-staging-git.md`).
+- **Staging por ruta explícita** (higiene-staging, 2026-08-22): prohibido `git add -A` / `git add .` / `git commit -a` para trabajo de agente. Todo path nuevo que entra en un commit debe corresponder al alcance declarado en su mensaje (gate local: `scripts/hooks/commit-msg` — errata 2026-10-29: antes citado como `pre-commit`; ver `docs/planning/tarjeta-higiene-staging-git.md`).
 
 <!-- an-kla:managed-begin {"content_sha256":"sha256:00e57150ee8832175657bb46df708ab3c482ea4ba7a45d44a7532a19a3fa6d1b","id":"agent-context","schema":"an-kla/context-block/v1","version":"0.1.0-beta.33"} -->
 ## AN-KLA Memory
