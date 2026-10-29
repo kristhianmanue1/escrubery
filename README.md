@@ -6,7 +6,7 @@ Responde, con datos normalizados y fuente citada:
 
 - **Modelos** (Anthropic, xAI, Google, Moonshot, Zhipu, Qwen, Meta, TypeSafe, OpenAI): capacidades, ventana de contexto, precios, funciones soportadas.
 - **CLIs de agente** (Claude Code, Codex CLI, OpenCode, Qwen Code, Kimi Code, Cline, Grok CLI, Grok Build, Antigravity CLI, Muse Code): comandos, *flags*, configuración, cambios por versión.
-- **Benchmarks** (Arena/ex LMArena vía dataset HF CC-BY-4.0): observaciones publicadas de evaluaciones con condiciones, incertidumbre, comparabilidad derivada y procedencia — evidencia estructurada, no rankings propios ni ejecución de evaluaciones (`docs/investigacion/Plan_Benchmarks_v0.md`).
+- **Benchmarks** (Arena/ex LMArena vía dataset HF CC-BY-4.0 · SWE-bench Verified vía JSON embebido del sitio oficial, repo MIT): observaciones publicadas — preferencia humana y tasas de éxito reales en ingeniería de software — con condiciones, incertidumbre, verificado-por-equipo vs autoreporte, comparabilidad derivada y procedencia. Evidencia estructurada, no rankings propios ni ejecución de evaluaciones (`docs/investigacion/Plan_Benchmarks_v0.md`).
 - **Cambios**: *changelogs* clasificados por severidad, alertas de seguridad, divergencias entre lo documentado y lo observado.
 - **Procedencia**: cada hecho registrado lleva fuente, fecha, hash y —por fases— firma Ed25519, agregación Merkle y sellado de tiempo.
 

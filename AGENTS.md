@@ -11,8 +11,8 @@ Servicio de inteligencia sobre modelos y CLIs de IA (ver `README.md`). Fase actu
 ## Estado actual
 
 - **Hecho:** plan v2 COMPLETO (F0–F5) + releases **v0.3.0/v0.4.0/v0.5.0** publicadas. Hitos previos con detalle en bitácora y tarjetas: Meta/Muse + politica_datos v0 (2026-10-13); adrc-mini + 9º proveedor `openai` + errata 11 (2026-10-27); skevi v1.6.0/ADR-0002 (2026-10-29).
-- **Hecho (2026-10-29):** **módulo benchmarks** (Plan_Benchmarks_v0, Architectural): observaciones append-only de Arena/ex LMArena con errata 13 (3 operaciones en CLI/HTTP/MCP), 622 observaciones reales, curaduría +40 aliases de leaderboard (spike 0/30→19/30), refresco LiteLLM diario integrado. Tarjeta `tarjeta-benchmarks-modulo-2026-10-29.md`.
-- **Candidatos:** adaptador SWE-bench Verified (canal verificado por spike 2026-10-29: JSON embebido en swebench.com, 323 resultados run-level — espera decreto), Artificial Analysis (exige decreto D2: API key + términos de redistribución), detección de retirados · **aparcados por decreto:** F4b (presupuesto), colector conversation-event, análisis OpenBot, migración Docker→servidor. Detalle en bitácora §H9 y §Candidatos.
+- **Hecho (2026-10-29):** **módulo benchmarks** (Plan_Benchmarks_v0, Architectural): observaciones append-only de **Arena/ex LMArena + SWE-bench Verified** con errata 13 (3 operaciones en CLI/HTTP/MCP), **802 observaciones reales** (622 Arena + 180 SWE-bench), curaduría 72 aliases (spike 0/30→19/30), refresco LiteLLM diario + custodia. Tarjeta `tarjeta-benchmarks-modulo-2026-10-29.md` + `tarjeta-adaptador-swebench-2026-10-29.md`.
+- **Candidatos:** Artificial Analysis (exige decreto D2: API key + términos de redistribución), detección de retirados, retención de capturas a largo plazo · **aparcados por decreto:** F4b (presupuesto), colector conversation-event, análisis OpenBot, migración Docker→servidor. Detalle en bitácora §H9 y §Candidatos.
 - **Detalle y desviaciones:** `bitacora_ciclos.md` (hogar canónico; este bloque es solo el resumen — mantener ≤ 5 líneas, no narrar historial aquí).
 
 ## Roles (ADRC)

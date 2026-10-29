@@ -67,15 +67,27 @@ Muestra: 30 designaciones reales del leaderboard webdev/overall (publicación
 **DoD del spike:** cifra escrita aquí con método reproducible (los 30 nombres
 en la tarjeta §Spike). **Cumplido.**
 
-## 4. Fuente ingerida v0 y canal
+## 4. Fuentes ingeridas y canales
 
-**Arena (ex LMArena) Leaderboard Dataset** — `lmarena-ai/leaderboard-dataset`
+**v0 — Arena (ex LMArena) Leaderboard Dataset** — `lmarena-ai/leaderboard-dataset`
 (HuggingFace). Elección: CC-BY-4.0 (atribución), **sin gate ni auth**, canal
 machine-readable estable (datasets-server `/filter` + `/rows` respaldo),
 cadencia ~semanal (lastModified observado 2026-10-29T03:05Z), 23 configs.
-Ingeridas v0: `text_style_control` (419 overall), `webdev` (152 — eje
+Ingeridas: `text_style_control` (419 overall), `webdev` (152 — eje
 programación), `agent` (51 — arena de agentes). Métrica: rating BT con IC 95 %,
 votos y rank por publicación.
+
+**v1 (F1, 2026-10-29) — SWE-bench Verified** — canal verificado por spike
+(`tarjeta-spike-canal-swebench-2026-10-29.md`): el HTML de swebench.com lleva
+el leaderboard embebido como JSON (`#leaderboard-data`). **180 observaciones
+run-level** (157 subjects compuestos agente+modelo; 60 verificadas por el
+equipo → `publicado_por: plataforma` / 120 autoreportes → `tercero`; `warning`
+del equipo conservado verbatim; `resolved` en porcentaje 0–100). ToS
+registrado: sitio sin términos propios, repo del equipo MIT (vía API),
+submissions con trazas S3 públicas por diseño. Captura cruda = **HTML completo
+hashado** (el sitio no versiona: nuestra captura diaria es la historia).
+Curaduría +10 aliases de display names (72 totales); modelos históricos y
+designaciones ambiguas quedan fail-closed por diseño.
 
 **Censos y descartes documentados** (del análisis 2026-10-29): Terminal-Bench
 — canal RDS público del dashboard con credenciales rotas (auth failed con y

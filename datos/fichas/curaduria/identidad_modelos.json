@@ -371,6 +371,66 @@
       "proveedor": "meta",
       "modelo_id": "muse-spark-1.1",
       "notas": "Display name de Arena (ex LMArena), verbatim del leaderboard. Curaduría 2026-10-29 (Plan_Benchmarks_v0, spike 0/30 → capa de aliases)"
+    },
+    {
+      "issuer_id": "Claude 4.5 Opus",
+      "proveedor": "anthropic",
+      "modelo_id": "claude-opus-4-5",
+      "notas": "Display name de SWE-bench (swebench.com, JSON embebido), verbatim del leaderboard. Curaduría 2026-10-29 (adaptador-swebench, F1)"
+    },
+    {
+      "issuer_id": "Claude 4.5 Sonnet",
+      "proveedor": "anthropic",
+      "modelo_id": "claude-sonnet-4-5",
+      "notas": "Display name de SWE-bench (swebench.com, JSON embebido), verbatim del leaderboard. Curaduría 2026-10-29 (adaptador-swebench, F1)"
+    },
+    {
+      "issuer_id": "Claude 4.5 Haiku",
+      "proveedor": "anthropic",
+      "modelo_id": "claude-haiku-4-5",
+      "notas": "Display name de SWE-bench (swebench.com, JSON embebido), verbatim del leaderboard. Curaduría 2026-10-29 (adaptador-swebench, F1)"
+    },
+    {
+      "issuer_id": "Claude 4.6 Opus",
+      "proveedor": "anthropic",
+      "modelo_id": "claude-opus-4-6",
+      "notas": "Display name de SWE-bench (swebench.com, JSON embebido), verbatim del leaderboard. Curaduría 2026-10-29 (adaptador-swebench, F1)"
+    },
+    {
+      "issuer_id": "GLM 5",
+      "proveedor": "zhipu",
+      "modelo_id": "glm-5",
+      "notas": "Display name de SWE-bench (swebench.com, JSON embebido), verbatim del leaderboard; org declarada 'Z.ai'/'Z-AI' = Z.AI (zhipu). Curaduría 2026-10-29 (adaptador-swebench, F1)"
+    },
+    {
+      "issuer_id": "GPT 5",
+      "proveedor": "openai",
+      "modelo_id": "gpt-5",
+      "notas": "Display name de SWE-bench (swebench.com, JSON embebido), verbatim del leaderboard. Curaduría 2026-10-29 (adaptador-swebench, F1)"
+    },
+    {
+      "issuer_id": "GPT 5.1",
+      "proveedor": "openai",
+      "modelo_id": "gpt-5.1",
+      "notas": "Display name de SWE-bench (swebench.com, JSON embebido), verbatim del leaderboard. Curaduría 2026-10-29 (adaptador-swebench, F1)"
+    },
+    {
+      "issuer_id": "GPT 5.1 Codex",
+      "proveedor": "openai",
+      "modelo_id": "gpt-5.1-codex",
+      "notas": "Display name de SWE-bench (swebench.com, JSON embebido), verbatim del leaderboard; 'Codex' aquí ES la variante del catálogo (gpt-5.1-codex), no un harness. Curaduría 2026-10-29 (adaptador-swebench, F1)"
+    },
+    {
+      "issuer_id": "GPT 5.2",
+      "proveedor": "openai",
+      "modelo_id": "gpt-5.2",
+      "notas": "Display name de SWE-bench (swebench.com, JSON embebido), verbatim del leaderboard. Curaduría 2026-10-29 (adaptador-swebench, F1)"
+    },
+    {
+      "issuer_id": "Kimi K2.5",
+      "proveedor": "moonshot",
+      "modelo_id": "kimi-k2.5",
+      "notas": "Display name de SWE-bench (swebench.com, JSON embebido), verbatim del leaderboard. Curaduría 2026-10-29 (adaptador-swebench, F1)"
     }
   ],
   "descripcion": "Curaduría propia de identidad (T4b, errata 1 del contrato v0). Capa SEPARADA de los generados: se edita a mano con criterio y lleva su propia procedencia (no pisa la procedencia LiteLLM de las filas de modelos). Secciones: 'modelos' (familia_arquitectura/pesos_abiertos por modelo — la base de decorrelación de ADR-0002), 'aliases' (issuer_id declarado por agente/harness a identidad canónica) y 'endpoints' (endpoint público a proveedor). Los casos semilla son sintéticos salvo donde la fuente pública lo documenta; los casos reales de consumidores entran vía reportar_feedback y amplían este archivo. null = no documentado; nunca se infiere.",
@@ -589,9 +649,9 @@
   },
   "procedencia": {
     "estado_verificacion": "pendiente_de_verificar",
-    "fecha_obtencion": "2026-10-29T20:16:20Z",
+    "fecha_obtencion": "2026-10-29T21:34:12Z",
     "fuente_tipo": "curaduria_propia",
     "fuente_url": null,
-    "hash_sha256_contenido_original": "c5e596164d4c012fc82c72087693fc00ffac25d0b47bb13ed45ed607cb5532a1"
+    "hash_sha256_contenido_original": "e2e825dfd1637fbf1612abce5b99e39a5d810be30e5b6b902d9b6167016713dd"
   }
 }

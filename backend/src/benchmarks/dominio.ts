@@ -175,3 +175,95 @@ export function fechaONull(s: string | null | undefined): Date | null {
   const d = new Date(s);
   return Number.isNaN(d.getTime()) ? null : d;
 }
+
+// --- Fuente 2: SWE-bench (spike 2026-10-29 POSITIVO; decreto de ejecución
+// --- misma fecha). Canal: swebench.com es HTML estático con el leaderboard
+// --- EMBEBIDO como JSON (#leaderboard-data) — extracción probada. Scope
+// --- v0: SOLO el leaderboard Verified (los otros 4 declarados, no ingeridos).
+// --- ToS registrado: sitio sin términos propios; repo del equipo MIT
+// --- (SWE-bench/SWE-bench, verificado vía API 2026-10-29); submissions con
+// --- trazas S3 públicas por diseño.
+
+export interface FilaSwebench {
+  agent: string;
+  agent_org: string | null;
+  model_display: string;
+  model_org: string | null;
+  resolved: number | null;
+  checked: boolean | null;
+  date: string | null;
+  folder: string | null;
+  reasoning_effort: string | null;
+  cost: number | null;
+  instance_cost: number | null;
+  instance_calls: number | null;
+  os_model: boolean | null;
+  site: string | null;
+  warning: string | null;
+}
+
+export const FUENTE_SWEBENCH = {
+  slug: 'swebench',
+  nombre: 'SWE-bench Official Leaderboards',
+  organizacion: 'SWE-bench Team (Princeton)',
+  canal_url: 'https://www.swebench.com/ (JSON embebido #leaderboard-data en HTML estático)',
+  canal_tipo: 'html_json_embebido',
+  licencia: 'repo del equipo MIT (github.com/SWE-bench/SWE-bench); sitio sin ToS propio',
+  metodologia_url: 'https://www.swebench.com/',
+  ventana_dias: 3,
+  notas:
+    'Resultados run-level enviados por terceros; "checked" = verificado por el equipo SWE-bench. resolved es PORCENTAJE 0–100. Otros leaderboards del sitio (Full/Lite/Multilingual/Multimodal) declarados, no ingeridos en v0. El sitio no versiona su HTML: la captura cruda diaria hasheada ES la historia.',
+} as const;
+
+export const DEFINICION_SWEBENCH = {
+  slug: 'swe-bench-verified',
+  version_metodologia: 'verified-1',
+  objetivo:
+    'Resolver issues reales de GitHub (500 instancias human-validadas) medido por verificación de tests unitarios; % resueltas por run agente+modelo',
+  capacidad_evaluada: 'ingenieria_de_software',
+  metrica: 'resolved_pct',
+  unidad: 'porcentaje',
+};
+
+export const INCOMPATIBILIDADES_SWEBENCH = [
+  'No comparar con Full/Lite/Multilingual/Multimodal: conjuntos de instancias distintos.',
+  'Harnesses heterogéneos entre runs: un resultado mide al PAR agente+modelo; para comparar modelos (no harnesses) exigen entorno fijo (p. ej. mini-SWE-agent/"Bash Only").',
+  'Issues públicos pre-2024: riesgo de contaminación por entrenamiento.',
+  'checked=false = autoreporte sin verificación del equipo SWE-bench (publicado_por=tercero).',
+];
+
+export const ADAPTADOR_SWEBENCH = 'escrubery-benchmarks-swebench';
+
+/** Designación verbatim del sujeto compuesto SWE-bench. */
+export function designacionSwebench(f: {
+  agent: string;
+  model_display: string;
+}): string {
+  return `${f.agent} · ${f.model_display}`;
+}
+
+export function normalizarFilaSwebench(
+  row: Record<string, unknown>,
+): FilaSwebench {
+  const num = (v: unknown): number | null =>
+    typeof v === 'number' ? v : null;
+  const str = (v: unknown): string | null =>
+    typeof v === 'string' ? v : null;
+  return {
+    agent: str(row.agent) ?? '',
+    agent_org: str(row.agent_org),
+    model_display: str(row.model_display) ?? '',
+    model_org: str(row.model_org),
+    resolved: num(row.resolved),
+    checked: typeof row.checked === 'boolean' ? row.checked : null,
+    date: str(row.date),
+    folder: str(row.folder),
+    reasoning_effort: str(row.reasoning_effort),
+    cost: num(row.cost),
+    instance_cost: num(row.instance_cost),
+    instance_calls: num(row.instance_calls),
+    os_model: typeof row.os_model === 'boolean' ? row.os_model : null,
+    site: str(row.site),
+    warning: str(row.warning),
+  };
+}

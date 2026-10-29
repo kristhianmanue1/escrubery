@@ -36,6 +36,7 @@ no_ofrece:
 consume:
   - { tipo: externo, id: litellm, uso: "JSON público de precios y capacidades; insumo de las fichas de modelos regeneradas por script" }
   - { tipo: externo, id: lmarena-dataset, uso: "dataset HF lmarena-ai/leaderboard-dataset (CC-BY-4.0, sin auth, vía datasets-server); insumo de las observaciones de benchmarks; capturas crudas custodiadas en datos/fuentes/benchmarks/" }
+  - { tipo: externo, id: swebench, uso: "leaderboards oficiales de swebench.com (HTML con JSON embebido; repo del equipo MIT); observaciones run-level de SWE-bench Verified con verificado-por-equipo vs autoreporte; capturas crudas custodiadas en datos/fuentes/benchmarks/" }
   - { tipo: externo, id: github-api, uso: "API pública para changelogs y releases de los repos vigilados" }
   - { tipo: externo, id: docs-oficiales, uso: "documentación oficial de proveedores y CLIs como fuente citada" }
   - { tipo: proyecto, id: cagf, uso: "patrones de firma y cadena de custodia adoptados corregidos (clave por servicio, JCS/RFC 8785, checkpoint firmado del tip) y formato de keyring cagf-keyring/0.2" }
