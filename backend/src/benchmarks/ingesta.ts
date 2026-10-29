@@ -102,6 +102,10 @@ async function asegurarDefinicion(
       oc.columns(['fuente_id', 'slug', 'version_metodologia']).doUpdateSet({
         objetivo: def.objetivo,
         capacidad_evaluada: def.capacidad_evaluada,
+        // r3 (adversarial): sanar también la definición persistida — sin
+        // esto, corregir dominio.ts no repara lo ya servido por BD
+        metrica_principal: def.metrica,
+        unidad: def.unidad,
         metodologia_url: FUENTE_LMARENA.metodologia_url,
         incompatibilidades_json: JSON.stringify(INCOMPATIBILIDADES_BT),
       }),

@@ -29,7 +29,9 @@ Módulo benchmarks completo (Fases A–F del encargo en una sesión, por decreto
 | ESC-LOTE-20261029-05 | `8fa67c5` | refresco diario + catálogo (drift +1) | decreto sesión (transcrito arriba) |
 | ESC-LOTE-20261029-06 | `75f2463` | mig 018 + módulo + superficies + Agent Card + vigilancia | decreto sesión (transcrito arriba) |
 | ESC-LOTE-20261029-07 | `d7e2c96` | capturas Arena + curaduría 40 aliases | decreto sesión (transcrito arriba) |
-| ESC-LOTE-20261029-08 | (este commit) | contrato errata 13, plan, tarjeta, manifest, README, AGENTS, bitácora | decreto sesión (transcrito arriba) |
+| ESC-LOTE-20261029-08 | `aa79090` | contrato errata 13, plan, tarjeta, manifest, README, AGENTS, bitácora | decreto sesión (transcrito arriba) |
+| ESC-LOTE-20261029-09 | `332013a` | fixes adversarial r1+r2 (fail-closed, procedencia, aislamiento, métrica agent) + capturas | decreto sesión (transcrito arriba) |
+| ESC-LOTE-20261029-10 | (este commit) | fix r3 re-ronda: score_con_signo + saneamiento onConflict + spec realista | decreto sesión (transcrito arriba) |
 
 **Límite declarado de la aceptación:** es una autorización de sesión transcrita
 (no respuesta por folio individual); el decreto cubre expresamente «no te
@@ -81,9 +83,23 @@ transitorios por config; el adaptador ahora aísla configs (un fallo no bloquea
 a los demás; exit 3 parcial declarado) y aborta sin ingerir cuando el respaldo
 `/rows` no puede cubrir el split completo (text: 11.132 filas > tope 1200).
 
+**Tercer incidente (r3, re-ronda adversarial):** la re-ronda de confirmación
+consultó la fuente en vivo y refutó la escala declarada: el score de agent es
+**con signo** (−0.208…+0.209, centrado en ~0), no 0–1 — `score_0_1` era
+metadato falso servido por la API (exactamente la clase de daño que r2 quería
+reparar). Fix aplicado según prescripción: `score_con_signo` + objetivo sin
+claim de rango, `asegurarDefinicion` ahora sanea `metrica_principal`/`unidad`
+en el onConflict (sin esto, corregir dominio.ts no reparaba la BD), UPDATE
+documentado de 51 observaciones + 1 definición (etiqueta de unidad; los
+valores siempre fueron correctos), spec con valor realista con signo y asserts
+de métrica/unidad por config. Estado final verificado por SELECT: agent 51
+(min −0.208 / max 0.209), text 419 (953–1528), webdev 152 (1071–1810), 314/314.
+
 Seguimiento declarado (LOW, sin ticket propio): validación runtime de tipos
 del body HTTP (clase preexistente en todos los endpoints); retención de
-capturas a largo plazo (~88 MB/año, revisar en F).
+capturas a largo plazo (~88 MB/año, revisar en F); residual teórico del
+fail-closed si la fuente dejara de declarar `num_rows_total` (trade-off
+documentado en el adaptador).
 
 ## Límites de la sesión
 

@@ -19,7 +19,7 @@ import {
   consultarResultados,
   listarBenchmarks,
 } from './consultas';
-import { grupoComparabilidad, hashObservacion, normalizarFila } from './dominio';
+import { grupoComparabilidad, hashObservacion, normalizarFila, DEFINICIONES_LMARENA } from './dominio';
 
 // Specs del módulo benchmarks (Plan_Benchmarks_v0, 2026-10-29) — criterios
 // verificables del encargo §13. BD de test aislada `escrubery_test`
@@ -334,18 +334,25 @@ skip('módulo benchmarks', () => {
       model_name: 'GLM-5.3 (Max)',
       organization: 'zai',
       license: 'MIT',
-      score: 1601.5,
-      score_ci_lower: 1595.2,
-      score_ci_upper: 1607.8,
+      // r3 (adversarial): valor REALISTA — el score de agent es con signo,
+      // centrado en ~0 (−0.21…+0.21 observado), NO escala 0–1 ni BT
+      score: 0.2094,
+      score_ci_lower: 0.2011,
+      score_ci_upper: 0.2177,
       observation_count: 900,
       rank: 3,
       category: 'overall',
       leaderboard_publish_date: '2026-10-28',
     });
-    expect(canon.rating).toBe(1601.5);
-    expect(canon.rating_lower).toBe(1595.2);
-    expect(canon.rating_upper).toBe(1607.8);
+    expect(canon.rating).toBe(0.2094);
+    expect(canon.rating_lower).toBe(0.2011);
+    expect(canon.rating_upper).toBe(0.2177);
     expect(canon.vote_count).toBe(900);
+    // métrica/unidad propias por config (r2/r3): agent NO es rating_bt
+    const defAgent = DEFINICIONES_LMARENA.find((d) => d.config === 'agent');
+    expect(defAgent?.metrica).toBe('score_agente');
+    expect(defAgent?.unidad).toBe('score_con_signo');
+    expect(defAgent?.unidad).not.toContain('0_1');
     // y el rating clásico sigue igual para text/webdev
     const clasico = normalizarFila('webdev', {
       model_name: 'X', rating: 1500, rating_lower: 1490, rating_upper: 1510,
@@ -353,6 +360,8 @@ skip('módulo benchmarks', () => {
     });
     expect(clasico.rating).toBe(1500);
     expect(clasico.vote_count).toBe(42);
+    const defWebdev = DEFINICIONES_LMARENA.find((d) => d.config === 'webdev');
+    expect(defWebdev?.metrica).toBe('rating_bt');
   });
 
   it('grupo de comparabilidad: misma definición+versión+métrica → mismo grupo', async () => {

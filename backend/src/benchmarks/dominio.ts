@@ -98,10 +98,10 @@ export const DEFINICIONES_LMARENA: DefinicionLmarena[] = [
     config: 'agent',
     slug: 'lm-arena-agent',
     objetivo:
-      'Preferencia humana por votos pareados en tareas agénticas multi-turno (score IPS de la fuente, escala 0–1)',
+      'Preferencia humana por votos pareados en tareas agénticas multi-turno (score con signo de la fuente, centrado en ~0; la fuente no declara rango)',
     capacidad_evaluada: 'agentes',
     metrica: 'score_agente',
-    unidad: 'score_0_1',
+    unidad: 'score_con_signo',
   },
 ];
 
