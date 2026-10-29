@@ -75,32 +75,35 @@ Las respuestas se serializan en JSON UTF-8. Desde la Fase 2, cualquier payload f
 
 "¿Qué es cierto hoy sobre este modelo?"
 
-**Parámetros:** `{ "proveedor": "moonshot", "modelo_id": "kimi-k2-0905-preview" }`
+**Parámetros:** `{ "proveedor": "moonshot", "modelo_id": "kimi-k2.6" }`
 
 **Respuesta (shape implementado, errata 2):**
 
 ```json
 {
   "proveedor": "moonshot",
-  "modelo_id": "kimi-k2-0905-preview",
-  "nombre_display": "Kimi K2 0905 Preview",
-  "ventana_contexto_max": 1048576,
+  "modelo_id": "kimi-k2.6",
+  "nombre_display": null,
+  "ventana_contexto_max": 262144,
   "capacidades": {
     "soporta_vision": true,
     "soporta_tool_use": true,
     "soporta_caching": true,
     "soporta_batch": null,
-    "soporta_computer_use": false
+    "soporta_computer_use": null
   },
   "precios": {
-    "input_por_millon": 0.0,
-    "output_por_millon": 0.0,
-    "cache_lectura_por_millon": 0.0
+    "input_por_millon": 0.95,
+    "output_por_millon": 4,
+    "cache_lectura_por_millon": 0.16
   },
   "pesos_abiertos": null,
   "familia_arquitectura": null,
   "vigente_hasta": null,
   "procedencia": { "...": "..." }
+```
+
+*(Errata 12, aclaratoria 2026-10-29, aplica a este y demás ejemplos — p. ej. §3.6):* los identificadores de los ejemplos son **ilustrativos y alineados al catálogo vivo a la fecha de la errata**; no son una promesa de vigencia. El catálogo caduca con la fuente (ventana de 24 h, §2.2) y el drift del upstream puede retirar modelos: `kimi-k2-0905-preview` (ejemplo de §3.1 hasta esta errata, y de §3.6 como `kimi-k3`) ya no está en el catálogo — hoy `consultar_modelo` responde sin datos y `resolver_identidad_modelo` falla cerrado con ese id. `resolver` es la operación para verificar identidad, no confiar en literales de ejemplos. Origen: fb_1 (2026-08-07, consumidor expertoGobernanza).
 }
 ```
 
@@ -207,7 +210,7 @@ El servicio se mejora con el feedback de quienes lo usan. Consumir el servicio *
 {
   "tipo": "error | mejora | dato_desactualizado",
   "descripcion": "texto legible del problema o sugerencia",
-  "consulta_origen": { "operacion": "consultar_modelo", "params": { "proveedor": "moonshot", "modelo_id": "kimi-k3" } },
+  "consulta_origen": { "operacion": "consultar_modelo", "params": { "proveedor": "moonshot", "modelo_id": "kimi-k2.6" } },
   "agente_reportante": { "id": "expertoGobernanza/0.3", "configuration_fingerprint": "sha256:..." }
 }
 ```

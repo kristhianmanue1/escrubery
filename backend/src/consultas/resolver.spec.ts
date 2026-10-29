@@ -179,6 +179,197 @@ d('resolver_identidad_modelo — módulo (T4b)', () => {
   });
 });
 
+d(
+  'resolver_identidad_modelo — casos reales del tráfico (golden, consultas_log 2026-10)',
+  () => {
+    // Réplicas fieles de filas del catálogo real y de la curaduría de identidad
+    // (identidad_modelos.json), observadas en consultas_log: tráfico del primer
+    // consumidor real (adrc-mini, fb_12) y probes de la propia operación.
+    // Hermético como el resto de la suite (BD de test aislada; semillas
+    // deterministas): si el drift del upstream cambia el catálogo real, estos
+    // goldens no mienten — replican lo OBSERVADO y se actualizan a conciencia.
+    let db: Kysely<Database>;
+
+    const FECHA_REAL = new Date('2026-10-14T19:07:44.000Z');
+
+    async function sembrarReales(db: Kysely<Database>): Promise<void> {
+      const modelosReales = [
+        {
+          proveedor: 'anthropic',
+          modelo_id: 'claude-sonnet-5',
+          familia_arquitectura: 'claude',
+        },
+        {
+          proveedor: 'zhipu',
+          modelo_id: 'glm-5.3',
+          familia_arquitectura: 'glm',
+        },
+        {
+          proveedor: 'qwen',
+          modelo_id: 'qwen3.8-max',
+          familia_arquitectura: 'qwen3',
+        },
+      ];
+      for (const m of modelosReales) {
+        await db
+          .insertInto('modelos')
+          .values({
+            ...m,
+            nombre_display: null,
+            ventana_contexto_max: 100000,
+            soporta_vision: null,
+            soporta_tool_use: null,
+            soporta_caching: null,
+            soporta_batch: null,
+            soporta_computer_use: null,
+            precio_input_por_millon: null,
+            precio_output_por_millon: null,
+            pesos_abiertos: false,
+            curaduria_json: { esquema: 'spec', procedencia: PROC_CURADURIA },
+            fuente_url: 'https://spec.example/modelos',
+            fuente_tipo: 'curaduria_propia',
+            fecha_obtencion: FECHA_REAL,
+            hash_sha256_contenido_original: HASH_C,
+            estado_verificacion: 'pendiente_de_verificar',
+          })
+          .execute();
+      }
+      await db
+        .insertInto('identidad_alias')
+        .values([
+          {
+            issuer_id: 'claude-sonnet-5-cowork',
+            proveedor: 'anthropic',
+            modelo_id: 'claude-sonnet-5',
+            notas:
+              "Sufijo '-cowork' de harness: el identificador declarado por el agente incluye el harness; la identidad del modelo es la de la API subyacente. Caso canónico del shape original de resolver_identidad_modelo (contrato, git d43c134^).",
+            fuente_url: null,
+            fuente_tipo: 'curaduria_propia',
+            fecha_obtencion: FECHA_REAL,
+            hash_sha256_contenido_original: HASH_C,
+            estado_verificacion: 'pendiente_de_verificar',
+          },
+          {
+            issuer_id: 'zai-coding-plan/glm-5.3',
+            proveedor: 'zhipu',
+            modelo_id: 'glm-5.3',
+            notas:
+              'Prefijo de harness del Coding Plan de Z.AI; identidad canónica = modelo del catálogo. Solicitud del consumidor adrc-mini (fb_10/fb_11, 2026-10-27).',
+            fuente_url: null,
+            fuente_tipo: 'curaduria_propia',
+            fecha_obtencion: FECHA_REAL,
+            hash_sha256_contenido_original: HASH_C,
+            estado_verificacion: 'pendiente_de_verificar',
+          },
+        ])
+        .execute();
+      await db
+        .insertInto('identidad_endpoints')
+        .values([
+          {
+            endpoint: 'https://dashscope.aliyuncs.com',
+            proveedor: 'qwen',
+            notas: null,
+            fuente_url: null,
+            fuente_tipo: 'curaduria_propia',
+            fecha_obtencion: FECHA_REAL,
+            hash_sha256_contenido_original: HASH_C,
+            estado_verificacion: 'pendiente_de_verificar',
+          },
+          {
+            endpoint: 'https://api.moonshot.cn/v1',
+            proveedor: 'moonshot',
+            notas: null,
+            fuente_url: null,
+            fuente_tipo: 'curaduria_propia',
+            fecha_obtencion: FECHA_REAL,
+            hash_sha256_contenido_original: HASH_C,
+            estado_verificacion: 'pendiente_de_verificar',
+          },
+        ])
+        .execute();
+    }
+
+    async function limpiarReales(db: Kysely<Database>): Promise<void> {
+      await db
+        .deleteFrom('identidad_alias')
+        .where('issuer_id', 'in', [
+          'claude-sonnet-5-cowork',
+          'zai-coding-plan/glm-5.3',
+        ])
+        .execute();
+      await db
+        .deleteFrom('identidad_endpoints')
+        .where('endpoint', 'in', [
+          'https://dashscope.aliyuncs.com',
+          'https://api.moonshot.cn/v1',
+        ])
+        .execute();
+      await db
+        .deleteFrom('modelos')
+        .where('proveedor', 'in', ['anthropic', 'zhipu', 'qwen'])
+        .where('modelo_id', 'in', ['claude-sonnet-5', 'glm-5.3', 'qwen3.8-max'])
+        .execute();
+    }
+
+    beforeAll(async () => {
+      db = await getDbTest();
+      await sembrarReales(db);
+    });
+
+    afterAll(async () => {
+      await limpiarReales(db);
+      await cerrarDbTest();
+    });
+
+    it('issuer con sufijo de harness -cowork → identidad subyacente + advertencia (tráfico real)', async () => {
+      const r = await resolverIdentidadModelo(db, {
+        issuer_id: 'claude-sonnet-5-cowork',
+      });
+      expect(r?.resuelto).toBe(true);
+      expect(r?.identidad_canonica).toEqual({
+        proveedor: 'anthropic',
+        modelo_id: 'claude-sonnet-5',
+        familia_arquitectura: 'claude',
+        pesos_abiertos: false,
+      });
+      expect(r?.advertencias.some((a) => a.includes('-cowork'))).toBe(true);
+    });
+
+    it('alias de harness del consumidor adrc-mini → identidad canónica (tráfico real)', async () => {
+      const r = await resolverIdentidadModelo(db, {
+        issuer_id: 'zai-coding-plan/glm-5.3',
+      });
+      expect(r?.resuelto).toBe(true);
+      expect(r?.identidad_canonica.proveedor).toBe('zhipu');
+      expect(r?.identidad_canonica.modelo_id).toBe('glm-5.3');
+    });
+
+    it('modelo + endpoint curado (qwen3.8-max + dashscope) → resuelto vía endpoint (tráfico real)', async () => {
+      const r = await resolverIdentidadModelo(db, {
+        modelo_id: 'qwen3.8-max',
+        endpoint: 'https://dashscope.aliyuncs.com',
+      });
+      expect(r?.resuelto).toBe(true);
+      expect(r?.identidad_canonica.proveedor).toBe('qwen');
+      expect(r?.identidad_canonica.modelo_id).toBe('qwen3.8-max');
+    });
+
+    it('modelo retirado por drift del upstream (kimi-k2-0905-preview, ejemplo del contrato hasta la errata 12) → null fail-closed aunque el endpoint esté curado', async () => {
+      const r = await resolverIdentidadModelo(db, {
+        modelo_id: 'kimi-k2-0905-preview',
+        endpoint: 'https://api.moonshot.cn/v1',
+      });
+      expect(r).toBeNull();
+    });
+
+    it('issuer con forma de flag (--foo) → dato literal, null; nunca se interpreta como opción', async () => {
+      const r = await resolverIdentidadModelo(db, { issuer_id: '--foo' });
+      expect(r).toBeNull();
+    });
+  },
+);
+
 describe('paramsResolverValidos — validación total', () => {
   it('formas válidas', () => {
     expect(paramsResolverValidos({ issuer_id: 'x' })).toBe(true);

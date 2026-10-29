@@ -90,12 +90,12 @@
     "openai": {
       "entrena_con_contenido": null,
       "estado_verificacion": "pendiente_de_verificar",
-      "fecha_obtencion": "2026-10-27T00:00:00Z",
+      "fecha_obtencion": "2026-10-29T00:00:00Z",
       "fuente_hash": null,
       "fuente_tipo": "docs_oficial",
       "fuente_url": "https://openai.com/policies/business-terms/",
       "modalidades": null,
-      "notas": "Legal inaccesible desde este entorno (403 en openai.com/policies y help.openai.com al capturador, 2026-10-27) — mismo bloqueo documentado de xai; no se infiere. Catálogo de modelos sí capturado: platform.openai.com/docs/models (hash 793a8d7f2ce0ac3f…, datos/fuentes/politicas-proveedores/)."
+      "notas": "Legal inaccesible desde este entorno. Verificado dos veces: 2026-10-27 (403 en openai.com/policies y help.openai.com) y 2026-10-29 (spike de rutas alternas: platform.openai.com/legal/* también 403 — Cloudflare; platform.openai.com/docs/api-terms redirige a developers.openai.com, SPA que sirve 404 shell sin texto legal en /api-terms, /terms, /row-terms). La única ruta abierta conocida del dominio es platform.openai.com/docs/models (catálogo, no es texto legal; hash 793a8d7f2ce0ac3f…, datos/fuentes/politicas-proveedores/). Mismo bloqueo documentado de xai; no se infiere."
     },
     "qwen": {
       "cita": "Alibaba Cloud Model Studio Privacy Notice: \"Alibaba Cloud strictly protects your data privacy and will never use your data for model training.\"",
