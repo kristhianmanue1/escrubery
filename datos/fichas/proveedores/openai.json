@@ -1864,6 +1864,26 @@
       },
       "ventana_contexto_max": 922000
     },
+    "gpt-6-astra-law": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-6-astra-law",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 1.0,
+        "input_por_millon": 10.0,
+        "output_por_millon": 50.0
+      },
+      "ventana_contexto_max": 922000
+    },
     "gpt-6-luna": {
       "capacidades": {
         "soporta_batch": null,
@@ -2487,11 +2507,11 @@
   },
   "procedencia": {
     "estado_verificacion": "confirmado_por_docs_oficial",
-    "fecha_obtencion": "2026-10-31T15:00:20Z",
+    "fecha_obtencion": "2026-11-01T15:08:04Z",
     "firma_ed25519": null,
     "fuente_tipo": "litellm_json",
     "fuente_url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json",
-    "hash_sha256_contenido_original": "29d0b88c7a6ee631df9c39fa7e4a0a6c0c5e836fd81bd099f59ed54e7da94a0f"
+    "hash_sha256_contenido_original": "7f7f1567bee2b7ba4118e4b9b3c1de70b122fd9164f69d9adfc12aca1033101a"
   },
-  "total_modelos": 124
+  "total_modelos": 125
 }
