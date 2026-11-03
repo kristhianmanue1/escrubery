@@ -552,7 +552,7 @@
         "soporta_tool_use": true,
         "soporta_vision": true
       },
-      "fecha_deprecacion": null,
+      "fecha_deprecacion": "2027-01-14",
       "fuente_precio": "https://developers.openai.com/api/docs/pricing",
       "max_output_tokens": 32768,
       "modelo_id": "gpt-4.1",
@@ -592,7 +592,7 @@
         "soporta_tool_use": true,
         "soporta_vision": true
       },
-      "fecha_deprecacion": null,
+      "fecha_deprecacion": "2027-01-14",
       "fuente_precio": "https://developers.openai.com/api/docs/pricing",
       "max_output_tokens": 32768,
       "modelo_id": "gpt-4.1-mini",
@@ -672,7 +672,7 @@
         "soporta_tool_use": true,
         "soporta_vision": true
       },
-      "fecha_deprecacion": null,
+      "fecha_deprecacion": "2027-01-14",
       "fuente_precio": "https://developers.openai.com/api/docs/pricing",
       "max_output_tokens": 16384,
       "modelo_id": "gpt-4o",
@@ -792,7 +792,7 @@
         "soporta_tool_use": true,
         "soporta_vision": true
       },
-      "fecha_deprecacion": null,
+      "fecha_deprecacion": "2027-01-14",
       "fuente_precio": "https://developers.openai.com/api/docs/pricing",
       "max_output_tokens": 16384,
       "modelo_id": "gpt-4o-mini",
@@ -2507,11 +2507,11 @@
   },
   "procedencia": {
     "estado_verificacion": "confirmado_por_docs_oficial",
-    "fecha_obtencion": "2026-11-02T15:00:22Z",
+    "fecha_obtencion": "2026-11-03T15:00:21Z",
     "firma_ed25519": null,
     "fuente_tipo": "litellm_json",
     "fuente_url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json",
-    "hash_sha256_contenido_original": "8f8060d8ce7a40c91b995c74d6a27657543d49e3c1c53430dabd556f244392c6"
+    "hash_sha256_contenido_original": "a9c185f9646bf2430278a5ad13966fdf1931de3e97961dd46d73eaa321748e78"
   },
   "total_modelos": 125
 }
