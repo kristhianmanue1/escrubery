@@ -1692,7 +1692,7 @@
         "soporta_tool_use": null,
         "soporta_vision": null
       },
-      "fecha_deprecacion": null,
+      "fecha_deprecacion": "2027-02-01",
       "fuente_precio": "https://developers.openai.com/api/docs/pricing",
       "max_output_tokens": null,
       "modelo_id": "gpt-5.5-cyber-preview",
@@ -1881,6 +1881,26 @@
         "cache_lectura_por_millon": 1.0,
         "input_por_millon": 10.0,
         "output_por_millon": 50.0
+      },
+      "ventana_contexto_max": 922000
+    },
+    "gpt-6-cyber": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/models/gpt-6-cyber",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-6-cyber",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 2.0,
+        "input_por_millon": 20.0,
+        "output_por_millon": 100.0
       },
       "ventana_contexto_max": 922000
     },
@@ -2507,11 +2527,11 @@
   },
   "procedencia": {
     "estado_verificacion": "confirmado_por_docs_oficial",
-    "fecha_obtencion": "2026-11-05T15:00:20Z",
+    "fecha_obtencion": "2026-11-06T15:00:18Z",
     "firma_ed25519": null,
     "fuente_tipo": "litellm_json",
     "fuente_url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json",
-    "hash_sha256_contenido_original": "70a7588ce5053f6ef706b61fb9e799a42c40a3218474e382906cc44c6b037c74"
+    "hash_sha256_contenido_original": "7b170e23b096f7076be400462587410832ac70283a87737366d88d79b78a77e5"
   },
-  "total_modelos": 125
+  "total_modelos": 126
 }

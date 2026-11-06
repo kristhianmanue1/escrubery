@@ -512,8 +512,8 @@
         "soporta_tool_use": null,
         "soporta_vision": true
       },
-      "fecha_deprecacion": null,
-      "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
+      "fecha_deprecacion": "2026-12-03",
+      "fuente_precio": "https://ai.google.dev/gemini-api/docs/models/gemini-omni-flash",
       "max_output_tokens": 65536,
       "modelo_id": "gemini-omni-1.1-flash",
       "modo": "chat",
@@ -522,7 +522,27 @@
         "input_por_millon": 1.5,
         "output_por_millon": 9.0
       },
-      "ventana_contexto_max": 1048576
+      "ventana_contexto_max": 131072
+    },
+    "gemini-omni-1.2-flash": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": null,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
+      "max_output_tokens": 65536,
+      "modelo_id": "gemini-omni-1.2-flash",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 1.5,
+        "output_por_millon": 9.0
+      },
+      "ventana_contexto_max": 131072
     },
     "gemini-omni-flash-preview": {
       "capacidades": {
@@ -533,7 +553,7 @@
         "soporta_vision": true
       },
       "fecha_deprecacion": "2026-10-22",
-      "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
+      "fuente_precio": "https://ai.google.dev/gemini-api/docs/deprecations",
       "max_output_tokens": 65536,
       "modelo_id": "gemini-omni-flash-preview",
       "modo": "chat",
@@ -807,11 +827,11 @@
   },
   "procedencia": {
     "estado_verificacion": "confirmado_por_docs_oficial",
-    "fecha_obtencion": "2026-11-05T15:00:20Z",
+    "fecha_obtencion": "2026-11-06T15:00:18Z",
     "firma_ed25519": null,
     "fuente_tipo": "litellm_json",
     "fuente_url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json",
-    "hash_sha256_contenido_original": "70a7588ce5053f6ef706b61fb9e799a42c40a3218474e382906cc44c6b037c74"
+    "hash_sha256_contenido_original": "7b170e23b096f7076be400462587410832ac70283a87737366d88d79b78a77e5"
   },
-  "total_modelos": 40
+  "total_modelos": 41
 }
