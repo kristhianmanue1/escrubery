@@ -104,6 +104,26 @@
       },
       "ventana_contexto_max": 1048576
     },
+    "kimi-k3.1-pro-highspeed": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://platform.kimi.ai/docs/pricing/chat",
+      "max_output_tokens": 1048576,
+      "modelo_id": "kimi-k3.1-pro-highspeed",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.2,
+        "input_por_millon": 4.0,
+        "output_por_millon": 20.0
+      },
+      "ventana_contexto_max": 1048576
+    },
     "moonshot-v1-128k": {
       "capacidades": {
         "soporta_batch": null,
@@ -247,11 +267,11 @@
   },
   "procedencia": {
     "estado_verificacion": "confirmado_por_docs_oficial",
-    "fecha_obtencion": "2026-11-07T15:00:18Z",
+    "fecha_obtencion": "2026-11-08T15:00:17Z",
     "firma_ed25519": null,
     "fuente_tipo": "litellm_json",
     "fuente_url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json",
-    "hash_sha256_contenido_original": "4b3c50f47fcf25e043a7f5d0efbeefd2a00152166610852b07ae92ab69b77ebc"
+    "hash_sha256_contenido_original": "faa400408127c27aa323d29544389f85a06ab77660aa910b6d6e30dc46f33aa2"
   },
-  "total_modelos": 12
+  "total_modelos": 13
 }

@@ -192,7 +192,7 @@
         "soporta_tool_use": null,
         "soporta_vision": null
       },
-      "fecha_deprecacion": "2026-10-23",
+      "fecha_deprecacion": "2026-09-28",
       "fuente_precio": null,
       "max_output_tokens": 4096,
       "modelo_id": "ft:gpt-3.5-turbo-1106",
@@ -2527,11 +2527,11 @@
   },
   "procedencia": {
     "estado_verificacion": "confirmado_por_docs_oficial",
-    "fecha_obtencion": "2026-11-07T15:00:18Z",
+    "fecha_obtencion": "2026-11-08T15:00:17Z",
     "firma_ed25519": null,
     "fuente_tipo": "litellm_json",
     "fuente_url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json",
-    "hash_sha256_contenido_original": "4b3c50f47fcf25e043a7f5d0efbeefd2a00152166610852b07ae92ab69b77ebc"
+    "hash_sha256_contenido_original": "faa400408127c27aa323d29544389f85a06ab77660aa910b6d6e30dc46f33aa2"
   },
   "total_modelos": 126
 }
