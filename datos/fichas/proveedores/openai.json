@@ -1893,7 +1893,7 @@
         "soporta_vision": true
       },
       "fecha_deprecacion": null,
-      "fuente_precio": "https://developers.openai.com/api/docs/models/gpt-6-cyber",
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
       "max_output_tokens": 128000,
       "modelo_id": "gpt-6-cyber",
       "modo": "chat",
@@ -2527,11 +2527,11 @@
   },
   "procedencia": {
     "estado_verificacion": "confirmado_por_docs_oficial",
-    "fecha_obtencion": "2026-11-09T15:00:14Z",
+    "fecha_obtencion": "2026-11-10T15:00:17Z",
     "firma_ed25519": null,
     "fuente_tipo": "litellm_json",
     "fuente_url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json",
-    "hash_sha256_contenido_original": "faa400408127c27aa323d29544389f85a06ab77660aa910b6d6e30dc46f33aa2"
+    "hash_sha256_contenido_original": "540441d54e0f2be5db66ee6b79106e51e6d9d849b744cda4f95cdcd89757e851"
   },
   "total_modelos": 126
 }
