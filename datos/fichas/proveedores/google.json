@@ -384,6 +384,26 @@
       },
       "ventana_contexto_max": 1048576
     },
+    "gemini-4-carbon": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://aistudio.google.com/docs/pricing#gemini-4-carbon",
+      "max_output_tokens": 1048576,
+      "modelo_id": "gemini-4-carbon",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.1,
+        "input_por_millon": 2.0,
+        "output_por_millon": 10.0
+      },
+      "ventana_contexto_max": 1048576
+    },
     "gemini-exp-1114": {
       "capacidades": {
         "soporta_batch": null,
@@ -827,11 +847,11 @@
   },
   "procedencia": {
     "estado_verificacion": "confirmado_por_docs_oficial",
-    "fecha_obtencion": "2026-11-10T15:00:17Z",
+    "fecha_obtencion": "2026-11-11T15:00:24Z",
     "firma_ed25519": null,
     "fuente_tipo": "litellm_json",
     "fuente_url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json",
-    "hash_sha256_contenido_original": "540441d54e0f2be5db66ee6b79106e51e6d9d849b744cda4f95cdcd89757e851"
+    "hash_sha256_contenido_original": "5406310d43adc271311220ffd93770e71de96119fe54448ce2867d6ca47dc3e6"
   },
-  "total_modelos": 41
+  "total_modelos": 42
 }
