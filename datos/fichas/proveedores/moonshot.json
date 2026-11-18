@@ -267,11 +267,11 @@
   },
   "procedencia": {
     "estado_verificacion": "confirmado_por_docs_oficial",
-    "fecha_obtencion": "2026-11-16T15:00:20Z",
+    "fecha_obtencion": "2026-11-18T15:00:21Z",
     "firma_ed25519": null,
     "fuente_tipo": "litellm_json",
     "fuente_url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json",
-    "hash_sha256_contenido_original": "eba502798a3fbe7145c56bfcb20a3c720448dd2ab9373240334aa8dc90195e9b"
+    "hash_sha256_contenido_original": "52822518622432b9304b719698854abe6c7fdf5fdc678301bc5758067237a062"
   },
   "total_modelos": 13
 }

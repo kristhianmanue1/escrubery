@@ -2004,6 +2004,66 @@
       },
       "ventana_contexto_max": 922000
     },
+    "gpt-6.2-astra": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-6.2-astra",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.4,
+        "input_por_millon": 8.0,
+        "output_por_millon": 40.0
+      },
+      "ventana_contexto_max": 922000
+    },
+    "gpt-6.2-astra-law": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-6.2-astra-law",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.4,
+        "input_por_millon": 8.0,
+        "output_por_millon": 40.0
+      },
+      "ventana_contexto_max": 922000
+    },
+    "gpt-6.2-sol": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-6.2-sol",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.1,
+        "input_por_millon": 2.0,
+        "output_por_millon": 10.0
+      },
+      "ventana_contexto_max": 922000
+    },
     "gpt-audio": {
       "capacidades": {
         "soporta_batch": null,
@@ -2527,11 +2587,11 @@
   },
   "procedencia": {
     "estado_verificacion": "confirmado_por_docs_oficial",
-    "fecha_obtencion": "2026-11-16T15:00:20Z",
+    "fecha_obtencion": "2026-11-18T15:00:21Z",
     "firma_ed25519": null,
     "fuente_tipo": "litellm_json",
     "fuente_url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json",
-    "hash_sha256_contenido_original": "eba502798a3fbe7145c56bfcb20a3c720448dd2ab9373240334aa8dc90195e9b"
+    "hash_sha256_contenido_original": "52822518622432b9304b719698854abe6c7fdf5fdc678301bc5758067237a062"
   },
-  "total_modelos": 126
+  "total_modelos": 129
 }

@@ -844,6 +844,26 @@
       },
       "ventana_contexto_max": 991808
     },
+    "qwen4-max": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://www.alibabacloud.com/help/en/model-studio/model-pricing",
+      "max_output_tokens": 131072,
+      "modelo_id": "qwen4-max",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.075,
+        "input_por_millon": 1.5,
+        "output_por_millon": 4.5
+      },
+      "ventana_contexto_max": 991808
+    },
     "qwq-plus": {
       "capacidades": {
         "soporta_batch": null,
@@ -867,11 +887,11 @@
   },
   "procedencia": {
     "estado_verificacion": "confirmado_por_docs_oficial",
-    "fecha_obtencion": "2026-11-16T15:00:20Z",
+    "fecha_obtencion": "2026-11-18T15:00:21Z",
     "firma_ed25519": null,
     "fuente_tipo": "litellm_json",
     "fuente_url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json",
-    "hash_sha256_contenido_original": "eba502798a3fbe7145c56bfcb20a3c720448dd2ab9373240334aa8dc90195e9b"
+    "hash_sha256_contenido_original": "52822518622432b9304b719698854abe6c7fdf5fdc678301bc5758067237a062"
   },
-  "total_modelos": 43
+  "total_modelos": 44
 }
