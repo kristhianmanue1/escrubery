@@ -389,7 +389,7 @@
         "soporta_batch": null,
         "soporta_caching": true,
         "soporta_computer_use": null,
-        "soporta_tool_use": false,
+        "soporta_tool_use": true,
         "soporta_vision": true
       },
       "fecha_deprecacion": null,
@@ -409,7 +409,7 @@
         "soporta_batch": null,
         "soporta_caching": true,
         "soporta_computer_use": null,
-        "soporta_tool_use": false,
+        "soporta_tool_use": true,
         "soporta_vision": true
       },
       "fecha_deprecacion": null,
@@ -449,7 +449,7 @@
         "soporta_batch": null,
         "soporta_caching": true,
         "soporta_computer_use": null,
-        "soporta_tool_use": false,
+        "soporta_tool_use": true,
         "soporta_vision": true
       },
       "fecha_deprecacion": null,
@@ -469,7 +469,7 @@
         "soporta_batch": null,
         "soporta_caching": true,
         "soporta_computer_use": null,
-        "soporta_tool_use": false,
+        "soporta_tool_use": true,
         "soporta_vision": true
       },
       "fecha_deprecacion": null,
@@ -489,7 +489,7 @@
         "soporta_batch": null,
         "soporta_caching": true,
         "soporta_computer_use": null,
-        "soporta_tool_use": false,
+        "soporta_tool_use": true,
         "soporta_vision": true
       },
       "fecha_deprecacion": null,
@@ -509,7 +509,7 @@
         "soporta_batch": null,
         "soporta_caching": true,
         "soporta_computer_use": null,
-        "soporta_tool_use": false,
+        "soporta_tool_use": true,
         "soporta_vision": true
       },
       "fecha_deprecacion": null,
@@ -867,11 +867,11 @@
   },
   "procedencia": {
     "estado_verificacion": "confirmado_por_docs_oficial",
-    "fecha_obtencion": "2026-11-18T15:00:21Z",
+    "fecha_obtencion": "2026-11-20T15:31:38Z",
     "firma_ed25519": null,
     "fuente_tipo": "litellm_json",
     "fuente_url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json",
-    "hash_sha256_contenido_original": "52822518622432b9304b719698854abe6c7fdf5fdc678301bc5758067237a062"
+    "hash_sha256_contenido_original": "82ce7aaa65178efe4f2fa46a0f67cd889ce0717bf563f02be3ece2c48dbc72a0"
   },
   "total_modelos": 43
 }

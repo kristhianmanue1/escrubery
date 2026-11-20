@@ -424,6 +424,26 @@
       },
       "ventana_contexto_max": 1048576
     },
+    "gemini-4-neon": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://aistudio.google.com/docs/pricing#gemini-4-neon",
+      "max_output_tokens": 1048576,
+      "modelo_id": "gemini-4-neon",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.15,
+        "input_por_millon": 3.0,
+        "output_por_millon": 15.0
+      },
+      "ventana_contexto_max": 1048576
+    },
     "gemini-exp-1114": {
       "capacidades": {
         "soporta_batch": null,
@@ -724,6 +744,26 @@
       },
       "ventana_contexto_max": 262144
     },
+    "genie-4": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": false,
+        "soporta_computer_use": null,
+        "soporta_tool_use": false,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://ai.google.dev/gemini-api/docs/pricing",
+      "max_output_tokens": 65536,
+      "modelo_id": "genie-4",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": null,
+        "input_por_millon": 1.5,
+        "output_por_millon": 9.0
+      },
+      "ventana_contexto_max": 1048576
+    },
     "learnlm-1.5-pro-experimental": {
       "capacidades": {
         "soporta_batch": null,
@@ -867,11 +907,11 @@
   },
   "procedencia": {
     "estado_verificacion": "confirmado_por_docs_oficial",
-    "fecha_obtencion": "2026-11-18T15:00:21Z",
+    "fecha_obtencion": "2026-11-20T15:31:38Z",
     "firma_ed25519": null,
     "fuente_tipo": "litellm_json",
     "fuente_url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json",
-    "hash_sha256_contenido_original": "52822518622432b9304b719698854abe6c7fdf5fdc678301bc5758067237a062"
+    "hash_sha256_contenido_original": "82ce7aaa65178efe4f2fa46a0f67cd889ce0717bf563f02be3ece2c48dbc72a0"
   },
-  "total_modelos": 43
+  "total_modelos": 45
 }
