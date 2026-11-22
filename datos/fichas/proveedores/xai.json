@@ -772,7 +772,7 @@
         "soporta_tool_use": true,
         "soporta_vision": true
       },
-      "fecha_deprecacion": null,
+      "fecha_deprecacion": "2026-11-19",
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 256000,
       "modelo_id": "grok-build-0.1",
@@ -867,11 +867,11 @@
   },
   "procedencia": {
     "estado_verificacion": "confirmado_por_docs_oficial",
-    "fecha_obtencion": "2026-11-20T15:31:38Z",
+    "fecha_obtencion": "2026-11-22T15:00:19Z",
     "firma_ed25519": null,
     "fuente_tipo": "litellm_json",
     "fuente_url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json",
-    "hash_sha256_contenido_original": "82ce7aaa65178efe4f2fa46a0f67cd889ce0717bf563f02be3ece2c48dbc72a0"
+    "hash_sha256_contenido_original": "6d01a4f5d5135c3a0830dbd543c4b25e4aa438891360c3ecae7608db7d257b97"
   },
   "total_modelos": 43
 }
