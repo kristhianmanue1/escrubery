@@ -212,7 +212,7 @@
         "soporta_tool_use": true,
         "soporta_vision": true
       },
-      "fecha_deprecacion": null,
+      "fecha_deprecacion": "2027-01-22",
       "fuente_precio": "https://platform.claude.com/docs/en/about-claude/pricing",
       "max_output_tokens": 64000,
       "modelo_id": "claude-opus-4-5",
@@ -232,8 +232,8 @@
         "soporta_tool_use": true,
         "soporta_vision": true
       },
-      "fecha_deprecacion": null,
-      "fuente_precio": null,
+      "fecha_deprecacion": "2027-01-22",
+      "fuente_precio": "https://platform.claude.com/docs/en/about-claude/pricing",
       "max_output_tokens": 64000,
       "modelo_id": "claude-opus-4-5-20251101",
       "modo": "chat",
@@ -487,11 +487,11 @@
   },
   "procedencia": {
     "estado_verificacion": "confirmado_por_docs_oficial",
-    "fecha_obtencion": "2026-11-23T15:00:19Z",
+    "fecha_obtencion": "2026-11-24T15:00:20Z",
     "firma_ed25519": null,
     "fuente_tipo": "litellm_json",
     "fuente_url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json",
-    "hash_sha256_contenido_original": "6cfdb6a682b13c1d64b7163829160370a74de10536b22378a644c93d599bc0a6"
+    "hash_sha256_contenido_original": "284fd66d64b029e384a9e0c282003b2dc58b5a53eb0098efb7f1e1c8c9947e6b"
   },
   "total_modelos": 24
 }
