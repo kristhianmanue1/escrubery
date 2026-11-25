@@ -744,6 +744,26 @@
       },
       "ventana_contexto_max": 500000
     },
+    "grok-4.6-latest": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://api.x.ai/v1/language-models",
+      "max_output_tokens": 500000,
+      "modelo_id": "grok-4.6-latest",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.5,
+        "input_por_millon": 2.0,
+        "output_por_millon": 6.0
+      },
+      "ventana_contexto_max": 500000
+    },
     "grok-4.7": {
       "capacidades": {
         "soporta_batch": null,
@@ -756,6 +776,26 @@
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 500000,
       "modelo_id": "grok-4.7",
+      "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.5,
+        "input_por_millon": 2.0,
+        "output_por_millon": 6.0
+      },
+      "ventana_contexto_max": 500000
+    },
+    "grok-4.7-latest": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": null,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://api.x.ai/v1/language-models",
+      "max_output_tokens": 500000,
+      "modelo_id": "grok-4.7-latest",
       "modo": "chat",
       "precios": {
         "cache_lectura_por_millon": 0.5,
@@ -867,11 +907,11 @@
   },
   "procedencia": {
     "estado_verificacion": "confirmado_por_docs_oficial",
-    "fecha_obtencion": "2026-11-24T15:00:20Z",
+    "fecha_obtencion": "2026-11-25T15:00:20Z",
     "firma_ed25519": null,
     "fuente_tipo": "litellm_json",
     "fuente_url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json",
-    "hash_sha256_contenido_original": "284fd66d64b029e384a9e0c282003b2dc58b5a53eb0098efb7f1e1c8c9947e6b"
+    "hash_sha256_contenido_original": "4126c04c038c5829004eb0c8fb22d2cd46d74bcba06b88bc130d1d93c1a51e75"
   },
-  "total_modelos": 43
+  "total_modelos": 45
 }

@@ -22,7 +22,7 @@
         "input_por_millon": 5.0,
         "output_por_millon": 30.0
       },
-      "ventana_contexto_max": 400000
+      "ventana_contexto_max": 272000
     },
     "computer-use-preview": {
       "capacidades": {
@@ -1864,6 +1864,26 @@
       },
       "ventana_contexto_max": 922000
     },
+    "gpt-6-astra-healthcare": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-6-astra-healthcare",
+      "modo": "responses",
+      "precios": {
+        "cache_lectura_por_millon": 1.0,
+        "input_por_millon": 10.0,
+        "output_por_millon": 50.0
+      },
+      "ventana_contexto_max": 922000
+    },
     "gpt-6-astra-law": {
       "capacidades": {
         "soporta_batch": null,
@@ -1984,6 +2004,26 @@
       },
       "ventana_contexto_max": 922000
     },
+    "gpt-6.1-sol-healthcare": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-6.1-sol-healthcare",
+      "modo": "responses",
+      "precios": {
+        "cache_lectura_por_millon": 0.1,
+        "input_por_millon": 2.0,
+        "output_por_millon": 10.0
+      },
+      "ventana_contexto_max": 922000
+    },
     "gpt-6.1-terra": {
       "capacidades": {
         "soporta_batch": null,
@@ -2024,6 +2064,26 @@
       },
       "ventana_contexto_max": 922000
     },
+    "gpt-6.2-astra-healthcare": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-6.2-astra-healthcare",
+      "modo": "responses",
+      "precios": {
+        "cache_lectura_por_millon": 0.4,
+        "input_por_millon": 8.0,
+        "output_por_millon": 40.0
+      },
+      "ventana_contexto_max": 922000
+    },
     "gpt-6.2-astra-law": {
       "capacidades": {
         "soporta_batch": null,
@@ -2057,6 +2117,26 @@
       "max_output_tokens": 128000,
       "modelo_id": "gpt-6.2-sol",
       "modo": "chat",
+      "precios": {
+        "cache_lectura_por_millon": 0.1,
+        "input_por_millon": 2.0,
+        "output_por_millon": 10.0
+      },
+      "ventana_contexto_max": 922000
+    },
+    "gpt-6.2-sol-healthcare": {
+      "capacidades": {
+        "soporta_batch": null,
+        "soporta_caching": true,
+        "soporta_computer_use": true,
+        "soporta_tool_use": true,
+        "soporta_vision": true
+      },
+      "fecha_deprecacion": null,
+      "fuente_precio": "https://developers.openai.com/api/docs/pricing",
+      "max_output_tokens": 128000,
+      "modelo_id": "gpt-6.2-sol-healthcare",
+      "modo": "responses",
       "precios": {
         "cache_lectura_por_millon": 0.1,
         "input_por_millon": 2.0,
@@ -2587,11 +2667,11 @@
   },
   "procedencia": {
     "estado_verificacion": "confirmado_por_docs_oficial",
-    "fecha_obtencion": "2026-11-24T15:00:20Z",
+    "fecha_obtencion": "2026-11-25T15:00:20Z",
     "firma_ed25519": null,
     "fuente_tipo": "litellm_json",
     "fuente_url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json",
-    "hash_sha256_contenido_original": "284fd66d64b029e384a9e0c282003b2dc58b5a53eb0098efb7f1e1c8c9947e6b"
+    "hash_sha256_contenido_original": "4126c04c038c5829004eb0c8fb22d2cd46d74bcba06b88bc130d1d93c1a51e75"
   },
-  "total_modelos": 129
+  "total_modelos": 133
 }
