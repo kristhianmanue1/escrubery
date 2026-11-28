@@ -852,7 +852,7 @@
         "soporta_tool_use": true,
         "soporta_vision": true
       },
-      "fecha_deprecacion": null,
+      "fecha_deprecacion": "2026-05-15",
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 256000,
       "modelo_id": "grok-code-fast",
@@ -892,7 +892,7 @@
         "soporta_tool_use": true,
         "soporta_vision": true
       },
-      "fecha_deprecacion": null,
+      "fecha_deprecacion": "2026-05-15",
       "fuente_precio": "https://api.x.ai/v1/language-models",
       "max_output_tokens": 256000,
       "modelo_id": "grok-code-fast-1-0825",
@@ -907,11 +907,11 @@
   },
   "procedencia": {
     "estado_verificacion": "confirmado_por_docs_oficial",
-    "fecha_obtencion": "2026-11-27T15:22:26Z",
+    "fecha_obtencion": "2026-11-28T15:00:24Z",
     "firma_ed25519": null,
     "fuente_tipo": "litellm_json",
     "fuente_url": "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json",
-    "hash_sha256_contenido_original": "22052c01bb7120015b9f53beb4c99fc1352ae9d4938081f7e6ac7873b492aaea"
+    "hash_sha256_contenido_original": "7f5b74ac812e6ca15131fa0853bb9a1dec5084f8a1bd06ff06e0fbc64caf30e0"
   },
   "total_modelos": 45
 }
